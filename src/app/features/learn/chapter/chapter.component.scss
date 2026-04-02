@@ -1,0 +1,52 @@
+.chapter {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 28px 24px 64px;
+}
+
+.chapter-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 20px;
+  letter-spacing: -0.02em;
+}
+
+.step-content {
+  min-height: 300px;
+}
+
+.step-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.nav-btn {
+  padding: 10px 20px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: all 0.15s ease;
+
+  &:hover {
+    background: var(--accent-10);
+    color: var(--text);
+    border-color: var(--border-strong);
+  }
+
+  &.next {
+    color: var(--text);
+    border-color: var(--accent-30);
+    background: var(--accent-10);
+
+    &:hover {
+      background: var(--accent-18);
+    }
+  }
+}
