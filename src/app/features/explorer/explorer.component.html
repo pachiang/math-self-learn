@@ -1,0 +1,40 @@
+<div class="explorer">
+  <!-- Group selector -->
+  <nav class="group-selector">
+    @for (preset of presets; track preset.id) {
+      <button
+        class="preset-btn"
+        [class.active]="preset.id === activePresetId()"
+        (click)="selectGroup(preset)"
+      >
+        {{ preset.label }}
+      </button>
+    }
+  </nav>
+
+  <!-- Group info -->
+  <div class="group-info">
+    <span class="notation">{{ groupNotation }}</span>
+    <span class="description">{{ groupDescription }}</span>
+  </div>
+
+  <!-- Main content -->
+  <div class="main-content">
+    <div class="canvas-area">
+      <app-shape-canvas />
+    </div>
+
+    <div class="side-panel">
+      <app-state-tracker />
+      <hr class="divider" />
+      <app-operation-panel />
+    </div>
+  </div>
+
+  <!-- Cayley table -->
+  <section class="cayley-section">
+    <h2 class="section-title">凱利表（乘法表）</h2>
+    <p class="section-hint">點擊任意格子直接跳到該元素</p>
+    <app-cayley-table />
+  </section>
+</div>

@@ -1,0 +1,148 @@
+<div class="chapter">
+  <h1 class="chapter-title">{{ chapterTitle() }}</h1>
+
+  <app-step-nav [steps]="steps()" [chapterId]="chapterId()" />
+
+  <div class="step-content">
+    @switch (chapterId()) {
+      @case ('ch1') {
+        @switch (currentStep()) {
+          @case (1) { <app-step-symmetry /> }
+          @case (2) { <app-step-composition /> }
+          @case (3) { <app-step-order /> }
+          @case (4) { <app-step-rules /> }
+          @case (5) { <app-step-definition /> }
+          @case (6) { <app-step-beyond /> }
+        }
+      }
+      @case ('ch2') {
+        @switch (currentStep()) {
+          @case (1) { <app-ch2-stub title="元素的階" section="§2.1" hint="一直做同一個操作，要幾次才能回到起點？" /> }
+          @case (2) { <app-ch2-stub title="生成元與循環群" section="§2.2" hint="從一個元素出發，反覆操作，能產生多少元素？" /> }
+          @case (3) { <app-ch2-stub title="子群：群中的群" section="§2.3" hint="生成出來的子集，本身也是群嗎？" /> }
+          @case (4) { <app-step-equivalence /> }
+          @case (5) { <app-step-cosets /> }
+          @case (6) { <app-step-why-subgroup /> }
+          @case (7) { <app-ch2-stub title="拉格朗日定理" section="§2.7" hint="為什麼子群的大小總是整除群的大小？" /> }
+        }
+      }
+      @case ('ch3') {
+        @switch (currentStep()) {
+          @case (1) { <app-step-left-right-cosets /> }
+          @case (2) { <app-step-why-normal /> }
+          @case (3) { <app-step-quotient /> }
+          @case (4) { <app-step-homomorphism /> }
+          @case (5) { <app-step-isomorphism /> }
+          @case (6) { <app-step-kernel /> }
+          @case (7) { <app-step-first-iso /> }
+        }
+      }
+      @case ('ch4') {
+        @switch (currentStep()) {
+          @case (1) { <app-step-symmetric-group /> }
+          @case (2) { <app-step-cycles /> }
+          @case (3) { <app-step-transpositions /> }
+          @case (4) { <app-step-sign /> }
+          @case (5) { <app-step-alternating /> }
+          @case (6) { <app-step-cayley-theorem /> }
+        }
+      }
+      @case ('ch5') {
+        @switch (currentStep()) {
+          @case (1) { <app-step-action /> }
+          @case (2) { <app-step-orbits /> }
+          @case (3) { <app-step-stabilizers /> }
+          @case (4) { <app-step-orbit-stabilizer /> }
+          @case (5) { <app-step-burnside /> }
+          @case (6) { <app-step-necklaces /> }
+        }
+      }
+      @case ('ch6') {
+        @switch (currentStep()) {
+          @case (1) { <app-step-conjugacy /> }
+          @case (2) { <app-step-class-equation /> }
+          @case (3) { <app-step-p-groups /> }
+          @case (4) { <app-step-sylow1 /> }
+          @case (5) { <app-step-sylow23 /> }
+          @case (6) { <app-step-classification /> }
+        }
+      }
+      @case ('ch7') {
+        @switch (currentStep()) {
+          @case (1) { <app-step-integers-to-rings /> }
+          @case (2) { <app-step-ring-examples /> }
+          @case (3) { <app-step-zero-divisors /> }
+          @case (4) { <app-step-ideals /> }
+          @case (5) { <app-step-quotient-ring /> }
+          @case (6) { <app-step-ring-homomorphism /> }
+        }
+      }
+      @case ('ch8') {
+        @switch (currentStep()) {
+          @case (1) { <app-step-what-is-field /> }
+          @case (2) { <app-step-finite-fields /> }
+          @case (3) { <app-step-polynomials /> }
+          @case (4) { <app-step-irreducible /> }
+          @case (5) { <app-step-field-extensions /> }
+          @case (6) { <app-step-gf /> }
+        }
+      }
+      @case ('ch9') {
+        @switch (currentStep()) {
+          @case (1) { <app-step-roots-extensions /> }
+          @case (2) { <app-step-splitting-field /> }
+          @case (3) { <app-step-automorphisms /> }
+          @case (4) { <app-step-galois-group /> }
+          @case (5) { <app-step-correspondence /> }
+          @case (6) { <app-step-quintic /> }
+        }
+      }
+      @case ('ch10') {
+        @switch (currentStep()) {
+          @case (1) { <app-step-rubik-group /> }
+          @case (2) { <app-step-commutators /> }
+          @case (3) { <app-step-cube-structure /> }
+          @case (4) { <app-step-gods-number /> }
+          @case (5) { <app-step-cube-solve /> }
+        }
+      }
+      @case ('ch11') {
+        @switch (currentStep()) {
+          @case (1) { <app-step-what-is-rep /> }
+          @case (2) { <app-step-characters /> }
+          @case (3) { <app-step-irreducible-rep /> }
+          @case (4) { <app-step-rep-physics /> }
+          @case (5) { <app-step-fourier /> }
+        }
+      }
+      @case ('ch12') {
+        @switch (currentStep()) {
+          @case (1) { <app-step-varieties /> }
+          @case (2) { <app-step-ideal-variety /> }
+          @case (3) { <app-step-nullstellensatz /> }
+          @case (4) { <app-step-elliptic-curves /> }
+          @case (5) { <app-step-modern-ag /> }
+        }
+      }
+    }
+  </div>
+
+  <nav class="step-footer">
+    @if (hasPrev()) {
+      <a class="nav-btn prev" [routerLink]="['/learn', chapterId(), prevStep()]">
+        ← 上一步
+      </a>
+    } @else {
+      <span></span>
+    }
+    @if (hasNext()) {
+      <a class="nav-btn next" [routerLink]="['/learn', chapterId(), nextStep()]">
+        下一步 →
+      </a>
+    } @else {
+      <a class="nav-btn next" routerLink="/learn">
+        回到目錄
+      </a>
+    }
+  </nav>
+</div>

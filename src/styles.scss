@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+/* ════════════════════════════════════
+   Light theme (紗草紙 + 莫蘭迪)
+   ════════════════════════════════════ */
+:root {
+  --bg:          #f4ede4;
+  --bg-surface:  #efe8de;
+  --bg-elevated: #e8e0d5;
+  --bg-inset:    #eae3d9;
+
+  --text:           #4a4340;
+  --text-secondary: #7a726c;
+  --text-muted:     #a89e96;
+
+  --accent:       #8c7e73;
+  --accent-10:    rgba(140, 126, 115, 0.10);
+  --accent-18:    rgba(140, 126, 115, 0.18);
+  --accent-30:    rgba(140, 126, 115, 0.30);
+
+  --border:        rgba(74, 67, 64, 0.10);
+  --border-strong: rgba(74, 67, 64, 0.20);
+
+  /* Vertex colours — Morandi */
+  --v0: #bf9e93;  /* dusty rose  */
+  --v1: #8da3b5;  /* dusty blue  */
+  --v2: #9aab82;  /* sage green  */
+  --v3: #c4976c;  /* warm clay   */
+  --v4: #a192b1;  /* lavender    */
+  --v5: #c4908c;  /* coral       */
+  --v6: #7da39f;  /* dusty teal  */
+  --v7: #b5a490;  /* warm taupe  */
+
+  --marker-stroke: rgba(255, 255, 255, 0.70);
+  --marker-shadow: rgba(80, 60, 45, 0.25);
+  --polygon-fill:  rgba(140, 126, 115, 0.05);
+  --polygon-stroke: rgba(140, 126, 115, 0.30);
+  --shadow-color:  rgba(100, 80, 65, 0.13);
+}
+
+/* ════════════════════════════════════
+   Dark theme (近全黑 + 淺色調)
+   ════════════════════════════════════ */
+:root[data-theme='dark'] {
+  --bg:          #0b0b0e;
+  --bg-surface:  #111116;
+  --bg-elevated: #18181e;
+  --bg-inset:    #141419;
+
+  --text:           #e8e6e2;
+  --text-secondary: #a8a4a0;
+  --text-muted:     #605c58;
+
+  --accent:       #c8bc9a;
+  --accent-10:    rgba(200, 188, 154, 0.10);
+  --accent-18:    rgba(200, 188, 154, 0.16);
+  --accent-30:    rgba(200, 188, 154, 0.28);
+
+  --border:        rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.15);
+
+  /* Vertex colours — pale pastels on black */
+  --v0: #deb8aa;  /* pale rose    */
+  --v1: #a4c4dc;  /* pale blue    */
+  --v2: #b4d09c;  /* pale sage    */
+  --v3: #dcc48e;  /* pale amber   */
+  --v4: #bfaed4;  /* pale violet  */
+  --v5: #deb0a8;  /* pale coral   */
+  --v6: #8ec4c0;  /* pale teal    */
+  --v7: #ccc0a8;  /* pale warm    */
+
+  --marker-stroke: rgba(255, 255, 255, 0.45);
+  --marker-shadow: rgba(0, 0, 0, 0.50);
+  --polygon-fill:  rgba(255, 255, 255, 0.03);
+  --polygon-stroke: rgba(255, 255, 255, 0.15);
+  --shadow-color:  rgba(0, 0, 0, 0.35);
+}
+
+/* ════════════════════════════════════
+   Base reset
+   ════════════════════════════════════ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+button {
+  font-family: inherit;
+}
+
+::selection {
+  background: var(--accent-30);
+}
