@@ -8,121 +8,52 @@ import { RouterLink } from '@angular/router';
   template: `
     <div class="learn-page">
       <h1 class="page-title">教學</h1>
-      <p class="page-desc">透過互動動畫，從零開始理解抽象代數</p>
+      <p class="page-desc">透過互動動畫，從零開始理解大學數學</p>
 
-      <a class="chapter-card" routerLink="/learn/ch1/1">
-        <span class="ch-label">第一章</span>
-        <h2 class="ch-title">什麼是群？</h2>
-        <p class="ch-desc">
-          從正三角形的對稱操作出發，一步步發現群的四條公理。
-        </p>
-        <span class="ch-meta">6 個小節 · 約 20 分鐘</span>
+      <a class="subject-card" routerLink="/learn/linalg">
+        <div class="sc-icon-wrap">
+          <svg viewBox="-30 -30 60 60" class="sc-icon">
+            <line x1="-22" y1="0" x2="22" y2="0" stroke="var(--border-strong)" stroke-width="0.8" />
+            <line x1="0" y1="-22" x2="0" y2="22" stroke="var(--border-strong)" stroke-width="0.8" />
+            <line x1="0" y1="0" x2="18" y2="-9" stroke="var(--v0)" stroke-width="2.5" marker-end="url(#sa1)" />
+            <line x1="0" y1="0" x2="-9" y2="-18" stroke="var(--v1)" stroke-width="2.5" marker-end="url(#sa2)" />
+            <defs>
+              <marker id="sa1" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+                <polygon points="0 0,6 2,0 4" fill="var(--v0)" />
+              </marker>
+              <marker id="sa2" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+                <polygon points="0 0,6 2,0 4" fill="var(--v1)" />
+              </marker>
+            </defs>
+          </svg>
+        </div>
+        <div class="sc-body">
+          <span class="sc-label">第一科目</span>
+          <h2 class="sc-title">線性代數</h2>
+          <p class="sc-desc">
+            向量、線性變換、特徵值、基底變換 — 大學數學的基石。
+          </p>
+          <span class="sc-meta">6 章已完成</span>
+        </div>
       </a>
 
-      <a class="chapter-card" routerLink="/learn/ch2/1">
-        <span class="ch-label">第二章</span>
-        <h2 class="ch-title">群的內部結構</h2>
-        <p class="ch-desc">
-          元素的階、子群、等價類與陪集、拉格朗日定理。
-        </p>
-        <span class="ch-meta">7 個小節 · 約 30 分鐘</span>
-      </a>
-
-      <a class="chapter-card" routerLink="/learn/ch3/1">
-        <span class="ch-label">第三章</span>
-        <h2 class="ch-title">商群與同態</h2>
-        <p class="ch-desc">
-          正規子群、商群、同態映射、核、第一同構定理。
-        </p>
-        <span class="ch-meta">7 個小節 · 約 40 分鐘</span>
-      </a>
-
-      <a class="chapter-card" routerLink="/learn/ch4/1">
-        <span class="ch-label">第四章</span>
-        <h2 class="ch-title">置換群</h2>
-        <p class="ch-desc">
-          S\u2099 與循環記號、對換、奇偶性、交替群、凱萊定理。
-        </p>
-        <span class="ch-meta">6 個小節 · 約 30 分鐘</span>
-      </a>
-
-      <a class="chapter-card" routerLink="/learn/ch5/1">
-        <span class="ch-label">第五章</span>
-        <h2 class="ch-title">群作用</h2>
-        <p class="ch-desc">
-          軌道、穩定子、Burnside 引理、項鍊計數。
-        </p>
-        <span class="ch-meta">6 個小節 · 約 35 分鐘</span>
-      </a>
-
-      <a class="chapter-card" routerLink="/learn/ch6/1">
-        <span class="ch-label">第六章</span>
-        <h2 class="ch-title">Sylow 定理</h2>
-        <p class="ch-desc">
-          共軛類、類方程、p-群、Sylow 定理、小階群分類。
-        </p>
-        <span class="ch-meta">6 個小節 · 約 35 分鐘</span>
-      </a>
-
-      <a class="chapter-card" routerLink="/learn/ch7/1">
-        <span class="ch-label">第七章</span>
-        <h2 class="ch-title">環</h2>
-        <p class="ch-desc">
-          從整數到環、零因子、理想、商環、環同態。
-        </p>
-        <span class="ch-meta">6 個小節 · 約 30 分鐘</span>
-      </a>
-
-      <a class="chapter-card" routerLink="/learn/ch8/1">
-        <span class="ch-label">第八章</span>
-        <h2 class="ch-title">域與多項式</h2>
-        <p class="ch-desc">
-          有限域、多項式環、不可約多項式、域擴張。
-        </p>
-        <span class="ch-meta">6 個小節 · 約 35 分鐘</span>
-      </a>
-
-      <a class="chapter-card" routerLink="/learn/ch9/1">
-        <span class="ch-label">第九章</span>
-        <h2 class="ch-title">伽羅瓦理論</h2>
-        <p class="ch-desc">
-          分裂域、域自同構、伽羅瓦群、五次方程為什麼沒有公式解。
-        </p>
-        <span class="ch-meta">6 個小節 · 約 40 分鐘</span>
-      </a>
-
-      <div class="section-divider">
-        <span class="divider-line"></span>
-        <span class="divider-text">專題探索</span>
-        <span class="divider-line"></span>
-      </div>
-      <p class="section-desc">獨立專題，可按興趣選讀</p>
-
-      <a class="chapter-card topic" routerLink="/learn/ch10/1">
-        <span class="ch-label topic-label">專題 A</span>
-        <h2 class="ch-title">魔術方塊群</h2>
-        <p class="ch-desc">
-          魔方的群結構、交換子與共軛、子群分解、上帝之數。
-        </p>
-        <span class="ch-meta">5 個小節</span>
-      </a>
-
-      <a class="chapter-card topic" routerLink="/learn/ch11/1">
-        <span class="ch-label topic-label">專題 B</span>
-        <h2 class="ch-title">表示論入門</h2>
-        <p class="ch-desc">
-          群的矩陣表示、特徵標、不可約分解、傅立葉變換的群論本質。
-        </p>
-        <span class="ch-meta">5 個小節</span>
-      </a>
-
-      <a class="chapter-card topic" routerLink="/learn/ch12/1">
-        <span class="ch-label topic-label">專題 C</span>
-        <h2 class="ch-title">代數幾何入門</h2>
-        <p class="ch-desc">
-          代數簇、理想與幾何的對應、Hilbert 零點定理、橢圓曲線。
-        </p>
-        <span class="ch-meta">5 個小節</span>
+      <a class="subject-card" routerLink="/learn/algebra">
+        <div class="sc-icon-wrap">
+          <svg viewBox="-30 -30 60 60" class="sc-icon">
+            <polygon points="0,-22 19,11 -19,11" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round" />
+            <circle cx="0" cy="-22" r="3.5" fill="var(--v0)" />
+            <circle cx="19" cy="11" r="3.5" fill="var(--v1)" />
+            <circle cx="-19" cy="11" r="3.5" fill="var(--v2)" />
+          </svg>
+        </div>
+        <div class="sc-body">
+          <span class="sc-label">第二科目</span>
+          <h2 class="sc-title">抽象代數</h2>
+          <p class="sc-desc">
+            從正三角形的對稱出發，到群論、環論、伽羅瓦理論。
+          </p>
+          <span class="sc-meta">9 章主線 + 3 個專題</span>
+        </div>
       </a>
     </div>
   `,
@@ -146,8 +77,10 @@ import { RouterLink } from '@angular/router';
       margin: 0 0 32px;
     }
 
-    .chapter-card {
-      display: block;
+    .subject-card {
+      display: flex;
+      gap: 20px;
+      align-items: center;
       padding: 22px 24px;
       border: 1px solid var(--border);
       border-radius: 14px;
@@ -160,15 +93,33 @@ import { RouterLink } from '@angular/router';
       &:hover {
         border-color: var(--accent-30);
         background: var(--accent-10);
-      }
-
-      &.placeholder {
-        opacity: 0.5;
-        pointer-events: none;
+        transform: translateY(-1px);
       }
     }
 
-    .ch-label {
+    .sc-icon-wrap {
+      flex-shrink: 0;
+      width: 72px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+    }
+
+    .sc-icon {
+      width: 56px;
+      height: 56px;
+    }
+
+    .sc-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .sc-label {
       font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
@@ -176,59 +127,23 @@ import { RouterLink } from '@angular/router';
       color: var(--accent);
     }
 
-    .ch-title {
+    .sc-title {
       font-size: 20px;
       font-weight: 600;
       color: var(--text);
-      margin: 4px 0 8px;
+      margin: 4px 0 6px;
     }
 
-    .ch-desc {
-      font-size: 14px;
+    .sc-desc {
+      font-size: 13px;
       color: var(--text-secondary);
-      margin: 0 0 8px;
+      margin: 0 0 6px;
       line-height: 1.5;
     }
 
-    .ch-meta {
+    .sc-meta {
       font-size: 12px;
       color: var(--text-muted);
-    }
-
-    .section-divider {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin: 28px 0 8px;
-    }
-
-    .divider-line {
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    .divider-text {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--accent);
-      letter-spacing: 0.08em;
-      flex-shrink: 0;
-    }
-
-    .section-desc {
-      font-size: 13px;
-      color: var(--text-muted);
-      margin: 0 0 20px;
-      text-align: center;
-    }
-
-    .topic {
-      border-style: dashed;
-    }
-
-    .topic-label {
-      color: var(--text-muted) !important;
     }
   `,
 })

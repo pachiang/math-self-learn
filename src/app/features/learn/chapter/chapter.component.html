@@ -1,11 +1,11 @@
 <div class="chapter">
   <h1 class="chapter-title">{{ chapterTitle() }}</h1>
 
-  <app-step-nav [steps]="steps()" [chapterId]="chapterId()" />
+  <app-step-nav [steps]="steps()" [subject]="subject()" [chapterId]="chapterId()" />
 
   <div class="step-content">
-    @switch (chapterId()) {
-      @case ('ch1') {
+    @switch (subject() + '/' + chapterId()) {
+      @case ('algebra/ch1') {
         @switch (currentStep()) {
           @case (1) { <app-step-symmetry /> }
           @case (2) { <app-step-composition /> }
@@ -15,7 +15,7 @@
           @case (6) { <app-step-beyond /> }
         }
       }
-      @case ('ch2') {
+      @case ('algebra/ch2') {
         @switch (currentStep()) {
           @case (1) { <app-ch2-stub title="元素的階" section="§2.1" hint="一直做同一個操作，要幾次才能回到起點？" /> }
           @case (2) { <app-ch2-stub title="生成元與循環群" section="§2.2" hint="從一個元素出發，反覆操作，能產生多少元素？" /> }
@@ -26,7 +26,7 @@
           @case (7) { <app-ch2-stub title="拉格朗日定理" section="§2.7" hint="為什麼子群的大小總是整除群的大小？" /> }
         }
       }
-      @case ('ch3') {
+      @case ('algebra/ch3') {
         @switch (currentStep()) {
           @case (1) { <app-step-left-right-cosets /> }
           @case (2) { <app-step-why-normal /> }
@@ -37,7 +37,7 @@
           @case (7) { <app-step-first-iso /> }
         }
       }
-      @case ('ch4') {
+      @case ('algebra/ch4') {
         @switch (currentStep()) {
           @case (1) { <app-step-symmetric-group /> }
           @case (2) { <app-step-cycles /> }
@@ -47,7 +47,7 @@
           @case (6) { <app-step-cayley-theorem /> }
         }
       }
-      @case ('ch5') {
+      @case ('algebra/ch5') {
         @switch (currentStep()) {
           @case (1) { <app-step-action /> }
           @case (2) { <app-step-orbits /> }
@@ -57,7 +57,7 @@
           @case (6) { <app-step-necklaces /> }
         }
       }
-      @case ('ch6') {
+      @case ('algebra/ch6') {
         @switch (currentStep()) {
           @case (1) { <app-step-conjugacy /> }
           @case (2) { <app-step-class-equation /> }
@@ -67,7 +67,7 @@
           @case (6) { <app-step-classification /> }
         }
       }
-      @case ('ch7') {
+      @case ('algebra/ch7') {
         @switch (currentStep()) {
           @case (1) { <app-step-integers-to-rings /> }
           @case (2) { <app-step-ring-examples /> }
@@ -77,7 +77,7 @@
           @case (6) { <app-step-ring-homomorphism /> }
         }
       }
-      @case ('ch8') {
+      @case ('algebra/ch8') {
         @switch (currentStep()) {
           @case (1) { <app-step-what-is-field /> }
           @case (2) { <app-step-finite-fields /> }
@@ -87,7 +87,7 @@
           @case (6) { <app-step-gf /> }
         }
       }
-      @case ('ch9') {
+      @case ('algebra/ch9') {
         @switch (currentStep()) {
           @case (1) { <app-step-roots-extensions /> }
           @case (2) { <app-step-splitting-field /> }
@@ -97,7 +97,7 @@
           @case (6) { <app-step-quintic /> }
         }
       }
-      @case ('ch10') {
+      @case ('algebra/ch10') {
         @switch (currentStep()) {
           @case (1) { <app-step-rubik-group /> }
           @case (2) { <app-step-commutators /> }
@@ -106,7 +106,7 @@
           @case (5) { <app-step-cube-solve /> }
         }
       }
-      @case ('ch11') {
+      @case ('algebra/ch11') {
         @switch (currentStep()) {
           @case (1) { <app-step-what-is-rep /> }
           @case (2) { <app-step-characters /> }
@@ -115,7 +115,7 @@
           @case (5) { <app-step-fourier /> }
         }
       }
-      @case ('ch12') {
+      @case ('algebra/ch12') {
         @switch (currentStep()) {
           @case (1) { <app-step-varieties /> }
           @case (2) { <app-step-ideal-variety /> }
@@ -124,23 +124,83 @@
           @case (5) { <app-step-modern-ag /> }
         }
       }
+      @case ('linalg/ch1') {
+        @switch (currentStep()) {
+          @case (1) { <app-step-what-is-vector /> }
+          @case (2) { <app-step-vector-ops /> }
+          @case (3) { <app-step-linear-combo /> }
+          @case (4) { <app-step-span /> }
+          @case (5) { <app-step-independence /> }
+          @case (6) { <app-step-basis /> }
+        }
+      }
+      @case ('linalg/ch2') {
+        @switch (currentStep()) {
+          @case (1) { <app-step-what-is-transform /> }
+          @case (2) { <app-step-matrix-fingerprint /> }
+          @case (3) { <app-step-matrix-vector /> }
+          @case (4) { <app-step-linalg-composition /> }
+          @case (5) { <app-step-determinant /> }
+          @case (6) { <app-step-inverse /> }
+        }
+      }
+      @case ('linalg/ch3') {
+        @switch (currentStep()) {
+          @case (1) { <app-step-dot-product /> }
+          @case (2) { <app-step-dot-geometry /> }
+          @case (3) { <app-step-projection /> }
+          @case (4) { <app-step-orthogonal /> }
+          @case (5) { <app-step-orthonormal-basis /> }
+          @case (6) { <app-step-gram-schmidt /> }
+        }
+      }
+      @case ('linalg/ch4') {
+        @switch (currentStep()) {
+          @case (1) { <app-step-two-lines /> }
+          @case (2) { <app-step-matrix-form /> }
+          @case (3) { <app-step-elimination /> }
+          @case (4) { <app-step-when-solvable /> }
+          @case (5) { <app-step-solution-space /> }
+          @case (6) { <app-step-applications /> }
+        }
+      }
+      @case ('linalg/ch5') {
+        @switch (currentStep()) {
+          @case (1) { <app-step-subspace /> }
+          @case (2) { <app-step-column-space /> }
+          @case (3) { <app-step-null-space /> }
+          @case (4) { <app-step-rank /> }
+          @case (5) { <app-step-four-subspaces /> }
+          @case (6) { <app-step-fundamental-thm /> }
+        }
+      }
+      @case ('linalg/ch6') {
+        @switch (currentStep()) {
+          @case (1) { <app-step-invariant-directions /> }
+          @case (2) { <app-step-eigen-definition /> }
+          @case (3) { <app-step-characteristic /> }
+          @case (4) { <app-step-diagonalization /> }
+          @case (5) { <app-step-matrix-powers /> }
+          @case (6) { <app-step-markov /> }
+        }
+      }
     }
   </div>
 
   <nav class="step-footer">
     @if (hasPrev()) {
-      <a class="nav-btn prev" [routerLink]="['/learn', chapterId(), prevStep()]">
+      <a class="nav-btn prev" [routerLink]="['/learn', subject(), chapterId(), prevStep()]">
         ← 上一步
       </a>
     } @else {
       <span></span>
     }
     @if (hasNext()) {
-      <a class="nav-btn next" [routerLink]="['/learn', chapterId(), nextStep()]">
+      <a class="nav-btn next" [routerLink]="['/learn', subject(), chapterId(), nextStep()]">
         下一步 →
       </a>
     } @else {
-      <a class="nav-btn next" routerLink="/learn">
+      <a class="nav-btn next" [routerLink]="['/learn', subject()]">
         回到目錄
       </a>
     }
