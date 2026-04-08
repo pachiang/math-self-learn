@@ -15,7 +15,7 @@ export interface StepDef {
       @for (step of steps(); track step.num) {
         <a
           class="step-link"
-          [routerLink]="['/learn', chapterId(), String(step.num)]"
+          [routerLink]="['/learn', subject(), chapterId(), String(step.num)]"
           routerLinkActive="active"
         >
           <span class="step-num">{{ step.num }}</span>
@@ -87,6 +87,7 @@ export interface StepDef {
 })
 export class StepNavComponent {
   steps = input.required<StepDef[]>();
+  subject = input.required<string>();
   chapterId = input.required<string>();
 
   protected readonly String = String;

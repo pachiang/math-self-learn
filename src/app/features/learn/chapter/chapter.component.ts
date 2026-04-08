@@ -88,6 +88,54 @@ import { StepNullstellensatzComponent } from './steps/ch12-alggeom/step-nullstel
 import { StepEllipticCurvesComponent } from './steps/ch12-alggeom/step-elliptic-curves.component';
 import { StepModernAgComponent } from './steps/ch12-alggeom/step-modern-ag.component';
 
+// Linalg Ch1 steps
+import { StepWhatIsVectorComponent } from './steps/linalg-ch1/step-what-is-vector.component';
+import { StepVectorOpsComponent } from './steps/linalg-ch1/step-vector-ops.component';
+import { StepLinearComboComponent } from './steps/linalg-ch1/step-linear-combo.component';
+import { StepSpanComponent } from './steps/linalg-ch1/step-span.component';
+import { StepIndependenceComponent } from './steps/linalg-ch1/step-independence.component';
+import { StepBasisComponent } from './steps/linalg-ch1/step-basis.component';
+
+// Linalg Ch2 steps
+import { StepWhatIsTransformComponent } from './steps/linalg-ch2/step-what-is-transform.component';
+import { StepMatrixFingerprintComponent } from './steps/linalg-ch2/step-matrix-fingerprint.component';
+import { StepMatrixVectorComponent } from './steps/linalg-ch2/step-matrix-vector.component';
+import { StepCompositionComponent as StepLinalgCompositionComponent } from './steps/linalg-ch2/step-composition.component';
+import { StepDeterminantComponent } from './steps/linalg-ch2/step-determinant.component';
+import { StepInverseComponent } from './steps/linalg-ch2/step-inverse.component';
+
+// Linalg Ch3 steps
+import { StepDotProductComponent } from './steps/linalg-ch3/step-dot-product.component';
+import { StepDotGeometryComponent } from './steps/linalg-ch3/step-dot-geometry.component';
+import { StepProjectionComponent } from './steps/linalg-ch3/step-projection.component';
+import { StepOrthogonalComponent } from './steps/linalg-ch3/step-orthogonal.component';
+import { StepOrthonormalBasisComponent } from './steps/linalg-ch3/step-orthonormal-basis.component';
+import { StepGramSchmidtComponent } from './steps/linalg-ch3/step-gram-schmidt.component';
+
+// Linalg Ch4 steps
+import { StepTwoLinesComponent } from './steps/linalg-ch4/step-two-lines.component';
+import { StepMatrixFormComponent } from './steps/linalg-ch4/step-matrix-form.component';
+import { StepEliminationComponent } from './steps/linalg-ch4/step-elimination.component';
+import { StepWhenSolvableComponent } from './steps/linalg-ch4/step-when-solvable.component';
+import { StepSolutionSpaceComponent } from './steps/linalg-ch4/step-solution-space.component';
+import { StepApplicationsComponent } from './steps/linalg-ch4/step-applications.component';
+
+// Linalg Ch6 (eigenvalues) steps
+import { StepInvariantDirectionsComponent } from './steps/linalg-ch6-eigen/step-invariant-directions.component';
+import { StepEigenDefinitionComponent } from './steps/linalg-ch6-eigen/step-eigen-definition.component';
+import { StepCharacteristicComponent } from './steps/linalg-ch6-eigen/step-characteristic.component';
+import { StepDiagonalizationComponent } from './steps/linalg-ch6-eigen/step-diagonalization.component';
+import { StepMatrixPowersComponent } from './steps/linalg-ch6-eigen/step-matrix-powers.component';
+import { StepMarkovComponent } from './steps/linalg-ch6-eigen/step-markov.component';
+
+// Linalg Ch5 (four subspaces) steps
+import { StepSubspaceComponent } from './steps/linalg-ch5/step-subspace.component';
+import { StepColumnSpaceComponent } from './steps/linalg-ch5/step-column-space.component';
+import { StepNullSpaceComponent } from './steps/linalg-ch5/step-null-space.component';
+import { StepRankComponent } from './steps/linalg-ch5/step-rank.component';
+import { StepFourSubspacesComponent } from './steps/linalg-ch5/step-four-subspaces.component';
+import { StepFundamentalThmComponent } from './steps/linalg-ch5/step-fundamental-thm.component';
+
 // Ch5 steps
 import { StepActionComponent } from './steps/ch5/step-action.component';
 import { StepOrbitsComponent } from './steps/ch5/step-orbits.component';
@@ -101,7 +149,7 @@ interface ChapterConfig {
   steps: StepDef[];
 }
 
-const CHAPTERS: Record<string, ChapterConfig> = {
+const ALGEBRA_CHAPTERS: Record<string, ChapterConfig> = {
   ch1: {
     title: '第一章：什麼是群？',
     steps: [
@@ -235,6 +283,80 @@ const CHAPTERS: Record<string, ChapterConfig> = {
   },
 };
 
+const LINALG_CHAPTERS: Record<string, ChapterConfig> = {
+  ch1: {
+    title: '第一章：向量與線性組合',
+    steps: [
+      { num: 1, title: '什麼是向量' },
+      { num: 2, title: '加法與純量乘法' },
+      { num: 3, title: '線性組合' },
+      { num: 4, title: 'Span' },
+      { num: 5, title: '相依與獨立' },
+      { num: 6, title: '基底' },
+    ],
+  },
+  ch2: {
+    title: '第二章：線性變換與矩陣',
+    steps: [
+      { num: 1, title: '什麼是線性變換' },
+      { num: 2, title: '矩陣的指紋' },
+      { num: 3, title: '矩陣 × 向量' },
+      { num: 4, title: '變換組合' },
+      { num: 5, title: '行列式' },
+      { num: 6, title: '反矩陣' },
+    ],
+  },
+  ch3: {
+    title: '第三章：點積、長度與正交',
+    steps: [
+      { num: 1, title: '什麼是點積' },
+      { num: 2, title: '幾何意義' },
+      { num: 3, title: '投影' },
+      { num: 4, title: '正交向量' },
+      { num: 5, title: '正交基底' },
+      { num: 6, title: 'Gram\u2013Schmidt' },
+    ],
+  },
+  ch4: {
+    title: '第四章：解線性方程組',
+    steps: [
+      { num: 1, title: '兩條直線的交點' },
+      { num: 2, title: '矩陣形式 Ax = b' },
+      { num: 3, title: '高斯消去法' },
+      { num: 4, title: '何時有解' },
+      { num: 5, title: '解空間' },
+      { num: 6, title: '插值與最小平方' },
+    ],
+  },
+  ch5: {
+    title: '第五章：矩陣的四個基本子空間',
+    steps: [
+      { num: 1, title: '什麼是子空間' },
+      { num: 2, title: '列空間 C(A)' },
+      { num: 3, title: '零空間 N(A)' },
+      { num: 4, title: '秩 Rank' },
+      { num: 5, title: '四個子空間' },
+      { num: 6, title: '正交補與基本定理' },
+    ],
+  },
+  ch6: {
+    title: '第六章：特徵值與特徵向量',
+    steps: [
+      { num: 1, title: '不變的方向' },
+      { num: 2, title: '特徵向量定義' },
+      { num: 3, title: '特徵方程' },
+      { num: 4, title: '對角化' },
+      { num: 5, title: '矩陣冪次' },
+      { num: 6, title: '馬可夫鏈' },
+    ],
+  },
+};
+
+const SUBJECTS: Record<string, Record<string, ChapterConfig>> = {
+  algebra: ALGEBRA_CHAPTERS,
+  linalg: LINALG_CHAPTERS,
+};
+
 @Component({
   selector: 'app-chapter',
   standalone: true,
@@ -321,12 +443,59 @@ const CHAPTERS: Record<string, ChapterConfig> = {
     StepNullstellensatzComponent,
     StepEllipticCurvesComponent,
     StepModernAgComponent,
+    // Linalg Ch1
+    StepWhatIsVectorComponent,
+    StepVectorOpsComponent,
+    StepLinearComboComponent,
+    StepSpanComponent,
+    StepIndependenceComponent,
+    StepBasisComponent,
+    // Linalg Ch2
+    StepWhatIsTransformComponent,
+    StepMatrixFingerprintComponent,
+    StepMatrixVectorComponent,
+    StepLinalgCompositionComponent,
+    StepDeterminantComponent,
+    StepInverseComponent,
+    // Linalg Ch3
+    StepDotProductComponent,
+    StepDotGeometryComponent,
+    StepProjectionComponent,
+    StepOrthogonalComponent,
+    StepOrthonormalBasisComponent,
+    StepGramSchmidtComponent,
+    // Linalg Ch4
+    StepTwoLinesComponent,
+    StepMatrixFormComponent,
+    StepEliminationComponent,
+    StepWhenSolvableComponent,
+    StepSolutionSpaceComponent,
+    StepApplicationsComponent,
+    // Linalg Ch5 (four subspaces)
+    StepSubspaceComponent,
+    StepColumnSpaceComponent,
+    StepNullSpaceComponent,
+    StepRankComponent,
+    StepFourSubspacesComponent,
+    StepFundamentalThmComponent,
+    // Linalg Ch6 (eigenvalues)
+    StepInvariantDirectionsComponent,
+    StepEigenDefinitionComponent,
+    StepCharacteristicComponent,
+    StepDiagonalizationComponent,
+    StepMatrixPowersComponent,
+    StepMarkovComponent,
   ],
   templateUrl: './chapter.component.html',
   styleUrl: './chapter.component.scss',
 })
 export class ChapterComponent {
   private readonly route = inject(ActivatedRoute);
+
+  private readonly subjectParam = toSignal(
+    this.route.paramMap.pipe(map((p) => p.get('subject') ?? 'algebra')),
+    { initialValue: 'algebra' },
+  );
 
   private readonly chapterParam = toSignal(
     this.route.paramMap.pipe(map((p) => p.get('chapterId') ?? 'ch1')),
@@ -338,10 +507,12 @@ export class ChapterComponent {
     { initialValue: 1 },
   );
 
+  readonly subject = computed(() => this.subjectParam());
   readonly chapterId = computed(() => this.chapterParam());
-  readonly config = computed(
-    () => CHAPTERS[this.chapterId()] ?? CHAPTERS['ch1'],
-  );
+  readonly config = computed(() => {
+    const chapters = SUBJECTS[this.subject()] ?? SUBJECTS['algebra'];
+    return chapters[this.chapterId()] ?? chapters['ch1'];
+  });
   readonly chapterTitle = computed(() => this.config().title);
   readonly steps = computed(() => this.config().steps);
 
