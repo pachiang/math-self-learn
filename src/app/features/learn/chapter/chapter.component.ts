@@ -88,6 +88,13 @@ import { StepNullstellensatzComponent } from './steps/ch12-alggeom/step-nullstel
 import { StepEllipticCurvesComponent } from './steps/ch12-alggeom/step-elliptic-curves.component';
 import { StepModernAgComponent } from './steps/ch12-alggeom/step-modern-ag.component';
 
+// Ch13 Coding Theory
+import { StepNoisyChannelComponent } from './steps/ch13-coding/step-noisy-channel.component';
+import { StepHammingDistanceComponent } from './steps/ch13-coding/step-hamming-distance.component';
+import { StepLinearCodeComponent } from './steps/ch13-coding/step-linear-code.component';
+import { StepHammingCodeComponent } from './steps/ch13-coding/step-hamming-code.component';
+import { StepReedSolomonComponent } from './steps/ch13-coding/step-reed-solomon.component';
+
 // Linalg Ch1 steps
 import { StepWhatIsVectorComponent } from './steps/linalg-ch1/step-what-is-vector.component';
 import { StepVectorOpsComponent } from './steps/linalg-ch1/step-vector-ops.component';
@@ -127,6 +134,85 @@ import { StepCharacteristicComponent } from './steps/linalg-ch6-eigen/step-chara
 import { StepDiagonalizationComponent } from './steps/linalg-ch6-eigen/step-diagonalization.component';
 import { StepMatrixPowersComponent } from './steps/linalg-ch6-eigen/step-matrix-powers.component';
 import { StepMarkovComponent } from './steps/linalg-ch6-eigen/step-markov.component';
+import { StepWhatIsSymmetricComponent } from './steps/linalg-ch7-symmetric/step-what-is-symmetric.component';
+import { StepQuadraticFormComponent } from './steps/linalg-ch7-symmetric/step-quadratic-form.component';
+import { StepSurfaceShapesComponent } from './steps/linalg-ch7-symmetric/step-surface-shapes.component';
+import { StepOrthogonalEigenvectorsComponent } from './steps/linalg-ch7-symmetric/step-orthogonal-eigenvectors.component';
+import { StepPrincipalAxesComponent } from './steps/linalg-ch7-symmetric/step-principal-axes.component';
+import { StepPositiveDefiniteComponent } from './steps/linalg-ch7-symmetric/step-positive-definite-v2.component';
+
+// Linalg Ch8 (SVD) steps
+import { StepWhySvdComponent } from './steps/linalg-ch8-svd/step-why-svd.component';
+import { StepSvdGeometryComponent } from './steps/linalg-ch8-svd/step-svd-geometry.component';
+import { StepSvdSubspacesComponent } from './steps/linalg-ch8-svd/step-svd-subspaces.component';
+import { StepLowRankComponent } from './steps/linalg-ch8-svd/step-low-rank.component';
+import { StepImageCompressionComponent } from './steps/linalg-ch8-svd/step-image-compression.component';
+import { StepPcaComponent } from './steps/linalg-ch8-svd/step-pca.component';
+
+// Linalg Ch9 (linear ODEs) steps
+import { Step1dOdeComponent } from './steps/linalg-ch9-ode/step-1d-ode.component';
+import { StepVectorFieldComponent } from './steps/linalg-ch9-ode/step-vector-field.component';
+import { StepEigenvalueSolutionComponent } from './steps/linalg-ch9-ode/step-eigenvalue-solution.component';
+import { StepMatrixExpComponent } from './steps/linalg-ch9-ode/step-matrix-exp.component';
+import { StepStabilityComponent } from './steps/linalg-ch9-ode/step-stability.component';
+import { StepDampedOscillatorComponent } from './steps/linalg-ch9-ode/step-damped-oscillator.component';
+import { StepLorenzComponent } from './steps/linalg-ch9-ode/step-lorenz.component';
+
+// Linalg Ch10 (complex matrices & quantum) steps
+import { StepWhyComplexComponent } from './steps/linalg-ch10-complex/step-why-complex.component';
+import { StepComplexVectorsComponent } from './steps/linalg-ch10-complex/step-complex-vectors.component';
+import { StepHermitianComponent } from './steps/linalg-ch10-complex/step-hermitian.component';
+import { StepUnitaryComponent } from './steps/linalg-ch10-complex/step-unitary.component';
+import { StepPauliComponent } from './steps/linalg-ch10-complex/step-pauli.component';
+import { StepBlochSphereComponent } from './steps/linalg-ch10-complex/step-bloch-sphere.component';
+import { StepQuantumGatesComponent } from './steps/linalg-ch10-complex/step-quantum-gates.component';
+import { StepMeasurementComponent } from './steps/linalg-ch10-complex/step-measurement.component';
+
+// Linalg Ch11 (abstract vector spaces) steps
+import { StepAbstractVectorSpaceComponent } from './steps/linalg-ch11-abstract/step-abstract-vector-space.component';
+import { StepPolynomialSpaceComponent } from './steps/linalg-ch11-abstract/step-polynomial-space.component';
+import { StepBasisDimensionComponent } from './steps/linalg-ch11-abstract/step-basis-dimension.component';
+import { StepLinearityComponent } from './steps/linalg-ch11-abstract/step-linearity.component';
+import { StepDifferentialMatrixComponent } from './steps/linalg-ch11-abstract/step-differential-matrix.component';
+import { StepFunctionSpaceComponent } from './steps/linalg-ch11-abstract/step-function-space.component';
+import { StepFunctionsAsVectorsComponent } from './steps/linalg-ch11-abstract/step-functions-as-vectors.component';
+
+// Linalg Ch12 (function spaces & Fourier) steps
+import { StepFunctionInnerProductComponent } from './steps/linalg-ch12-fourier/step-function-inner-product.component';
+import { StepOrthogonalFunctionsComponent } from './steps/linalg-ch12-fourier/step-orthogonal-functions.component';
+import { StepProjectionComponent as StepFourierProjectionComponent } from './steps/linalg-ch12-fourier/step-projection.component';
+import { StepLegendreComponent } from './steps/linalg-ch12-fourier/step-legendre.component';
+import { StepFourierBasisComponent } from './steps/linalg-ch12-fourier/step-fourier-basis.component';
+import { StepFourierSeriesComponent } from './steps/linalg-ch12-fourier/step-fourier-series.component';
+import { StepGibbsComponent } from './steps/linalg-ch12-fourier/step-gibbs.component';
+
+// Linalg Ch13 (linear algebra & ML) steps
+import { StepLinearRegressionComponent } from './steps/linalg-ch13-ml/step-linear-regression.component';
+import { StepPolynomialFitComponent } from './steps/linalg-ch13-ml/step-polynomial-fit.component';
+import { StepRidgeComponent } from './steps/linalg-ch13-ml/step-ridge.component';
+import { StepLogisticComponent } from './steps/linalg-ch13-ml/step-logistic.component';
+import { StepNeuralNetComponent } from './steps/linalg-ch13-ml/step-neural-net.component';
+import { StepConvolutionComponent } from './steps/linalg-ch13-ml/step-convolution.component';
+import { StepBackpropComponent } from './steps/linalg-ch13-ml/step-backprop.component';
+import { StepMatrixFactorizationComponent } from './steps/linalg-ch13-ml/step-matrix-factorization.component';
+
+// Linalg Ch14 (graphs & networks) steps
+import { StepGraphMatrixComponent } from './steps/linalg-ch14-graph/step-graph-matrix.component';
+import { StepIncidenceComponent as StepGraphIncidenceComponent } from './steps/linalg-ch14-graph/step-incidence.component';
+import { StepLaplacianComponent } from './steps/linalg-ch14-graph/step-laplacian.component';
+import { StepFiedlerComponent } from './steps/linalg-ch14-graph/step-fiedler.component';
+import { StepSpectralClusteringComponent } from './steps/linalg-ch14-graph/step-spectral-clustering.component';
+import { StepPagerankComponent } from './steps/linalg-ch14-graph/step-pagerank.component';
+import { StepRandomWalkComponent } from './steps/linalg-ch14-graph/step-random-walk.component';
+
+// Linalg Ch15 (numerical linear algebra) steps
+import { StepFloatingPointComponent } from './steps/linalg-ch15-numerical/step-floating-point.component';
+import { StepConditionNumberComponent } from './steps/linalg-ch15-numerical/step-condition-number.component';
+import { StepLuDecompositionComponent } from './steps/linalg-ch15-numerical/step-lu-decomposition.component';
+import { StepPivotingComponent } from './steps/linalg-ch15-numerical/step-pivoting.component';
+import { StepQrDecompositionComponent } from './steps/linalg-ch15-numerical/step-qr-decomposition.component';
+import { StepIterativeMethodsComponent } from './steps/linalg-ch15-numerical/step-iterative-methods.component';
+import { StepConjugateGradientComponent } from './steps/linalg-ch15-numerical/step-conjugate-gradient.component';
 
 // Linalg Ch5 (four subspaces) steps
 import { StepSubspaceComponent } from './steps/linalg-ch5/step-subspace.component';
@@ -281,6 +367,16 @@ const ALGEBRA_CHAPTERS: Record<string, ChapterConfig> = {
       { num: 5, title: '現代面貌' },
     ],
   },
+  ch13: {
+    title: '專題：編碼理論',
+    steps: [
+      { num: 1, title: '為什麼需要糾錯碼' },
+      { num: 2, title: '漢明距離' },
+      { num: 3, title: '線性碼' },
+      { num: 4, title: '漢明碼' },
+      { num: 5, title: 'Reed-Solomon' },
+    ],
+  },
 };
 
 const LINALG_CHAPTERS: Record<string, ChapterConfig> = {
@@ -348,6 +444,114 @@ const LINALG_CHAPTERS: Record<string, ChapterConfig> = {
       { num: 4, title: '對角化' },
       { num: 5, title: '矩陣冪次' },
       { num: 6, title: '馬可夫鏈' },
+    ],
+  },
+  ch7: {
+    title: '第七章：對稱矩陣、二次型與主軸',
+    steps: [
+      { num: 1, title: '什麼是對稱矩陣' },
+      { num: 2, title: '二次型 xᵀAx' },
+      { num: 3, title: '曲面：bowl 與 saddle' },
+      { num: 4, title: '正交的特徵方向' },
+      { num: 5, title: '主軸定理' },
+      { num: 6, title: '正定矩陣' },
+    ],
+  },
+  ch8: {
+    title: '第八章：SVD 與其應用',
+    steps: [
+      { num: 1, title: '為什麼需要 SVD' },
+      { num: 2, title: '幾何：旋轉縮放旋轉' },
+      { num: 3, title: 'SVD 與四個子空間' },
+      { num: 4, title: '低秩近似' },
+      { num: 5, title: '圖片壓縮' },
+      { num: 6, title: 'PCA' },
+    ],
+  },
+  ch9: {
+    title: '第九章：線性微分方程組與動力系統',
+    steps: [
+      { num: 1, title: '從 1D 純量 ODE' },
+      { num: 2, title: '2D 向量場與相平面' },
+      { num: 3, title: '用特徵值解 ODE' },
+      { num: 4, title: '矩陣指數 e^(At)' },
+      { num: 5, title: '四種平衡點分類' },
+      { num: 6, title: '阻尼振盪器' },
+      { num: 7, title: '勞侖茲吸引子' },
+    ],
+  },
+  ch10: {
+    title: '第十章：複矩陣與量子的觀點',
+    steps: [
+      { num: 1, title: '為什麼需要複數' },
+      { num: 2, title: '複向量與 Hermitian 內積' },
+      { num: 3, title: 'Hermitian 矩陣' },
+      { num: 4, title: 'Unitary 矩陣' },
+      { num: 5, title: 'Pauli 矩陣' },
+      { num: 6, title: 'Bloch 球面' },
+      { num: 7, title: '量子閘 = Bloch 旋轉' },
+      { num: 8, title: '量子測量' },
+    ],
+  },
+  ch11: {
+    title: '第十一章：抽象向量空間與線性算子',
+    steps: [
+      { num: 1, title: '向量是規則，不是長相' },
+      { num: 2, title: '多項式空間 P₃' },
+      { num: 3, title: '基底與維度' },
+      { num: 4, title: '什麼叫線性算子' },
+      { num: 5, title: '微分的矩陣表示' },
+      { num: 6, title: '函數空間與無限維' },
+      { num: 7, title: '函數也能相加與縮放' },
+    ],
+  },
+  ch12: {
+    title: '第十二章：函數空間、正交與傅立葉',
+    steps: [
+      { num: 1, title: '函數的內積' },
+      { num: 2, title: '正交函數' },
+      { num: 3, title: '正交基底與投影' },
+      { num: 4, title: 'Legendre 多項式' },
+      { num: 5, title: 'Fourier 基底' },
+      { num: 6, title: 'Fourier 級數' },
+      { num: 7, title: 'Gibbs 現象' },
+    ],
+  },
+  ch13: {
+    title: '第十三章：線性代數與機器學習',
+    steps: [
+      { num: 1, title: '線性回歸' },
+      { num: 2, title: '多項式擬合' },
+      { num: 3, title: '嶺回歸' },
+      { num: 4, title: 'Logistic 回歸' },
+      { num: 5, title: '神經網路' },
+      { num: 6, title: '卷積層' },
+      { num: 7, title: '反向傳播' },
+      { num: 8, title: '矩陣分解' },
+    ],
+  },
+  ch14: {
+    title: '第十四章：圖與網路的線性代數',
+    steps: [
+      { num: 1, title: '圖的矩陣' },
+      { num: 2, title: '關聯矩陣與流' },
+      { num: 3, title: '圖拉普拉斯' },
+      { num: 4, title: 'Fiedler 值' },
+      { num: 5, title: '譜聚類' },
+      { num: 6, title: 'PageRank' },
+      { num: 7, title: '隨機漫步' },
+    ],
+  },
+  ch15: {
+    title: '第十五章：數值線性代數',
+    steps: [
+      { num: 1, title: '浮點數與誤差' },
+      { num: 2, title: '條件數' },
+      { num: 3, title: 'LU 分解' },
+      { num: 4, title: '樞軸選取' },
+      { num: 5, title: 'QR 分解' },
+      { num: 6, title: '迭代法' },
+      { num: 7, title: '共軛梯度法' },
     ],
   },
 };
@@ -443,6 +647,12 @@ const SUBJECTS: Record<string, Record<string, ChapterConfig>> = {
     StepNullstellensatzComponent,
     StepEllipticCurvesComponent,
     StepModernAgComponent,
+    // Ch13 Coding Theory
+    StepNoisyChannelComponent,
+    StepHammingDistanceComponent,
+    StepLinearCodeComponent,
+    StepHammingCodeComponent,
+    StepReedSolomonComponent,
     // Linalg Ch1
     StepWhatIsVectorComponent,
     StepVectorOpsComponent,
@@ -485,6 +695,77 @@ const SUBJECTS: Record<string, Record<string, ChapterConfig>> = {
     StepDiagonalizationComponent,
     StepMatrixPowersComponent,
     StepMarkovComponent,
+    StepWhatIsSymmetricComponent,
+    StepQuadraticFormComponent,
+    StepSurfaceShapesComponent,
+    StepOrthogonalEigenvectorsComponent,
+    StepPrincipalAxesComponent,
+    StepPositiveDefiniteComponent,
+    // Linalg Ch8 (SVD)
+    StepWhySvdComponent,
+    StepSvdGeometryComponent,
+    StepSvdSubspacesComponent,
+    StepLowRankComponent,
+    StepImageCompressionComponent,
+    StepPcaComponent,
+    // Linalg Ch9 (linear ODEs)
+    Step1dOdeComponent,
+    StepVectorFieldComponent,
+    StepEigenvalueSolutionComponent,
+    StepMatrixExpComponent,
+    StepStabilityComponent,
+    StepDampedOscillatorComponent,
+    StepLorenzComponent,
+    // Linalg Ch10 (complex & quantum)
+    StepWhyComplexComponent,
+    StepComplexVectorsComponent,
+    StepHermitianComponent,
+    StepUnitaryComponent,
+    StepPauliComponent,
+    StepBlochSphereComponent,
+    StepQuantumGatesComponent,
+    StepMeasurementComponent,
+    // Linalg Ch11 (abstract vector spaces)
+    StepAbstractVectorSpaceComponent,
+    StepPolynomialSpaceComponent,
+    StepBasisDimensionComponent,
+    StepLinearityComponent,
+    StepDifferentialMatrixComponent,
+    StepFunctionSpaceComponent,
+    StepFunctionsAsVectorsComponent,
+    // Linalg Ch12 (function spaces & Fourier)
+    StepFunctionInnerProductComponent,
+    StepOrthogonalFunctionsComponent,
+    StepFourierProjectionComponent,
+    StepLegendreComponent,
+    StepFourierBasisComponent,
+    StepFourierSeriesComponent,
+    StepGibbsComponent,
+    // Linalg Ch13 (ML)
+    StepLinearRegressionComponent,
+    StepPolynomialFitComponent,
+    StepRidgeComponent,
+    StepLogisticComponent,
+    StepNeuralNetComponent,
+    StepConvolutionComponent,
+    StepBackpropComponent,
+    StepMatrixFactorizationComponent,
+    // Linalg Ch14 (graphs)
+    StepGraphMatrixComponent,
+    StepGraphIncidenceComponent,
+    StepLaplacianComponent,
+    StepFiedlerComponent,
+    StepSpectralClusteringComponent,
+    StepPagerankComponent,
+    StepRandomWalkComponent,
+    // Linalg Ch15 (numerical)
+    StepFloatingPointComponent,
+    StepConditionNumberComponent,
+    StepLuDecompositionComponent,
+    StepPivotingComponent,
+    StepQrDecompositionComponent,
+    StepIterativeMethodsComponent,
+    StepConjugateGradientComponent,
   ],
   templateUrl: './chapter.component.html',
   styleUrl: './chapter.component.scss',
