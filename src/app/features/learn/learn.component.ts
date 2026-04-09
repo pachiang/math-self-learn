@@ -33,7 +33,7 @@ import { RouterLink } from '@angular/router';
           <p class="sc-desc">
             向量、線性變換、特徵值、基底變換 — 大學數學的基石。
           </p>
-          <span class="sc-meta">6 章已完成</span>
+          <span class="sc-meta">15 章已完成</span>
         </div>
       </a>
 
@@ -52,7 +52,7 @@ import { RouterLink } from '@angular/router';
           <p class="sc-desc">
             從正三角形的對稱出發，到群論、環論、伽羅瓦理論。
           </p>
-          <span class="sc-meta">9 章主線 + 3 個專題</span>
+          <span class="sc-meta">9 章主線 + 4 專題</span>
         </div>
       </a>
     </div>

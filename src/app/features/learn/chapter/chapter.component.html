@@ -124,6 +124,15 @@
           @case (5) { <app-step-modern-ag /> }
         }
       }
+      @case ('algebra/ch13') {
+        @switch (currentStep()) {
+          @case (1) { <app-step-noisy-channel /> }
+          @case (2) { <app-step-hamming-distance /> }
+          @case (3) { <app-step-linear-code /> }
+          @case (4) { <app-step-hamming-code /> }
+          @case (5) { <app-step-reed-solomon /> }
+        }
+      }
       @case ('linalg/ch1') {
         @switch (currentStep()) {
           @case (1) { <app-step-what-is-vector /> }
@@ -182,6 +191,105 @@
           @case (4) { <app-step-diagonalization /> }
           @case (5) { <app-step-matrix-powers /> }
           @case (6) { <app-step-markov /> }
+        }
+      }
+      @case ('linalg/ch7') {
+        @switch (currentStep()) {
+          @case (1) { <app-step-what-is-symmetric /> }
+          @case (2) { <app-step-quadratic-form /> }
+          @case (3) { <app-step-surface-shapes /> }
+          @case (4) { <app-step-orthogonal-eigenvectors /> }
+          @case (5) { <app-step-principal-axes /> }
+          @case (6) { <app-step-positive-definite /> }
+        }
+      }
+      @case ('linalg/ch8') {
+        @switch (currentStep()) {
+          @case (1) { <app-step-why-svd /> }
+          @case (2) { <app-step-svd-geometry /> }
+          @case (3) { <app-step-svd-subspaces /> }
+          @case (4) { <app-step-low-rank /> }
+          @case (5) { <app-step-image-compression /> }
+          @case (6) { <app-step-pca /> }
+        }
+      }
+      @case ('linalg/ch9') {
+        @switch (currentStep()) {
+          @case (1) { <app-step-1d-ode /> }
+          @case (2) { <app-step-vector-field /> }
+          @case (3) { <app-step-eigenvalue-solution /> }
+          @case (4) { <app-step-matrix-exp /> }
+          @case (5) { <app-step-stability /> }
+          @case (6) { <app-step-damped-oscillator /> }
+          @case (7) { <app-step-lorenz /> }
+        }
+      }
+      @case ('linalg/ch10') {
+        @switch (currentStep()) {
+          @case (1) { <app-step-why-complex /> }
+          @case (2) { <app-step-complex-vectors /> }
+          @case (3) { <app-step-hermitian /> }
+          @case (4) { <app-step-unitary /> }
+          @case (5) { <app-step-pauli /> }
+          @case (6) { <app-step-bloch-sphere /> }
+          @case (7) { <app-step-quantum-gates /> }
+          @case (8) { <app-step-measurement /> }
+        }
+      }
+      @case ('linalg/ch11') {
+        @switch (currentStep()) {
+          @case (1) { <app-step-abstract-vector-space /> }
+          @case (2) { <app-step-polynomial-space /> }
+          @case (3) { <app-step-basis-dimension /> }
+          @case (4) { <app-step-linearity /> }
+          @case (5) { <app-step-differential-matrix /> }
+          @case (6) { <app-step-function-space /> }
+          @case (7) { <app-step-functions-as-vectors /> }
+        }
+      }
+      @case ('linalg/ch12') {
+        @switch (currentStep()) {
+          @case (1) { <app-step-function-inner-product /> }
+          @case (2) { <app-step-orthogonal-functions /> }
+          @case (3) { <app-step-function-projection /> }
+          @case (4) { <app-step-legendre /> }
+          @case (5) { <app-step-fourier-basis /> }
+          @case (6) { <app-step-fourier-series /> }
+          @case (7) { <app-step-gibbs /> }
+        }
+      }
+      @case ('linalg/ch13') {
+        @switch (currentStep()) {
+          @case (1) { <app-step-linear-regression /> }
+          @case (2) { <app-step-polynomial-fit /> }
+          @case (3) { <app-step-ridge /> }
+          @case (4) { <app-step-logistic /> }
+          @case (5) { <app-step-neural-net /> }
+          @case (6) { <app-step-convolution /> }
+          @case (7) { <app-step-backprop /> }
+          @case (8) { <app-step-matrix-factorization /> }
+        }
+      }
+      @case ('linalg/ch14') {
+        @switch (currentStep()) {
+          @case (1) { <app-step-graph-matrix /> }
+          @case (2) { <app-step-incidence /> }
+          @case (3) { <app-step-laplacian /> }
+          @case (4) { <app-step-fiedler /> }
+          @case (5) { <app-step-spectral-clustering /> }
+          @case (6) { <app-step-pagerank /> }
+          @case (7) { <app-step-random-walk /> }
+        }
+      }
+      @case ('linalg/ch15') {
+        @switch (currentStep()) {
+          @case (1) { <app-step-floating-point /> }
+          @case (2) { <app-step-condition-number /> }
+          @case (3) { <app-step-lu-decomposition /> }
+          @case (4) { <app-step-pivoting /> }
+          @case (5) { <app-step-qr-decomposition /> }
+          @case (6) { <app-step-iterative-methods /> }
+          @case (7) { <app-step-conjugate-gradient /> }
         }
       }
     }
