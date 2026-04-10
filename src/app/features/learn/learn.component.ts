@@ -31,9 +31,40 @@ import { RouterLink } from '@angular/router';
           <span class="sc-label">第一科目</span>
           <h2 class="sc-title">線性代數</h2>
           <p class="sc-desc">
-            向量、線性變換、特徵值、基底變換 — 大學數學的基石。
+            向量、線性變換、特徵值、基底變換，大學數學的基石。
           </p>
-          <span class="sc-meta">15 章已完成</span>
+          <span class="sc-meta">18 章已完成</span>
+        </div>
+      </a>
+
+      <a class="subject-card" routerLink="/learn/analysis">
+        <div class="sc-icon-wrap">
+          <svg viewBox="-30 -30 60 60" class="sc-icon">
+            <!-- Number line with a gap -->
+            <line x1="-24" y1="0" x2="24" y2="0" stroke="var(--border-strong)" stroke-width="1.5" />
+            <line x1="-18" y1="-3" x2="-18" y2="3" stroke="var(--border-strong)" stroke-width="1" />
+            <line x1="-9" y1="-3" x2="-9" y2="3" stroke="var(--border-strong)" stroke-width="1" />
+            <line x1="0" y1="-3" x2="0" y2="3" stroke="var(--border-strong)" stroke-width="1" />
+            <line x1="9" y1="-3" x2="9" y2="3" stroke="var(--border-strong)" stroke-width="1" />
+            <line x1="18" y1="-3" x2="18" y2="3" stroke="var(--border-strong)" stroke-width="1" />
+            <!-- Convergent dots -->
+            <circle cx="-14" cy="-12" r="2" fill="var(--v0)" />
+            <circle cx="-4" cy="-14" r="2" fill="var(--v0)" />
+            <circle cx="3" cy="-11" r="2" fill="var(--v0)" />
+            <circle cx="8" cy="-13" r="2" fill="var(--v0)" />
+            <circle cx="11" cy="-12" r="2" fill="var(--v0)" />
+            <circle cx="13" cy="-12.5" r="2.5" fill="var(--accent)" />
+            <!-- Gap marker -->
+            <circle cx="5" cy="0" r="3" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="2 1.5" />
+          </svg>
+        </div>
+        <div class="sc-body">
+          <span class="sc-label">第二科目</span>
+          <h2 class="sc-title">實分析</h2>
+          <p class="sc-desc">
+            從有理數的缺陷出發，建立實數的完備性，理解極限的根基。
+          </p>
+          <span class="sc-meta">13 章已完成</span>
         </div>
       </a>
 
@@ -47,7 +78,7 @@ import { RouterLink } from '@angular/router';
           </svg>
         </div>
         <div class="sc-body">
-          <span class="sc-label">第二科目</span>
+          <span class="sc-label">第三科目</span>
           <h2 class="sc-title">抽象代數</h2>
           <p class="sc-desc">
             從正三角形的對稱出發，到群論、環論、伽羅瓦理論。
