@@ -12,11 +12,18 @@ interface ChapterEntry {
   topic?: boolean;
 }
 
+interface PartInfo {
+  label: string;
+  desc?: string;
+  chapters: ChapterEntry[];
+}
+
 interface SubjectInfo {
   title: string;
   desc: string;
   chapters: ChapterEntry[];
   topics?: ChapterEntry[];
+  parts?: PartInfo[];
 }
 
 const SUBJECT_INFO: Record<string, SubjectInfo> = {
@@ -129,6 +136,27 @@ const SUBJECT_INFO: Record<string, SubjectInfo> = {
         desc: '浮點數、條件數、LU/QR 分解、樞軸選取、Jacobi/Gauss-Seidel 迭代、共軛梯度法。',
         meta: '7 個小節 · 約 50 分鐘',
       },
+      {
+        id: 'ch16',
+        label: '第十六章',
+        title: 'Least Squares 與偽逆',
+        desc: '從 overdetermined systems、投影與 normal equations，一路走到 QR、pseudoinverse 與 minimum-norm solution。',
+        meta: '6 個小節 · 約 40 分鐘',
+      },
+      {
+        id: 'ch17',
+        label: '第十七章',
+        title: 'Jordan 標準形',
+        desc: '對角化失敗怎麼辦：Schur 分解、Cayley-Hamilton、廣義特徵向量、Jordan 區塊與 ODE 重根。',
+        meta: '7 個小節 · 約 50 分鐘',
+      },
+      {
+        id: 'ch18',
+        label: '第十八章',
+        title: '對偶空間',
+        desc: '線性泛函、對偶基底、轉置的真正意義、零化子、協變量與梯度、雙對偶 V**。',
+        meta: '7 個小節 · 約 45 分鐘',
+      },
     ],
   },
   algebra: {
@@ -150,6 +178,118 @@ const SUBJECT_INFO: Record<string, SubjectInfo> = {
       { id: 'ch11', label: '專題 B', title: '表示論入門', desc: '群的矩陣表示、特徵標、不可約分解、傅立葉變換的群論本質。', meta: '5 個小節', topic: true },
       { id: 'ch12', label: '專題 C', title: '代數幾何入門', desc: '代數簇、理想與幾何的對應、Hilbert 零點定理、橢圓曲線。', meta: '5 個小節', topic: true },
       { id: 'ch13', label: '專題 D', title: '編碼理論', desc: '雜訊通道、漢明距離、線性碼、Hamming(7,4)、Reed-Solomon 碼。', meta: '5 個小節', topic: true },
+    ],
+  },
+  analysis: {
+    title: '實分析',
+    desc: '從有理數的缺陷出發，建立完備性、極限、微積分的嚴格基礎，再推廣到測度論與多變數',
+    chapters: [
+      // Part I 直接放在 chapters 裡（不需要分隔線）
+      {
+        id: 'ch1',
+        label: '第一章',
+        title: '實數的完備性',
+        desc: '有理數的洞、上確界、完備性公理、Archimedean 性質、區間套、不可數性、Cantor 集。',
+        meta: '10 個小節 · 約 60 分鐘',
+      },
+      {
+        id: 'ch2',
+        label: '第二章',
+        title: '數列與極限',
+        desc: 'ε-N 定義、極限運算律、單調有界、Bolzano-Weierstrass、Cauchy 列、上下極限。',
+        meta: '9 個小節 · 約 55 分鐘',
+      },
+      {
+        id: 'ch3',
+        label: '第三章',
+        title: '級數',
+        desc: '部分和、比較法、比值/根式法、積分判別法、交替級數、絕對/條件收斂、冪級數、Taylor 級數。',
+        meta: '9 個小節 · 約 55 分鐘',
+      },
+      {
+        id: 'ch4',
+        label: '第四章',
+        title: '連續性',
+        desc: 'ε-δ 極限、連續定義、間斷點、中間值定理、極值定理、均勻連續、函數空間。',
+        meta: '9 個小節 · 約 55 分鐘',
+      },
+      {
+        id: 'ch5',
+        label: '第五章',
+        title: '微分',
+        desc: "導數定義、可微與連續、微分法則、均值定理、L'Hôpital、Taylor 餘項、凸函數、反函數定理。",
+        meta: '9 個小節 · 約 55 分鐘',
+      },
+      {
+        id: 'ch6',
+        label: '第六章',
+        title: 'Riemann 積分',
+        desc: '上和下和、可積條件、微積分基本定理、積分技巧、瑕積分、逐項積分、Gamma 函數。',
+        meta: '9 個小節 · 約 55 分鐘',
+      },
+      {
+        id: 'ch7',
+        label: '第七章',
+        title: '函數列與均勻收斂',
+        desc: '逐點 vs 均勻收斂、M-test、保持連續/微分/積分、冪級數性質、Stone-Weierstrass、Arzela-Ascoli。',
+        meta: '10 個小節 · 約 60 分鐘',
+      },
+      {
+        id: 'ch8',
+        label: '第八章',
+        title: '度量空間',
+        desc: 'Lᵖ 範數、函數空間度量、開集閉集、完備性、緊緻性、連通性、壓縮映射定理。',
+        meta: '10 個小節 · 約 65 分鐘',
+      },
+    ],
+    parts: [
+      {
+        label: 'Part II：測度與積分',
+        desc: '從 Riemann 積分的局限出發，建立 Lebesgue 測度與積分',
+        chapters: [
+          {
+            id: 'ch9',
+            label: '第九章',
+            title: 'Lebesgue 測度',
+            desc: '外測度、可測集、σ-代數、測度零集、不可測集（Vitali）、Cantor 集的測度。',
+            meta: '9 個小節 · 約 60 分鐘',
+          },
+          {
+            id: 'ch10',
+            label: '第十章',
+            title: 'Lebesgue 積分',
+            desc: '簡單函數積分、MCT、Fatou 引理、DCT（控制收斂定理）、跟 Riemann 的關係、Fubini。',
+            meta: '9 個小節 · 約 60 分鐘',
+          },
+          {
+            id: 'ch11',
+            label: '第十一章',
+            title: 'Lᵖ 空間',
+            desc: 'Lᵖ 範數、Hölder/Minkowski 不等式、Riesz-Fischer（完備性）、L² 內積、收斂模式、對偶。',
+            meta: '9 個小節 · 約 60 分鐘',
+          },
+          {
+            id: 'ch12',
+            label: '第十二章',
+            title: 'Hilbert 空間入門',
+            desc: '內積空間、正交投影、Fourier 展開、Riesz 表示、弱收斂、緊算子、量子力學的語言。',
+            meta: '9 個小節 · 約 60 分鐘',
+          },
+        ],
+      },
+      {
+        label: 'Part III：多變數分析',
+        desc: '把微積分從一變數推廣到多變數',
+        chapters: [
+          {
+            id: 'ch13',
+            label: '第十三章',
+            title: '多變數微分',
+            desc: 'Rⁿ 拓撲、偏導數、全微分、Jacobian、鏈式法則、Hessian、反函數定理、隱函數定理。',
+            meta: '9 個小節 · 約 60 分鐘',
+          },
+        ],
+      },
     ],
   },
 };
@@ -187,6 +327,27 @@ const SUBJECT_INFO: Record<string, SubjectInfo> = {
             <p class="ch-desc">{{ ch.desc }}</p>
             <span class="ch-meta">{{ ch.meta }}</span>
           </a>
+        }
+      }
+
+      @if (info().parts) {
+        @for (part of info().parts; track part.label) {
+          <div class="section-divider">
+            <span class="divider-line"></span>
+            <span class="divider-text">{{ part.label }}</span>
+            <span class="divider-line"></span>
+          </div>
+          @if (part.desc) {
+            <p class="section-desc">{{ part.desc }}</p>
+          }
+          @for (ch of part.chapters; track ch.id) {
+            <a class="chapter-card" [routerLink]="['/learn', subject(), ch.id, '1']">
+              <span class="ch-label">{{ ch.label }}</span>
+              <h2 class="ch-title">{{ ch.title }}</h2>
+              <p class="ch-desc">{{ ch.desc }}</p>
+              <span class="ch-meta">{{ ch.meta }}</span>
+            </a>
+          }
         }
       }
     </div>
