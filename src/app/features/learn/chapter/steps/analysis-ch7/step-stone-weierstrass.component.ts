@@ -1,6 +1,7 @@
 import { Component, signal, computed } from '@angular/core';
 import { ProseBlockComponent } from '../../../shared/prose-block/prose-block.component';
 import { ChallengeCardComponent } from '../../../shared/challenge-card/challenge-card.component';
+import { KatexComponent } from '../../../shared/katex/katex.component';
 import { sampleFn, supNorm } from './analysis-ch7-util';
 
 // Bernstein polynomial approximation
@@ -34,16 +35,14 @@ const PRESETS: Preset[] = [
 @Component({
   selector: 'app-step-stone-weierstrass',
   standalone: true,
-  imports: [ProseBlockComponent, ChallengeCardComponent],
+  imports: [ProseBlockComponent, ChallengeCardComponent, KatexComponent],
   template: `
     <app-prose-block title="Stone-Weierstrass 定理" subtitle="§7.8">
       <p>
         <strong>Weierstrass 逼近定理</strong>：[a,b] 上的任何連續函數都能被
         <strong>多項式均勻逼近</strong>。
       </p>
-      <p class="formula">
-        ∀ε > 0, ∃ 多項式 p 使得 sup|f(x) − p(x)| &lt; ε
-      </p>
+      <app-math block [e]="formulaSW"></app-math>
       <p>
         構造性證明用 <strong>Bernstein 多項式</strong>：
         Bₙ(f)(x) = Σ f(k/n) C(n,k) xᵏ(1−x)ⁿ⁻ᵏ。
@@ -123,6 +122,7 @@ const PRESETS: Preset[] = [
   `,
 })
 export class StepStoneWeierstrassComponent {
+  readonly formulaSW = String.raw`\forall\varepsilon>0,\;\exists\;\text{多項式}\;p\;\text{使得}\;\sup|f(x)-p(x)|<\varepsilon`;
   readonly presets = PRESETS;
   readonly selIdx = signal(0);
   readonly nVal = signal(10);

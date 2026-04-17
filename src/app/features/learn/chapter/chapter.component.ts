@@ -284,6 +284,9 @@ import { StepExtremeValueComponent } from './steps/analysis-ch4/step-extreme-val
 import { StepUniformContinuityComponent } from './steps/analysis-ch4/step-uniform-continuity.component';
 import { StepFunctionSpacesComponent } from './steps/analysis-ch4/step-function-spaces.component';
 import { StepCh4MindMapComponent } from './steps/analysis-ch4/step-ch4-mind-map.component';
+import { StepExploreFourierApproxComponent } from './steps/analysis-ch4/step-explore-fourier-approx.component';
+import { StepExploreTaylorComponent } from './steps/analysis-ch4/step-explore-taylor.component';
+import { StepExplorePdeComponent } from './steps/analysis-ch4/step-explore-pde.component';
 
 // Analysis Ch5 (differentiation)
 import { StepDerivativeDefComponent } from './steps/analysis-ch5/step-derivative-def.component';
@@ -385,6 +388,146 @@ import { StepMvtTaylorMvComponent } from './steps/analysis-ch13/step-mvt-taylor-
 import { StepInverseFunctionMvComponent } from './steps/analysis-ch13/step-inverse-function-mv.component';
 import { StepImplicitFunctionComponent } from './steps/analysis-ch13/step-implicit-function.component';
 import { StepCh13MindMapComponent as StepCh13AnalysisMindMapComponent } from './steps/analysis-ch13/step-ch13-mind-map.component';
+
+// Analysis Ch14 (multivariable integration)
+import { StepDoubleIntegralIdeaComponent } from './steps/analysis-ch14/step-double-integral-idea.component';
+import { StepFubiniComponent } from './steps/analysis-ch14/step-fubini.component';
+import { StepIteratedIntegralsComponent } from './steps/analysis-ch14/step-iterated-integrals.component';
+import { StepNonrectangularComponent } from './steps/analysis-ch14/step-nonrectangular.component';
+import { StepChangeOfOrderComponent } from './steps/analysis-ch14/step-change-of-order.component';
+import { StepPolarCoordsComponent } from './steps/analysis-ch14/step-polar-coords.component';
+import { StepChangeOfVariablesComponent } from './steps/analysis-ch14/step-change-of-variables.component';
+import { StepImproper2dComponent } from './steps/analysis-ch14/step-improper-2d.component';
+import { StepApplications2dComponent } from './steps/analysis-ch14/step-applications-2d.component';
+import { StepCh14MindMapComponent } from './steps/analysis-ch14/step-ch14-mind-map.component';
+
+// Analysis Ch15 (line integrals & Green's theorem)
+import { StepVectorFieldsIntroComponent } from './steps/analysis-ch15/step-vector-fields-intro.component';
+import { StepLineIntegralScalarComponent } from './steps/analysis-ch15/step-line-integral-scalar.component';
+import { StepLineIntegralVectorComponent } from './steps/analysis-ch15/step-line-integral-vector.component';
+import { StepConservativeFieldsComponent } from './steps/analysis-ch15/step-conservative-fields.component';
+import { StepCurlDivergenceComponent } from './steps/analysis-ch15/step-curl-divergence.component';
+import { StepGreenTheoremComponent } from './steps/analysis-ch15/step-green-theorem.component';
+import { StepGreenAreaComponent } from './steps/analysis-ch15/step-green-area.component';
+import { StepFluxComponent } from './steps/analysis-ch15/step-flux.component';
+import { StepSimplyConnectedComponent } from './steps/analysis-ch15/step-simply-connected.component';
+import { StepCh15MindMapComponent } from './steps/analysis-ch15/step-ch15-mind-map.component';
+
+// Analysis Ch16 (surface integrals & Stokes/divergence)
+import { StepParametricSurfacesComponent } from './steps/analysis-ch16/step-parametric-surfaces.component';
+import { StepSurfaceAreaComponent } from './steps/analysis-ch16/step-surface-area.component';
+import { StepScalarSurfaceIntegralComponent } from './steps/analysis-ch16/step-scalar-surface-integral.component';
+import { StepFlux3dComponent } from './steps/analysis-ch16/step-flux-3d.component';
+import { StepDivergenceTheoremComponent } from './steps/analysis-ch16/step-divergence-theorem.component';
+import { StepCurl3dComponent } from './steps/analysis-ch16/step-curl-3d.component';
+import { StepStokesTheoremComponent } from './steps/analysis-ch16/step-stokes-theorem.component';
+import { StepOrientationComponent } from './steps/analysis-ch16/step-orientation.component';
+import { StepUnificationFtcComponent } from './steps/analysis-ch16/step-unification-ftc.component';
+import { StepCh16MindMapComponent } from './steps/analysis-ch16/step-ch16-mind-map.component';
+
+// Analysis Ch17 (Fourier analysis)
+import { StepWhyFourierComponent } from './steps/analysis-ch17/step-why-fourier.component';
+import { StepFourierCoefficientsComponent } from './steps/analysis-ch17/step-fourier-coefficients.component';
+import { StepPartialSumsComponent } from './steps/analysis-ch17/step-partial-sums.component';
+import { StepGibbsPhenomenonComponent } from './steps/analysis-ch17/step-gibbs.component';
+import { StepConvergenceTheoremsComponent } from './steps/analysis-ch17/step-convergence-theorems.component';
+import { StepParsevalComponent } from './steps/analysis-ch17/step-parseval.component';
+import { StepFourierTransformComponent } from './steps/analysis-ch17/step-fourier-transform.component';
+import { StepConvolutionComponent as StepConvolutionFourierComponent } from './steps/analysis-ch17/step-convolution.component';
+import { StepApplicationsFourierComponent } from './steps/analysis-ch17/step-applications-fourier.component';
+import { StepCh17MindMapComponent } from './steps/analysis-ch17/step-ch17-mind-map.component';
+
+// Analysis Ch19 (differential forms)
+import { StepWhyFormsComponent } from './steps/analysis-ch19/step-why-forms.component';
+import { StepOneFormsComponent } from './steps/analysis-ch19/step-one-forms.component';
+import { StepTwoFormsComponent } from './steps/analysis-ch19/step-two-forms.component';
+import { StepExteriorDerivativeComponent } from './steps/analysis-ch19/step-exterior-derivative.component';
+import { StepPullbackComponent } from './steps/analysis-ch19/step-pullback.component';
+import { StepGeneralizedStokesComponent } from './steps/analysis-ch19/step-generalized-stokes.component';
+import { StepClosedExactComponent } from './steps/analysis-ch19/step-closed-exact.component';
+import { StepIntegrationFormsComponent } from './steps/analysis-ch19/step-integration-forms.component';
+import { StepManifoldsPreviewComponent } from './steps/analysis-ch19/step-manifolds-preview.component';
+import { StepCh19MindMapComponent } from './steps/analysis-ch19/step-ch19-mind-map.component';
+
+// Analysis Ch18 (distributions & generalized functions)
+import { StepWhyDistributionsComponent } from './steps/analysis-ch18/step-why-distributions.component';
+import { StepTestFunctionsComponent } from './steps/analysis-ch18/step-test-functions.component';
+import { StepDistributionDefComponent } from './steps/analysis-ch18/step-distribution-def.component';
+import { StepDiracDeltaComponent } from './steps/analysis-ch18/step-dirac-delta.component';
+import { StepDistributionalDerivativeComponent } from './steps/analysis-ch18/step-distributional-derivative.component';
+import { StepSchwartzSpaceComponent } from './steps/analysis-ch18/step-schwartz-space.component';
+import { StepFourierDistributionsComponent } from './steps/analysis-ch18/step-fourier-distributions.component';
+import { StepConvolutionDistributionsComponent } from './steps/analysis-ch18/step-convolution-distributions.component';
+import { StepGreenFunctionComponent } from './steps/analysis-ch18/step-green-function.component';
+import { StepCh18MindMapComponent } from './steps/analysis-ch18/step-ch18-mind-map.component';
+
+// Topology Ch1
+import { StepWhyTopologyComponent } from './steps/topology-ch1/step-why-topology.component';
+// Complex Analysis Ch1
+import { StepWhatIsComplexComponent } from './steps/complex-ch1/step-what-is-complex.component';
+import { StepComplexArithmeticComponent } from './steps/complex-ch1/step-complex-arithmetic.component';
+import { StepPolarFormComponent } from './steps/complex-ch1/step-polar-form.component';
+import { StepComplexSetsComponent } from './steps/complex-ch1/step-complex-sets.component';
+// Complex Analysis Ch2
+import { StepComplexFunctionsComponent } from './steps/complex-ch2/step-complex-functions.component';
+import { StepCauchyRiemannComponent } from './steps/complex-ch2/step-cauchy-riemann.component';
+import { StepAnalyticExamplesComponent } from './steps/complex-ch2/step-analytic-examples.component';
+import { StepHarmonicComponent } from './steps/complex-ch2/step-harmonic.component';
+import { StepComplexDissectionComponent } from './steps/complex-ch2/step-complex-dissection.component';
+import { StepDeepInversionComponent } from './steps/complex-ch2/step-deep-inversion.component';
+import { StepDeepSquareComponent } from './steps/complex-ch2/step-deep-square.component';
+import { StepDeepExpComponent } from './steps/complex-ch2/step-deep-exp.component';
+// Algebraic Geometry Ch1
+import { StepPolyShapesComponent } from './steps/ag-ch1/step-poly-shapes.component';
+import { StepAffineVarietyComponent } from './steps/ag-ch1/step-affine-variety.component';
+import { StepSingularPointsComponent } from './steps/ag-ch1/step-singular-points.component';
+import { StepCurveTopologyComponent } from './steps/ag-ch1/step-curve-topology.component';
+import { StepProjectiveComponent } from './steps/ag-ch1/step-projective.component';
+// Algebraic Geometry Ch2
+import { StepVarietyToIdealComponent } from './steps/ag-ch2/step-variety-to-ideal.component';
+import { StepIdealToVarietyComponent } from './steps/ag-ch2/step-ideal-to-variety.component';
+import { StepAgNullstellensatzComponent } from './steps/ag-ch2/step-nullstellensatz.component';
+import { StepAgIrreducibleComponent } from './steps/ag-ch2/step-irreducible.component';
+import { StepZariskiComponent } from './steps/ag-ch2/step-zariski.component';
+// Algebraic Geometry Ch3
+import { StepEcIntroComponent } from './steps/ag-ch3/step-ec-intro.component';
+import { StepEcGroupLawComponent } from './steps/ag-ch3/step-ec-group-law.component';
+import { StepEcIdentityComponent } from './steps/ag-ch3/step-ec-identity.component';
+import { StepEcRationalComponent } from './steps/ag-ch3/step-ec-rational.component';
+import { StepEcCryptoComponent } from './steps/ag-ch3/step-ec-crypto.component';
+// Complex Analysis Ch3
+import { StepContourIntegralComponent } from './steps/complex-ch3/step-contour-integral.component';
+import { StepCauchyTheoremComponent } from './steps/complex-ch3/step-cauchy-theorem.component';
+import { StepCauchyFormulaComponent } from './steps/complex-ch3/step-cauchy-formula.component';
+import { StepLiouvilleComponent } from './steps/complex-ch3/step-liouville.component';
+import { StepMaxModulusComponent } from './steps/complex-ch3/step-max-modulus.component';
+// Complex Analysis Ch4
+import { StepTaylorComplexComponent } from './steps/complex-ch4/step-taylor-complex.component';
+import { StepLaurentComponent } from './steps/complex-ch4/step-laurent.component';
+import { StepSingularitiesComponent } from './steps/complex-ch4/step-singularities.component';
+import { StepZerosPolesComponent } from './steps/complex-ch4/step-zeros-poles.component';
+import { StepRiemannSphereComponent } from './steps/complex-ch4/step-riemann-sphere.component';
+import { StepOpenSetAxiomsComponent } from './steps/topology-ch1/step-open-set-axioms.component';
+import { StepTopologyExamplesComponent } from './steps/topology-ch1/step-topology-examples.component';
+import { StepTopoClosedSetsComponent } from './steps/topology-ch1/step-closed-sets.component';
+import { StepTopoBasisComponent } from './steps/topology-ch1/step-basis.component';
+import { StepMetricTopologyComponent } from './steps/topology-ch1/step-metric-topology.component';
+import { StepComparingTopologiesComponent } from './steps/topology-ch1/step-comparing-topologies.component';
+import { StepSubspaceTopologyComponent } from './steps/topology-ch1/step-subspace-topology.component';
+import { StepInteriorClosureComponent } from './steps/topology-ch1/step-interior-closure.component';
+import { StepCh1TopoMindMapComponent } from './steps/topology-ch1/step-ch1-topo-mind-map.component';
+
+// Topology Ch2
+import { StepContinuousMapsComponent } from './steps/topology-ch2/step-continuous-maps.component';
+import { StepContinuityExamplesComponent } from './steps/topology-ch2/step-continuity-examples.component';
+import { StepHomeomorphismComponent } from './steps/topology-ch2/step-homeomorphism.component';
+import { StepTopologicalInvariantsComponent } from './steps/topology-ch2/step-topological-invariants.component';
+import { StepProductTopologyComponent } from './steps/topology-ch2/step-product-topology.component';
+import { StepQuotientTopologyComponent } from './steps/topology-ch2/step-quotient-topology.component';
+import { StepHausdorffComponent } from './steps/topology-ch2/step-hausdorff.component';
+import { StepOpenClosedMapsComponent } from './steps/topology-ch2/step-open-closed-maps.component';
+import { StepEmbeddingComponent } from './steps/topology-ch2/step-embedding.component';
+import { StepCh2TopoMindMapComponent } from './steps/topology-ch2/step-ch2-topo-mind-map.component';
 
 // Linalg Ch5 (four subspaces) steps
 import { StepSubspaceComponent } from './steps/linalg-ch5/step-subspace.component';
@@ -819,6 +962,9 @@ const ANALYSIS_CHAPTERS: Record<string, ChapterConfig> = {
       { num: 7, title: '均勻連續' },
       { num: 8, title: '連續函數空間' },
       { num: 9, title: '心智圖' },
+      { num: 10, title: '🔍 深入：Fourier 逼近' },
+      { num: 11, title: '🔍 深入：Taylor 多項式' },
+      { num: 12, title: '🔍 深入：PDE 數值解' },
     ],
   },
   ch5: {
@@ -949,12 +1095,216 @@ const ANALYSIS_CHAPTERS: Record<string, ChapterConfig> = {
       { num: 9, title: '心智圖' },
     ],
   },
+  ch14: {
+    title: '第十四章：多變數積分與 Fubini',
+    steps: [
+      { num: 1, title: '重積分的想法' },
+      { num: 2, title: 'Fubini 定理' },
+      { num: 3, title: '累次積分' },
+      { num: 4, title: '非矩形區域' },
+      { num: 5, title: '交換積分順序' },
+      { num: 6, title: '極座標換元' },
+      { num: 7, title: '換元公式與 Jacobian' },
+      { num: 8, title: '多維瑕積分' },
+      { num: 9, title: '面積、質心、慣性矩' },
+      { num: 10, title: '心智圖' },
+    ],
+  },
+  ch15: {
+    title: '第十五章：曲線積分與 Green 定理',
+    steps: [
+      { num: 1, title: '向量場' },
+      { num: 2, title: '標量線積分' },
+      { num: 3, title: '向量線積分（做功）' },
+      { num: 4, title: '保守場與路徑無關性' },
+      { num: 5, title: '旋度與散度' },
+      { num: 6, title: 'Green 定理' },
+      { num: 7, title: 'Green 定理求面積' },
+      { num: 8, title: '通量與散度定理' },
+      { num: 9, title: '單連通區域' },
+      { num: 10, title: '心智圖' },
+    ],
+  },
+  ch16: {
+    title: '第十六章：曲面積分與 Stokes/散度定理',
+    steps: [
+      { num: 1, title: '參數曲面' },
+      { num: 2, title: '曲面面積' },
+      { num: 3, title: '標量曲面積分' },
+      { num: 4, title: '通量（向量曲面積分）' },
+      { num: 5, title: '散度定理' },
+      { num: 6, title: '三維旋度' },
+      { num: 7, title: 'Stokes 定理' },
+      { num: 8, title: '曲面的定向' },
+      { num: 9, title: '大統一：微積分基本定理' },
+      { num: 10, title: '心智圖' },
+    ],
+  },
+  ch17: {
+    title: '第十七章：Fourier 分析',
+    steps: [
+      { num: 1, title: '為什麼需要 Fourier 分析' },
+      { num: 2, title: 'Fourier 係數' },
+      { num: 3, title: '部分和逼近' },
+      { num: 4, title: 'Gibbs 現象' },
+      { num: 5, title: '收斂定理' },
+      { num: 6, title: 'Parseval 等式' },
+      { num: 7, title: 'Fourier 變換' },
+      { num: 8, title: '卷積定理' },
+      { num: 9, title: '壓縮與熱方程' },
+      { num: 10, title: '心智圖' },
+    ],
+  },
+  ch19: {
+    title: '第十九章：微分形式與廣義 Stokes',
+    steps: [
+      { num: 1, title: '為什麼需要微分形式' },
+      { num: 2, title: '1-form：吃向量吐數字' },
+      { num: 3, title: '2-form 與 wedge product' },
+      { num: 4, title: '外微分 d' },
+      { num: 5, title: '拉回（Pullback）' },
+      { num: 6, title: '廣義 Stokes 定理' },
+      { num: 7, title: '閉形式與恰當形式' },
+      { num: 8, title: '微分形式的積分' },
+      { num: 9, title: '展望：流形上的微積分' },
+      { num: 10, title: '心智圖' },
+    ],
+  },
+  ch18: {
+    title: '第十八章：分佈與廣義函數',
+    steps: [
+      { num: 1, title: '為什麼需要廣義函數' },
+      { num: 2, title: '測試函數空間 D' },
+      { num: 3, title: '分佈的定義' },
+      { num: 4, title: 'Dirac Delta' },
+      { num: 5, title: '分佈導數' },
+      { num: 6, title: 'Schwartz 空間與 tempered distributions' },
+      { num: 7, title: '分佈的 Fourier 變換' },
+      { num: 8, title: '卷積與逼近恆等式' },
+      { num: 9, title: '基本解與 Green 函數' },
+      { num: 10, title: '心智圖' },
+    ],
+  },
+};
+
+const TOPOLOGY_CHAPTERS: Record<string, ChapterConfig> = {
+  ch1: {
+    title: '第一章：拓撲空間與開集',
+    steps: [
+      { num: 1, title: '為什麼需要拓撲' },
+      { num: 2, title: '開集公理' },
+      { num: 3, title: '經典例子' },
+      { num: 4, title: '閉集' },
+      { num: 5, title: '基底與子基底' },
+      { num: 6, title: '從度量到拓撲' },
+      { num: 7, title: '比較拓撲' },
+      { num: 8, title: '子空間拓撲' },
+      { num: 9, title: '內部、閉包、邊界' },
+      { num: 10, title: '心智圖' },
+    ],
+  },
+  ch2: {
+    title: '第二章：連續映射與同胚',
+    steps: [
+      { num: 1, title: '拓撲版的連續' },
+      { num: 2, title: '連續映射的例子' },
+      { num: 3, title: '同胚' },
+      { num: 4, title: '拓撲不變量' },
+      { num: 5, title: '積拓撲' },
+      { num: 6, title: '商拓撲' },
+      { num: 7, title: '分離公理：Hausdorff' },
+      { num: 8, title: '開映射與閉映射' },
+      { num: 9, title: '嵌入' },
+      { num: 10, title: '心智圖' },
+    ],
+  },
+};
+
+const AG_CHAPTERS: Record<string, ChapterConfig> = {
+  ch1: {
+    title: '第一章：從多項式到幾何',
+    steps: [
+      { num: 1, title: '多項式 = 形狀' },
+      { num: 2, title: '零點集與仿射簇' },
+      { num: 3, title: '奇異點' },
+      { num: 4, title: '曲線的虧格' },
+      { num: 5, title: '射影化：加上無窮遠' },
+    ],
+  },
+  ch2: {
+    title: '第二章：理想與簇的對話',
+    steps: [
+      { num: 1, title: '從簇到理想 I(V)' },
+      { num: 2, title: '從理想到簇 V(I)' },
+      { num: 3, title: 'Nullstellensatz' },
+      { num: 4, title: '不可約分解' },
+      { num: 5, title: 'Zariski 拓撲' },
+    ],
+  },
+  ch3: {
+    title: '第三章：橢圓曲線',
+    steps: [
+      { num: 1, title: '什麼是橢圓曲線' },
+      { num: 2, title: '群法則：幾何加法' },
+      { num: 3, title: '單位元、逆元與結合律' },
+      { num: 4, title: '有理點與 Mordell 定理' },
+      { num: 5, title: '橢圓曲線與密碼學' },
+    ],
+  },
+};
+
+const COMPLEX_CHAPTERS: Record<string, ChapterConfig> = {
+  ch1: {
+    title: '第一章：複數與複數平面',
+    steps: [
+      { num: 1, title: '什麼是複數' },
+      { num: 2, title: '複數運算的幾何意義' },
+      { num: 3, title: '極座標與 Euler 公式' },
+      { num: 4, title: '複數平面上的集合' },
+    ],
+  },
+  ch2: {
+    title: '第二章：解析函數',
+    steps: [
+      { num: 1, title: '複變函數' },
+      { num: 2, title: 'Cauchy-Riemann 方程' },
+      { num: 3, title: '基本解析函數' },
+      { num: 4, title: '調和函數' },
+      { num: 5, title: '複變函數的 3D 解剖' },
+      { num: 6, title: '深入 1/z：反演與廣義圓' },
+      { num: 7, title: '深入 z²：角度加倍與兩到一' },
+      { num: 8, title: '深入 e^z：指數映射的週期性' },
+    ],
+  },
+  ch3: {
+    title: '第三章：複數積分',
+    steps: [
+      { num: 1, title: '什麼是路徑積分' },
+      { num: 2, title: 'Cauchy 積分定理' },
+      { num: 3, title: 'Cauchy 積分公式' },
+      { num: 4, title: 'Liouville 定理' },
+      { num: 5, title: '最大模原理' },
+    ],
+  },
+  ch4: {
+    title: '第四章：級數與奇異點',
+    steps: [
+      { num: 1, title: 'Taylor 級數' },
+      { num: 2, title: 'Laurent 級數' },
+      { num: 3, title: '奇異點分類' },
+      { num: 4, title: '零點與極點的階' },
+      { num: 5, title: 'Riemann 球面' },
+    ],
+  },
 };
 
 const SUBJECTS: Record<string, Record<string, ChapterConfig>> = {
   algebra: ALGEBRA_CHAPTERS,
   linalg: LINALG_CHAPTERS,
   analysis: ANALYSIS_CHAPTERS,
+  topology: TOPOLOGY_CHAPTERS,
+  complex: COMPLEX_CHAPTERS,
+  ag: AG_CHAPTERS,
 };
 
 @Component({
@@ -1226,6 +1576,9 @@ const SUBJECTS: Record<string, Record<string, ChapterConfig>> = {
     StepUniformContinuityComponent,
     StepFunctionSpacesComponent,
     StepCh4MindMapComponent,
+    StepExploreFourierApproxComponent,
+    StepExploreTaylorComponent,
+    StepExplorePdeComponent,
     // Analysis Ch5 (differentiation)
     StepDerivativeDefComponent,
     StepDiffContinuousComponent,
@@ -1318,6 +1671,138 @@ const SUBJECTS: Record<string, Record<string, ChapterConfig>> = {
     StepInverseFunctionMvComponent,
     StepImplicitFunctionComponent,
     StepCh13AnalysisMindMapComponent,
+    // Analysis Ch14 (multivariable integration)
+    StepDoubleIntegralIdeaComponent,
+    StepFubiniComponent,
+    StepIteratedIntegralsComponent,
+    StepNonrectangularComponent,
+    StepChangeOfOrderComponent,
+    StepPolarCoordsComponent,
+    StepChangeOfVariablesComponent,
+    StepImproper2dComponent,
+    StepApplications2dComponent,
+    StepCh14MindMapComponent,
+    // Analysis Ch15 (line integrals & Green's theorem)
+    StepVectorFieldsIntroComponent,
+    StepLineIntegralScalarComponent,
+    StepLineIntegralVectorComponent,
+    StepConservativeFieldsComponent,
+    StepCurlDivergenceComponent,
+    StepGreenTheoremComponent,
+    StepGreenAreaComponent,
+    StepFluxComponent,
+    StepSimplyConnectedComponent,
+    StepCh15MindMapComponent,
+    // Analysis Ch16 (surface integrals & Stokes/divergence)
+    StepParametricSurfacesComponent,
+    StepSurfaceAreaComponent,
+    StepScalarSurfaceIntegralComponent,
+    StepFlux3dComponent,
+    StepDivergenceTheoremComponent,
+    StepCurl3dComponent,
+    StepStokesTheoremComponent,
+    StepOrientationComponent,
+    StepUnificationFtcComponent,
+    StepCh16MindMapComponent,
+    // Analysis Ch17 (Fourier analysis)
+    StepWhyFourierComponent,
+    StepFourierCoefficientsComponent,
+    StepPartialSumsComponent,
+    StepGibbsPhenomenonComponent,
+    StepConvergenceTheoremsComponent,
+    StepParsevalComponent,
+    StepFourierTransformComponent,
+    StepConvolutionFourierComponent,
+    StepApplicationsFourierComponent,
+    StepCh17MindMapComponent,
+    // Analysis Ch19 (differential forms)
+    StepWhyFormsComponent,
+    StepOneFormsComponent,
+    StepTwoFormsComponent,
+    StepExteriorDerivativeComponent,
+    StepPullbackComponent,
+    StepGeneralizedStokesComponent,
+    StepClosedExactComponent,
+    StepIntegrationFormsComponent,
+    StepManifoldsPreviewComponent,
+    StepCh19MindMapComponent,
+    // Analysis Ch18 (distributions)
+    StepWhyDistributionsComponent,
+    StepTestFunctionsComponent,
+    StepDistributionDefComponent,
+    StepDiracDeltaComponent,
+    StepDistributionalDerivativeComponent,
+    StepSchwartzSpaceComponent,
+    StepFourierDistributionsComponent,
+    StepConvolutionDistributionsComponent,
+    StepGreenFunctionComponent,
+    StepCh18MindMapComponent,
+    // Topology Ch1
+    StepWhyTopologyComponent,
+    StepOpenSetAxiomsComponent,
+    StepTopologyExamplesComponent,
+    StepTopoClosedSetsComponent,
+    StepTopoBasisComponent,
+    StepMetricTopologyComponent,
+    StepComparingTopologiesComponent,
+    StepSubspaceTopologyComponent,
+    StepInteriorClosureComponent,
+    StepCh1TopoMindMapComponent,
+    // Topology Ch2
+    StepContinuousMapsComponent,
+    StepContinuityExamplesComponent,
+    StepHomeomorphismComponent,
+    StepTopologicalInvariantsComponent,
+    StepProductTopologyComponent,
+    StepQuotientTopologyComponent,
+    StepHausdorffComponent,
+    StepOpenClosedMapsComponent,
+    StepEmbeddingComponent,
+    StepCh2TopoMindMapComponent,
+    // Complex Analysis Ch1
+    StepWhatIsComplexComponent,
+    StepComplexArithmeticComponent,
+    StepPolarFormComponent,
+    StepComplexSetsComponent,
+    // Complex Analysis Ch2
+    StepComplexFunctionsComponent,
+    StepCauchyRiemannComponent,
+    StepAnalyticExamplesComponent,
+    StepHarmonicComponent,
+    StepComplexDissectionComponent,
+    StepDeepInversionComponent,
+    StepDeepSquareComponent,
+    StepDeepExpComponent,
+    // Complex Analysis Ch3
+    StepContourIntegralComponent,
+    StepCauchyTheoremComponent,
+    StepCauchyFormulaComponent,
+    StepLiouvilleComponent,
+    StepMaxModulusComponent,
+    // Complex Analysis Ch4
+    StepTaylorComplexComponent,
+    StepLaurentComponent,
+    StepSingularitiesComponent,
+    StepZerosPolesComponent,
+    StepRiemannSphereComponent,
+    // Algebraic Geometry Ch1
+    StepPolyShapesComponent,
+    StepAffineVarietyComponent,
+    StepSingularPointsComponent,
+    StepCurveTopologyComponent,
+    StepProjectiveComponent,
+    // Algebraic Geometry Ch2
+    StepVarietyToIdealComponent,
+    StepIdealToVarietyComponent,
+    StepAgNullstellensatzComponent,
+    StepAgIrreducibleComponent,
+    StepZariskiComponent,
+    // Algebraic Geometry Ch3
+    StepEcIntroComponent,
+    StepEcGroupLawComponent,
+    StepEcIdentityComponent,
+    StepEcRationalComponent,
+    StepEcCryptoComponent,
   ],
   templateUrl: './chapter.component.html',
   styleUrl: './chapter.component.scss',

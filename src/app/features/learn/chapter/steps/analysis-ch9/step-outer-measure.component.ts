@@ -29,27 +29,58 @@ import { ChallengeCardComponent } from '../../../shared/challenge-card/challenge
         <input type="range" min="-4" max="0" step="0.1" [value]="epsLog()"
                (input)="epsLog.set(+($any($event.target)).value)" class="sl" />
       </div>
+      <div class="ctrl-row">
+        <span class="cl">顯示前 {{ showCount() }} 個點</span>
+        <input type="range" min="1" max="25" step="1" [value]="showCount()"
+               (input)="showCount.set(+($any($event.target)).value)" class="sl" />
+      </div>
 
-      <svg viewBox="-10 -20 520 80" class="om-svg">
+      <svg viewBox="-10 -40 520 120" class="om-svg">
+        <!-- Number line -->
         <line x1="10" y1="30" x2="500" y2="30" stroke="var(--border)" stroke-width="0.8" />
-
-        <!-- The set: a few points (simulating Q ∩ [0,1]) -->
-        @for (p of points; track $index) {
-          <circle [attr.cx]="toX(p)" cy="30" r="2" fill="var(--accent)" />
+        @for (tick of [0, 0.25, 0.5, 0.75, 1]; track tick) {
+          <line [attr.x1]="toX(tick)" y1="26" [attr.x2]="toX(tick)" y2="34" stroke="var(--text-muted)" stroke-width="0.6" />
+          <text [attr.x]="toX(tick)" y="45" text-anchor="middle" fill="var(--text-muted)" font-size="8">{{ tick }}</text>
         }
 
-        <!-- Covering intervals -->
-        @for (iv of covers(); track $index; let i = $index) {
-          <rect [attr.x]="toX(iv.center - iv.hw)" y="22"
+        <!-- Covering intervals (drawn first so points appear on top) -->
+        @for (iv of visibleCovers(); track $index) {
+          <rect [attr.x]="toX(iv.center - iv.hw)" y="18"
                 [attr.width]="Math.max(0.5, toX(iv.center + iv.hw) - toX(iv.center - iv.hw))"
-                height="16" fill="#5a8a5a" fill-opacity="0.15" stroke="#5a8a5a" stroke-width="0.5" rx="2" />
+                height="24" rx="3"
+                [attr.fill]="'hsla(' + (iv.hue) + ', 55%, 60%, 0.12)'"
+                [attr.stroke]="'hsla(' + (iv.hue) + ', 55%, 50%, 0.5)'" stroke-width="0.6" />
         }
+
+        <!-- The rational points -->
+        @for (p of visiblePoints(); track $index) {
+          <circle [attr.cx]="toX(p)" cy="30" r="2.5" fill="var(--accent)" />
+        }
+
+        <!-- Width label for first interval -->
+        @if (visibleCovers().length > 0) {
+          <text [attr.x]="toX(visibleCovers()[0].center)" y="-5" text-anchor="middle"
+                fill="var(--text-muted)" font-size="7">ε/4</text>
+          @if (visibleCovers().length > 1) {
+            <text [attr.x]="toX(visibleCovers()[1].center)" y="-5" text-anchor="middle"
+                  fill="var(--text-muted)" font-size="7">ε/8</text>
+          }
+        }
+
+        <!-- Total length bar -->
+        <rect x="10" y="58" [attr.width]="Math.min(490, totalLength() * 490)" height="8"
+              fill="var(--accent)" fill-opacity="0.3" rx="2" />
+        <rect x="10" y="58" width="490" height="8" fill="none" stroke="var(--border)" stroke-width="0.5" rx="2" />
+        <text x="255" y="78" text-anchor="middle" fill="var(--text-muted)" font-size="7">
+          總覆蓋長度 = {{ totalLength().toFixed(4) }}
+        </text>
       </svg>
 
       <div class="result-row">
-        <div class="r-card">點數：{{ points.length }}</div>
+        <div class="r-card">點數：{{ showCount() }}</div>
+        <div class="r-card">第 n 個寬度：ε/2ⁿ⁺¹</div>
         <div class="r-card">覆蓋總長：{{ totalLength().toExponential(2) }}</div>
-        <div class="r-card ok">外測度 = 0（可數集測度為零）</div>
+        <div class="r-card ok">外測度 = 0</div>
       </div>
 
       <div class="insight">
@@ -90,20 +121,28 @@ export class StepOuterMeasureComponent {
   readonly Math = Math;
   readonly epsLog = signal(-2);
   readonly eps = computed(() => Math.pow(10, this.epsLog()));
+  readonly showCount = signal(15);
 
-  // 15 rational points in [0,1]
-  readonly points = [0, 0.1, 1/3, 0.25, 0.5, 0.6, 2/3, 0.75, 0.8, 1/7, 3/7, 5/7, 0.9, 0.95, 1];
+  // 25 rational points in [0,1] (sorted for visual clarity)
+  private readonly allPoints = [
+    0, 1/7, 0.1, 1/5, 0.25, 2/7, 1/3, 3/8, 2/5, 3/7,
+    0.5, 4/7, 3/5, 5/8, 2/3, 5/7, 0.75, 4/5, 5/6, 6/7,
+    0.8, 0.85, 0.9, 0.95, 1,
+  ].sort((a, b) => a - b);
 
-  readonly covers = computed(() => {
+  readonly visiblePoints = computed(() => this.allPoints.slice(0, this.showCount()));
+
+  readonly visibleCovers = computed(() => {
     const e = this.eps();
-    return this.points.map((p, i) => ({
+    return this.visiblePoints().map((p, i) => ({
       center: p,
       hw: e / Math.pow(2, i + 2),
+      hue: (i * 137) % 360,
     }));
   });
 
   readonly totalLength = computed(() => {
-    return this.covers().reduce((s, c) => s + 2 * c.hw, 0);
+    return this.visibleCovers().reduce((s, c) => s + 2 * c.hw, 0);
   });
 
   toX(v: number): number { return 10 + v * 490; }

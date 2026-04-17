@@ -1,23 +1,26 @@
 import { Component } from '@angular/core';
 import { ProseBlockComponent } from '../../../shared/prose-block/prose-block.component';
 import { ChallengeCardComponent } from '../../../shared/challenge-card/challenge-card.component';
+import { KatexComponent } from '../../../shared/katex/katex.component';
 
 @Component({
   selector: 'app-step-arzela-ascoli',
   standalone: true,
-  imports: [ProseBlockComponent, ChallengeCardComponent],
+  imports: [ProseBlockComponent, ChallengeCardComponent, KatexComponent],
   template: `
     <app-prose-block title="Arzela-Ascoli 定理" subtitle="§7.9">
       <p>
         第二章的 <strong>Bolzano-Weierstrass</strong> 說：有界數列有收斂子列。
         <strong>Arzela-Ascoli</strong> 是函數版本：
       </p>
-      <p class="formula axiom">
-        如果函數列 {{ '{' }}fₙ{{ '}' }} 在 [a,b] 上<br />
-        (1) <strong>一致有界</strong>：∃M, |fₙ(x)| ≤ M ∀n, ∀x<br />
-        (2) <strong>等度連續</strong>：∀ε, ∃δ, ∀n, |x−y|&lt;δ ⟹ |fₙ(x)−fₙ(y)|&lt;ε<br />
-        那麼存在<strong>均勻收斂的子列</strong>。
-      </p>
+      <div class="aa-theorem">
+        <p>如果函數列 <app-math [e]="texFn"></app-math> 在 [a,b] 上滿足：</p>
+        <div class="aa-cond">
+          <div>(1) <strong>一致有界</strong>：<app-math [e]="texBounded"></app-math></div>
+          <div>(2) <strong>等度連續</strong>：<app-math [e]="texEquicont"></app-math></div>
+        </div>
+        <p>那麼存在<strong>均勻收斂的子列</strong>。</p>
+      </div>
     </app-prose-block>
 
     <app-challenge-card prompt="BW vs Arzela-Ascoli 的類比">
@@ -108,4 +111,8 @@ import { ChallengeCardComponent } from '../../../shared/challenge-card/challenge
       line-height: 1.8; strong { color: var(--text); } }
   `,
 })
-export class StepArzelaAscoliComponent {}
+export class StepArzelaAscoliComponent {
+  readonly texFn = String.raw`\{f_n\}`;
+  readonly texBounded = String.raw`\exists M,\;|f_n(x)|\le M\;\forall n,\forall x`;
+  readonly texEquicont = String.raw`\forall\varepsilon,\;\exists\delta,\;\forall n,\;|x-y|<\delta \Rightarrow |f_n(x)-f_n(y)|<\varepsilon`;
+}

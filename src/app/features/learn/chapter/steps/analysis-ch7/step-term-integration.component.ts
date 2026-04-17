@@ -1,19 +1,20 @@
 import { Component, signal, computed } from '@angular/core';
 import { ProseBlockComponent } from '../../../shared/prose-block/prose-block.component';
 import { ChallengeCardComponent } from '../../../shared/challenge-card/challenge-card.component';
+import { KatexComponent } from '../../../shared/katex/katex.component';
 import { sampleFn, partialSumFn } from './analysis-ch7-util';
 
 @Component({
   selector: 'app-step-term-integration',
   standalone: true,
-  imports: [ProseBlockComponent, ChallengeCardComponent],
+  imports: [ProseBlockComponent, ChallengeCardComponent, KatexComponent],
   template: `
     <app-prose-block title="逐項積分" subtitle="§7.6">
       <p>
         <strong>定理</strong>：如果 Σfₙ 在 [a,b] 上<strong>均勻收斂</strong>到 f，
         且每個 fₙ 可積，那麼：
       </p>
-      <p class="formula">∫ₐᵇ Σfₙ(x) dx = Σ ∫ₐᵇ fₙ(x) dx</p>
+      <app-math block [e]="formulaTI"></app-math>
       <p>
         「先加再積 = 先積再加」。均勻收斂保證交換是安全的。
       </p>
@@ -92,6 +93,7 @@ import { sampleFn, partialSumFn } from './analysis-ch7-util';
   `,
 })
 export class StepTermIntegrationComponent {
+  readonly formulaTI = String.raw`\int_a^b \sum f_n(x)\,\mathrm{d}x = \sum \int_a^b f_n(x)\,\mathrm{d}x`;
   readonly Math = Math;
   readonly nVal = signal(8);
   readonly exact = 2 * Math.LN2 - 1;

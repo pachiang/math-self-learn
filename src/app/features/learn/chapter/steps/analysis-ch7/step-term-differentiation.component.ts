@@ -1,20 +1,18 @@
 import { Component } from '@angular/core';
 import { ProseBlockComponent } from '../../../shared/prose-block/prose-block.component';
 import { ChallengeCardComponent } from '../../../shared/challenge-card/challenge-card.component';
+import { KatexComponent } from '../../../shared/katex/katex.component';
 
 @Component({
   selector: 'app-step-term-differentiation',
   standalone: true,
-  imports: [ProseBlockComponent, ChallengeCardComponent],
+  imports: [ProseBlockComponent, ChallengeCardComponent, KatexComponent],
   template: `
     <app-prose-block title="逐項微分" subtitle="§7.5">
       <p>
         什麼時候可以交換 Σ 和 d/dx？比逐項積分<strong>更嚴格</strong>。
       </p>
-      <p class="formula">
-        如果 Σfₙ 逐點收斂，且 Σfₙ' <strong>均勻收斂</strong>，那麼<br />
-        (Σfₙ)' = Σfₙ'
-      </p>
+      <app-math block [e]="formulaTD"></app-math>
       <p>
         注意：是<strong>導數的級數</strong>均勻收斂，不只是原級數。
         這是因為微分是「放大局部行為」的操作，需要更強的控制。
@@ -82,4 +80,6 @@ import { ChallengeCardComponent } from '../../../shared/challenge-card/challenge
       p { margin: 0; } strong { color: var(--accent); } }
   `,
 })
-export class StepTermDifferentiationComponent {}
+export class StepTermDifferentiationComponent {
+  readonly formulaTD = String.raw`\sum f_n \;\text{逐點收斂},\;\sum f_n' \;{\color{#c06060}\text{均勻收斂}} \;\Longrightarrow\; \left(\sum f_n\right)' = \sum f_n'`;
+}
