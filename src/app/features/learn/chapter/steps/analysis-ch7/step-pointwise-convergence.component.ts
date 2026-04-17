@@ -1,33 +1,34 @@
 import { Component, signal, computed } from '@angular/core';
 import { ProseBlockComponent } from '../../../shared/prose-block/prose-block.component';
 import { ChallengeCardComponent } from '../../../shared/challenge-card/challenge-card.component';
+import { KatexComponent } from '../../../shared/katex/katex.component';
 import { sampleFn } from './analysis-ch7-util';
 
 interface Preset { name: string; fn: (n: number, x: number) => number; limit: (x: number) => number;
-  xRange: [number, number]; desc: string; uniformlyConverges: boolean; }
+  xRange: [number, number]; yRange: [number, number]; desc: string; uniformlyConverges: boolean; }
 
 const PRESETS: Preset[] = [
   { name: 'xⁿ on [0,1]', fn: (n, x) => Math.pow(x, n),
-    limit: (x) => x < 1 ? 0 : 1, xRange: [0, 1],
+    limit: (x) => x < 1 ? 0 : 1, xRange: [0, 1], yRange: [0, 1.05],
     desc: '逐點收斂到不連續函數（x<1→0, x=1→1）。不是均勻收斂。', uniformlyConverges: false },
   { name: 'x/n on [0,1]', fn: (n, x) => x / n,
-    limit: () => 0, xRange: [0, 1],
-    desc: '均勻收斂到 0。sup|fₙ(x)| = 1/n → 0。', uniformlyConverges: true },
+    limit: () => 0, xRange: [0, 1], yRange: [0, 1.05],
+    desc: '均勻收斂到 0（在 [0,1] 上）。sup|x/n| = 1/n → 0。', uniformlyConverges: true },
   { name: 'nxe^(−nx²)', fn: (n, x) => n * x * Math.exp(-n * x * x),
-    limit: () => 0, xRange: [0, 2],
-    desc: '逐點收斂到 0，但 sup|fₙ| 不趨向 0。不是均勻收斂。', uniformlyConverges: false },
+    limit: () => 0, xRange: [0, 2], yRange: [0, 1.1],
+    desc: '逐點收斂到 0，但 sup|fₙ| = √(n/(2e)) → ∞。不是均勻收斂。', uniformlyConverges: false },
 ];
 
 @Component({
   selector: 'app-step-pointwise-convergence',
   standalone: true,
-  imports: [ProseBlockComponent, ChallengeCardComponent],
+  imports: [ProseBlockComponent, ChallengeCardComponent, KatexComponent],
   template: `
     <app-prose-block title="逐點收斂" subtitle="§7.1">
       <p>
         函數列 {{ '{' }}fₙ{{ '}' }} <strong>逐點收斂</strong>到 f，如果對每個固定的 x：
       </p>
-      <p class="formula">lim(n→∞) fₙ(x) = f(x)</p>
+      <app-math block [e]="formulaPW"></app-math>
       <p>
         注意「對每個 x」——不同的 x 收斂速度可以不同。
         這是逐點收斂的弱點：它<strong>不保證保持連續性</strong>。
@@ -49,6 +50,11 @@ const PRESETS: Preset[] = [
       <svg viewBox="0 0 520 240" class="pw-svg">
         <line x1="40" y1="200" x2="500" y2="200" stroke="var(--border)" stroke-width="0.8" />
         <line x1="40" y1="10" x2="40" y2="200" stroke="var(--border)" stroke-width="0.8" />
+
+        @if (cur().yRange[0] < 0) {
+          <line x1="40" [attr.y1]="fy(0)" x2="500" [attr.y2]="fy(0)"
+                stroke="var(--text-muted)" stroke-width="0.5" stroke-dasharray="4 3" />
+        }
 
         <!-- Limit function (dashed green) -->
         <path [attr.d]="limitPath()" fill="none" stroke="#5a8a5a" stroke-width="2" stroke-dasharray="5 3" />
@@ -104,18 +110,22 @@ const PRESETS: Preset[] = [
   `,
 })
 export class StepPointwiseConvergenceComponent {
+  readonly formulaPW = String.raw`\lim_{n \to \infty} f_n(x) = f(x)`;
   readonly presets = PRESETS;
   readonly selIdx = signal(0);
   readonly nVal = signal(5);
   readonly cur = computed(() => PRESETS[this.selIdx()]);
 
   fx(x: number, range: [number, number]): number { return 40 + ((x - range[0]) / (range[1] - range[0])) * 460; }
-  fy(y: number): number { return 200 - y * 180; }
+  fy(y: number): number {
+    const [yMin, yMax] = this.cur().yRange;
+    return 200 - ((y - yMin) / (yMax - yMin)) * 190;
+  }
 
   fnPath(n: number): string {
     const c = this.cur();
     const pts = sampleFn((x) => c.fn(n, x), c.xRange[0], c.xRange[1], 300);
-    return 'M' + pts.filter((p) => Math.abs(p.y) < 1.2).map((p) => `${this.fx(p.x, c.xRange)},${this.fy(p.y)}`).join('L');
+    return 'M' + pts.filter((p) => p.y > c.yRange[0] - 0.05 && p.y < c.yRange[1] + 0.05).map((p) => `${this.fx(p.x, c.xRange)},${this.fy(p.y)}`).join('L');
   }
 
   limitPath(): string {

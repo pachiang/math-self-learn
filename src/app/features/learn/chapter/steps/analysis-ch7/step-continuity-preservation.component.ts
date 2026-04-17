@@ -1,12 +1,13 @@
 import { Component, signal, computed } from '@angular/core';
 import { ProseBlockComponent } from '../../../shared/prose-block/prose-block.component';
 import { ChallengeCardComponent } from '../../../shared/challenge-card/challenge-card.component';
+import { KatexComponent } from '../../../shared/katex/katex.component';
 import { sampleFn, supNorm } from './analysis-ch7-util';
 
 @Component({
   selector: 'app-step-continuity-preservation',
   standalone: true,
-  imports: [ProseBlockComponent, ChallengeCardComponent],
+  imports: [ProseBlockComponent, ChallengeCardComponent, KatexComponent],
   template: `
     <app-prose-block title="連續性的保持" subtitle="§7.4">
       <p>
@@ -16,9 +17,9 @@ import { sampleFn, supNorm } from './analysis-ch7-util';
       <p>
         這是均勻收斂最核心的用處。逐點收斂做不到這一點（xⁿ 的例子）。
       </p>
-      <p class="formula">
-        連續 + 均勻收斂 → 極限連續<br />
-        連續 + 逐點收斂 → 極限<strong>可能不連續</strong>
+      <app-math block [e]="formulaGood"></app-math>
+      <app-math block [e]="formulaBad"></app-math>
+      <p class="formula-spacer">
       </p>
     </app-prose-block>
 
@@ -93,6 +94,8 @@ import { sampleFn, supNorm } from './analysis-ch7-util';
   `,
 })
 export class StepContinuityPreservationComponent {
+  readonly formulaGood = String.raw`\text{連續} + \text{均勻收斂} \;\Rightarrow\; \text{極限連續}`;
+  readonly formulaBad = String.raw`\text{連續} + \text{逐點收斂} \;\Rightarrow\; \text{極限}\;{\color{#a05a5a}\text{可能不連續}}`;
   readonly nVal = signal(5);
 
   sinNPath(n: number): string {

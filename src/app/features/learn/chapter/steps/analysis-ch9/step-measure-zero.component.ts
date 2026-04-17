@@ -29,18 +29,40 @@ import { cantorSegments, cantorTotalLength } from './analysis-ch9-util';
                (input)="kVal.set(+($any($event.target)).value)" class="k-slider" />
       </div>
 
-      <svg viewBox="-10 -10 520 100" class="mz-svg">
-        @for (seg of segments(); track $index) {
-          <rect [attr.x]="10 + seg[0] * 500" y="10"
-                [attr.width]="Math.max(0.5, (seg[1] - seg[0]) * 500)" height="30"
-                fill="var(--accent)" fill-opacity="0.3" stroke="var(--accent)" stroke-width="0.5" rx="2" />
+      <svg viewBox="-10 -10 520 210" class="mz-svg">
+        <!-- Show each iteration as a row -->
+        @for (row of allRows(); track row.k) {
+          <text x="4" [attr.y]="row.k * 22 + 16" fill="var(--text-muted)" font-size="7"
+                font-family="JetBrains Mono, monospace">k={{ row.k }}</text>
+          @for (seg of row.segs; track $index) {
+            <rect [attr.x]="25 + seg[0] * 485" [attr.y]="row.k * 22 + 4"
+                  [attr.width]="Math.max(0.3, (seg[1] - seg[0]) * 485)" height="14"
+                  [attr.fill]="row.k <= kVal() ? 'var(--accent)' : 'var(--border)'"
+                  [attr.fill-opacity]="row.k <= kVal() ? 0.35 : 0.08"
+                  [attr.stroke]="row.k <= kVal() ? 'var(--accent)' : 'var(--border)'"
+                  stroke-width="0.4" rx="1" />
+          }
         }
-        <!-- Deleted regions shown as gaps -->
-        <line x1="10" y1="60" x2="510" y2="60" stroke="var(--border)" stroke-width="0.5" />
+        <!-- Highlight current level -->
+        <rect x="22" [attr.y]="kVal() * 22 + 2" width="490" height="18"
+              fill="none" stroke="var(--accent)" stroke-width="1" stroke-dasharray="3 2" rx="3" />
       </svg>
 
+      <!-- Length convergence bar chart -->
+      <div class="bar-chart">
+        @for (row of allRows(); track row.k) {
+          <div class="bar-row" [class.active]="row.k <= kVal()">
+            <span class="bar-label">k={{ row.k }}</span>
+            <div class="bar-track">
+              <div class="bar-fill" [style.width.%]="row.length * 100"></div>
+            </div>
+            <span class="bar-val">{{ row.length.toFixed(4) }}</span>
+          </div>
+        }
+      </div>
+
       <div class="result-row">
-        <div class="r-card">區間數：{{ segments().length }}</div>
+        <div class="r-card">2ᵏ = {{ segments().length }} 區間</div>
         <div class="r-card">剩餘長度：{{ remainingLength().toFixed(6) }}</div>
         <div class="r-card">已刪除：{{ (1 - remainingLength()).toFixed(6) }}</div>
       </div>
@@ -65,6 +87,13 @@ import { cantorSegments, cantorTotalLength } from './analysis-ch9-util';
     .k-slider { flex: 1; accent-color: var(--accent); }
     .mz-svg { width: 100%; display: block; border: 1px solid var(--border);
       border-radius: 10px; background: var(--bg); margin-bottom: 10px; }
+    .bar-chart { display: flex; flex-direction: column; gap: 3px; margin-bottom: 10px; }
+    .bar-row { display: flex; align-items: center; gap: 6px; opacity: 0.3; transition: opacity 0.2s;
+      &.active { opacity: 1; } }
+    .bar-label { font-size: 10px; font-weight: 600; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; min-width: 30px; }
+    .bar-track { flex: 1; height: 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
+    .bar-fill { height: 100%; background: var(--accent); opacity: 0.5; transition: width 0.3s; }
+    .bar-val { font-size: 10px; font-weight: 600; color: var(--accent); font-family: 'JetBrains Mono', monospace; min-width: 50px; text-align: right; }
     .result-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
     .r-card { flex: 1; min-width: 80px; padding: 8px; border-radius: 6px; text-align: center;
       font-size: 12px; font-weight: 600; font-family: 'JetBrains Mono', monospace;
@@ -82,4 +111,12 @@ export class StepMeasureZeroComponent {
   readonly kVal = signal(3);
   readonly segments = computed(() => cantorSegments(this.kVal()));
   readonly remainingLength = computed(() => cantorTotalLength(this.kVal()));
+
+  readonly allRows = computed(() => {
+    const rows: { k: number; segs: [number, number][]; length: number }[] = [];
+    for (let k = 0; k <= 8; k++) {
+      rows.push({ k, segs: cantorSegments(k), length: cantorTotalLength(k) });
+    }
+    return rows;
+  });
 }

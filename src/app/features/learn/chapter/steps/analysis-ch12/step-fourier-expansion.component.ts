@@ -1,7 +1,7 @@
 import { Component, signal, computed } from '@angular/core';
 import { ProseBlockComponent } from '../../../shared/prose-block/prose-block.component';
 import { ChallengeCardComponent } from '../../../shared/challenge-card/challenge-card.component';
-import { fourierCoeffs, fourierEval, l2Norm, sampleFn } from './analysis-ch12-util';
+import { fourierCoeffs, fourierEval, l2Norm, l2Inner, sampleFn } from './analysis-ch12-util';
 
 interface Preset { name: string; fn: (x: number) => number; }
 
@@ -9,6 +9,7 @@ const PRESETS: Preset[] = [
   { name: '方波', fn: (x) => x < 0.5 ? 1 : -1 },
   { name: '鋸齒波', fn: (x) => 2 * x - 1 },
   { name: '三角波', fn: (x) => x < 0.5 ? 4 * x - 1 : 3 - 4 * x },
+  { name: '拋物線', fn: (x) => 4 * x * (1 - x) - 0.5 },
 ];
 
 @Component({
@@ -51,14 +52,45 @@ const PRESETS: Preset[] = [
         <path [attr.d]="fourierPath()" fill="none" stroke="var(--accent)" stroke-width="2.5" />
       </svg>
 
-      <div class="result-row">
-        <div class="r-card">||f − Sₙ||₂ = {{ errorNorm().toFixed(4) }}</div>
-        <div class="r-card">N = {{ nTerms() }} 項</div>
-      </div>
-
       <div class="legend">
         <span><span class="dot green"></span>原始函數</span>
         <span><span class="dot accent"></span>Fourier 部分和 Sₙ</span>
+      </div>
+    </app-challenge-card>
+
+    <app-challenge-card prompt="頻譜：每個頻率的能量 aₙ² + bₙ²">
+      <!-- Spectrum bars -->
+      <svg viewBox="-0.5 -0.3 21.5 1.8" class="spec-svg">
+        <line x1="0" y1="1.2" x2="21" y2="1.2" stroke="var(--border)" stroke-width="0.02" />
+        @for (bar of specBars(); track bar.n) {
+          <rect [attr.x]="bar.n * 1.05 - 0.3" [attr.y]="1.2 - bar.height"
+                width="0.6" [attr.height]="bar.height"
+                [attr.fill]="bar.n <= nTerms() ? 'var(--accent)' : 'var(--border)'"
+                [attr.fill-opacity]="bar.n <= nTerms() ? 0.7 : 0.2" rx="0.06" />
+          <text [attr.x]="bar.n * 1.05" y="1.45" text-anchor="middle"
+                fill="var(--text-muted)" font-size="0.22">{{ bar.n }}</text>
+        }
+        <text x="10.5" y="1.7" text-anchor="middle" fill="var(--text-muted)" font-size="0.25">頻率 n</text>
+      </svg>
+
+      <!-- Parseval energy tracking -->
+      <div class="energy-section">
+        <div class="energy-bar">
+          <span class="el">時域 ||f||²</span>
+          <div class="e-track"><div class="e-fill time" style="width: 100%"></div></div>
+          <span class="ev">{{ timeEnergy().toFixed(4) }}</span>
+        </div>
+        <div class="energy-bar">
+          <span class="el">頻域 (N={{ nTerms() }})</span>
+          <div class="e-track"><div class="e-fill freq" [style.width.%]="energyPct()"></div></div>
+          <span class="ev">{{ freqEnergy().toFixed(4) }}</span>
+        </div>
+        <div class="energy-pct">已捕捉 <strong>{{ energyPct().toFixed(1) }}%</strong> 能量</div>
+      </div>
+
+      <div class="result-row">
+        <div class="r-card">||f − Sₙ||₂ = {{ errorNorm().toFixed(4) }}</div>
+        <div class="r-card">N = {{ nTerms() }} 項</div>
       </div>
     </app-challenge-card>
 
@@ -80,15 +112,27 @@ const PRESETS: Preset[] = [
       &:hover { background: var(--accent-10); }
       &.active { background: var(--accent-18); border-color: var(--accent); color: var(--text); font-weight: 600; } }
     .n-ctrl { display: flex; align-items: center; gap: 6px; margin-left: auto; }
-    .nl { font-size: 13px; font-weight: 700; color: var(--text); font-family: 'JetBrains Mono', monospace; }
+    .nl { font-size: 13px; font-weight: 700; color: var(--accent); font-family: 'JetBrains Mono', monospace; }
     .n-slider { width: 120px; accent-color: var(--accent); }
     .four-svg { width: 100%; display: block; border: 1px solid var(--border);
-      border-radius: 10px; background: var(--bg); margin-bottom: 8px; }
+      border-radius: 10px; background: var(--bg); margin-bottom: 6px; }
+    .spec-svg { width: 100%; max-width: 500px; display: block; margin: 0 auto 12px;
+      border: 1px solid var(--border); border-radius: 8px; background: var(--bg); }
+    .energy-section { margin-bottom: 10px; }
+    .energy-bar { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+    .el { font-size: 11px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; min-width: 85px; }
+    .e-track { flex: 1; height: 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
+    .e-fill { height: 100%; transition: width 0.2s;
+      &.time { background: var(--text-muted); opacity: 0.3; }
+      &.freq { background: var(--accent); opacity: 0.5; } }
+    .ev { font-size: 11px; font-weight: 600; color: var(--accent); font-family: 'JetBrains Mono', monospace; min-width: 50px; text-align: right; }
+    .energy-pct { text-align: center; font-size: 13px; color: var(--text-muted);
+      strong { color: var(--accent); font-size: 15px; } }
     .result-row { display: flex; gap: 8px; margin-bottom: 8px; }
     .r-card { flex: 1; padding: 8px; border-radius: 6px; text-align: center; font-size: 12px;
       font-weight: 600; font-family: 'JetBrains Mono', monospace;
       border: 1px solid var(--border); background: var(--bg-surface); color: var(--text); }
-    .legend { display: flex; gap: 14px; font-size: 11px; color: var(--text-muted); }
+    .legend { display: flex; gap: 14px; font-size: 11px; color: var(--text-muted); margin-bottom: 14px; }
     .dot { display: inline-block; width: 14px; height: 3px; margin-right: 4px; vertical-align: middle;
       &.green { background: #5a8a5a; } &.accent { background: var(--accent); } }
   `,
@@ -108,6 +152,41 @@ export class StepFourierExpansionComponent {
     return l2Norm((x) => f(x) - fourierEval(c, x, N));
   });
 
+  readonly timeEnergy = computed(() => {
+    const f = this.curFn();
+    return l2Inner(f, f);
+  });
+
+  readonly freqEnergy = computed(() => {
+    const c = this.coeffs();
+    const N = this.nTerms();
+    let energy = c.a0 * c.a0 / 4;
+    for (let n = 0; n < N && n < c.a.length; n++) {
+      energy += (c.a[n] * c.a[n] + c.b[n] * c.b[n]) / 2;
+    }
+    return energy;
+  });
+
+  readonly energyPct = computed(() => {
+    const te = this.timeEnergy();
+    return te > 0 ? (this.freqEnergy() / te) * 100 : 0;
+  });
+
+  readonly specBars = computed(() => {
+    const c = this.coeffs();
+    const bars: { n: number; height: number }[] = [];
+    let maxE = 0;
+    for (let n = 0; n < c.a.length; n++) {
+      maxE = Math.max(maxE, c.a[n] * c.a[n] + c.b[n] * c.b[n]);
+    }
+    if (maxE < 1e-10) maxE = 1;
+    for (let n = 1; n <= 20; n++) {
+      const e = c.a[n - 1] * c.a[n - 1] + c.b[n - 1] * c.b[n - 1];
+      bars.push({ n, height: (e / maxE) * 1.0 });
+    }
+    return bars;
+  });
+
   select(i: number): void { this.selIdx.set(i); }
 
   fx(x: number): number { return 40 + x * 460; }
@@ -115,7 +194,6 @@ export class StepFourierExpansionComponent {
 
   fPath(): string {
     const pts = sampleFn(this.curFn(), 0, 1, 300);
-    // Break at discontinuities
     const segs: string[] = [];
     let prev: { x: number; y: number } | null = null;
     for (const p of pts) {

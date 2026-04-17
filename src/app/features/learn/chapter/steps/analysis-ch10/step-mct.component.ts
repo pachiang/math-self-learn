@@ -35,19 +35,32 @@ import { sampleFn } from './analysis-ch10-util';
         <line x1="40" [attr.y1]="fy(1)" x2="500" [attr.y2]="fy(1)"
               stroke="#5a8a5a" stroke-width="1.5" stroke-dasharray="5 3" />
 
+        <!-- Ghost curves for previous n values (showing monotone increase) -->
+        @for (ghost of ghostCurves(); track ghost.n) {
+          <path [attr.d]="ghostPath(ghost.n)" fill="none"
+                stroke="var(--accent)" [attr.stroke-opacity]="ghost.opacity" stroke-width="1" />
+        }
+
         <!-- Shaded area under fₙ -->
         <path [attr.d]="areaPath()" fill="var(--accent)" fill-opacity="0.12" />
 
-        <!-- fₙ curve -->
+        <!-- fₙ curve (current) -->
         <path [attr.d]="fnPath()" fill="none" stroke="var(--accent)" stroke-width="2.5" />
 
         <text x="490" [attr.y]="fy(1) - 5" class="lim-label">f = 1</text>
+        <text x="490" [attr.y]="fy(fn(nVal(), 0.95)) + 12" class="fn-label">f{{ nVal() }}</text>
       </svg>
 
       <div class="result-row">
         <div class="r-card">∫ fₙ = {{ integralVal().toFixed(4) }}</div>
         <div class="r-card ok">∫ f = 1.0000</div>
-        <div class="r-card">MCT：lim ∫fₙ = ∫f ✓</div>
+        <div class="r-card">差距 = {{ (1 - integralVal()).toExponential(2) }}</div>
+      </div>
+
+      <!-- Convergence bar -->
+      <div class="conv-bar">
+        <div class="conv-fill" [style.width.%]="integralVal() * 100"></div>
+        <span class="conv-label">∫fₙ → ∫f</span>
       </div>
     </app-challenge-card>
 
@@ -66,6 +79,12 @@ import { sampleFn } from './analysis-ch10-util';
     .mct-svg { width: 100%; display: block; border: 1px solid var(--border);
       border-radius: 10px; background: var(--bg); margin-bottom: 10px; }
     .lim-label { font-size: 9px; fill: #5a8a5a; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+    .fn-label { font-size: 9px; fill: var(--accent); font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+    .conv-bar { position: relative; height: 16px; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 4px; overflow: hidden; margin-bottom: 10px; }
+    .conv-fill { height: 100%; background: var(--accent); opacity: 0.4; transition: width 0.2s; }
+    .conv-label { position: absolute; top: 1px; left: 50%; transform: translateX(-50%);
+      font-size: 10px; font-weight: 600; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
     .result-row { display: flex; gap: 8px; flex-wrap: wrap; }
     .r-card { flex: 1; min-width: 80px; padding: 8px; border-radius: 6px; text-align: center;
       font-size: 12px; font-weight: 600; font-family: 'JetBrains Mono', monospace;
@@ -77,7 +96,22 @@ export class StepMctComponent {
   readonly nVal = signal(5);
 
   // fₙ(x) = min(n*x, 1) on [0, 1]
-  private fn(n: number, x: number): number { return Math.min(n * x, 1); }
+  fn(n: number, x: number): number { return Math.min(n * x, 1); }
+
+  readonly ghostCurves = computed(() => {
+    const current = this.nVal();
+    const result: { n: number; opacity: number }[] = [];
+    for (let n = 1; n < current; n++) {
+      result.push({ n, opacity: 0.1 + 0.15 * (n / current) });
+    }
+    return result;
+  });
+
+  ghostPath(n: number): string {
+    const pts: string[] = [];
+    for (let x = 0; x <= 1; x += 0.005) pts.push(`${this.fx(x)},${this.fy(this.fn(n, x))}`);
+    return 'M' + pts.join('L');
+  }
 
   readonly integralVal = computed(() => {
     const n = this.nVal();

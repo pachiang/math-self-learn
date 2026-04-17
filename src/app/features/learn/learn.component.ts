@@ -86,6 +86,71 @@ import { RouterLink } from '@angular/router';
           <span class="sc-meta">9 章主線 + 4 專題</span>
         </div>
       </a>
+
+      <a class="subject-card" routerLink="/learn/ag">
+        <div class="sc-icon-wrap">
+          <svg viewBox="-30 -30 60 60" class="sc-icon">
+            <!-- Elliptic curve sketch -->
+            <path d="M-20,0 Q-20,-18 -8,-18 Q0,-18 4,-10 Q8,-2 8,6 Q8,18 16,18"
+                  fill="none" stroke="var(--accent)" stroke-width="2.2" />
+            <path d="M-20,0 Q-20,18 -8,18 Q0,18 4,10 Q8,2 8,-6 Q8,-18 16,-18"
+                  fill="none" stroke="var(--accent)" stroke-width="2.2" />
+            <circle cx="-20" cy="0" r="3" fill="var(--v0)" />
+            <circle cx="8" cy="6" r="2.5" fill="var(--v1)" />
+            <circle cx="8" cy="-6" r="2.5" fill="var(--v1)" />
+          </svg>
+        </div>
+        <div class="sc-body">
+          <span class="sc-label">第六科目</span>
+          <h2 class="sc-title">代數幾何</h2>
+          <p class="sc-desc">
+            多項式方程定義幾何形狀——簇、奇異點、射影空間。
+          </p>
+          <span class="sc-meta">建構中</span>
+        </div>
+      </a>
+
+      <a class="subject-card" routerLink="/learn/complex">
+        <div class="sc-icon-wrap">
+          <svg viewBox="-30 -30 60 60" class="sc-icon">
+            <!-- Unit circle + point -->
+            <circle cx="0" cy="0" r="20" fill="none" stroke="var(--border-strong)" stroke-width="1.2" stroke-dasharray="3 2" />
+            <line x1="-24" y1="0" x2="24" y2="0" stroke="var(--border-strong)" stroke-width="0.8" />
+            <line x1="0" y1="-24" x2="0" y2="24" stroke="var(--border-strong)" stroke-width="0.8" />
+            <line x1="0" y1="0" x2="14" y2="-14" stroke="var(--accent)" stroke-width="2" />
+            <circle cx="14" cy="-14" r="3" fill="var(--accent)" />
+            <!-- Angle arc -->
+            <path d="M8,0 A8,8 0 0,0 5.6,-5.6" fill="none" stroke="var(--v0)" stroke-width="1.5" />
+          </svg>
+        </div>
+        <div class="sc-body">
+          <span class="sc-label">第五科目</span>
+          <h2 class="sc-title">複分析</h2>
+          <p class="sc-desc">
+            複數平面、解析函數、Cauchy 積分、留數定理、保角映射。
+          </p>
+          <span class="sc-meta">建構中</span>
+        </div>
+      </a>
+
+      <a class="subject-card" routerLink="/learn/topology">
+        <div class="sc-icon-wrap">
+          <svg viewBox="-30 -30 60 60" class="sc-icon">
+            <!-- Torus-like shape: two interlocking circles -->
+            <circle cx="-6" cy="0" r="18" fill="none" stroke="var(--accent)" stroke-width="2" />
+            <circle cx="6" cy="0" r="18" fill="none" stroke="var(--v1)" stroke-width="2" />
+            <circle cx="0" cy="0" r="4" fill="none" stroke="var(--v0)" stroke-width="2" stroke-dasharray="3 2" />
+          </svg>
+        </div>
+        <div class="sc-body">
+          <span class="sc-label">第四科目</span>
+          <h2 class="sc-title">點集拓撲</h2>
+          <p class="sc-desc">
+            從開集公理出發，研究連續、連通、緊緻等不依賴距離的空間性質。
+          </p>
+          <span class="sc-meta">建構中</span>
+        </div>
+      </a>
     </div>
   `,
   styles: `
