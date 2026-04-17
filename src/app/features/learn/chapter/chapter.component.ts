@@ -495,6 +495,32 @@ import { StepEcGroupLawComponent } from './steps/ag-ch3/step-ec-group-law.compon
 import { StepEcIdentityComponent } from './steps/ag-ch3/step-ec-identity.component';
 import { StepEcRationalComponent } from './steps/ag-ch3/step-ec-rational.component';
 import { StepEcCryptoComponent } from './steps/ag-ch3/step-ec-crypto.component';
+// Algebraic Geometry Ch4
+import { StepPolyDivisionProblemComponent } from './steps/ag-ch4/step-poly-division-problem.component';
+import { StepMonomialOrderComponent } from './steps/ag-ch4/step-monomial-order.component';
+import { StepMultiDivisionComponent } from './steps/ag-ch4/step-multi-division.component';
+import { StepGroebnerBasisComponent } from './steps/ag-ch4/step-groebner-basis.component';
+import { StepAgEliminationComponent } from './steps/ag-ch4/step-elimination.component';
+// Algebraic Geometry Ch5
+import { StepCurvesToSurfacesComponent } from './steps/ag-ch5/step-curves-to-surfaces.component';
+import { StepQuadricSurfacesComponent } from './steps/ag-ch5/step-quadric-surfaces.component';
+import { StepCubicSurfaceComponent } from './steps/ag-ch5/step-cubic-surface.component';
+import { StepSurfaceSingularitiesComponent } from './steps/ag-ch5/step-surface-singularities.component';
+import { StepSurfaceClassificationComponent } from './steps/ag-ch5/step-surface-classification.component';
+// Algebraic Geometry Ch6
+import { StepWhatIsBlowupComponent } from './steps/ag-ch6/step-what-is-blowup.component';
+import { StepBlowupCurvesComponent } from './steps/ag-ch6/step-blowup-curves.component';
+import { StepResolveNodeComponent } from './steps/ag-ch6/step-resolve-node.component';
+import { StepResolveCuspComponent } from './steps/ag-ch6/step-resolve-cusp.component';
+import { StepHironakaComponent } from './steps/ag-ch6/step-hironaka.component';
+// Algebraic Geometry Ch7
+import { StepWhatIsDivisorComponent } from './steps/ag-ch7/step-what-is-divisor.component';
+import { StepPrincipalDivisorComponent } from './steps/ag-ch7/step-principal-divisor.component';
+import { StepLineBundleComponent } from './steps/ag-ch7/step-line-bundle.component';
+import { StepDivisorBundleCorrespondenceComponent } from './steps/ag-ch7/step-divisor-bundle-correspondence.component';
+import { StepSectionSpaceComponent } from './steps/ag-ch7/step-section-space.component';
+import { StepAgRiemannRochComponent } from './steps/ag-ch7/step-riemann-roch.component';
+import { StepRRApplicationsComponent } from './steps/ag-ch7/step-rr-applications.component';
 // Complex Analysis Ch3
 import { StepContourIntegralComponent } from './steps/complex-ch3/step-contour-integral.component';
 import { StepCauchyTheoremComponent } from './steps/complex-ch3/step-cauchy-theorem.component';
@@ -1251,6 +1277,48 @@ const AG_CHAPTERS: Record<string, ChapterConfig> = {
       { num: 5, title: '橢圓曲線與密碼學' },
     ],
   },
+  ch4: {
+    title: '第四章：Gröbner 基與計算代數幾何',
+    steps: [
+      { num: 1, title: '多項式除法的困難' },
+      { num: 2, title: '單項式序與前導項' },
+      { num: 3, title: '多變數除法演算法' },
+      { num: 4, title: 'Gröbner 基與 Buchberger' },
+      { num: 5, title: '應用：消去與求解' },
+    ],
+  },
+  ch5: {
+    title: '第五章：代數曲面',
+    steps: [
+      { num: 1, title: '從曲線到曲面' },
+      { num: 2, title: '二次曲面' },
+      { num: 3, title: '三次曲面與 27 條直線' },
+      { num: 4, title: '曲面的奇異點' },
+      { num: 5, title: '曲面的拓撲與分類' },
+    ],
+  },
+  ch6: {
+    title: '第六章：Blowup 與奇異點消解',
+    steps: [
+      { num: 1, title: '什麼是 Blowup' },
+      { num: 2, title: '平面曲線的 Blowup' },
+      { num: 3, title: '結點的消解' },
+      { num: 4, title: '尖點的消解：兩次 Blowup' },
+      { num: 5, title: 'Hironaka 定理與消解畫廊' },
+    ],
+  },
+  ch7: {
+    title: '第七章：因子、線叢與 Riemann-Roch',
+    steps: [
+      { num: 1, title: '什麼是因子' },
+      { num: 2, title: '主因子與線性等價' },
+      { num: 3, title: '線叢：扭曲的線' },
+      { num: 4, title: '因子與線叢的對應' },
+      { num: 5, title: '截面空間 L(D)' },
+      { num: 6, title: 'Riemann-Roch 定理' },
+      { num: 7, title: 'Riemann-Roch 的應用' },
+    ],
+  },
 };
 
 const COMPLEX_CHAPTERS: Record<string, ChapterConfig> = {
@@ -1803,6 +1871,32 @@ const SUBJECTS: Record<string, Record<string, ChapterConfig>> = {
     StepEcIdentityComponent,
     StepEcRationalComponent,
     StepEcCryptoComponent,
+    // Algebraic Geometry Ch4
+    StepPolyDivisionProblemComponent,
+    StepMonomialOrderComponent,
+    StepMultiDivisionComponent,
+    StepGroebnerBasisComponent,
+    StepAgEliminationComponent,
+    // Algebraic Geometry Ch5
+    StepCurvesToSurfacesComponent,
+    StepQuadricSurfacesComponent,
+    StepCubicSurfaceComponent,
+    StepSurfaceSingularitiesComponent,
+    StepSurfaceClassificationComponent,
+    // Algebraic Geometry Ch6
+    StepWhatIsBlowupComponent,
+    StepBlowupCurvesComponent,
+    StepResolveNodeComponent,
+    StepResolveCuspComponent,
+    StepHironakaComponent,
+    // Algebraic Geometry Ch7
+    StepWhatIsDivisorComponent,
+    StepPrincipalDivisorComponent,
+    StepLineBundleComponent,
+    StepDivisorBundleCorrespondenceComponent,
+    StepSectionSpaceComponent,
+    StepAgRiemannRochComponent,
+    StepRRApplicationsComponent,
   ],
   templateUrl: './chapter.component.html',
   styleUrl: './chapter.component.scss',
