@@ -435,6 +435,26 @@ const SUBJECT_INFO: Record<string, SubjectInfo> = {
       },
     ],
   },
+  de: {
+    title: '微分方程',
+    desc: '從現象出發寫出方程，看它在空間中流動——斜率場、相平面、振動、PDE',
+    chapters: [
+      {
+        id: 'ch1',
+        label: '第一章',
+        title: '什麼是微分方程？',
+        desc: '從日常現象寫出 dy/dt = f(t,y)、斜率場、初值問題、解族、ODE 分類、自由落體案例。',
+        meta: '8 個小節 · 約 55 分鐘',
+      },
+      {
+        id: 'ch2',
+        label: '第二章',
+        title: '一階 ODE 的解法',
+        desc: '四招主力：可分離、線性＋積分因子、精確方程、代換法（Bernoulli／齊次）。每招配 step-by-step 推導。',
+        meta: '6 個小節 · 約 60 分鐘',
+      },
+    ],
+  },
   topology: {
     title: '點集拓撲',
     desc: '從開集公理出發，研究連續、連通、緊緻等不依賴距離的空間性質',

@@ -133,6 +133,37 @@ import { RouterLink } from '@angular/router';
         </div>
       </a>
 
+      <a class="subject-card" routerLink="/learn/de">
+        <div class="sc-icon-wrap">
+          <svg viewBox="-30 -30 60 60" class="sc-icon">
+            <!-- Slope field sketch -->
+            <line x1="-24" y1="0" x2="24" y2="0" stroke="var(--border-strong)" stroke-width="0.8" />
+            <line x1="0" y1="-24" x2="0" y2="24" stroke="var(--border-strong)" stroke-width="0.8" />
+            <!-- Tangent arrows on a grid -->
+            <g stroke="var(--text-muted)" stroke-width="1.2" stroke-linecap="round" opacity="0.65">
+              <line x1="-20" y1="-15" x2="-14" y2="-18" />
+              <line x1="-10" y1="-7" x2="-4" y2="-11" />
+              <line x1="2" y1="1" x2="8" y2="-4" />
+              <line x1="12" y1="9" x2="18" y2="4" />
+              <line x1="-20" y1="5" x2="-14" y2="0" />
+              <line x1="-10" y1="14" x2="-4" y2="8" />
+            </g>
+            <!-- Solution curve -->
+            <path d="M-22,18 Q-10,10 2,-2 T22,-18"
+                  fill="none" stroke="var(--accent)" stroke-width="2.5" />
+            <circle cx="-22" cy="18" r="3" fill="var(--v0)" />
+          </svg>
+        </div>
+        <div class="sc-body">
+          <span class="sc-label">第七科目</span>
+          <h2 class="sc-title">微分方程</h2>
+          <p class="sc-desc">
+            斜率場、相平面、振動與 PDE——所有會「變」的東西共同的語言。
+          </p>
+          <span class="sc-meta">建構中</span>
+        </div>
+      </a>
+
       <a class="subject-card" routerLink="/learn/topology">
         <div class="sc-icon-wrap">
           <svg viewBox="-30 -30 60 60" class="sc-icon">

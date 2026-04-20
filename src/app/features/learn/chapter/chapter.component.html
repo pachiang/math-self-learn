@@ -686,6 +686,28 @@
           @case (7) { <app-step-rr-applications /> }
         }
       }
+      @case ('de/ch1') {
+        @switch (currentStep()) {
+          @case (1) { <app-de-ch1-phenomenon /> }
+          @case (2) { <app-de-ch1-slope-field /> }
+          @case (3) { <app-de-ch1-following-arrows /> }
+          @case (4) { <app-de-ch1-ivp /> }
+          @case (5) { <app-de-ch1-analytic-vs-numerical /> }
+          @case (6) { <app-de-ch1-classification /> }
+          @case (7) { <app-de-ch1-free-fall /> }
+          @case (8) { <app-de-ch1-roadmap /> }
+        }
+      }
+      @case ('de/ch2') {
+        @switch (currentStep()) {
+          @case (1) { <app-de-ch2-map /> }
+          @case (2) { <app-de-ch2-separable /> }
+          @case (3) { <app-de-ch2-linear /> }
+          @case (4) { <app-de-ch2-exact /> }
+          @case (5) { <app-de-ch2-substitution /> }
+          @case (6) { <app-de-ch2-diagnostic /> }
+        }
+      }
       @case ('topology/ch1') {
         @switch (currentStep()) {
           @case (1) { <app-step-why-topology /> }

@@ -521,6 +521,22 @@ import { StepDivisorBundleCorrespondenceComponent } from './steps/ag-ch7/step-di
 import { StepSectionSpaceComponent } from './steps/ag-ch7/step-section-space.component';
 import { StepAgRiemannRochComponent } from './steps/ag-ch7/step-riemann-roch.component';
 import { StepRRApplicationsComponent } from './steps/ag-ch7/step-rr-applications.component';
+// Differential Equations Ch1
+import { DeCh1PhenomenonComponent } from './steps/de-ch1/step-phenomenon-to-equation.component';
+import { DeCh1SlopeFieldComponent } from './steps/de-ch1/step-slope-field.component';
+import { DeCh1FollowingArrowsComponent } from './steps/de-ch1/step-following-arrows.component';
+import { DeCh1IvpComponent } from './steps/de-ch1/step-ivp.component';
+import { DeCh1AnalyticVsNumericalComponent } from './steps/de-ch1/step-analytic-vs-numerical.component';
+import { DeCh1ClassificationComponent } from './steps/de-ch1/step-classification.component';
+import { DeCh1FreeFallComponent } from './steps/de-ch1/step-free-fall.component';
+import { DeCh1RoadmapComponent } from './steps/de-ch1/step-roadmap.component';
+// Differential Equations Ch2
+import { DeCh2MapComponent } from './steps/de-ch2/step-map.component';
+import { DeCh2SeparableComponent } from './steps/de-ch2/step-separable.component';
+import { DeCh2LinearComponent } from './steps/de-ch2/step-linear.component';
+import { DeCh2ExactComponent } from './steps/de-ch2/step-exact.component';
+import { DeCh2SubstitutionComponent } from './steps/de-ch2/step-substitution.component';
+import { DeCh2DiagnosticComponent } from './steps/de-ch2/step-diagnostic.component';
 // Complex Analysis Ch3
 import { StepContourIntegralComponent } from './steps/complex-ch3/step-contour-integral.component';
 import { StepCauchyTheoremComponent } from './steps/complex-ch3/step-cauchy-theorem.component';
@@ -1366,6 +1382,33 @@ const COMPLEX_CHAPTERS: Record<string, ChapterConfig> = {
   },
 };
 
+const DE_CHAPTERS: Record<string, ChapterConfig> = {
+  ch1: {
+    title: '第一章：什麼是微分方程？',
+    steps: [
+      { num: 1, title: '從現象到方程' },
+      { num: 2, title: '斜率場：方程的地圖' },
+      { num: 3, title: '解是順著箭頭走的曲線' },
+      { num: 4, title: '初值問題與解族' },
+      { num: 5, title: '解析解 vs 數值解' },
+      { num: 6, title: 'ODE 的分類地圖' },
+      { num: 7, title: '完整案例：自由落體' },
+      { num: 8, title: '這門課要帶你去哪' },
+    ],
+  },
+  ch2: {
+    title: '第二章：一階 ODE 的解法',
+    steps: [
+      { num: 1, title: '解 ODE 的地圖' },
+      { num: 2, title: '可分離方程' },
+      { num: 3, title: '線性一階 + 積分因子' },
+      { num: 4, title: '精確方程與能量守恆' },
+      { num: 5, title: '代換法：Bernoulli 與齊次' },
+      { num: 6, title: '診斷工具 + 綜合' },
+    ],
+  },
+};
+
 const SUBJECTS: Record<string, Record<string, ChapterConfig>> = {
   algebra: ALGEBRA_CHAPTERS,
   linalg: LINALG_CHAPTERS,
@@ -1373,6 +1416,7 @@ const SUBJECTS: Record<string, Record<string, ChapterConfig>> = {
   topology: TOPOLOGY_CHAPTERS,
   complex: COMPLEX_CHAPTERS,
   ag: AG_CHAPTERS,
+  de: DE_CHAPTERS,
 };
 
 @Component({
@@ -1897,6 +1941,22 @@ const SUBJECTS: Record<string, Record<string, ChapterConfig>> = {
     StepSectionSpaceComponent,
     StepAgRiemannRochComponent,
     StepRRApplicationsComponent,
+    // Differential Equations Ch1
+    DeCh1PhenomenonComponent,
+    DeCh1SlopeFieldComponent,
+    DeCh1FollowingArrowsComponent,
+    DeCh1IvpComponent,
+    DeCh1AnalyticVsNumericalComponent,
+    DeCh1ClassificationComponent,
+    DeCh1FreeFallComponent,
+    DeCh1RoadmapComponent,
+    // Differential Equations Ch2
+    DeCh2MapComponent,
+    DeCh2SeparableComponent,
+    DeCh2LinearComponent,
+    DeCh2ExactComponent,
+    DeCh2SubstitutionComponent,
+    DeCh2DiagnosticComponent,
   ],
   templateUrl: './chapter.component.html',
   styleUrl: './chapter.component.scss',
