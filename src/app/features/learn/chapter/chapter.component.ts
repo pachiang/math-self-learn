@@ -589,6 +589,43 @@ import { DeCh9HartmanComponent } from './steps/de-ch9/step-hartman-grobman.compo
 import { DeCh9LotkaComponent } from './steps/de-ch9/step-lotka-volterra.component';
 import { DeCh9VdpComponent } from './steps/de-ch9/step-van-der-pol.component';
 import { DeCh9PendulumComponent } from './steps/de-ch9/step-pendulum-energy.component';
+// Differential Equations Ch10 (series solutions)
+import { DeCh10WhySeriesComponent } from './steps/de-ch10/step-why-series.component';
+import { DeCh10PowerSeriesComponent } from './steps/de-ch10/step-power-series.component';
+import { DeCh10FrobeniusComponent } from './steps/de-ch10/step-frobenius.component';
+import { DeCh10SpecialGalleryComponent } from './steps/de-ch10/step-special-gallery.component';
+import { DeCh10PhysicsLinkComponent } from './steps/de-ch10/step-physics-link.component';
+// Differential Equations Ch11 (Sturm-Liouville)
+import { DeCh11BvpVsIvpComponent } from './steps/de-ch11/step-bvp-vs-ivp.component';
+import { DeCh11EigenvalueComponent } from './steps/de-ch11/step-eigenvalue-problem.component';
+import { DeCh11OrthogonalityComponent } from './steps/de-ch11/step-orthogonality.component';
+import { DeCh11ExpansionComponent } from './steps/de-ch11/step-eigenfunction-expansion.component';
+import { DeCh11SlFormComponent } from './steps/de-ch11/step-sl-form.component';
+// Differential Equations Ch12 (Heat equation)
+import { DeCh12WhatIsPdeComponent } from './steps/de-ch12/step-what-is-pde.component';
+import { DeCh12HeatDerivationComponent } from './steps/de-ch12/step-heat-derivation.component';
+import { DeCh12SeparationComponent } from './steps/de-ch12/step-separation.component';
+import { DeCh12FourierSolutionComponent } from './steps/de-ch12/step-fourier-solution.component';
+import { DeCh12BoundaryVariationsComponent } from './steps/de-ch12/step-boundary-variations.component';
+import { DeCh12HeatGalleryComponent } from './steps/de-ch12/step-heat-gallery.component';
+// Differential Equations Ch13 (Wave equation)
+import { DeCh13WaveDerivationComponent } from './steps/de-ch13/step-wave-derivation.component';
+import { DeCh13DAlembertComponent } from './steps/de-ch13/step-dalembert.component';
+import { DeCh13StandingComponent } from './steps/de-ch13/step-standing-waves.component';
+import { DeCh13DrumComponent } from './steps/de-ch13/step-2d-drum.component';
+import { DeCh13EnergyComponent } from './steps/de-ch13/step-energy.component';
+// Differential Equations Ch14 (Laplace equation)
+import { DeCh14IntroComponent } from './steps/de-ch14/step-laplace-intro.component';
+import { DeCh14HarmonicComponent } from './steps/de-ch14/step-harmonic-properties.component';
+import { DeCh14DirichletComponent } from './steps/de-ch14/step-dirichlet-rectangle.component';
+import { DeCh14DiskComponent } from './steps/de-ch14/step-disk-poisson.component';
+import { DeCh14SummaryComponent } from './steps/de-ch14/step-summary.component';
+// Differential Equations Ch15 (Bifurcation & chaos)
+import { DeCh15BifurcationIntroComponent } from './steps/de-ch15/step-bifurcation-intro.component';
+import { DeCh15HopfComponent } from './steps/de-ch15/step-hopf.component';
+import { DeCh15LorenzComponent } from './steps/de-ch15/step-lorenz.component';
+import { DeCh15LogisticComponent } from './steps/de-ch15/step-logistic-map.component';
+import { DeCh15FinaleComponent } from './steps/de-ch15/step-finale.component';
 // Complex Analysis Ch3
 import { StepContourIntegralComponent } from './steps/complex-ch3/step-contour-integral.component';
 import { StepCauchyTheoremComponent } from './steps/complex-ch3/step-cauchy-theorem.component';
@@ -1539,6 +1576,67 @@ const DE_CHAPTERS: Record<string, ChapterConfig> = {
       { num: 6, title: '真實鐘擺 + Ch10 預告' },
     ],
   },
+  ch10: {
+    title: '第十章：級數解法與特殊函數',
+    steps: [
+      { num: 1, title: '為什麼需要級數解' },
+      { num: 2, title: '冪級數：解 Airy' },
+      { num: 3, title: 'Frobenius 與奇異點' },
+      { num: 4, title: '特殊函數畫廊' },
+      { num: 5, title: '物理連接 + 預告' },
+    ],
+  },
+  ch11: {
+    title: '第十一章：Sturm-Liouville 與邊界值問題',
+    steps: [
+      { num: 1, title: 'BVP vs IVP' },
+      { num: 2, title: '本徵值問題' },
+      { num: 3, title: '本徵函數的正交性' },
+      { num: 4, title: '本徵函數展開 = Fourier' },
+      { num: 5, title: 'Sturm-Liouville 形式' },
+    ],
+  },
+  ch12: {
+    title: '第十二章：PDE 入門 — 熱方程',
+    steps: [
+      { num: 1, title: '什麼是 PDE' },
+      { num: 2, title: '熱方程的推導' },
+      { num: 3, title: '分離變數法' },
+      { num: 4, title: 'Fourier 級數解' },
+      { num: 5, title: '不同邊界條件' },
+      { num: 6, title: '2D 熱 + 展望' },
+    ],
+  },
+  ch13: {
+    title: '第十三章：波動方程',
+    steps: [
+      { num: 1, title: '從弦到波動方程' },
+      { num: 2, title: "d'Alembert 通解" },
+      { num: 3, title: '駐波與模態' },
+      { num: 4, title: '2D 方形鼓' },
+      { num: 5, title: '能量守恆 + 總結' },
+    ],
+  },
+  ch14: {
+    title: '第十四章：Laplace 方程與調和函數',
+    steps: [
+      { num: 1, title: 'Laplace 方程登場' },
+      { num: 2, title: '調和函數的神奇性質' },
+      { num: 3, title: '方形 Dirichlet 問題' },
+      { num: 4, title: '圓盤 + Poisson 核' },
+      { num: 5, title: 'Laplace 總結 + 三兄弟統整' },
+    ],
+  },
+  ch15: {
+    title: '第十五章：分岔與混沌',
+    steps: [
+      { num: 1, title: '分岔的概念' },
+      { num: 2, title: 'Hopf：生出極限環' },
+      { num: 3, title: 'Lorenz 吸引子' },
+      { num: 4, title: 'Logistic map 與普適性' },
+      { num: 5, title: '整課總結' },
+    ],
+  },
 };
 
 const SUBJECTS: Record<string, Record<string, ChapterConfig>> = {
@@ -2141,6 +2239,43 @@ const SUBJECTS: Record<string, Record<string, ChapterConfig>> = {
     DeCh9LotkaComponent,
     DeCh9VdpComponent,
     DeCh9PendulumComponent,
+    // Differential Equations Ch10
+    DeCh10WhySeriesComponent,
+    DeCh10PowerSeriesComponent,
+    DeCh10FrobeniusComponent,
+    DeCh10SpecialGalleryComponent,
+    DeCh10PhysicsLinkComponent,
+    // Differential Equations Ch11
+    DeCh11BvpVsIvpComponent,
+    DeCh11EigenvalueComponent,
+    DeCh11OrthogonalityComponent,
+    DeCh11ExpansionComponent,
+    DeCh11SlFormComponent,
+    // Differential Equations Ch12
+    DeCh12WhatIsPdeComponent,
+    DeCh12HeatDerivationComponent,
+    DeCh12SeparationComponent,
+    DeCh12FourierSolutionComponent,
+    DeCh12BoundaryVariationsComponent,
+    DeCh12HeatGalleryComponent,
+    // Differential Equations Ch13
+    DeCh13WaveDerivationComponent,
+    DeCh13DAlembertComponent,
+    DeCh13StandingComponent,
+    DeCh13DrumComponent,
+    DeCh13EnergyComponent,
+    // Differential Equations Ch14
+    DeCh14IntroComponent,
+    DeCh14HarmonicComponent,
+    DeCh14DirichletComponent,
+    DeCh14DiskComponent,
+    DeCh14SummaryComponent,
+    // Differential Equations Ch15
+    DeCh15BifurcationIntroComponent,
+    DeCh15HopfComponent,
+    DeCh15LorenzComponent,
+    DeCh15LogisticComponent,
+    DeCh15FinaleComponent,
   ],
   templateUrl: './chapter.component.html',
   styleUrl: './chapter.component.scss',
