@@ -626,6 +626,35 @@ import { DeCh15HopfComponent } from './steps/de-ch15/step-hopf.component';
 import { DeCh15LorenzComponent } from './steps/de-ch15/step-lorenz.component';
 import { DeCh15LogisticComponent } from './steps/de-ch15/step-logistic-map.component';
 import { DeCh15FinaleComponent } from './steps/de-ch15/step-finale.component';
+
+// Probability Ch1
+import { ProbCh1WhatIsProbComponent } from './steps/prob-ch1/step-what-is-prob.component';
+import { ProbCh1SampleSpaceComponent } from './steps/prob-ch1/step-sample-space.component';
+import { ProbCh1CountingComponent } from './steps/prob-ch1/step-counting.component';
+import { ProbCh1MonteCarloComponent } from './steps/prob-ch1/step-monte-carlo.component';
+// Probability Ch2
+import { ProbCh2ConditionalComponent } from './steps/prob-ch2/step-conditional.component';
+import { ProbCh2BayesComponent } from './steps/prob-ch2/step-bayes.component';
+import { ProbCh2BaseRateComponent } from './steps/prob-ch2/step-base-rate.component';
+import { ProbCh2SimpsonComponent } from './steps/prob-ch2/step-simpson.component';
+// Probability Ch3
+import { ProbCh3RvIntroComponent } from './steps/prob-ch3/step-rv-intro.component';
+import { ProbCh3BinomialComponent } from './steps/prob-ch3/step-bernoulli-binomial.component';
+import { ProbCh3PoissonComponent } from './steps/prob-ch3/step-poisson.component';
+import { ProbCh3GeometricComponent } from './steps/prob-ch3/step-geometric.component';
+// Probability Ch4
+import { ProbCh4PdfIntroComponent } from './steps/prob-ch4/step-pdf-intro.component';
+import { ProbCh4UniformExpComponent } from './steps/prob-ch4/step-uniform-exp.component';
+import { ProbCh4NormalComponent } from './steps/prob-ch4/step-normal.component';
+import { ProbCh4ZooComponent } from './steps/prob-ch4/step-distribution-zoo.component';
+// Probability Ch5
+import { ProbCh5ExpectationComponent } from './steps/prob-ch5/step-expectation.component';
+import { ProbCh5VarianceComponent } from './steps/prob-ch5/step-variance.component';
+import { ProbCh5InequalitiesComponent } from './steps/prob-ch5/step-inequalities.component';
+// Probability Ch6
+import { ProbCh6LlnComponent } from './steps/prob-ch6/step-lln.component';
+import { ProbCh6CltComponent } from './steps/prob-ch6/step-clt.component';
+import { ProbCh6FinaleComponent } from './steps/prob-ch6/step-finale.component';
 // Complex Analysis Ch3
 import { StepContourIntegralComponent } from './steps/complex-ch3/step-contour-integral.component';
 import { StepCauchyTheoremComponent } from './steps/complex-ch3/step-cauchy-theorem.component';
@@ -1639,6 +1668,61 @@ const DE_CHAPTERS: Record<string, ChapterConfig> = {
   },
 };
 
+const PROB_CHAPTERS: Record<string, ChapterConfig> = {
+  ch1: {
+    title: '第一章：什麼是機率？',
+    steps: [
+      { num: 1, title: '機率的三種詮釋' },
+      { num: 2, title: '樣本空間與事件' },
+      { num: 3, title: '計數與生日悖論' },
+      { num: 4, title: 'Monte Carlo 估 π' },
+    ],
+  },
+  ch2: {
+    title: '第二章：條件機率與 Bayes',
+    steps: [
+      { num: 1, title: '條件機率' },
+      { num: 2, title: 'Bayes 定理' },
+      { num: 3, title: 'Base rate 謬誤' },
+      { num: 4, title: 'Simpson 悖論' },
+    ],
+  },
+  ch3: {
+    title: '第三章：隨機變數與離散分佈',
+    steps: [
+      { num: 1, title: 'RV 與 PMF' },
+      { num: 2, title: 'Bernoulli & Binomial' },
+      { num: 3, title: 'Poisson' },
+      { num: 4, title: 'Geometric' },
+    ],
+  },
+  ch4: {
+    title: '第四章：連續分佈',
+    steps: [
+      { num: 1, title: 'PDF 與 CDF' },
+      { num: 2, title: 'Uniform & Exponential' },
+      { num: 3, title: 'Normal 分佈' },
+      { num: 4, title: '分佈園區' },
+    ],
+  },
+  ch5: {
+    title: '第五章：期望值與變異數',
+    steps: [
+      { num: 1, title: '期望值與線性性' },
+      { num: 2, title: '變異數與協變異數' },
+      { num: 3, title: 'Markov & Chebyshev' },
+    ],
+  },
+  ch6: {
+    title: '第六章：LLN 與 CLT',
+    steps: [
+      { num: 1, title: '大數法則' },
+      { num: 2, title: '中央極限定理' },
+      { num: 3, title: '整課總結' },
+    ],
+  },
+};
+
 const SUBJECTS: Record<string, Record<string, ChapterConfig>> = {
   algebra: ALGEBRA_CHAPTERS,
   linalg: LINALG_CHAPTERS,
@@ -1647,6 +1731,7 @@ const SUBJECTS: Record<string, Record<string, ChapterConfig>> = {
   complex: COMPLEX_CHAPTERS,
   ag: AG_CHAPTERS,
   de: DE_CHAPTERS,
+  prob: PROB_CHAPTERS,
 };
 
 @Component({
@@ -2276,6 +2361,34 @@ const SUBJECTS: Record<string, Record<string, ChapterConfig>> = {
     DeCh15LorenzComponent,
     DeCh15LogisticComponent,
     DeCh15FinaleComponent,
+    // Probability Ch1
+    ProbCh1WhatIsProbComponent,
+    ProbCh1SampleSpaceComponent,
+    ProbCh1CountingComponent,
+    ProbCh1MonteCarloComponent,
+    // Probability Ch2
+    ProbCh2ConditionalComponent,
+    ProbCh2BayesComponent,
+    ProbCh2BaseRateComponent,
+    ProbCh2SimpsonComponent,
+    // Probability Ch3
+    ProbCh3RvIntroComponent,
+    ProbCh3BinomialComponent,
+    ProbCh3PoissonComponent,
+    ProbCh3GeometricComponent,
+    // Probability Ch4
+    ProbCh4PdfIntroComponent,
+    ProbCh4UniformExpComponent,
+    ProbCh4NormalComponent,
+    ProbCh4ZooComponent,
+    // Probability Ch5
+    ProbCh5ExpectationComponent,
+    ProbCh5VarianceComponent,
+    ProbCh5InequalitiesComponent,
+    // Probability Ch6
+    ProbCh6LlnComponent,
+    ProbCh6CltComponent,
+    ProbCh6FinaleComponent,
   ],
   templateUrl: './chapter.component.html',
   styleUrl: './chapter.component.scss',

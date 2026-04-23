@@ -164,6 +164,29 @@ import { RouterLink } from '@angular/router';
         </div>
       </a>
 
+      <a class="subject-card" routerLink="/learn/prob">
+        <div class="sc-icon-wrap">
+          <svg viewBox="-30 -30 60 60" class="sc-icon">
+            <!-- Histogram / bell curve -->
+            <line x1="-24" y1="18" x2="24" y2="18" stroke="var(--border-strong)" stroke-width="1" />
+            <rect x="-20" y="8" width="6" height="10" fill="var(--v0)" opacity="0.7" />
+            <rect x="-12" y="-2" width="6" height="20" fill="var(--v0)" opacity="0.7" />
+            <rect x="-4" y="-14" width="6" height="32" fill="var(--v0)" opacity="0.7" />
+            <rect x="4" y="-6" width="6" height="24" fill="var(--v0)" opacity="0.7" />
+            <rect x="12" y="4" width="6" height="14" fill="var(--v0)" opacity="0.7" />
+            <path d="M-22,12 Q-10,-16 -1,-18 Q8,-16 20,12" fill="none" stroke="var(--accent)" stroke-width="2.2" />
+          </svg>
+        </div>
+        <div class="sc-body">
+          <span class="sc-label">第八科目</span>
+          <h2 class="sc-title">機率與統計</h2>
+          <p class="sc-desc">
+            從擲骰到中央極限定理——用數學量化不確定性。
+          </p>
+          <span class="sc-meta">6 章已完成</span>
+        </div>
+      </a>
+
       <a class="subject-card" routerLink="/learn/topology">
         <div class="sc-icon-wrap">
           <svg viewBox="-30 -30 60 60" class="sc-icon">
