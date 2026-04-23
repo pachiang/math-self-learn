@@ -537,6 +537,58 @@ import { DeCh2LinearComponent } from './steps/de-ch2/step-linear.component';
 import { DeCh2ExactComponent } from './steps/de-ch2/step-exact.component';
 import { DeCh2SubstitutionComponent } from './steps/de-ch2/step-substitution.component';
 import { DeCh2DiagnosticComponent } from './steps/de-ch2/step-diagnostic.component';
+// Differential Equations Ch3
+import { DeCh3WorkflowComponent } from './steps/de-ch3/step-modeling-workflow.component';
+import { DeCh3CoolingComponent } from './steps/de-ch3/step-newton-cooling.component';
+import { DeCh3MixingComponent } from './steps/de-ch3/step-mixing-tank.component';
+import { DeCh3RcCircuitComponent } from './steps/de-ch3/step-rc-circuit.component';
+import { DeCh3ProjectileComponent } from './steps/de-ch3/step-projectile.component';
+import { DeCh3LogisticComponent } from './steps/de-ch3/step-logistic-harvest.component';
+import { DeCh3PhilosophyComponent } from './steps/de-ch3/step-philosophy.component';
+// Differential Equations Ch4
+import { DeCh4ExistenceComponent } from './steps/de-ch4/step-existence-uniqueness.component';
+import { DeCh4EulerComponent } from './steps/de-ch4/step-euler-method.component';
+import { DeCh4ErrorComponent } from './steps/de-ch4/step-error-analysis.component';
+import { DeCh4RungeKuttaComponent } from './steps/de-ch4/step-runge-kutta.component';
+import { DeCh4AdaptiveComponent } from './steps/de-ch4/step-adaptive-step.component';
+import { DeCh4StiffComponent } from './steps/de-ch4/step-stiff.component';
+import { DeCh4SummaryComponent } from './steps/de-ch4/step-summary.component';
+// Differential Equations Ch5
+import { DeCh5IntroComponent } from './steps/de-ch5/step-second-order-intro.component';
+import { DeCh5CharEqComponent } from './steps/de-ch5/step-characteristic.component';
+import { DeCh5ShmComponent } from './steps/de-ch5/step-shm.component';
+import { DeCh5DampingComponent } from './steps/de-ch5/step-damping.component';
+import { DeCh5EnergyComponent } from './steps/de-ch5/step-energy.component';
+import { DeCh5PhaseComponent } from './steps/de-ch5/step-phase-plane.component';
+import { DeCh5UniversalityComponent } from './steps/de-ch5/step-universality.component';
+// Differential Equations Ch6
+import { DeCh6NonhomComponent } from './steps/de-ch6/step-nonhomogeneous.component';
+import { DeCh6UndeterminedComponent } from './steps/de-ch6/step-undetermined-coef.component';
+import { DeCh6ResonanceComponent } from './steps/de-ch6/step-resonance.component';
+import { DeCh6FreqResponseComponent } from './steps/de-ch6/step-frequency-response.component';
+import { DeCh6BeatsComponent } from './steps/de-ch6/step-beats.component';
+import { DeCh6ApplicationsComponent } from './steps/de-ch6/step-applications.component';
+// Differential Equations Ch7
+import { DeCh7DefinitionComponent } from './steps/de-ch7/step-laplace-definition.component';
+import { DeCh7SolveOdeComponent } from './steps/de-ch7/step-solve-ode.component';
+import { DeCh7InverseComponent } from './steps/de-ch7/step-inverse.component';
+import { DeCh7StepImpulseComponent } from './steps/de-ch7/step-step-impulse.component';
+import { DeCh7ConvolutionComponent } from './steps/de-ch7/step-convolution.component';
+import { DeCh7SummaryComponent } from './steps/de-ch7/step-summary.component';
+// Differential Equations Ch8
+import { DeCh8IntroComponent } from './steps/de-ch8/step-intro-system.component';
+import { DeCh8MatrixExpComponent } from './steps/de-ch8/step-matrix-exp.component';
+import { DeCh8EigenComponent } from './steps/de-ch8/step-eigenvectors.component';
+import { DeCh8PortraitsComponent } from './steps/de-ch8/step-portraits.component';
+import { DeCh8TraceDetComponent } from './steps/de-ch8/step-trace-det.component';
+import { DeCh8CoupledComponent } from './steps/de-ch8/step-coupled-apps.component';
+// Differential Equations Ch9
+import { DeCh9IntroComponent } from './steps/de-ch9/step-intro-nonlinear.component';
+import { DeCh9EquilibriaComponent } from './steps/de-ch9/step-equilibria.component';
+import { DeCh9HartmanComponent } from './steps/de-ch9/step-hartman-grobman.component';
+import { DeCh9LotkaComponent } from './steps/de-ch9/step-lotka-volterra.component';
+import { DeCh9VdpComponent } from './steps/de-ch9/step-van-der-pol.component';
+import { DeCh9PendulumComponent } from './steps/de-ch9/step-pendulum-energy.component';
 // Complex Analysis Ch3
 import { StepContourIntegralComponent } from './steps/complex-ch3/step-contour-integral.component';
 import { StepCauchyTheoremComponent } from './steps/complex-ch3/step-cauchy-theorem.component';
@@ -1407,6 +1459,86 @@ const DE_CHAPTERS: Record<string, ChapterConfig> = {
       { num: 6, title: '診斷工具 + 綜合' },
     ],
   },
+  ch3: {
+    title: '第三章：建模應用',
+    steps: [
+      { num: 1, title: '建模的工作流' },
+      { num: 2, title: '牛頓冷卻：熱交換' },
+      { num: 3, title: '混合問題（Mixing Tank）' },
+      { num: 4, title: 'RC 電路：電容充放電' },
+      { num: 5, title: '彈道與阻力' },
+      { num: 6, title: 'Logistic 族群 + 捕撈' },
+      { num: 7, title: '建模的哲學 + 預告' },
+    ],
+  },
+  ch4: {
+    title: '第四章：存在唯一性 + 數值方法',
+    steps: [
+      { num: 1, title: '存在唯一性：解到底存不存在？' },
+      { num: 2, title: 'Euler 法的幾何' },
+      { num: 3, title: '誤差分析：local 與 global' },
+      { num: 4, title: 'Runge-Kutta：更聰明的斜率估計' },
+      { num: 5, title: '自適應步長' },
+      { num: 6, title: '剛性方程 + 隱式方法' },
+      { num: 7, title: 'Part I 總結 + Part II 預告' },
+    ],
+  },
+  ch5: {
+    title: '第五章：二階線性齊次（振動的語言）',
+    steps: [
+      { num: 1, title: '從 F=ma 到二階 ODE' },
+      { num: 2, title: '特徵方程：用代數取代微積分' },
+      { num: 3, title: '簡諧振動（無阻尼）' },
+      { num: 4, title: '阻尼的三種命運' },
+      { num: 5, title: '能量：守恆與耗散' },
+      { num: 6, title: '相平面：狀態空間視角' },
+      { num: 7, title: '同一首詩：LC、鐘擺、懸臂' },
+    ],
+  },
+  ch6: {
+    title: '第六章：非齊次與共振',
+    steps: [
+      { num: 1, title: '非齊次方程：加入外力' },
+      { num: 2, title: '未定係數法' },
+      { num: 3, title: '共振：無阻尼的警鐘' },
+      { num: 4, title: '頻率響應：Bode 圖 + 3D 曲面' },
+      { num: 5, title: '拍頻與瞬態' },
+      { num: 6, title: '真實共振 + Ch7 預告' },
+    ],
+  },
+  ch7: {
+    title: '第七章：Laplace 變換',
+    steps: [
+      { num: 1, title: 'Laplace 的定義與變換表' },
+      { num: 2, title: '解 ODE：微分變 s 相乘' },
+      { num: 3, title: '反變換：部分分式' },
+      { num: 4, title: '階梯、衝擊、延遲' },
+      { num: 5, title: '卷積與傳遞函數' },
+      { num: 6, title: 'Part II 總結 + Part III 預告' },
+    ],
+  },
+  ch8: {
+    title: '第八章：線性 ODE 系統與相平面',
+    steps: [
+      { num: 1, title: '從二階到一階系統' },
+      { num: 2, title: '矩陣指數 e^(At)' },
+      { num: 3, title: '特徵向量：系統的不變方向' },
+      { num: 4, title: '相平面六種肖像' },
+      { num: 5, title: 'Trace-Det 分類圖' },
+      { num: 6, title: '耦合系統 + Ch9 預告' },
+    ],
+  },
+  ch9: {
+    title: '第九章：非線性動力系統',
+    steps: [
+      { num: 1, title: '非線性世界登場' },
+      { num: 2, title: '平衡點與 Jacobian' },
+      { num: 3, title: 'Hartman-Grobman 定理' },
+      { num: 4, title: 'Lotka-Volterra：捕食者與獵物' },
+      { num: 5, title: '極限環：Van der Pol 振盪器' },
+      { num: 6, title: '真實鐘擺 + Ch10 預告' },
+    ],
+  },
 };
 
 const SUBJECTS: Record<string, Record<string, ChapterConfig>> = {
@@ -1957,6 +2089,58 @@ const SUBJECTS: Record<string, Record<string, ChapterConfig>> = {
     DeCh2ExactComponent,
     DeCh2SubstitutionComponent,
     DeCh2DiagnosticComponent,
+    // Differential Equations Ch3
+    DeCh3WorkflowComponent,
+    DeCh3CoolingComponent,
+    DeCh3MixingComponent,
+    DeCh3RcCircuitComponent,
+    DeCh3ProjectileComponent,
+    DeCh3LogisticComponent,
+    DeCh3PhilosophyComponent,
+    // Differential Equations Ch4
+    DeCh4ExistenceComponent,
+    DeCh4EulerComponent,
+    DeCh4ErrorComponent,
+    DeCh4RungeKuttaComponent,
+    DeCh4AdaptiveComponent,
+    DeCh4StiffComponent,
+    DeCh4SummaryComponent,
+    // Differential Equations Ch5
+    DeCh5IntroComponent,
+    DeCh5CharEqComponent,
+    DeCh5ShmComponent,
+    DeCh5DampingComponent,
+    DeCh5EnergyComponent,
+    DeCh5PhaseComponent,
+    DeCh5UniversalityComponent,
+    // Differential Equations Ch6
+    DeCh6NonhomComponent,
+    DeCh6UndeterminedComponent,
+    DeCh6ResonanceComponent,
+    DeCh6FreqResponseComponent,
+    DeCh6BeatsComponent,
+    DeCh6ApplicationsComponent,
+    // Differential Equations Ch7
+    DeCh7DefinitionComponent,
+    DeCh7SolveOdeComponent,
+    DeCh7InverseComponent,
+    DeCh7StepImpulseComponent,
+    DeCh7ConvolutionComponent,
+    DeCh7SummaryComponent,
+    // Differential Equations Ch8
+    DeCh8IntroComponent,
+    DeCh8MatrixExpComponent,
+    DeCh8EigenComponent,
+    DeCh8PortraitsComponent,
+    DeCh8TraceDetComponent,
+    DeCh8CoupledComponent,
+    // Differential Equations Ch9
+    DeCh9IntroComponent,
+    DeCh9EquilibriaComponent,
+    DeCh9HartmanComponent,
+    DeCh9LotkaComponent,
+    DeCh9VdpComponent,
+    DeCh9PendulumComponent,
   ],
   templateUrl: './chapter.component.html',
   styleUrl: './chapter.component.scss',
