@@ -655,6 +655,77 @@ import { ProbCh5InequalitiesComponent } from './steps/prob-ch5/step-inequalities
 import { ProbCh6LlnComponent } from './steps/prob-ch6/step-lln.component';
 import { ProbCh6CltComponent } from './steps/prob-ch6/step-clt.component';
 import { ProbCh6FinaleComponent } from './steps/prob-ch6/step-finale.component';
+// Stats Ch1
+import { StatsCh1InverseProblemComponent } from './steps/stats-ch1/step-inverse-problem.component';
+import { StatsCh1SampleStatsComponent } from './steps/stats-ch1/step-sample-stats.component';
+import { StatsCh1SamplingDistComponent } from './steps/stats-ch1/step-sampling-distributions.component';
+// Stats Ch2
+import { StatsCh2EstimatorPropertiesComponent } from './steps/stats-ch2/step-estimator-properties.component';
+import { StatsCh2MleComponent } from './steps/stats-ch2/step-mle.component';
+import { StatsCh2MomComponent } from './steps/stats-ch2/step-mom.component';
+import { StatsCh2CrlbComponent } from './steps/stats-ch2/step-crlb.component';
+// Stats Ch3
+import { StatsCh3CiIntuitionComponent } from './steps/stats-ch3/step-ci-intuition.component';
+import { StatsCh3MeanCiComponent } from './steps/stats-ch3/step-mean-ci.component';
+import { StatsCh3ProportionCiComponent } from './steps/stats-ch3/step-proportion-ci.component';
+// Stats Ch4
+import { StatsCh4HypothesisFrameworkComponent } from './steps/stats-ch4/step-hypothesis-framework.component';
+import { StatsCh4ZtTestComponent } from './steps/stats-ch4/step-z-t-test.component';
+import { StatsCh4PowerComponent } from './steps/stats-ch4/step-power.component';
+import { StatsCh4NeymanPearsonComponent } from './steps/stats-ch4/step-neyman-pearson.component';
+// Stats Ch5
+import { StatsCh5TwoSampleComponent } from './steps/stats-ch5/step-two-sample.component';
+import { StatsCh5ChiSquareComponent } from './steps/stats-ch5/step-chi-square.component';
+import { StatsCh5AnovaComponent } from './steps/stats-ch5/step-anova.component';
+// Stats Ch6
+import { StatsCh6RegressionComponent } from './steps/stats-ch6/step-regression.component';
+import { StatsCh6RSquaredComponent } from './steps/stats-ch6/step-r-squared.component';
+import { StatsCh6FinaleComponent } from './steps/stats-ch6/step-finale.component';
+// Reg Ch1
+import { RegCh1OlsComponent } from './steps/reg-ch1/step-ols.component';
+import { RegCh1VarianceDecompositionComponent } from './steps/reg-ch1/step-variance-decomposition.component';
+import { RegCh1ResidualsComponent } from './steps/reg-ch1/step-residuals.component';
+import { RegCh1InferenceComponent } from './steps/reg-ch1/step-inference.component';
+// Reg Ch2
+import { RegCh2WhyMultiComponent } from './steps/reg-ch2/step-why-multi.component';
+import { RegCh2MatrixFormComponent } from './steps/reg-ch2/step-matrix-form.component';
+import { RegCh2ProjectionComponent } from './steps/reg-ch2/step-projection.component';
+import { RegCh2PartialRegressionComponent } from './steps/reg-ch2/step-partial-regression.component';
+// Reg Ch3
+import { RegCh3AssumptionsComponent } from './steps/reg-ch3/step-assumptions.component';
+import { RegCh3GaussMarkovComponent } from './steps/reg-ch3/step-gauss-markov.component';
+import { RegCh3FTestComponent } from './steps/reg-ch3/step-f-test.component';
+// Reg Ch4
+import { RegCh4ResidualDiagnosticsComponent } from './steps/reg-ch4/step-residual-diagnostics.component';
+import { RegCh4QqPlotComponent } from './steps/reg-ch4/step-qq-plot.component';
+import { RegCh4LeverageComponent } from './steps/reg-ch4/step-leverage.component';
+import { RegCh4VifComponent } from './steps/reg-ch4/step-vif.component';
+// Reg Ch5
+import { RegCh5BiasVarianceComponent } from './steps/reg-ch5/step-bias-variance.component';
+import { RegCh5RidgeComponent } from './steps/reg-ch5/step-ridge.component';
+import { RegCh5LassoComponent } from './steps/reg-ch5/step-lasso.component';
+import { RegCh5CvElasticComponent } from './steps/reg-ch5/step-cv-elastic.component';
+// Reg Ch6
+import { RegCh6OneWayComponent } from './steps/reg-ch6/step-one-way.component';
+import { RegCh6TwoWayComponent } from './steps/reg-ch6/step-two-way.component';
+import { RegCh6AncovaComponent } from './steps/reg-ch6/step-ancova.component';
+// Reg Ch7
+import { RegCh7LinkFunctionComponent } from './steps/reg-ch7/step-link-function.component';
+import { RegCh7LogisticComponent } from './steps/reg-ch7/step-logistic.component';
+import { RegCh7PoissonComponent } from './steps/reg-ch7/step-poisson.component';
+import { RegCh7DevianceComponent } from './steps/reg-ch7/step-deviance.component';
+// Reg Ch8
+import { RegCh8FlexibleComponent } from './steps/reg-ch8/step-flexible.component';
+import { RegCh8FinaleComponent } from './steps/reg-ch8/step-finale.component';
+// Bayes Ch1
+import { BayesCh1TwoWorldsComponent } from './steps/bayes-ch1/step-two-worlds.component';
+import { BayesCh1BayesTheoremComponent } from './steps/bayes-ch1/step-bayes-theorem.component';
+import { BayesCh1ThreeCurvesComponent } from './steps/bayes-ch1/step-three-curves.component';
+import { BayesCh1PointEstimatesComponent } from './steps/bayes-ch1/step-point-estimates.component';
+// Bayes Ch2
+import { BayesCh2BetaBinomialComponent } from './steps/bayes-ch2/step-beta-binomial.component';
+import { BayesCh2NormalNormalComponent } from './steps/bayes-ch2/step-normal-normal.component';
+import { BayesCh2GammaPoissonComponent } from './steps/bayes-ch2/step-gamma-poisson.component';
 // Complex Analysis Ch3
 import { StepContourIntegralComponent } from './steps/complex-ch3/step-contour-integral.component';
 import { StepCauchyTheoremComponent } from './steps/complex-ch3/step-cauchy-theorem.component';
@@ -1723,6 +1794,150 @@ const PROB_CHAPTERS: Record<string, ChapterConfig> = {
   },
 };
 
+const STATS_CHAPTERS: Record<string, ChapterConfig> = {
+  ch1: {
+    title: '第一章：從機率到統計',
+    steps: [
+      { num: 1, title: '統計是機率的反問題' },
+      { num: 2, title: '樣本統計量與 Bessel 修正' },
+      { num: 3, title: '三大抽樣分佈：χ²、t、F' },
+    ],
+  },
+  ch2: {
+    title: '第二章：點估計',
+    steps: [
+      { num: 1, title: '什麼是好的估計量？' },
+      { num: 2, title: '最大概似 MLE' },
+      { num: 3, title: '動差法' },
+      { num: 4, title: 'Fisher 資訊與 CRLB' },
+    ],
+  },
+  ch3: {
+    title: '第三章：區間估計',
+    steps: [
+      { num: 1, title: 'CI 的正確詮釋' },
+      { num: 2, title: 'μ 的 z 與 t 區間' },
+      { num: 3, title: '比例的 CI 與樣本大小' },
+    ],
+  },
+  ch4: {
+    title: '第四章：假設檢定',
+    steps: [
+      { num: 1, title: '檢定框架與 p-value' },
+      { num: 2, title: 'z 檢定與 t 檢定' },
+      { num: 3, title: '檢定力 Power' },
+      { num: 4, title: 'Neyman–Pearson 引理' },
+    ],
+  },
+  ch5: {
+    title: '第五章：兩群比較與關聯',
+    steps: [
+      { num: 1, title: '雙樣本與配對 t' },
+      { num: 2, title: 'χ² 檢定' },
+      { num: 3, title: 'ANOVA' },
+    ],
+  },
+  ch6: {
+    title: '第六章：迴歸與總結',
+    steps: [
+      { num: 1, title: '簡單線性迴歸 OLS' },
+      { num: 2, title: 'R² 與殘差診斷' },
+      { num: 3, title: '整課總結' },
+    ],
+  },
+};
+
+const REG_CHAPTERS: Record<string, ChapterConfig> = {
+  ch1: {
+    title: '第一章：簡單線性迴歸',
+    steps: [
+      { num: 1, title: 'OLS 推導' },
+      { num: 2, title: 'SST = SSR + SSE 與 R²' },
+      { num: 3, title: '殘差第一眼' },
+      { num: 4, title: 'β̂ 的 CI 與 t 檢定' },
+    ],
+  },
+  ch2: {
+    title: '第二章：多元迴歸與矩陣觀點',
+    steps: [
+      { num: 1, title: '為何多變數：Simpson 在迴歸' },
+      { num: 2, title: '矩陣形式 Y = Xβ + ε' },
+      { num: 3, title: '幾何：投影與帽子矩陣' },
+      { num: 4, title: '偏迴歸與 FWL' },
+    ],
+  },
+  ch3: {
+    title: '第三章：Gauss–Markov 與推論',
+    steps: [
+      { num: 1, title: '五條假設' },
+      { num: 2, title: 'Gauss–Markov 定理' },
+      { num: 3, title: 'F 檢定、CI vs PI' },
+    ],
+  },
+  ch4: {
+    title: '第四章：診斷',
+    steps: [
+      { num: 1, title: '殘差 vs 擬合' },
+      { num: 2, title: 'Q–Q plot' },
+      { num: 3, title: 'Leverage 與 Cook 距離' },
+      { num: 4, title: 'VIF 與共線性' },
+    ],
+  },
+  ch5: {
+    title: '第五章：模型選擇與正則化',
+    steps: [
+      { num: 1, title: 'Bias–Variance 取捨' },
+      { num: 2, title: 'Ridge 迴歸' },
+      { num: 3, title: 'Lasso 與稀疏解' },
+      { num: 4, title: 'Elastic Net 與 CV' },
+    ],
+  },
+  ch6: {
+    title: '第六章：ANOVA 作為線性模型',
+    steps: [
+      { num: 1, title: '單因子 = 虛擬變數迴歸' },
+      { num: 2, title: '雙因子與交互作用' },
+      { num: 3, title: 'ANCOVA' },
+    ],
+  },
+  ch7: {
+    title: '第七章：廣義線性模型 GLM',
+    steps: [
+      { num: 1, title: 'Link 函數與 GLM 家族' },
+      { num: 2, title: 'Logistic 迴歸' },
+      { num: 3, title: 'Poisson 迴歸' },
+      { num: 4, title: 'Deviance 與模型比較' },
+    ],
+  },
+  ch8: {
+    title: '第八章：擴充與總結',
+    steps: [
+      { num: 1, title: '多項式、Spline、LOESS' },
+      { num: 2, title: '整課總結' },
+    ],
+  },
+};
+
+const BAYES_CHAPTERS: Record<string, ChapterConfig> = {
+  ch1: {
+    title: '第一章：貝氏思維',
+    steps: [
+      { num: 1, title: '頻率派 vs 貝氏派' },
+      { num: 2, title: 'Bayes 定理（連續版）' },
+      { num: 3, title: 'Prior × Likelihood = Posterior' },
+      { num: 4, title: 'Posterior 的點估計' },
+    ],
+  },
+  ch2: {
+    title: '第二章：共軛先驗',
+    steps: [
+      { num: 1, title: 'Beta-Binomial' },
+      { num: 2, title: 'Normal-Normal' },
+      { num: 3, title: 'Gamma-Poisson' },
+    ],
+  },
+};
+
 const SUBJECTS: Record<string, Record<string, ChapterConfig>> = {
   algebra: ALGEBRA_CHAPTERS,
   linalg: LINALG_CHAPTERS,
@@ -1732,6 +1947,9 @@ const SUBJECTS: Record<string, Record<string, ChapterConfig>> = {
   ag: AG_CHAPTERS,
   de: DE_CHAPTERS,
   prob: PROB_CHAPTERS,
+  stats: STATS_CHAPTERS,
+  reg: REG_CHAPTERS,
+  bayes: BAYES_CHAPTERS,
 };
 
 @Component({
@@ -2389,6 +2607,64 @@ const SUBJECTS: Record<string, Record<string, ChapterConfig>> = {
     ProbCh6LlnComponent,
     ProbCh6CltComponent,
     ProbCh6FinaleComponent,
+    // Stats
+    StatsCh1InverseProblemComponent,
+    StatsCh1SampleStatsComponent,
+    StatsCh1SamplingDistComponent,
+    StatsCh2EstimatorPropertiesComponent,
+    StatsCh2MleComponent,
+    StatsCh2MomComponent,
+    StatsCh2CrlbComponent,
+    StatsCh3CiIntuitionComponent,
+    StatsCh3MeanCiComponent,
+    StatsCh3ProportionCiComponent,
+    StatsCh4HypothesisFrameworkComponent,
+    StatsCh4ZtTestComponent,
+    StatsCh4PowerComponent,
+    StatsCh4NeymanPearsonComponent,
+    StatsCh5TwoSampleComponent,
+    StatsCh5ChiSquareComponent,
+    StatsCh5AnovaComponent,
+    StatsCh6RegressionComponent,
+    StatsCh6RSquaredComponent,
+    StatsCh6FinaleComponent,
+    // Reg
+    RegCh1OlsComponent,
+    RegCh1VarianceDecompositionComponent,
+    RegCh1ResidualsComponent,
+    RegCh1InferenceComponent,
+    RegCh2WhyMultiComponent,
+    RegCh2MatrixFormComponent,
+    RegCh2ProjectionComponent,
+    RegCh2PartialRegressionComponent,
+    RegCh3AssumptionsComponent,
+    RegCh3GaussMarkovComponent,
+    RegCh3FTestComponent,
+    RegCh4ResidualDiagnosticsComponent,
+    RegCh4QqPlotComponent,
+    RegCh4LeverageComponent,
+    RegCh4VifComponent,
+    RegCh5BiasVarianceComponent,
+    RegCh5RidgeComponent,
+    RegCh5LassoComponent,
+    RegCh5CvElasticComponent,
+    RegCh6OneWayComponent,
+    RegCh6TwoWayComponent,
+    RegCh6AncovaComponent,
+    RegCh7LinkFunctionComponent,
+    RegCh7LogisticComponent,
+    RegCh7PoissonComponent,
+    RegCh7DevianceComponent,
+    RegCh8FlexibleComponent,
+    RegCh8FinaleComponent,
+    // Bayes
+    BayesCh1TwoWorldsComponent,
+    BayesCh1BayesTheoremComponent,
+    BayesCh1ThreeCurvesComponent,
+    BayesCh1PointEstimatesComponent,
+    BayesCh2BetaBinomialComponent,
+    BayesCh2NormalNormalComponent,
+    BayesCh2GammaPoissonComponent,
   ],
   templateUrl: './chapter.component.html',
   styleUrl: './chapter.component.scss',
