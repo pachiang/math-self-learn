@@ -627,34 +627,82 @@ import { DeCh15LorenzComponent } from './steps/de-ch15/step-lorenz.component';
 import { DeCh15LogisticComponent } from './steps/de-ch15/step-logistic-map.component';
 import { DeCh15FinaleComponent } from './steps/de-ch15/step-finale.component';
 
-// Probability Ch1
-import { ProbCh1WhatIsProbComponent } from './steps/prob-ch1/step-what-is-prob.component';
-import { ProbCh1SampleSpaceComponent } from './steps/prob-ch1/step-sample-space.component';
-import { ProbCh1CountingComponent } from './steps/prob-ch1/step-counting.component';
-import { ProbCh1MonteCarloComponent } from './steps/prob-ch1/step-monte-carlo.component';
-// Probability Ch2
-import { ProbCh2ConditionalComponent } from './steps/prob-ch2/step-conditional.component';
-import { ProbCh2BayesComponent } from './steps/prob-ch2/step-bayes.component';
-import { ProbCh2BaseRateComponent } from './steps/prob-ch2/step-base-rate.component';
-import { ProbCh2SimpsonComponent } from './steps/prob-ch2/step-simpson.component';
-// Probability Ch3
-import { ProbCh3RvIntroComponent } from './steps/prob-ch3/step-rv-intro.component';
-import { ProbCh3BinomialComponent } from './steps/prob-ch3/step-bernoulli-binomial.component';
-import { ProbCh3PoissonComponent } from './steps/prob-ch3/step-poisson.component';
-import { ProbCh3GeometricComponent } from './steps/prob-ch3/step-geometric.component';
-// Probability Ch4
-import { ProbCh4PdfIntroComponent } from './steps/prob-ch4/step-pdf-intro.component';
-import { ProbCh4UniformExpComponent } from './steps/prob-ch4/step-uniform-exp.component';
-import { ProbCh4NormalComponent } from './steps/prob-ch4/step-normal.component';
-import { ProbCh4ZooComponent } from './steps/prob-ch4/step-distribution-zoo.component';
-// Probability Ch5
-import { ProbCh5ExpectationComponent } from './steps/prob-ch5/step-expectation.component';
-import { ProbCh5VarianceComponent } from './steps/prob-ch5/step-variance.component';
-import { ProbCh5InequalitiesComponent } from './steps/prob-ch5/step-inequalities.component';
-// Probability Ch6
-import { ProbCh6LlnComponent } from './steps/prob-ch6/step-lln.component';
-import { ProbCh6CltComponent } from './steps/prob-ch6/step-clt.component';
-import { ProbCh6FinaleComponent } from './steps/prob-ch6/step-finale.component';
+// Probability v2 Ch1
+import { ProbV2ProbabilityNotProphecyComponent } from './steps/prob-v2-ch1/step-probability-not-prophecy.component';
+import { ProbV2ShortRunChaosComponent } from './steps/prob-v2-ch1/step-short-run-chaos.component';
+import { ProbV2LongRunPatternComponent } from './steps/prob-v2-ch1/step-long-run-pattern.component';
+// Probability v2 Ch2
+import { ProbV2ExperimentOutcomeSpaceComponent } from './steps/prob-v2-ch2/step-experiment-outcome-space.component';
+import { ProbV2CompleteOutcomesComponent } from './steps/prob-v2-ch2/step-complete-outcomes.component';
+import { ProbV2EventsAsRegionsComponent } from './steps/prob-v2-ch2/step-events-as-regions.component';
+import { ProbV2ModelingGranularityComponent } from './steps/prob-v2-ch2/step-modeling-granularity.component';
+// Probability v2 Ch3
+import { ProbV2NamesVsWeightsComponent } from './steps/prob-v2-ch3/step-names-vs-weights.component';
+import { ProbV2ProbabilityMassComponent } from './steps/prob-v2-ch3/step-probability-mass.component';
+import { ProbV2EqualLikelihoodComponent } from './steps/prob-v2-ch3/step-equal-likelihood.component';
+import { ProbV2ProbabilityFoundationsComponent } from './steps/prob-v2-ch3/step-probability-foundations.component';
+// Probability v2 Ch4
+import { ProbV2EventOperationsComponent } from './steps/prob-v2-ch4/step-event-operations.component';
+import { ProbV2DoubleCountingComponent } from './steps/prob-v2-ch4/step-double-counting.component';
+import { ProbV2ComplementDemorganComponent } from './steps/prob-v2-ch4/step-complement-demorgan.component';
+import { ProbV2MutuallyExclusiveComponent } from './steps/prob-v2-ch4/step-mutually-exclusive.component';
+// Probability v2 Ch5
+import { ProbV2BranchingWorldComponent } from './steps/prob-v2-ch5/step-branching-world.component';
+import { ProbV2PathMultiplicationComponent } from './steps/prob-v2-ch5/step-path-multiplication.component';
+import { ProbV2ReplacementWorldComponent } from './steps/prob-v2-ch5/step-replacement-changes-world.component';
+import { ProbV2BranchSumComponent } from './steps/prob-v2-ch5/step-branch-sum.component';
+// Probability v2 Ch6
+import { ProbV2CountingPrincipleComponent } from './steps/prob-v2-ch6/step-counting-principle.component';
+import { ProbV2PermutationSlotsComponent } from './steps/prob-v2-ch6/step-permutation-slots.component';
+import { ProbV2CombinationClustersComponent } from './steps/prob-v2-ch6/step-combination-clusters.component';
+import { ProbV2RepeatedElementsComponent } from './steps/prob-v2-ch6/step-repeated-elements.component';
+import { ProbV2BirthdayModelComponent } from './steps/prob-v2-ch6/step-birthday-model.component';
+// Probability v2 Ch7
+import { ProbV2CountLanguageComponent } from './steps/prob-v2-ch7/step-count-language.component';
+import { ProbV2ComplementPathsComponent } from './steps/prob-v2-ch7/step-complement-paths.component';
+import { ProbV2ReliabilityComponent } from './steps/prob-v2-ch7/step-reliability.component';
+import { ProbV2StrategyChoiceComponent } from './steps/prob-v2-ch7/step-strategy-choice.component';
+// Probability v2 Ch8
+import { ProbV2WorldShrinksComponent } from './steps/prob-v2-ch8/step-world-shrinks.component';
+import { ProbV2GivenDirectionComponent } from './steps/prob-v2-ch8/step-given-direction.component';
+import { ProbV2NestedProportionComponent } from './steps/prob-v2-ch8/step-nested-proportion.component';
+import { ProbV2InformationUpdatesBagComponent } from './steps/prob-v2-ch8/step-information-updates-bag.component';
+// Probability v2 Ch9
+import { ProbV2RatioInvariantComponent } from './steps/prob-v2-ch9/step-ratio-invariant.component';
+import { ProbV2ExclusiveVsIndependentComponent } from './steps/prob-v2-ch9/step-exclusive-vs-independent.component';
+import { ProbV2ApproximateIndependenceComponent } from './steps/prob-v2-ch9/step-approximate-independence.component';
+import { ProbV2SharedCauseComponent } from './steps/prob-v2-ch9/step-shared-cause.component';
+// Probability v2 Ch10
+import { ProbV2ReverseConditioningComponent } from './steps/prob-v2-ch10/step-reverse-conditioning.component';
+import { ProbV2FalsePositiveFrequenciesComponent } from './steps/prob-v2-ch10/step-false-positive-frequencies.component';
+import { ProbV2BayesWeightUpdateComponent } from './steps/prob-v2-ch10/step-bayes-weight-update.component';
+import { ProbV2TotalEvidencePoolComponent } from './steps/prob-v2-ch10/step-total-evidence-pool.component';
+// Probability v2 Ch11
+import { ProbV2RandomVariableMachineComponent } from './steps/prob-v2-ch11/step-random-variable-machine.component';
+import { ProbV2ManyMeasurementsComponent } from './steps/prob-v2-ch11/step-many-measurements.component';
+import { ProbV2PreimageEventComponent } from './steps/prob-v2-ch11/step-preimage-event.component';
+import { ProbV2OutputScaleComponent } from './steps/prob-v2-ch11/step-output-scale.component';
+// Probability v2 Ch12
+import { ProbV2WeightMapComponent } from './steps/prob-v2-ch12/step-weight-map.component';
+import { ProbV2PmfPointMassComponent } from './steps/prob-v2-ch12/step-pmf-point-mass.component';
+import { ProbV2CdfThresholdComponent } from './steps/prob-v2-ch12/step-cdf-threshold.component';
+import { ProbV2PdfAreaComponent } from './steps/prob-v2-ch12/step-pdf-area.component';
+import { ProbV2NormalizationComponent } from './steps/prob-v2-ch12/step-normalization.component';
+// Probability v2 Ch13
+import { ProbV2ExpectationBalanceComponent } from './steps/prob-v2-ch13/step-expectation-balance.component';
+import { ProbV2SameCenterComponent } from './steps/prob-v2-ch13/step-same-center.component';
+import { ProbV2LinearityComponent } from './steps/prob-v2-ch13/step-linearity.component';
+import { ProbV2VarianceComponent } from './steps/prob-v2-ch13/step-variance.component';
+import { ProbV2CovarianceComponent } from './steps/prob-v2-ch13/step-covariance.component';
+// Probability v2 Ch14
+import { ProbV2BernoulliIndicatorComponent } from './steps/prob-v2-ch14/step-bernoulli-indicator.component';
+import { ProbV2RepeatedTrialsComponent } from './steps/prob-v2-ch14/step-repeated-trials.component';
+import { ProbV2BinomialCompressionComponent } from './steps/prob-v2-ch14/step-binomial-compression.component';
+import { ProbV2BinomialShapeComponent } from './steps/prob-v2-ch14/step-binomial-shape.component';
+import { ProbV2BinomialAssumptionsComponent } from './steps/prob-v2-ch14/step-binomial-assumptions.component';
+import { ProbV2GeometricStoppingComponent } from './steps/prob-v2-ch14/step-geometric-stopping.component';
+import { ProbV2GeometricMemorylessComponent } from './steps/prob-v2-ch14/step-geometric-memoryless.component';
+import { ProbV2NegativeBinomialComponent } from './steps/prob-v2-ch14/step-negative-binomial.component';
 // Stats Ch1
 import { StatsCh1InverseProblemComponent } from './steps/stats-ch1/step-inverse-problem.component';
 import { StatsCh1SampleStatsComponent } from './steps/stats-ch1/step-sample-stats.component';
@@ -1741,55 +1789,135 @@ const DE_CHAPTERS: Record<string, ChapterConfig> = {
 
 const PROB_CHAPTERS: Record<string, ChapterConfig> = {
   ch1: {
-    title: '第一章：什麼是機率？',
+    title: '第一章：機率不是預言',
     steps: [
-      { num: 1, title: '機率的三種詮釋' },
-      { num: 2, title: '樣本空間與事件' },
-      { num: 3, title: '計數與生日悖論' },
-      { num: 4, title: 'Monte Carlo 估 π' },
+      { num: 1, title: '70% 不是保證' },
+      { num: 2, title: '短期可以很亂' },
+      { num: 3, title: '長期規律浮現' },
     ],
   },
   ch2: {
-    title: '第二章：條件機率與 Bayes',
+    title: '第二章：把可能世界畫完整',
     steps: [
-      { num: 1, title: '條件機率' },
-      { num: 2, title: 'Bayes 定理' },
-      { num: 3, title: 'Base rate 謬誤' },
-      { num: 4, title: 'Simpson 悖論' },
+      { num: 1, title: '實驗、結果與世界' },
+      { num: 2, title: '什麼才算完整結果' },
+      { num: 3, title: 'Event 是替世界畫圈' },
+      { num: 4, title: '地圖要剛好夠用' },
     ],
   },
   ch3: {
-    title: '第三章：隨機變數與離散分佈',
+    title: '第三章：可能不等於一樣可能',
     steps: [
-      { num: 1, title: 'RV 與 PMF' },
-      { num: 2, title: 'Bernoulli & Binomial' },
-      { num: 3, title: 'Poisson' },
-      { num: 4, title: 'Geometric' },
+      { num: 1, title: '名稱不等於重量' },
+      { num: 2, title: '分配 probability mass' },
+      { num: 3, title: '何時可以數格子' },
+      { num: 4, title: '機率的三條地基' },
     ],
   },
   ch4: {
-    title: '第四章：連續分佈',
+    title: '第四章：事件的幾何',
     steps: [
-      { num: 1, title: 'PDF 與 CDF' },
-      { num: 2, title: 'Uniform & Exponential' },
-      { num: 3, title: 'Normal 分佈' },
-      { num: 4, title: '分佈園區' },
+      { num: 1, title: 'Union 與 intersection' },
+      { num: 2, title: '別把 overlap 算兩次' },
+      { num: 3, title: 'Complement 與 De Morgan' },
+      { num: 4, title: '什麼叫 mutually exclusive' },
     ],
   },
   ch5: {
-    title: '第五章：期望值與變異數',
+    title: '第五章：世界如何分岔',
     steps: [
-      { num: 1, title: '期望值與線性性' },
-      { num: 2, title: '變異數與協變異數' },
-      { num: 3, title: 'Markov & Chebyshev' },
+      { num: 1, title: '從 branch 走到 leaf' },
+      { num: 2, title: '沿 path 連續縮小' },
+      { num: 3, title: '放回如何改變下一層' },
+      { num: 4, title: '沿路乘，跨路加' },
     ],
   },
   ch6: {
-    title: '第六章：LLN 與 CLT',
+    title: '第六章：計數是壓縮樹狀圖',
     steps: [
-      { num: 1, title: '大數法則' },
-      { num: 2, title: '中央極限定理' },
-      { num: 3, title: '整課總結' },
+      { num: 1, title: '把 tree layers 壓成乘法' },
+      { num: 2, title: 'Permutation 保留位置' },
+      { num: 3, title: 'Combination 合併順序' },
+      { num: 4, title: '重複元素與可見排列' },
+      { num: 5, title: 'Birthday problem' },
+    ],
+  },
+  ch7: {
+    title: '第七章：從反面看「至少一次」',
+    steps: [
+      { num: 1, title: 'At least、at most、exactly' },
+      { num: 2, title: '至少一次的反面' },
+      { num: 3, title: 'Repeated attempts 與 reliability' },
+      { num: 4, title: '何時不要用 complement' },
+    ],
+  },
+  ch8: {
+    title: '第八章：條件機率是世界縮小',
+    steps: [
+      { num: 1, title: '裁切並重新正規化' },
+      { num: 2, title: 'Given 的方向' },
+      { num: 3, title: 'Intersection 的 nested area' },
+      { num: 4, title: '資訊更新抽球世界' },
+    ],
+  },
+  ch9: {
+    title: '第九章：獨立是縮小後比例不變',
+    steps: [
+      { num: 1, title: '比例不變才叫 independent' },
+      { num: 2, title: 'Independent vs mutually exclusive' },
+      { num: 3, title: 'Exact 與 approximate independence' },
+      { num: 4, title: 'Repeated trials 與 shared cause' },
+    ],
+  },
+  ch10: {
+    title: '第十章：Bayes 從結果反推原因',
+    steps: [
+      { num: 1, title: 'Likelihood 不等於 posterior' },
+      { num: 2, title: 'False positive 與 base rate' },
+      { num: 3, title: 'Prior × likelihood → posterior' },
+      { num: 4, title: 'Total probability evidence pool' },
+    ],
+  },
+  ch11: {
+    title: '第十一章：Random variable 是測量規則',
+    steps: [
+      { num: 1, title: 'Outcome → value machine' },
+      { num: 2, title: '同一世界，不同 measurements' },
+      { num: 3, title: 'Value 背後的 preimage' },
+      { num: 4, title: 'Discrete vs continuous outputs' },
+    ],
+  },
+  ch12: {
+    title: '第十二章：Distribution 是數值世界的重量地圖',
+    steps: [
+      { num: 1, title: '把 outcome weights 搬到 values' },
+      { num: 2, title: 'PMF 與 discrete point mass' },
+      { num: 3, title: 'CDF 累積 threshold 左側' },
+      { num: 4, title: 'PDF density 與 interval area' },
+      { num: 5, title: 'Normalization 守恆總重量' },
+    ],
+  },
+  ch13: {
+    title: '第十三章：Expectation 是重量中心',
+    steps: [
+      { num: 1, title: 'Expectation 是 balance point' },
+      { num: 2, title: 'Same center, different spread' },
+      { num: 3, title: 'Linearity 不需要 independence' },
+      { num: 4, title: 'Variance 是 squared distance' },
+      { num: 5, title: 'Covariance 是 signed area' },
+    ],
+  },
+  ch14: {
+    title: '第十四章：同一台 Yes／No 實驗機',
+    steps: [
+      { num: 1, title: 'Bernoulli 是 binary question' },
+      { num: 2, title: '先生成完整 sequence' },
+      { num: 3, title: 'Binomial 壓縮成 count' },
+      { num: 4, title: 'n、p 如何塑造 PMF' },
+      { num: 5, title: 'Binomial 的成立條件' },
+      { num: 6, title: 'Geometric 的 stopping rule' },
+      { num: 7, title: 'Memorylessness' },
+      { num: 8, title: '等待第 r 次 success' },
     ],
   },
 };
@@ -2579,34 +2707,82 @@ const SUBJECTS: Record<string, Record<string, ChapterConfig>> = {
     DeCh15LorenzComponent,
     DeCh15LogisticComponent,
     DeCh15FinaleComponent,
-    // Probability Ch1
-    ProbCh1WhatIsProbComponent,
-    ProbCh1SampleSpaceComponent,
-    ProbCh1CountingComponent,
-    ProbCh1MonteCarloComponent,
-    // Probability Ch2
-    ProbCh2ConditionalComponent,
-    ProbCh2BayesComponent,
-    ProbCh2BaseRateComponent,
-    ProbCh2SimpsonComponent,
-    // Probability Ch3
-    ProbCh3RvIntroComponent,
-    ProbCh3BinomialComponent,
-    ProbCh3PoissonComponent,
-    ProbCh3GeometricComponent,
-    // Probability Ch4
-    ProbCh4PdfIntroComponent,
-    ProbCh4UniformExpComponent,
-    ProbCh4NormalComponent,
-    ProbCh4ZooComponent,
-    // Probability Ch5
-    ProbCh5ExpectationComponent,
-    ProbCh5VarianceComponent,
-    ProbCh5InequalitiesComponent,
-    // Probability Ch6
-    ProbCh6LlnComponent,
-    ProbCh6CltComponent,
-    ProbCh6FinaleComponent,
+    // Probability v2 Ch1
+    ProbV2ProbabilityNotProphecyComponent,
+    ProbV2ShortRunChaosComponent,
+    ProbV2LongRunPatternComponent,
+    // Probability v2 Ch2
+    ProbV2ExperimentOutcomeSpaceComponent,
+    ProbV2CompleteOutcomesComponent,
+    ProbV2EventsAsRegionsComponent,
+    ProbV2ModelingGranularityComponent,
+    // Probability v2 Ch3
+    ProbV2NamesVsWeightsComponent,
+    ProbV2ProbabilityMassComponent,
+    ProbV2EqualLikelihoodComponent,
+    ProbV2ProbabilityFoundationsComponent,
+    // Probability v2 Ch4
+    ProbV2EventOperationsComponent,
+    ProbV2DoubleCountingComponent,
+    ProbV2ComplementDemorganComponent,
+    ProbV2MutuallyExclusiveComponent,
+    // Probability v2 Ch5
+    ProbV2BranchingWorldComponent,
+    ProbV2PathMultiplicationComponent,
+    ProbV2ReplacementWorldComponent,
+    ProbV2BranchSumComponent,
+    // Probability v2 Ch6
+    ProbV2CountingPrincipleComponent,
+    ProbV2PermutationSlotsComponent,
+    ProbV2CombinationClustersComponent,
+    ProbV2RepeatedElementsComponent,
+    ProbV2BirthdayModelComponent,
+    // Probability v2 Ch7
+    ProbV2CountLanguageComponent,
+    ProbV2ComplementPathsComponent,
+    ProbV2ReliabilityComponent,
+    ProbV2StrategyChoiceComponent,
+    // Probability v2 Ch8
+    ProbV2WorldShrinksComponent,
+    ProbV2GivenDirectionComponent,
+    ProbV2NestedProportionComponent,
+    ProbV2InformationUpdatesBagComponent,
+    // Probability v2 Ch9
+    ProbV2RatioInvariantComponent,
+    ProbV2ExclusiveVsIndependentComponent,
+    ProbV2ApproximateIndependenceComponent,
+    ProbV2SharedCauseComponent,
+    // Probability v2 Ch10
+    ProbV2ReverseConditioningComponent,
+    ProbV2FalsePositiveFrequenciesComponent,
+    ProbV2BayesWeightUpdateComponent,
+    ProbV2TotalEvidencePoolComponent,
+    // Probability v2 Ch11
+    ProbV2RandomVariableMachineComponent,
+    ProbV2ManyMeasurementsComponent,
+    ProbV2PreimageEventComponent,
+    ProbV2OutputScaleComponent,
+    // Probability v2 Ch12
+    ProbV2WeightMapComponent,
+    ProbV2PmfPointMassComponent,
+    ProbV2CdfThresholdComponent,
+    ProbV2PdfAreaComponent,
+    ProbV2NormalizationComponent,
+    // Probability v2 Ch13
+    ProbV2ExpectationBalanceComponent,
+    ProbV2SameCenterComponent,
+    ProbV2LinearityComponent,
+    ProbV2VarianceComponent,
+    ProbV2CovarianceComponent,
+    // Probability v2 Ch14
+    ProbV2BernoulliIndicatorComponent,
+    ProbV2RepeatedTrialsComponent,
+    ProbV2BinomialCompressionComponent,
+    ProbV2BinomialShapeComponent,
+    ProbV2BinomialAssumptionsComponent,
+    ProbV2GeometricStoppingComponent,
+    ProbV2GeometricMemorylessComponent,
+    ProbV2NegativeBinomialComponent,
     // Stats
     StatsCh1InverseProblemComponent,
     StatsCh1SampleStatsComponent,

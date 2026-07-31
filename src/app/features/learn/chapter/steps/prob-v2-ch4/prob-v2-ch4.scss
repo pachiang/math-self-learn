@@ -1,0 +1,623 @@
+.prob-v2-ch4 {
+  --set-a: #b77d69;
+  --set-a-soft: color-mix(in srgb, var(--set-a) 17%, transparent);
+  --set-b: #6f92ad;
+  --set-b-soft: color-mix(in srgb, var(--set-b) 17%, transparent);
+  --overlap: #8b7aa6;
+  --overlap-soft: color-mix(in srgb, var(--overlap) 19%, transparent);
+  --outside: #8a847c;
+  --success: #758f69;
+  --success-soft: color-mix(in srgb, var(--success) 16%, transparent);
+  --danger: #a85f5f;
+  --danger-soft: color-mix(in srgb, var(--danger) 14%, transparent);
+
+  .set-legend {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    color: var(--text-secondary);
+    font-size: 11px;
+  }
+
+  .set-legend span {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .set-legend i {
+    width: 11px;
+    height: 11px;
+    border-radius: 3px;
+    background: var(--set-a);
+  }
+
+  .set-legend .b {
+    background: var(--set-b);
+  }
+
+  .set-legend .both {
+    background: var(--overlap);
+  }
+
+  .universe-board {
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: var(--bg-surface);
+  }
+
+  .universe-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    color: var(--text-muted);
+    font-size: 10px;
+    font-weight: 750;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .outcome-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 7px;
+  }
+
+  .outcome-cell {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 76px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg);
+    color: var(--text-muted);
+    transition:
+      border-color 0.18s ease,
+      background 0.18s ease,
+      opacity 0.18s ease,
+      transform 0.18s ease;
+  }
+
+  .outcome-cell strong {
+    position: relative;
+    z-index: 2;
+    font-size: 17px;
+  }
+
+  .outcome-cell .membership {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    left: 5px;
+    display: flex;
+    justify-content: center;
+    gap: 3px;
+  }
+
+  .membership i {
+    width: 16px;
+    height: 4px;
+    border-radius: 99px;
+    background: var(--set-a);
+  }
+
+  .membership i.b {
+    background: var(--set-b);
+  }
+
+  .outcome-cell.in-a {
+    border-color: color-mix(in srgb, var(--set-a) 60%, var(--border));
+  }
+
+  .outcome-cell.in-b {
+    border-color: color-mix(in srgb, var(--set-b) 60%, var(--border));
+  }
+
+  .outcome-cell.in-a.in-b {
+    border-color: var(--overlap);
+  }
+
+  .outcome-cell.selected {
+    border-color: var(--overlap);
+    background: var(--overlap-soft);
+    color: var(--text);
+    transform: translateY(-3px);
+  }
+
+  .outcome-cell.dimmed {
+    opacity: 0.32;
+  }
+
+  .selection-readout {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.75fr) minmax(460px, 1.25fr);
+    gap: 14px;
+    align-items: center;
+    margin-top: 14px;
+  }
+
+  .logic-token {
+    padding: 15px 17px;
+    border-radius: 13px;
+    background: var(--overlap-soft);
+  }
+
+  .logic-token span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 9px;
+    text-transform: uppercase;
+  }
+
+  .logic-token strong {
+    display: block;
+    margin-top: 4px;
+    color: var(--text);
+    font-size: 17px;
+  }
+
+  .selection-readout > p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  .lens-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .lens-row button {
+    min-height: 67px;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg);
+    color: var(--text-secondary);
+    cursor: pointer;
+  }
+
+  .lens-row button strong,
+  .lens-row button span {
+    display: block;
+  }
+
+  .lens-row button strong {
+    color: var(--text);
+    font-size: 14px;
+  }
+
+  .lens-row button span {
+    margin-top: 3px;
+    font-size: 9px;
+  }
+
+  .lens-row button.active {
+    border-color: var(--overlap);
+    background: var(--overlap-soft);
+  }
+
+  // Step 4.2 — double counting
+  .prediction-board {
+    display: grid;
+    grid-template-columns: minmax(500px, 1fr) auto;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .receipt {
+    display: grid;
+    grid-template-columns: 1fr 70px 1fr;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .receipt-column {
+    padding: 17px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--bg-surface);
+  }
+
+  .receipt-column > span {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--text-muted);
+    font-size: 9px;
+    font-weight: 750;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .receipt-items {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 5px;
+  }
+
+  .receipt-item {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 66px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 750;
+  }
+
+  .receipt-item.duplicate {
+    border-color: var(--danger);
+    background: var(--danger-soft);
+  }
+
+  .receipt-item small {
+    position: absolute;
+    right: 3px;
+    bottom: 3px;
+    left: 3px;
+    color: var(--danger);
+    font-size: 7px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .receipt-plus {
+    display: grid;
+    place-items: center;
+    color: var(--accent);
+    font-size: 25px;
+  }
+
+  .counting-summary {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    gap: 10px;
+    align-items: center;
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--bg-surface);
+  }
+
+  .counting-summary > div {
+    text-align: center;
+  }
+
+  .counting-summary span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 9px;
+  }
+
+  .counting-summary strong {
+    display: block;
+    margin-top: 4px;
+    color: var(--text);
+    font-size: 20px;
+  }
+
+  .counting-summary i {
+    color: var(--accent);
+    font-size: 20px;
+    font-style: normal;
+  }
+
+  .counting-summary .subtract strong {
+    color: var(--danger);
+  }
+
+  .union-strip {
+    display: flex;
+    height: 64px;
+    overflow: hidden;
+    border: 1px solid var(--border-strong);
+    border-radius: 13px;
+  }
+
+  .union-strip div {
+    display: grid;
+    place-items: center;
+    flex: 1;
+    border-right: 1px solid var(--bg);
+    background: var(--overlap);
+    color: var(--bg);
+    font-size: 11px;
+    font-weight: 750;
+  }
+
+  // Step 4.3 — complement and De Morgan
+  .demorgan-controls {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 9px;
+  }
+
+  .demorgan-controls button {
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    background: var(--bg);
+    color: var(--text-secondary);
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .demorgan-controls button strong,
+  .demorgan-controls button span {
+    display: block;
+  }
+
+  .demorgan-controls button strong {
+    color: var(--text);
+    font-size: 14px;
+  }
+
+  .demorgan-controls button span {
+    margin-top: 5px;
+    font-size: 10px;
+  }
+
+  .demorgan-controls button.active {
+    border-color: var(--overlap);
+    background: var(--overlap-soft);
+  }
+
+  .mirror-worlds {
+    display: grid;
+    grid-template-columns: 1fr 54px 1fr;
+    gap: 14px;
+    align-items: center;
+  }
+
+  .mirror-panel {
+    padding: 17px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--bg-surface);
+  }
+
+  .mirror-panel h3 {
+    font-size: 15px;
+  }
+
+  .mini-world {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 6px;
+    margin-top: 13px;
+  }
+
+  .mini-world div {
+    display: grid;
+    place-items: center;
+    min-height: 46px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--bg);
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 750;
+  }
+
+  .mini-world div.selected {
+    border-color: var(--overlap);
+    background: var(--overlap-soft);
+    color: var(--text);
+  }
+
+  .mirror-equals {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--success-soft);
+    color: var(--success);
+    font-size: 22px;
+    font-weight: 800;
+  }
+
+  .logic-translation {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 14px;
+    align-items: center;
+    padding: 18px;
+    border: 1px solid var(--accent-30);
+    border-radius: 16px;
+    background: var(--accent-10);
+  }
+
+  .logic-translation div {
+    text-align: center;
+  }
+
+  .logic-translation span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 9px;
+  }
+
+  .logic-translation strong {
+    display: block;
+    margin-top: 5px;
+    color: var(--text);
+    font-size: 15px;
+  }
+
+  .logic-translation i {
+    color: var(--accent);
+    font-style: normal;
+  }
+
+  // Step 4.4 — mutually exclusive
+  .window-board {
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    background: var(--bg-surface);
+  }
+
+  .window-track {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 7px;
+    margin: 18px 0;
+  }
+
+  .window-cell {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 78px;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    background: var(--bg);
+    color: var(--text-muted);
+    font-weight: 750;
+  }
+
+  .window-cell.in-a {
+    border-color: var(--set-a);
+    background: var(--set-a-soft);
+    color: var(--set-a);
+  }
+
+  .window-cell.in-b {
+    border-color: var(--set-b);
+    background: var(--set-b-soft);
+    color: var(--set-b);
+  }
+
+  .window-cell.in-a.in-b {
+    border-color: var(--overlap);
+    background: var(--overlap-soft);
+    color: var(--overlap);
+  }
+
+  .window-cell small {
+    position: absolute;
+    bottom: 5px;
+    font-size: 7px;
+    letter-spacing: 0.04em;
+  }
+
+  .window-control {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 14px;
+    align-items: center;
+  }
+
+  .window-control label {
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .window-control input {
+    width: 100%;
+    accent-color: var(--set-b);
+  }
+
+  .window-control strong {
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .exclusivity-result {
+    display: grid;
+    grid-template-columns: minmax(340px, 0.9fr) minmax(500px, 1.1fr);
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .status-panel {
+    padding: 19px;
+    border: 1px solid;
+    border-radius: 16px;
+  }
+
+  .status-panel.exclusive {
+    border-color: var(--success);
+    background: var(--success-soft);
+  }
+
+  .status-panel.overlapping {
+    border-color: var(--overlap);
+    background: var(--overlap-soft);
+  }
+
+  .status-panel span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .status-panel strong {
+    display: block;
+    margin: 6px 0;
+    color: var(--text);
+    font-size: 21px;
+  }
+
+  .status-panel p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 12px;
+    line-height: 1.65;
+  }
+
+  .concept-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+  }
+
+  .concept-split > div {
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg-surface);
+  }
+
+  .concept-split span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 9px;
+    font-weight: 750;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  .concept-split strong {
+    display: block;
+    margin: 6px 0;
+    color: var(--text);
+    font-size: 15px;
+  }
+
+  .concept-split p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 11px;
+    line-height: 1.6;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prob-v2-ch4 .outcome-cell {
+    transition: none !important;
+  }
+}

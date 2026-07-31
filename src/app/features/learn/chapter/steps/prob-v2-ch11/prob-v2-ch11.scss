@@ -1,0 +1,896 @@
+.prob-v2-ch11 {
+  --rv-input: #6f8da5;
+  --rv-input-soft: color-mix(in srgb, var(--rv-input) 16%, transparent);
+  --rv-machine: #ad775f;
+  --rv-machine-soft: color-mix(in srgb, var(--rv-machine) 16%, transparent);
+  --rv-output: #788f69;
+  --rv-output-soft: color-mix(in srgb, var(--rv-output) 17%, transparent);
+  --rv-continuous: #7e6c9e;
+
+  .rv-prediction {
+    display: grid;
+    grid-template-columns: minmax(560px, 1fr) auto;
+    gap: 22px;
+    align-items: center;
+  }
+
+  .mapping-board {
+    display: grid;
+    grid-template-columns: minmax(500px, 1.1fr) 230px minmax(330px, 0.75fr);
+    gap: 18px;
+    align-items: stretch;
+  }
+
+  .rv-input-world,
+  .value-world,
+  .measurement-machine,
+  .rv-dice-world,
+  .measure-readout,
+  .preimage-world,
+  .bucket-world,
+  .spinner-panel,
+  .scale-output {
+    padding: 19px;
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    background: var(--bg-surface);
+  }
+
+  .coin-path-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-top: 15px;
+  }
+
+  .coin-path-grid button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 54px;
+    padding: 9px 11px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--text);
+    cursor: pointer;
+    transition:
+      border-color 160ms ease,
+      background 160ms ease,
+      transform 160ms ease;
+  }
+
+  .coin-path-grid button:hover,
+  .coin-path-grid button:focus-visible {
+    border-color: var(--rv-input);
+  }
+
+  .coin-path-grid button.active {
+    border-color: var(--rv-input);
+    background: var(--rv-input-soft);
+    box-shadow: inset 3px 0 0 var(--rv-input);
+  }
+
+  .coin-path-grid small {
+    color: var(--text-muted);
+    font-size: 8px;
+  }
+
+  .coin-sequence {
+    display: flex;
+    gap: 5px;
+  }
+
+  .coin-sequence i {
+    display: grid;
+    place-items: center;
+    width: 27px;
+    height: 27px;
+    border: 1px solid var(--rv-output);
+    border-radius: 50%;
+    background: var(--rv-output-soft);
+    color: var(--text);
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 800;
+  }
+
+  .coin-sequence i.tail {
+    border-color: var(--border-strong);
+    background: var(--bg-raised);
+    color: var(--text-secondary);
+  }
+
+  .measurement-machine {
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    border-color: var(--rv-machine);
+    background: linear-gradient(var(--rv-machine-soft), var(--rv-machine-soft)), var(--bg-surface);
+    text-align: center;
+  }
+
+  .measurement-machine > span {
+    color: var(--rv-machine);
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+  }
+
+  .measurement-machine > strong {
+    margin-top: 6px;
+    font-size: 17px;
+  }
+
+  .machine-input,
+  .machine-output {
+    display: grid;
+    place-items: center;
+    min-width: 96px;
+    min-height: 48px;
+    margin-top: 20px;
+    border: 1px solid var(--rv-input);
+    border-radius: 10px;
+    background: var(--bg);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .measurement-machine > i {
+    margin-top: 6px;
+    color: var(--rv-machine);
+    font-size: 24px;
+    font-style: normal;
+  }
+
+  .machine-output {
+    margin-top: 6px;
+    border-color: var(--rv-output);
+    background: var(--rv-output-soft);
+    color: var(--rv-output);
+    font-size: 27px;
+  }
+
+  .measurement-machine > small {
+    margin-top: 10px;
+    color: var(--text-muted);
+    font-size: 8px;
+  }
+
+  .value-slots {
+    display: grid;
+    gap: 10px;
+    margin-top: 15px;
+  }
+
+  .value-slots > div {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    gap: 10px;
+    align-items: center;
+    min-height: 56px;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+    transition:
+      border-color 160ms ease,
+      background 160ms ease;
+  }
+
+  .value-slots > div.active {
+    border-color: var(--rv-output);
+    background: var(--rv-output-soft);
+  }
+
+  .value-slots strong {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .value-slots span {
+    color: var(--text-secondary);
+    font-size: 9px;
+  }
+
+  .rv-core-map {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 12px;
+    align-items: center;
+    min-width: 430px;
+    padding: 16px;
+    border: 1px solid var(--accent-30);
+    border-radius: 14px;
+    background: var(--accent-10);
+  }
+
+  .rv-core-map > div {
+    text-align: center;
+  }
+
+  .rv-core-map span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 8px;
+  }
+
+  .rv-core-map strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 16px;
+  }
+
+  .rv-core-map > i {
+    color: var(--rv-machine);
+    font-size: 9px;
+    font-style: normal;
+    font-weight: 750;
+  }
+
+  .rv-core-map.compact {
+    min-width: 370px;
+  }
+
+  .transfer-check {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px 20px;
+    align-items: center;
+    padding: 17px 20px;
+    border: 1px dashed var(--border-strong);
+    border-radius: 14px;
+  }
+
+  .transfer-check .eyebrow,
+  .transfer-check h3 {
+    grid-column: 1;
+  }
+
+  .transfer-check button {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    padding: 9px 13px;
+    border: 1px solid var(--border-strong);
+    border-radius: 9px;
+    background: var(--bg-raised);
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  .transfer-check .feedback {
+    grid-column: 1 / -1;
+  }
+
+  // Step 11.2 — same sample space, different measurements
+  .dice-measure-board {
+    display: grid;
+    grid-template-columns: minmax(690px, 1.25fr) minmax(330px, 0.75fr);
+    gap: 18px;
+  }
+
+  .axis-caption {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    color: var(--text-muted);
+    font-size: 8px;
+  }
+
+  .dice-outcome-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 6px;
+  }
+
+  .dice-outcome-grid button {
+    display: grid;
+    place-items: center;
+    min-height: 65px;
+    padding: 6px;
+    border: 1px solid hsl(var(--value-tone) 25% 48% / 0.48);
+    border-radius: 9px;
+    background: hsl(var(--value-tone) 30% 46% / 0.12);
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  .dice-outcome-grid button:hover,
+  .dice-outcome-grid button:focus-visible {
+    border-color: hsl(var(--value-tone) 45% 54% / 0.95);
+  }
+
+  .dice-outcome-grid button.active {
+    outline: 3px solid var(--text);
+    outline-offset: -4px;
+  }
+
+  .dice-outcome-grid button.binary-on {
+    background:
+      repeating-linear-gradient(
+        135deg,
+        hsl(var(--value-tone) 50% 54% / 0.2) 0 5px,
+        transparent 5px 9px
+      ),
+      var(--bg);
+  }
+
+  .dice-outcome-grid small {
+    color: var(--text-muted);
+    font-size: 8px;
+  }
+
+  .dice-outcome-grid strong {
+    font-size: 20px;
+  }
+
+  .measure-readout {
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .selected-dice {
+    display: flex;
+    gap: 12px;
+    margin: 14px 0 8px;
+  }
+
+  .selected-dice i {
+    display: grid;
+    place-items: center;
+    width: 58px;
+    height: 58px;
+    border: 1px solid var(--rv-input);
+    border-radius: 13px;
+    background: var(--rv-input-soft);
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 800;
+  }
+
+  .measure-readout > p {
+    color: var(--text-secondary);
+    font-size: 9px;
+  }
+
+  .rule-output {
+    width: 100%;
+    margin: 17px 0 10px;
+    padding: 15px;
+    border: 1px solid var(--rv-output);
+    border-radius: 12px;
+    background: var(--rv-output-soft);
+  }
+
+  .rule-output span {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 9px;
+  }
+
+  .rule-output strong {
+    display: block;
+    margin-top: 7px;
+    font-size: 23px;
+  }
+
+  // Step 11.3 — preimage
+  .value-selector {
+    display: flex;
+    gap: 7px;
+  }
+
+  .value-selector button {
+    min-width: 70px;
+    padding: 9px 12px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--bg);
+    color: var(--text-secondary);
+    cursor: pointer;
+  }
+
+  .value-selector button.active {
+    border-color: var(--rv-output);
+    background: var(--rv-output-soft);
+    color: var(--text);
+  }
+
+  .preimage-board {
+    display: grid;
+    grid-template-columns: minmax(520px, 1fr) 160px minmax(350px, 0.75fr);
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .preimage-paths {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .preimage-paths > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 48px;
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--bg);
+    opacity: 0.28;
+    transition:
+      opacity 160ms ease,
+      border-color 160ms ease,
+      background 160ms ease;
+  }
+
+  .preimage-paths > div.selected {
+    border-color: var(--rv-input);
+    background: var(--rv-input-soft);
+    opacity: 1;
+  }
+
+  .preimage-paths .coin-sequence i {
+    width: 23px;
+    height: 23px;
+    font-size: 8px;
+  }
+
+  .preimage-paths small {
+    color: var(--text-muted);
+    font-size: 8px;
+  }
+
+  .event-brace {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    margin-top: 12px;
+    padding: 10px 12px;
+    border-left: 4px solid var(--rv-input);
+    background: var(--rv-input-soft);
+  }
+
+  .event-brace span {
+    color: var(--rv-input);
+    font-size: 8px;
+    font-weight: 800;
+  }
+
+  .event-brace strong {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+  }
+
+  .flow-funnel {
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  .flow-funnel i {
+    margin: 10px 0;
+    color: var(--rv-machine);
+    font-size: 35px;
+    font-style: normal;
+  }
+
+  .flow-funnel span {
+    font-size: 8px;
+  }
+
+  .bucket-stack {
+    display: grid;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .bucket-stack button {
+    position: relative;
+    display: grid;
+    grid-template-columns: 35px 1fr 40px;
+    gap: 8px;
+    align-items: center;
+    min-height: 49px;
+    overflow: hidden;
+    padding: 7px 10px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--bg);
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  .bucket-stack button.active {
+    border-color: var(--rv-output);
+    box-shadow: inset 3px 0 0 var(--rv-output);
+  }
+
+  .bucket-stack strong,
+  .bucket-stack small {
+    position: relative;
+    z-index: 1;
+  }
+
+  .bucket-stack strong {
+    font-size: 18px;
+  }
+
+  .bucket-stack small {
+    color: var(--text-secondary);
+    text-align: right;
+  }
+
+  .bucket-fill {
+    position: relative;
+    z-index: 1;
+    display: block;
+    height: 12px;
+    border-radius: 999px;
+    background: var(--rv-output);
+  }
+
+  .probability-readout {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 15px;
+    padding: 14px;
+    border: 1px solid var(--rv-output);
+    border-radius: 10px;
+    background: var(--rv-output-soft);
+  }
+
+  .probability-readout span {
+    color: var(--text-secondary);
+    font-size: 10px;
+  }
+
+  .probability-readout strong {
+    font-size: 15px;
+  }
+
+  // Step 11.4 — output scale
+  .spinner-controls {
+    display: grid;
+    grid-template-columns: 210px 1fr 75px auto;
+    gap: 14px;
+    align-items: center;
+    padding: 14px 18px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg-surface);
+  }
+
+  .spinner-controls label {
+    color: var(--text-secondary);
+    font-size: 10px;
+    font-weight: 750;
+  }
+
+  .spinner-controls input {
+    width: 100%;
+    accent-color: var(--rv-continuous);
+  }
+
+  .spinner-controls > strong {
+    font-family: 'JetBrains Mono', monospace;
+    text-align: right;
+  }
+
+  .scale-board {
+    display: grid;
+    grid-template-columns: 390px 1fr;
+    gap: 18px;
+  }
+
+  .spinner-panel {
+    display: grid;
+    justify-items: center;
+  }
+
+  .spinner-panel .eyebrow,
+  .spinner-panel h3 {
+    justify-self: stretch;
+  }
+
+  .spinner {
+    position: relative;
+    width: 255px;
+    height: 255px;
+    margin: 12px auto;
+    border: 2px solid var(--border-strong);
+    border-radius: 50%;
+    background: conic-gradient(
+      from 0deg,
+      color-mix(in srgb, var(--rv-output) 32%, var(--bg)) 0deg 90deg,
+      color-mix(in srgb, var(--rv-input) 30%, var(--bg)) 90deg 180deg,
+      color-mix(in srgb, var(--rv-machine) 30%, var(--bg)) 180deg 270deg,
+      color-mix(in srgb, var(--rv-continuous) 30%, var(--bg)) 270deg 360deg
+    );
+    box-shadow: inset 0 0 0 8px var(--bg);
+  }
+
+  .spinner::before,
+  .spinner::after {
+    position: absolute;
+    z-index: 1;
+    background: var(--border-strong);
+    content: '';
+  }
+
+  .spinner::before {
+    top: 8px;
+    bottom: 8px;
+    left: 50%;
+    width: 1px;
+  }
+
+  .spinner::after {
+    top: 50%;
+    right: 8px;
+    left: 8px;
+    height: 1px;
+  }
+
+  .sector-label {
+    position: absolute;
+    z-index: 2;
+    color: var(--text-secondary);
+    font-size: 9px;
+    font-weight: 800;
+  }
+
+  .sector-label.north {
+    top: 24px;
+    right: 61px;
+  }
+
+  .sector-label.east {
+    right: 31px;
+    bottom: 62px;
+  }
+
+  .sector-label.south {
+    bottom: 24px;
+    left: 61px;
+  }
+
+  .sector-label.west {
+    top: 62px;
+    left: 31px;
+  }
+
+  .spinner-pointer {
+    position: absolute;
+    z-index: 4;
+    top: 50%;
+    left: 50%;
+    width: 108px;
+    height: 3px;
+    transform-origin: left center;
+    transition: transform 90ms linear;
+  }
+
+  .spinner-pointer i {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 999px;
+    background: var(--text);
+  }
+
+  .spinner-pointer i::after {
+    position: absolute;
+    top: -5px;
+    right: -1px;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 11px solid var(--text);
+    content: '';
+  }
+
+  .spinner-hub {
+    position: absolute;
+    z-index: 5;
+    top: 50%;
+    left: 50%;
+    width: 17px;
+    height: 17px;
+    border: 3px solid var(--bg);
+    border-radius: 50%;
+    background: var(--text);
+    transform: translate(-50%, -50%);
+  }
+
+  .spinner-caption {
+    color: var(--text-muted);
+    font-size: 8px;
+  }
+
+  .scale-outputs {
+    display: grid;
+    gap: 14px;
+  }
+
+  .scale-output {
+    display: grid;
+    align-content: center;
+    opacity: 0.55;
+    transition:
+      opacity 160ms ease,
+      border-color 160ms ease;
+  }
+
+  .scale-output.focused {
+    border-color: var(--rv-continuous);
+    opacity: 1;
+  }
+
+  .scale-output:last-child.focused {
+    border-color: var(--rv-output);
+  }
+
+  .scale-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+  }
+
+  .scale-heading span {
+    color: var(--text-muted);
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+  }
+
+  .scale-heading strong {
+    font-size: 21px;
+  }
+
+  .scale-output > p {
+    margin-top: 14px;
+    color: var(--text-secondary);
+    font-size: 9px;
+  }
+
+  .angle-line {
+    position: relative;
+    height: 55px;
+    margin: 22px 12px 0;
+    border-top: 3px solid var(--border-strong);
+  }
+
+  .angle-progress {
+    position: absolute;
+    top: -3px;
+    left: 0;
+    height: 3px;
+    background: var(--rv-continuous);
+  }
+
+  .angle-line > i {
+    position: absolute;
+    top: -8px;
+    width: 15px;
+    height: 15px;
+    border: 3px solid var(--bg);
+    border-radius: 50%;
+    background: var(--rv-continuous);
+    transform: translateX(-50%);
+  }
+
+  .angle-line > span {
+    position: absolute;
+    top: 12px;
+    color: var(--text-muted);
+    font-size: 8px;
+  }
+
+  .angle-line .zero {
+    left: 0;
+  }
+
+  .angle-line .full {
+    right: 0;
+  }
+
+  .sector-slots {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .sector-slots > div {
+    padding: 12px 8px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--bg);
+    text-align: center;
+  }
+
+  .sector-slots > div.active {
+    border-color: var(--rv-output);
+    background: var(--rv-output-soft);
+    box-shadow: inset 0 -3px 0 var(--rv-output);
+  }
+
+  .sector-slots strong,
+  .sector-slots span {
+    display: block;
+  }
+
+  .sector-slots strong {
+    font-size: 15px;
+  }
+
+  .sector-slots span {
+    margin-top: 4px;
+    color: var(--text-muted);
+    font-size: 7px;
+  }
+
+  .scale-contrast {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    min-width: 390px;
+  }
+
+  .scale-contrast > div {
+    padding: 13px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .scale-contrast i {
+    display: block;
+    height: 12px;
+    margin-bottom: 8px;
+  }
+
+  .continuous-line {
+    border-top: 3px solid var(--rv-continuous);
+  }
+
+  .discrete-dots {
+    background:
+      radial-gradient(circle at 10% 3px, var(--rv-output) 0 4px, transparent 5px),
+      radial-gradient(circle at 37% 3px, var(--rv-output) 0 4px, transparent 5px),
+      radial-gradient(circle at 64% 3px, var(--rv-output) 0 4px, transparent 5px),
+      radial-gradient(circle at 91% 3px, var(--rv-output) 0 4px, transparent 5px);
+  }
+
+  .scale-contrast strong,
+  .scale-contrast span {
+    display: block;
+  }
+
+  .scale-contrast strong {
+    font-size: 12px;
+  }
+
+  .scale-contrast span {
+    margin-top: 3px;
+    color: var(--text-muted);
+    font-size: 8px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .coin-path-grid button,
+    .preimage-paths > div,
+    .scale-output,
+    .spinner-pointer {
+      transition: none;
+    }
+  }
+}

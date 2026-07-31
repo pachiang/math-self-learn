@@ -163,21 +163,103 @@ const SUBJECT_INFO: Record<string, SubjectInfo> = {
     title: '抽象代數',
     desc: '從正三角形的對稱出發，到群論、環論、伽羅瓦理論',
     chapters: [
-      { id: 'ch1', label: '第一章', title: '什麼是群？', desc: '從正三角形的對稱操作出發，一步步發現群的四條公理。', meta: '6 個小節 · 約 20 分鐘' },
-      { id: 'ch2', label: '第二章', title: '群的內部結構', desc: '元素的階、子群、等價類與陪集、拉格朗日定理。', meta: '7 個小節 · 約 30 分鐘' },
-      { id: 'ch3', label: '第三章', title: '商群與同態', desc: '正規子群、商群、同態映射、核、第一同構定理。', meta: '7 個小節 · 約 40 分鐘' },
-      { id: 'ch4', label: '第四章', title: '置換群', desc: 'S\u2099 與循環記號、對換、奇偶性、交替群、凱萊定理。', meta: '6 個小節 · 約 30 分鐘' },
-      { id: 'ch5', label: '第五章', title: '群作用', desc: '軌道、穩定子、Burnside 引理、項鍊計數。', meta: '6 個小節 · 約 35 分鐘' },
-      { id: 'ch6', label: '第六章', title: 'Sylow 定理', desc: '共軛類、類方程、p-群、Sylow 定理、小階群分類。', meta: '6 個小節 · 約 35 分鐘' },
-      { id: 'ch7', label: '第七章', title: '環', desc: '從整數到環、零因子、理想、商環、環同態。', meta: '6 個小節 · 約 30 分鐘' },
-      { id: 'ch8', label: '第八章', title: '域與多項式', desc: '有限域、多項式環、不可約多項式、域擴張。', meta: '6 個小節 · 約 35 分鐘' },
-      { id: 'ch9', label: '第九章', title: '伽羅瓦理論', desc: '分裂域、域自同構、伽羅瓦群、五次方程為什麼沒有公式解。', meta: '6 個小節 · 約 40 分鐘' },
+      {
+        id: 'ch1',
+        label: '第一章',
+        title: '什麼是群？',
+        desc: '從正三角形的對稱操作出發，一步步發現群的四條公理。',
+        meta: '6 個小節 · 約 20 分鐘',
+      },
+      {
+        id: 'ch2',
+        label: '第二章',
+        title: '群的內部結構',
+        desc: '元素的階、子群、等價類與陪集、拉格朗日定理。',
+        meta: '7 個小節 · 約 30 分鐘',
+      },
+      {
+        id: 'ch3',
+        label: '第三章',
+        title: '商群與同態',
+        desc: '正規子群、商群、同態映射、核、第一同構定理。',
+        meta: '7 個小節 · 約 40 分鐘',
+      },
+      {
+        id: 'ch4',
+        label: '第四章',
+        title: '置換群',
+        desc: 'S\u2099 與循環記號、對換、奇偶性、交替群、凱萊定理。',
+        meta: '6 個小節 · 約 30 分鐘',
+      },
+      {
+        id: 'ch5',
+        label: '第五章',
+        title: '群作用',
+        desc: '軌道、穩定子、Burnside 引理、項鍊計數。',
+        meta: '6 個小節 · 約 35 分鐘',
+      },
+      {
+        id: 'ch6',
+        label: '第六章',
+        title: 'Sylow 定理',
+        desc: '共軛類、類方程、p-群、Sylow 定理、小階群分類。',
+        meta: '6 個小節 · 約 35 分鐘',
+      },
+      {
+        id: 'ch7',
+        label: '第七章',
+        title: '環',
+        desc: '從整數到環、零因子、理想、商環、環同態。',
+        meta: '6 個小節 · 約 30 分鐘',
+      },
+      {
+        id: 'ch8',
+        label: '第八章',
+        title: '域與多項式',
+        desc: '有限域、多項式環、不可約多項式、域擴張。',
+        meta: '6 個小節 · 約 35 分鐘',
+      },
+      {
+        id: 'ch9',
+        label: '第九章',
+        title: '伽羅瓦理論',
+        desc: '分裂域、域自同構、伽羅瓦群、五次方程為什麼沒有公式解。',
+        meta: '6 個小節 · 約 40 分鐘',
+      },
     ],
     topics: [
-      { id: 'ch10', label: '專題 A', title: '魔術方塊群', desc: '魔方的群結構、交換子與共軛、子群分解、上帝之數。', meta: '5 個小節', topic: true },
-      { id: 'ch11', label: '專題 B', title: '表示論入門', desc: '群的矩陣表示、特徵標、不可約分解、傅立葉變換的群論本質。', meta: '5 個小節', topic: true },
-      { id: 'ch12', label: '專題 C', title: '代數幾何入門', desc: '代數簇、理想與幾何的對應、Hilbert 零點定理、橢圓曲線。', meta: '5 個小節', topic: true },
-      { id: 'ch13', label: '專題 D', title: '編碼理論', desc: '雜訊通道、漢明距離、線性碼、Hamming(7,4)、Reed-Solomon 碼。', meta: '5 個小節', topic: true },
+      {
+        id: 'ch10',
+        label: '專題 A',
+        title: '魔術方塊群',
+        desc: '魔方的群結構、交換子與共軛、子群分解、上帝之數。',
+        meta: '5 個小節',
+        topic: true,
+      },
+      {
+        id: 'ch11',
+        label: '專題 B',
+        title: '表示論入門',
+        desc: '群的矩陣表示、特徵標、不可約分解、傅立葉變換的群論本質。',
+        meta: '5 個小節',
+        topic: true,
+      },
+      {
+        id: 'ch12',
+        label: '專題 C',
+        title: '代數幾何入門',
+        desc: '代數簇、理想與幾何的對應、Hilbert 零點定理、橢圓曲線。',
+        meta: '5 個小節',
+        topic: true,
+      },
+      {
+        id: 'ch13',
+        label: '專題 D',
+        title: '編碼理論',
+        desc: '雜訊通道、漢明距離、線性碼、Hamming(7,4)、Reed-Solomon 碼。',
+        meta: '5 個小節',
+        topic: true,
+      },
     ],
   },
   analysis: {
@@ -548,49 +630,105 @@ const SUBJECT_INFO: Record<string, SubjectInfo> = {
   },
   prob: {
     title: '機率論',
-    desc: '從擲骰到 CLT——用數學量化不確定性',
+    desc: '從可能世界與權重出發，一步步建立對不確定性的正確直覺',
     chapters: [
       {
         id: 'ch1',
         label: '第一章',
-        title: '什麼是機率？',
-        desc: '三種詮釋、Kolmogorov 公理、事件與計數、生日悖論、Monte Carlo 估 π。',
-        meta: '4 個小節 · 約 40 分鐘',
+        title: '機率不是預言',
+        desc: '70% 的真正意思、短期隨機的模樣，以及長期規律如何從許多可能路徑中浮現。',
+        meta: '3 個小節 · 新版主線',
       },
       {
         id: 'ch2',
         label: '第二章',
-        title: '條件機率與 Bayes',
-        desc: '條件機率、獨立性、Bayes 定理、垃圾郵件過濾、base rate 謬誤、Simpson 悖論。',
-        meta: '4 個小節 · 約 45 分鐘',
+        title: '把可能世界畫完整',
+        desc: 'experiment、outcome、sample space 與 event 的層級，以及如何選擇剛好夠用的可能世界。',
+        meta: '4 個小節 · 新版主線',
       },
       {
         id: 'ch3',
         label: '第三章',
-        title: '隨機變數與離散分佈',
-        desc: 'RV、PMF/CDF、Bernoulli、Binomial、Poisson 極限、Geometric 無記憶性。',
-        meta: '4 個小節 · 約 45 分鐘',
+        title: '可能不等於一樣可能',
+        desc: '從分類名稱與 probability mass 的差異出發，理解 equally likely 捷徑的前提與機率的三條地基。',
+        meta: '4 個小節 · 新版主線',
       },
       {
         id: 'ch4',
         label: '第四章',
-        title: '連續分佈',
-        desc: 'PDF 概念、Uniform、Exponential、Normal、Gamma/Beta/χ²/Log-Normal 分佈園區。',
-        meta: '4 個小節 · 約 50 分鐘',
+        title: '事件的幾何',
+        desc: '用同一張可能地圖理解 union、intersection、complement、double counting 與 mutually exclusive。',
+        meta: '4 個小節 · 新版主線',
       },
       {
         id: 'ch5',
         label: '第五章',
-        title: '期望值與變異數',
-        desc: '線性性、帽子問題、LOTUS、變異數、協變異數、Markov 與 Chebyshev 不等式。',
-        meta: '3 個小節 · 約 40 分鐘',
+        title: '世界如何分岔',
+        desc: '用 tree diagram 看完整 paths、branch weights、放回與不放回，以及「沿路乘、跨路加」。',
+        meta: '4 個小節 · 新版主線',
       },
       {
         id: 'ch6',
         label: '第六章',
-        title: '大數法則與中央極限定理',
-        desc: '樣本均值收斂到真值、Cauchy 反例、CLT 實驗、Normal 的普遍性、整課總結。',
-        meta: '3 個小節 · 約 45 分鐘',
+        title: '計數是壓縮樹狀圖',
+        desc: '從 multiplication principle 出發，理解 permutation、combination、重複元素與 birthday problem。',
+        meta: '5 個小節 · 新版主線',
+      },
+      {
+        id: 'ch7',
+        label: '第七章',
+        title: '從反面看「至少一次」',
+        desc: '釐清 at least、at most、exactly，用 complement 觀看 repeated attempts、reliability 與策略選擇。',
+        meta: '4 個小節 · 新版主線',
+      },
+      {
+        id: 'ch8',
+        label: '第八章',
+        title: '條件機率是世界縮小',
+        desc: '用 filter、renormalization 與 nested area 理解 conditional probability、given 的方向和不放回更新。',
+        meta: '4 個小節 · 新版主線',
+      },
+      {
+        id: 'ch9',
+        label: '第九章',
+        title: '獨立是縮小後比例不變',
+        desc: '從 ratio invariant 出發，分清 independent 與 mutually exclusive、精確與近似獨立，以及 shared cause。',
+        meta: '4 個小節 · 新版主線',
+      },
+      {
+        id: 'ch10',
+        label: '第十章',
+        title: 'Bayes 從結果反推原因',
+        desc: '用 natural frequencies 看 likelihood、posterior、base rate 與 false positive，再建立 Bayes update 和 total probability。',
+        meta: '4 個小節 · 新版主線',
+      },
+      {
+        id: 'ch11',
+        label: '第十一章',
+        title: 'Random variable 是測量規則',
+        desc: '把 outcome 映成數值，分清世界與 measurement，理解 preimage，以及 discrete 和 continuous outputs。',
+        meta: '4 個小節 · 新版主線',
+      },
+      {
+        id: 'ch12',
+        label: '第十二章',
+        title: 'Distribution 是數值世界的重量地圖',
+        desc: '追蹤 probability mass 如何被搬運，分別建立 PMF、CDF、PDF、interval area 與 normalization。',
+        meta: '5 個小節 · 新版主線',
+      },
+      {
+        id: 'ch13',
+        label: '第十三章',
+        title: 'Expectation 是重量中心',
+        desc: '用 balance point 建立 expectation，分清 center 與 spread，再理解 linearity、variance 和 covariance。',
+        meta: '5 個小節 · 新版主線',
+      },
+      {
+        id: 'ch14',
+        label: '第十四章',
+        title: '同一台 Yes／No 實驗機',
+        desc: '從 Bernoulli sequence 出發，理解 Binomial 的 count 壓縮、成立條件，以及 Geometric、Negative Binomial 的停止規則。',
+        meta: '8 個小節 · 新版主線',
       },
     ],
   },
@@ -819,7 +957,9 @@ const SUBJECT_INFO: Record<string, SubjectInfo> = {
       margin-bottom: 14px;
       transition: color 0.12s;
 
-      &:hover { color: var(--accent); }
+      &:hover {
+        color: var(--accent);
+      }
     }
 
     .page-title {
@@ -919,12 +1059,9 @@ const SUBJECT_INFO: Record<string, SubjectInfo> = {
 export class SubjectCatalogComponent {
   private readonly route = inject(ActivatedRoute);
 
-  readonly subject = toSignal(
-    this.route.paramMap.pipe(map((p) => p.get('subject') ?? 'algebra')),
-    { initialValue: 'algebra' },
-  );
+  readonly subject = toSignal(this.route.paramMap.pipe(map((p) => p.get('subject') ?? 'algebra')), {
+    initialValue: 'algebra',
+  });
 
-  readonly info = computed(
-    () => SUBJECT_INFO[this.subject()] ?? SUBJECT_INFO['algebra'],
-  );
+  readonly info = computed(() => SUBJECT_INFO[this.subject()] ?? SUBJECT_INFO['algebra']);
 }

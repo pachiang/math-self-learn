@@ -1,0 +1,666 @@
+.prob-v2-ch6 {
+  --count-a: #b77d69;
+  --count-a-soft: color-mix(in srgb, var(--count-a) 17%, transparent);
+  --count-b: #6f92ad;
+  --count-b-soft: color-mix(in srgb, var(--count-b) 17%, transparent);
+  --count-c: #8b9c72;
+  --count-c-soft: color-mix(in srgb, var(--count-c) 17%, transparent);
+  --cluster: #8b7aa6;
+  --cluster-soft: color-mix(in srgb, var(--cluster) 18%, transparent);
+  --success: #758f69;
+  --success-soft: color-mix(in srgb, var(--success) 16%, transparent);
+
+  .count-question {
+    display: grid;
+    grid-template-columns: minmax(520px, 1fr) auto;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .layer-controls {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .layer-control {
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    background: var(--bg);
+  }
+
+  .layer-control label,
+  .layer-control span {
+    display: block;
+  }
+
+  .layer-control label {
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 750;
+  }
+
+  .layer-control span {
+    margin-top: 4px;
+    color: var(--text-muted);
+    font-size: 9px;
+  }
+
+  .layer-control input {
+    width: 100%;
+    margin-top: 10px;
+    accent-color: var(--accent);
+  }
+
+  .compressed-tree {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr auto minmax(160px, 0.8fr);
+    gap: 10px;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    background: var(--bg-surface);
+  }
+
+  .tree-layer {
+    display: grid;
+    place-items: center;
+    min-height: 116px;
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg);
+    text-align: center;
+  }
+
+  .tree-layer.a {
+    border-color: var(--count-a);
+    background: var(--count-a-soft);
+  }
+
+  .tree-layer.b {
+    border-color: var(--count-b);
+    background: var(--count-b-soft);
+  }
+
+  .tree-layer.c {
+    border-color: var(--count-c);
+    background: var(--count-c-soft);
+  }
+
+  .tree-layer span {
+    color: var(--text-muted);
+    font-size: 9px;
+  }
+
+  .tree-layer strong {
+    display: block;
+    margin: 5px 0;
+    color: var(--text);
+    font-size: 25px;
+  }
+
+  .tree-layer small {
+    color: var(--text-secondary);
+    font-size: 9px;
+  }
+
+  .layer-times {
+    color: var(--accent);
+    font-size: 22px;
+  }
+
+  .leaf-total {
+    display: grid;
+    place-items: center;
+    min-height: 116px;
+    padding: 14px;
+    border: 1px solid var(--cluster);
+    border-radius: 14px;
+    background: var(--cluster-soft);
+    text-align: center;
+  }
+
+  .leaf-total span {
+    color: var(--text-muted);
+    font-size: 9px;
+  }
+
+  .leaf-total strong {
+    display: block;
+    margin-top: 6px;
+    color: var(--text);
+    font-size: 30px;
+  }
+
+  .path-samples {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 6px;
+    max-height: 190px;
+    overflow: hidden;
+    padding: 13px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg-surface);
+  }
+
+  .sample-path {
+    display: grid;
+    place-items: center;
+    min-height: 48px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--bg);
+    color: var(--text-secondary);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+  }
+
+  .sample-path.more {
+    border-style: dashed;
+    color: var(--accent);
+  }
+
+  // Step 6.2 — permutation
+  .range-board {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .range-control {
+    display: grid;
+    grid-template-columns: auto 1fr 44px;
+    gap: 12px;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    background: var(--bg);
+  }
+
+  .range-control label {
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .range-control input {
+    width: 100%;
+    accent-color: var(--accent);
+  }
+
+  .range-control strong {
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    text-align: right;
+  }
+
+  .slot-board {
+    display: grid;
+    grid-template-columns: minmax(620px, 1.25fr) minmax(300px, 0.75fr);
+    gap: 20px;
+    align-items: stretch;
+  }
+
+  .ordered-slots {
+    display: grid;
+    align-content: center;
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    background: var(--bg-surface);
+  }
+
+  .slot-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 9px;
+    min-height: 176px;
+  }
+
+  .role-slot {
+    display: grid;
+    align-content: center;
+    min-width: 0;
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg);
+    text-align: center;
+  }
+
+  .role-slot.inactive {
+    opacity: 0.2;
+  }
+
+  .role-slot span {
+    color: var(--text-muted);
+    font-size: 9px;
+  }
+
+  .role-slot strong {
+    display: block;
+    margin: 6px 0;
+    color: var(--text);
+    font-size: 26px;
+  }
+
+  .role-slot small {
+    color: var(--text-secondary);
+    font-size: 10px;
+  }
+
+  .permutation-result {
+    display: grid;
+    align-content: center;
+    padding: 20px;
+    border: 1px solid var(--cluster);
+    border-radius: 17px;
+    background: var(--cluster-soft);
+  }
+
+  .permutation-result span {
+    color: var(--text-muted);
+    font-size: 9px;
+    text-transform: uppercase;
+  }
+
+  .permutation-result strong {
+    display: block;
+    margin: 6px 0;
+    color: var(--text);
+    font-size: 31px;
+  }
+
+  .permutation-result p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 12px;
+    line-height: 1.65;
+  }
+
+  .swap-comparison {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .arrangement-card {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 17px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg-surface);
+  }
+
+  .arrangement-card i {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--count-a-soft);
+    color: var(--text);
+    font-style: normal;
+    font-weight: 800;
+  }
+
+  .swap-comparison > i {
+    color: var(--accent);
+    font-style: normal;
+  }
+
+  .arrangement-samples {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .arrangement-samples span {
+    padding: 7px 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg);
+    color: var(--text-secondary);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+  }
+
+  // Step 6.3 — combination
+  .committee-layout {
+    display: grid;
+    grid-template-columns: minmax(520px, 1fr) minmax(410px, 0.9fr);
+    gap: 20px;
+    align-items: stretch;
+  }
+
+  .committee-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+  }
+
+  .committee-list button {
+    min-height: 72px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg);
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+
+  .committee-list button.active {
+    border-color: var(--cluster);
+    background: var(--cluster-soft);
+    color: var(--text);
+  }
+
+  .order-cluster {
+    padding: 18px;
+    border: 1px solid var(--cluster);
+    border-radius: 17px;
+    background: var(--cluster-soft);
+  }
+
+  .order-cluster > span {
+    color: var(--text-muted);
+    font-size: 9px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  .order-cluster h3 {
+    margin-top: 6px;
+  }
+
+  .order-variants {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
+    margin-top: 12px;
+  }
+
+  .order-variant {
+    display: grid;
+    place-items: center;
+    min-height: 56px;
+    border: 1px solid color-mix(in srgb, var(--cluster) 55%, var(--border));
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+  }
+
+  .cluster-arrow {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 14px;
+    align-items: center;
+    padding: 18px;
+    border: 1px solid var(--accent-30);
+    border-radius: 16px;
+    background: var(--accent-10);
+  }
+
+  .cluster-arrow div {
+    text-align: center;
+  }
+
+  .cluster-arrow span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 9px;
+  }
+
+  .cluster-arrow strong {
+    display: block;
+    margin-top: 4px;
+    color: var(--text);
+    font-size: 17px;
+  }
+
+  .cluster-arrow i {
+    color: var(--accent);
+    font-style: normal;
+  }
+
+  // Step 6.4 — repeated elements
+  .label-toggle-board {
+    display: grid;
+    grid-template-columns: minmax(500px, 1fr) auto;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .labeled-paths {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+  }
+
+  .labeled-path {
+    padding: 15px 8px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg);
+    text-align: center;
+  }
+
+  .labeled-path strong,
+  .labeled-path span {
+    display: block;
+  }
+
+  .labeled-path strong {
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+  }
+
+  .labeled-path span {
+    margin-top: 5px;
+    color: var(--text-muted);
+    font-size: 9px;
+  }
+
+  .labeled-path.merged {
+    border-color: var(--cluster);
+    background: var(--cluster-soft);
+  }
+
+  .repeat-buckets {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .repeat-bucket {
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    background: var(--bg-surface);
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .repeat-bucket.active {
+    border-color: var(--cluster);
+    background: var(--cluster-soft);
+  }
+
+  .repeat-bucket strong {
+    display: block;
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 23px;
+  }
+
+  .repeat-bucket span {
+    display: block;
+    margin-top: 5px;
+    color: var(--text-muted);
+    font-size: 9px;
+  }
+
+  // Step 6.5 — birthday
+  .birthday-prediction {
+    display: grid;
+    grid-template-columns: minmax(520px, 1fr) auto;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .birthday-board {
+    display: grid;
+    grid-template-columns: minmax(620px, 1.2fr) minmax(320px, 0.8fr);
+    gap: 20px;
+    align-items: stretch;
+  }
+
+  .birthday-chart {
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    background: var(--bg-surface);
+  }
+
+  .birthday-chart svg {
+    display: block;
+    width: 100%;
+    height: 280px;
+    margin-top: 8px;
+  }
+
+  .chart-axis {
+    stroke: var(--border-strong);
+    stroke-width: 1;
+  }
+
+  .chart-guide {
+    stroke: var(--border);
+    stroke-width: 1;
+    stroke-dasharray: 5 5;
+  }
+
+  .chart-curve {
+    fill: none;
+    stroke: var(--cluster);
+    stroke-width: 4;
+  }
+
+  .chart-area {
+    fill: var(--cluster-soft);
+  }
+
+  .chart-marker {
+    fill: var(--bg);
+    stroke: var(--cluster);
+    stroke-width: 4;
+  }
+
+  .chart-text {
+    fill: var(--text-muted);
+    font-size: 10px;
+  }
+
+  .birthday-stats {
+    display: grid;
+    gap: 10px;
+  }
+
+  .birthday-stat {
+    padding: 17px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg-surface);
+  }
+
+  .birthday-stat span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 9px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  .birthday-stat strong {
+    display: block;
+    margin: 5px 0;
+    color: var(--text);
+    font-size: 25px;
+  }
+
+  .birthday-stat p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 11px;
+    line-height: 1.6;
+  }
+
+  .birthday-stat.highlight {
+    border-color: var(--cluster);
+    background: var(--cluster-soft);
+  }
+
+  .people-control {
+    display: grid;
+    grid-template-columns: auto 1fr 80px;
+    gap: 14px;
+    align-items: center;
+    padding: 15px 18px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg-surface);
+  }
+
+  .people-control label {
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .people-control input {
+    width: 100%;
+    accent-color: var(--cluster);
+  }
+
+  .people-control strong {
+    color: var(--text);
+    text-align: right;
+  }
+
+  .available-days {
+    display: flex;
+    gap: 6px;
+    overflow: hidden;
+  }
+
+  .available-days span {
+    min-width: 76px;
+    padding: 11px 8px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--text-secondary);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prob-v2-ch6 * {
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}

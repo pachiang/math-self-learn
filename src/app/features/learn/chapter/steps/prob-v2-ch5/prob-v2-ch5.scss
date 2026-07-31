@@ -1,0 +1,610 @@
+.prob-v2-ch5 {
+  --branch-r: #b77d69;
+  --branch-r-soft: color-mix(in srgb, var(--branch-r) 17%, transparent);
+  --branch-b: #6f92ad;
+  --branch-b-soft: color-mix(in srgb, var(--branch-b) 17%, transparent);
+  --path: #8b7aa6;
+  --path-soft: color-mix(in srgb, var(--path) 18%, transparent);
+  --success: #758f69;
+  --success-soft: color-mix(in srgb, var(--success) 16%, transparent);
+
+  .tree-question {
+    display: grid;
+    grid-template-columns: minmax(520px, 1fr) auto;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .tree-canvas {
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: var(--bg-surface);
+  }
+
+  .tree-canvas svg {
+    display: block;
+    width: 100%;
+    height: 330px;
+  }
+
+  .tree-edge {
+    fill: none;
+    stroke: var(--border-strong);
+    stroke-width: 2;
+    transition:
+      stroke 0.18s ease,
+      opacity 0.18s ease;
+  }
+
+  .tree-edge.r {
+    stroke: var(--branch-r);
+  }
+
+  .tree-edge.b {
+    stroke: var(--branch-b);
+  }
+
+  .tree-edge.active {
+    stroke: var(--path);
+    stroke-width: 5;
+  }
+
+  .tree-edge.hidden,
+  .tree-node.hidden,
+  .tree-label.hidden {
+    opacity: 0.16;
+  }
+
+  .tree-node {
+    fill: var(--bg);
+    stroke: var(--border-strong);
+    stroke-width: 2;
+    transition: opacity 0.18s ease;
+  }
+
+  .tree-node.r {
+    fill: var(--branch-r-soft);
+    stroke: var(--branch-r);
+  }
+
+  .tree-node.b {
+    fill: var(--branch-b-soft);
+    stroke: var(--branch-b);
+  }
+
+  .tree-node.leaf {
+    cursor: pointer;
+  }
+
+  .tree-node.leaf.selected {
+    fill: var(--path-soft);
+    stroke: var(--path);
+    stroke-width: 4;
+  }
+
+  .tree-text {
+    fill: var(--text);
+    font-size: 15px;
+    font-weight: 750;
+    pointer-events: none;
+    text-anchor: middle;
+  }
+
+  .tree-label {
+    fill: var(--text-muted);
+    font-size: 11px;
+    pointer-events: none;
+    text-anchor: middle;
+    transition: opacity 0.18s ease;
+  }
+
+  .stage-caption {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .stage-caption div {
+    padding: 9px 12px;
+    border-radius: 9px;
+    background: var(--bg);
+    color: var(--text-muted);
+    font-size: 10px;
+    text-align: center;
+  }
+
+  .leaf-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .leaf-card {
+    padding: 13px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg);
+    color: var(--text-secondary);
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .leaf-card strong,
+  .leaf-card span {
+    display: block;
+  }
+
+  .leaf-card strong {
+    color: var(--text);
+    font-size: 17px;
+  }
+
+  .leaf-card span {
+    margin-top: 3px;
+    color: var(--text-muted);
+    font-size: 9px;
+  }
+
+  .leaf-card.selected {
+    border-color: var(--path);
+    background: var(--path-soft);
+  }
+
+  .path-readout {
+    display: grid;
+    grid-template-columns: minmax(260px, 0.7fr) minmax(480px, 1.3fr);
+    gap: 14px;
+    align-items: center;
+    margin-top: 14px;
+  }
+
+  .path-token {
+    padding: 15px 17px;
+    border-radius: 13px;
+    background: var(--path-soft);
+  }
+
+  .path-token span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 9px;
+    text-transform: uppercase;
+  }
+
+  .path-token strong {
+    display: block;
+    margin-top: 4px;
+    color: var(--text);
+    font-size: 18px;
+  }
+
+  .path-readout p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  // Step 5.2 — path multiplication
+  .path-picker {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .path-picker button {
+    min-height: 62px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg);
+    color: var(--text-secondary);
+    cursor: pointer;
+  }
+
+  .path-picker button strong,
+  .path-picker button span {
+    display: block;
+  }
+
+  .path-picker button strong {
+    color: var(--text);
+    font-size: 16px;
+  }
+
+  .path-picker button span {
+    margin-top: 3px;
+    font-size: 9px;
+  }
+
+  .path-picker button.active {
+    border-color: var(--path);
+    background: var(--path-soft);
+  }
+
+  .narrowing-board {
+    display: grid;
+    grid-template-columns: minmax(620px, 1.25fr) minmax(300px, 0.75fr);
+    gap: 20px;
+    align-items: stretch;
+  }
+
+  .nested-world-card {
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    background: var(--bg-surface);
+  }
+
+  .nested-world {
+    display: flex;
+    height: 220px;
+    overflow: hidden;
+    margin-top: 15px;
+    border: 1px solid var(--border-strong);
+    border-radius: 15px;
+    background: var(--bg);
+  }
+
+  .first-world {
+    display: flex;
+    min-width: 0;
+    border-right: 2px solid var(--bg);
+    background: var(--branch-r-soft);
+    transition: width 0.2s ease;
+  }
+
+  .first-world.blue {
+    background: var(--branch-b-soft);
+  }
+
+  .second-world {
+    display: grid;
+    place-items: center;
+    min-width: 0;
+    overflow: hidden;
+    background: var(--path);
+    color: var(--bg);
+    font-size: 12px;
+    font-weight: 750;
+    text-align: center;
+    transition: width 0.2s ease;
+  }
+
+  .second-rest {
+    display: grid;
+    place-items: center;
+    flex: 1;
+    min-width: 0;
+    color: var(--text-muted);
+    font-size: 10px;
+  }
+
+  .other-world {
+    display: grid;
+    place-items: center;
+    flex: 1;
+    min-width: 0;
+    color: var(--text-muted);
+    font-size: 10px;
+    text-align: center;
+  }
+
+  .factor-stack {
+    display: grid;
+    gap: 10px;
+  }
+
+  .factor-card {
+    padding: 17px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg-surface);
+  }
+
+  .factor-card span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 9px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  .factor-card strong {
+    display: block;
+    margin: 5px 0;
+    color: var(--text);
+    font-size: 22px;
+  }
+
+  .factor-card p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 11px;
+    line-height: 1.6;
+  }
+
+  .factor-card.result {
+    border-color: var(--path);
+    background: var(--path-soft);
+  }
+
+  // Step 5.3 — replacement
+  .replacement-board {
+    display: grid;
+    grid-template-columns: minmax(380px, 0.8fr) minmax(560px, 1.2fr);
+    gap: 22px;
+    align-items: stretch;
+  }
+
+  .bag-state {
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    background: var(--bg-surface);
+  }
+
+  .ball-rack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-content: center;
+    min-height: 150px;
+    margin: 15px 0;
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg);
+  }
+
+  .draw-ball {
+    display: grid;
+    place-items: center;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: var(--branch-r);
+    color: var(--bg);
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  .draw-ball.blue {
+    background: var(--branch-b);
+  }
+
+  .state-equation {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 9px;
+    align-items: center;
+  }
+
+  .state-equation div {
+    padding: 13px;
+    border-radius: 11px;
+    background: var(--bg);
+    text-align: center;
+  }
+
+  .state-equation span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 9px;
+  }
+
+  .state-equation strong {
+    color: var(--text);
+    font-size: 17px;
+  }
+
+  .state-equation i {
+    color: var(--accent);
+    font-style: normal;
+  }
+
+  .leaf-distribution {
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    background: var(--bg-surface);
+  }
+
+  .leaf-bars {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    align-items: end;
+    height: 265px;
+    margin-top: 14px;
+  }
+
+  .leaf-bar {
+    display: grid;
+    grid-template-rows: 1fr auto auto;
+    gap: 7px;
+    align-items: end;
+    height: 100%;
+    text-align: center;
+  }
+
+  .leaf-bar-track {
+    display: flex;
+    align-items: end;
+    height: 100%;
+    border-bottom: 1px solid var(--border-strong);
+  }
+
+  .leaf-bar-fill {
+    width: 100%;
+    min-height: 4px;
+    border-radius: 8px 8px 0 0;
+    background: var(--path);
+    transition: height 0.2s ease;
+  }
+
+  .leaf-bar strong {
+    color: var(--text);
+    font-size: 14px;
+  }
+
+  .leaf-bar span {
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+  }
+
+  // Step 5.4 — branch sum
+  .event-collector {
+    display: grid;
+    grid-template-columns: minmax(560px, 1.1fr) minmax(360px, 0.9fr);
+    gap: 20px;
+    align-items: stretch;
+  }
+
+  .leaf-bank {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 9px;
+  }
+
+  .weighted-leaf {
+    position: relative;
+    display: grid;
+    gap: 6px;
+    place-items: center;
+    min-height: 150px;
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg);
+    color: var(--text-secondary);
+    cursor: pointer;
+  }
+
+  .weighted-leaf strong {
+    color: var(--text);
+    font-size: 21px;
+  }
+
+  .weighted-leaf span {
+    color: var(--text-muted);
+    font-size: 9px;
+  }
+
+  .weighted-leaf i {
+    width: 100%;
+    height: 8px;
+    border-radius: 99px;
+    background: var(--border);
+  }
+
+  .weighted-leaf.selected {
+    border-color: var(--path);
+    background: var(--path-soft);
+  }
+
+  .weighted-leaf.selected i {
+    background: var(--path);
+  }
+
+  .event-tray {
+    display: grid;
+    align-content: center;
+    padding: 20px;
+    border: 1px solid var(--path);
+    border-radius: 17px;
+    background: var(--path-soft);
+  }
+
+  .event-tray > span {
+    color: var(--text-muted);
+    font-size: 9px;
+    font-weight: 750;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .event-tray > strong {
+    margin: 6px 0 15px;
+    color: var(--text);
+    font-size: 26px;
+  }
+
+  .tray-pieces {
+    display: flex;
+    height: 64px;
+    overflow: hidden;
+    border-radius: 12px;
+    background: var(--bg);
+  }
+
+  .tray-pieces div {
+    display: grid;
+    place-items: center;
+    min-width: 0;
+    background: var(--path);
+    color: var(--bg);
+    font-size: 10px;
+    font-weight: 750;
+  }
+
+  .tray-pieces div.tray-rest {
+    flex: 1;
+    background: var(--bg);
+    color: var(--text-muted);
+  }
+
+  .event-tray p {
+    margin: 13px 0 0;
+    color: var(--text-secondary);
+    font-size: 12px;
+    line-height: 1.65;
+  }
+
+  .operation-map {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 14px;
+    align-items: center;
+    padding: 18px;
+    border: 1px solid var(--accent-30);
+    border-radius: 16px;
+    background: var(--accent-10);
+  }
+
+  .operation-map div {
+    text-align: center;
+  }
+
+  .operation-map span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 9px;
+  }
+
+  .operation-map strong {
+    display: block;
+    margin-top: 4px;
+    color: var(--text);
+    font-size: 16px;
+  }
+
+  .operation-map i {
+    color: var(--accent);
+    font-style: normal;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prob-v2-ch5 .tree-edge,
+  .prob-v2-ch5 .tree-node,
+  .prob-v2-ch5 .tree-label,
+  .prob-v2-ch5 .first-world,
+  .prob-v2-ch5 .second-world,
+  .prob-v2-ch5 .leaf-bar-fill {
+    transition: none !important;
+  }
+}

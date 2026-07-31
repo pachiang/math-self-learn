@@ -1,0 +1,548 @@
+.prob-v2-ch9 {
+  --event-a: #b77d69;
+  --event-a-soft: color-mix(in srgb, var(--event-a) 17%, transparent);
+  --condition: #6f92ad;
+  --condition-soft: color-mix(in srgb, var(--condition) 17%, transparent);
+  --stable: #788f69;
+  --stable-soft: color-mix(in srgb, var(--stable) 18%, transparent);
+  --changed: #a85f5f;
+  --changed-soft: color-mix(in srgb, var(--changed) 16%, transparent);
+
+  .independence-prediction {
+    display: grid;
+    grid-template-columns: minmax(520px, 1fr) auto;
+    gap: 22px;
+    align-items: center;
+  }
+
+  .ratio-worlds {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 14px;
+    align-items: stretch;
+  }
+
+  .ratio-panel {
+    padding: 19px;
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    background: var(--bg-surface);
+  }
+
+  .ratio-panel.conditioned {
+    border-color: var(--condition);
+    background: var(--condition-soft);
+  }
+
+  .ratio-arrow {
+    display: grid;
+    place-items: center;
+    width: 74px;
+    color: var(--condition);
+    font-size: 11px;
+    font-weight: 750;
+    text-align: center;
+  }
+
+  .path-world {
+    display: grid;
+    grid-template-columns: repeat(var(--path-count), 1fr);
+    gap: 9px;
+    margin-top: 14px;
+  }
+
+  .path-tile {
+    display: grid;
+    place-items: center;
+    min-height: 112px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg);
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  .path-tile strong {
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+  }
+
+  .path-tile span {
+    font-size: 9px;
+  }
+
+  .path-tile.in-a {
+    border-color: var(--event-a);
+    background: var(--event-a-soft);
+  }
+
+  .path-tile.discarded {
+    border-style: dashed;
+    opacity: 0.2;
+  }
+
+  .ratio-readout {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: center;
+    margin-top: 14px;
+    padding-top: 13px;
+    border-top: 1px solid var(--border);
+  }
+
+  .ratio-readout span {
+    color: var(--text-secondary);
+    font-size: 11px;
+  }
+
+  .ratio-readout strong {
+    color: var(--text);
+    font-size: 23px;
+  }
+
+  .invariant-badge {
+    display: grid;
+    place-items: center;
+    padding: 17px;
+    border: 1px solid var(--stable);
+    border-radius: 15px;
+    background: var(--stable-soft);
+    color: var(--text);
+    text-align: center;
+  }
+
+  .invariant-badge span {
+    color: var(--text-secondary);
+    font-size: 10px;
+  }
+
+  .invariant-badge strong {
+    display: block;
+    margin-top: 5px;
+    font-size: 19px;
+  }
+
+  // Step 9.2 — mutually exclusive comparison
+  .scenario-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 9px;
+  }
+
+  .scenario-tabs button {
+    padding: 15px;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    background: var(--bg);
+    color: var(--text-secondary);
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .scenario-tabs button strong,
+  .scenario-tabs button span {
+    display: block;
+  }
+
+  .scenario-tabs button strong {
+    color: var(--text);
+    font-size: 13px;
+  }
+
+  .scenario-tabs button span {
+    margin-top: 4px;
+    font-size: 9px;
+  }
+
+  .scenario-tabs button.active {
+    border-color: var(--condition);
+    background: var(--condition-soft);
+  }
+
+  .concept-check-board {
+    display: grid;
+    grid-template-columns: minmax(590px, 1.15fr) minmax(340px, 0.85fr);
+    gap: 18px;
+  }
+
+  .outcome-checker,
+  .concept-verdict {
+    padding: 19px;
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    background: var(--bg-surface);
+  }
+
+  .checker-row {
+    display: grid;
+    grid-template-columns: repeat(var(--outcome-count), 1fr);
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .checker-cell {
+    display: grid;
+    place-items: center;
+    min-height: 78px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  .checker-cell.in-a {
+    border-color: var(--event-a);
+    background: var(--event-a-soft);
+  }
+
+  .checker-cell.in-b {
+    box-shadow: inset 0 -4px 0 var(--condition);
+  }
+
+  .checker-cell.in-b::after {
+    content: 'B';
+    color: var(--condition);
+    font-size: 8px;
+  }
+
+  .checker-cell.in-both {
+    outline: 2px solid var(--stable);
+    outline-offset: -4px;
+  }
+
+  .condition-ratios {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 9px;
+    align-items: center;
+    margin-top: 15px;
+  }
+
+  .condition-ratios div {
+    padding: 13px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+    text-align: center;
+  }
+
+  .condition-ratios span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 8px;
+  }
+
+  .condition-ratios strong {
+    display: block;
+    margin-top: 5px;
+    color: var(--text);
+    font-size: 18px;
+  }
+
+  .condition-ratios i {
+    color: var(--condition);
+    font-style: normal;
+  }
+
+  .concept-verdict {
+    display: grid;
+    align-content: center;
+  }
+
+  .concept-verdict.independent {
+    border-color: var(--stable);
+    background: var(--stable-soft);
+  }
+
+  .concept-verdict.dependent {
+    border-color: var(--changed);
+    background: var(--changed-soft);
+  }
+
+  .verdict-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+    margin: 13px 0;
+  }
+
+  .verdict-grid div {
+    padding: 13px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+  }
+
+  .verdict-grid span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 8px;
+  }
+
+  .verdict-grid strong {
+    display: block;
+    margin-top: 5px;
+    color: var(--text);
+    font-size: 14px;
+  }
+
+  // Step 9.3 — exact vs approximate
+  .population-buttons {
+    display: flex;
+    gap: 8px;
+  }
+
+  .population-buttons button {
+    min-width: 68px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--text-secondary);
+    cursor: pointer;
+  }
+
+  .population-buttons button.active {
+    border-color: var(--condition);
+    background: var(--condition-soft);
+    color: var(--text);
+  }
+
+  .replacement-board {
+    display: grid;
+    grid-template-columns: minmax(620px, 1.2fr) minmax(330px, 0.8fr);
+    gap: 18px;
+  }
+
+  .shift-visual,
+  .shift-summary {
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    background: var(--bg-surface);
+  }
+
+  .probability-bar {
+    display: grid;
+    grid-template-columns: 150px 1fr 80px;
+    gap: 13px;
+    align-items: center;
+    margin-top: 18px;
+  }
+
+  .probability-bar span {
+    color: var(--text-secondary);
+    font-size: 11px;
+  }
+
+  .probability-track {
+    height: 38px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--bg);
+  }
+
+  .probability-fill {
+    height: 100%;
+    background:
+      repeating-linear-gradient(
+        135deg,
+        transparent 0 7px,
+        color-mix(in srgb, var(--event-a) 24%, transparent) 7px 11px
+      ),
+      var(--event-a-soft);
+    border-right: 3px solid var(--event-a);
+    transition: width 0.2s ease;
+  }
+
+  .probability-bar strong {
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    text-align: right;
+  }
+
+  .shift-summary {
+    display: grid;
+    align-content: center;
+  }
+
+  .shift-summary > strong {
+    display: block;
+    margin: 7px 0;
+    color: var(--text);
+    font-size: 33px;
+  }
+
+  .shift-summary.exact {
+    border-color: var(--stable);
+    background: var(--stable-soft);
+  }
+
+  .shift-summary.approximate {
+    border-color: var(--condition);
+    background: var(--condition-soft);
+  }
+
+  .shift-summary.changed {
+    border-color: var(--changed);
+    background: var(--changed-soft);
+  }
+
+  .bag-scale {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    margin-top: 16px;
+  }
+
+  .bag-scale i {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--event-a);
+  }
+
+  .bag-scale i.blue {
+    background: var(--condition);
+  }
+
+  .bag-scale span {
+    margin-left: 8px;
+    color: var(--text-muted);
+    font-size: 9px;
+  }
+
+  // Step 9.4 — repeated trials
+  .joint-board {
+    display: grid;
+    grid-template-columns: minmax(610px, 1.15fr) minmax(340px, 0.85fr);
+    gap: 18px;
+  }
+
+  .joint-grid-panel,
+  .joint-stats {
+    padding: 19px;
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    background: var(--bg-surface);
+  }
+
+  .joint-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 4px;
+    margin-top: 14px;
+  }
+
+  .joint-tile {
+    display: grid;
+    place-items: center;
+    min-height: 27px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg);
+    color: var(--text-muted);
+    font-size: 7px;
+  }
+
+  .joint-tile.ss {
+    border-color: var(--stable);
+    background: var(--stable-soft);
+    color: var(--text);
+  }
+
+  .joint-tile.sf,
+  .joint-tile.fs {
+    border-color: var(--condition);
+    background:
+      repeating-linear-gradient(135deg, var(--condition-soft) 0 5px, transparent 5px 9px), var(--bg);
+  }
+
+  .joint-tile.ff {
+    border-color: var(--changed);
+    background: var(--changed-soft);
+    color: var(--text);
+  }
+
+  .joint-legend {
+    display: flex;
+    gap: 14px;
+    margin-top: 12px;
+    color: var(--text-secondary);
+    font-size: 9px;
+  }
+
+  .joint-stats {
+    display: grid;
+    gap: 9px;
+  }
+
+  .joint-stat {
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    background: var(--bg);
+  }
+
+  .joint-stat span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 8px;
+  }
+
+  .joint-stat strong {
+    display: block;
+    margin-top: 5px;
+    color: var(--text);
+    font-size: 23px;
+  }
+
+  .joint-stat.highlight {
+    border-color: var(--stable);
+    background: var(--stable-soft);
+  }
+
+  .marginal-lock {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 12px;
+    align-items: center;
+    padding: 17px;
+    border: 1px solid var(--accent-30);
+    border-radius: 15px;
+    background: var(--accent-10);
+  }
+
+  .marginal-lock div {
+    text-align: center;
+  }
+
+  .marginal-lock span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 8px;
+  }
+
+  .marginal-lock strong {
+    display: block;
+    margin-top: 5px;
+    color: var(--text);
+    font-size: 16px;
+  }
+
+  .marginal-lock i {
+    color: var(--accent);
+    font-style: normal;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prob-v2-ch9 .probability-fill {
+    transition: none !important;
+  }
+}
