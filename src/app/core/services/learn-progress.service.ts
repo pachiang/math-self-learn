@@ -10,7 +10,8 @@ export interface ChapterProgress {
   steps: Record<string, StepProgress>;
 }
 
-const STORAGE_KEY = 'group-anime-learn';
+const STORAGE_KEY = 'math-self-learn-progress';
+const LEGACY_STORAGE_KEY = 'group-anime-learn';
 
 @Injectable({ providedIn: 'root' })
 export class LearnProgressService {
@@ -76,7 +77,12 @@ export class LearnProgressService {
 
   private load(): Record<string, ChapterProgress> {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
+      const raw =
+        localStorage.getItem(STORAGE_KEY) ??
+        localStorage.getItem(LEGACY_STORAGE_KEY);
+      if (raw && !localStorage.getItem(STORAGE_KEY)) {
+        localStorage.setItem(STORAGE_KEY, raw);
+      }
       return raw ? JSON.parse(raw) : {};
     } catch {
       return {};

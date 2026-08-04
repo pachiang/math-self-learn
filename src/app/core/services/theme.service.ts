@@ -2,7 +2,8 @@ import { Injectable, signal, effect } from '@angular/core';
 
 export type Theme = 'light' | 'dark';
 
-const STORAGE_KEY = 'group-anime-theme';
+const STORAGE_KEY = 'math-self-learn-theme';
+const LEGACY_STORAGE_KEY = 'group-anime-theme';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
@@ -21,8 +22,12 @@ export class ThemeService {
   }
 
   private loadInitial(): Theme {
-    const stored = localStorage.getItem(STORAGE_KEY) as Theme | null;
-    if (stored === 'light' || stored === 'dark') return stored;
+    const stored = (localStorage.getItem(STORAGE_KEY) ??
+      localStorage.getItem(LEGACY_STORAGE_KEY)) as Theme | null;
+    if (stored === 'light' || stored === 'dark') {
+      localStorage.setItem(STORAGE_KEY, stored);
+      return stored;
+    }
     return window.matchMedia('(prefers-color-scheme: dark)').matches
       ? 'dark'
       : 'light';
