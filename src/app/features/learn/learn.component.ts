@@ -314,7 +314,7 @@ import { RouterLink } from '@angular/router';
           <div class="sc-body">
             <h3 class="sc-title">機率論</h3>
             <p class="sc-desc">從擲骰到中央極限定理——用數學量化不確定性。</p>
-            <span class="sc-meta">新版重建中 · 14 章完成</span>
+            <span class="sc-meta">新版主線 · 19 章完成</span>
           </div>
         </a>
 

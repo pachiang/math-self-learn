@@ -703,6 +703,51 @@ import { ProbV2BinomialAssumptionsComponent } from './steps/prob-v2-ch14/step-bi
 import { ProbV2GeometricStoppingComponent } from './steps/prob-v2-ch14/step-geometric-stopping.component';
 import { ProbV2GeometricMemorylessComponent } from './steps/prob-v2-ch14/step-geometric-memoryless.component';
 import { ProbV2NegativeBinomialComponent } from './steps/prob-v2-ch14/step-negative-binomial.component';
+// Probability v2 Ch15
+import { ProbV2EventStreamLensesComponent } from './steps/prob-v2-ch15/step-event-stream-lenses.component';
+import { ProbV2PoissonWindowComponent } from './steps/prob-v2-ch15/step-poisson-window.component';
+import { ProbV2PoissonOriginComponent } from './steps/prob-v2-ch15/step-poisson-origin.component';
+import { ProbV2ExponentialWaitComponent } from './steps/prob-v2-ch15/step-exponential-wait.component';
+import { ProbV2ExponentialMemorylessComponent } from './steps/prob-v2-ch15/step-exponential-memoryless.component';
+import { ProbV2GammaCheckpointsComponent } from './steps/prob-v2-ch15/step-gamma-checkpoints.component';
+import { ProbV2GammaShapeRateComponent } from './steps/prob-v2-ch15/step-gamma-shape-rate.component';
+import { ProbV2CountWaitDualityComponent } from './steps/prob-v2-ch15/step-count-wait-duality.component';
+// Probability v2 Ch16
+import { ProbV2ContinuousIntervalComponent } from './steps/prob-v2-ch16/step-continuous-interval.component';
+import { ProbV2UniformRulerComponent } from './steps/prob-v2-ch16/step-uniform-ruler.component';
+import { ProbV2AffineTransportComponent } from './steps/prob-v2-ch16/step-affine-transport.component';
+import { ProbV2NonlinearCompressionComponent } from './steps/prob-v2-ch16/step-nonlinear-compression.component';
+import { ProbV2BetaRatioComponent } from './steps/prob-v2-ch16/step-beta-ratio.component';
+import { ProbV2BetaShapeComponent } from './steps/prob-v2-ch16/step-beta-shape.component';
+import { ProbV2BetaVsBinomialComponent } from './steps/prob-v2-ch16/step-beta-vs-binomial.component';
+import { ProbV2TransformationMapComponent } from './steps/prob-v2-ch16/step-transformation-map.component';
+// Probability v2 Ch17
+import { ProbV2AdditiveNoiseComponent } from './steps/prob-v2-ch17/step-additive-noise.component';
+import { ProbV2NormalLocationScaleComponent } from './steps/prob-v2-ch17/step-normal-location-scale.component';
+import { ProbV2ZCoordinateComponent } from './steps/prob-v2-ch17/step-z-coordinate.component';
+import { ProbV2SquareFoldingComponent } from './steps/prob-v2-ch17/step-square-folding.component';
+import { ProbV2ChiSquareEnergyComponent } from './steps/prob-v2-ch17/step-chi-square-energy.component';
+import { ProbV2DegreesFreedomComponent } from './steps/prob-v2-ch17/step-degrees-freedom.component';
+import { ProbV2GammaBetaBridgeComponent } from './steps/prob-v2-ch17/step-gamma-beta-bridge.component';
+import { ProbV2DistributionFamilyMapComponent } from './steps/prob-v2-ch17/step-distribution-family-map.component';
+// Probability v2 Ch18
+import { ProbV2RunningAverageComponent } from './steps/prob-v2-ch18/step-running-average.component';
+import { ProbV2ManyWorldsComponent } from './steps/prob-v2-ch18/step-many-worlds.component';
+import { ProbV2EpsilonBandComponent } from './steps/prob-v2-ch18/step-epsilon-band.component';
+import { ProbV2SumAverageScaleComponent } from './steps/prob-v2-ch18/step-sum-average-scale.component';
+import { ProbV2NoCompensationComponent } from './steps/prob-v2-ch18/step-no-compensation.component';
+import { ProbV2LlnDependenceComponent } from './steps/prob-v2-ch18/step-dependence.component';
+import { ProbV2HeavyTailBoundaryComponent } from './steps/prob-v2-ch18/step-heavy-tail-boundary.component';
+import { ProbV2LlnCltBridgeComponent } from './steps/prob-v2-ch18/step-lln-clt-bridge.component';
+// Probability v2 Ch19
+import { ProbV2SqrtNMicroscopeComponent } from './steps/prob-v2-ch19/step-sqrt-n-microscope.component';
+import { ProbV2SourceToSumComponent } from './steps/prob-v2-ch19/step-source-to-sum.component';
+import { ProbV2CenteringScalingComponent } from './steps/prob-v2-ch19/step-centering-scaling.component';
+import { ProbV2UniversalityComponent } from './steps/prob-v2-ch19/step-universality.component';
+import { ProbV2RawDataMythComponent } from './steps/prob-v2-ch19/step-raw-data-myth.component';
+import { ProbV2CltConditionsComponent } from './steps/prob-v2-ch19/step-clt-conditions.component';
+import { ProbV2NormalApproximationComponent } from './steps/prob-v2-ch19/step-normal-approximation.component';
+import { ProbV2ProbabilityFinaleComponent } from './steps/prob-v2-ch19/step-probability-finale.component';
 // Stats Ch1
 import { StatsCh1InverseProblemComponent } from './steps/stats-ch1/step-inverse-problem.component';
 import { StatsCh1SampleStatsComponent } from './steps/stats-ch1/step-sample-stats.component';
@@ -1920,6 +1965,71 @@ const PROB_CHAPTERS: Record<string, ChapterConfig> = {
       { num: 8, title: '等待第 r 次 success' },
     ],
   },
+  ch15: {
+    title: '第十五章：同一條事件流，兩種提問',
+    steps: [
+      { num: 1, title: 'Event timeline 的兩副鏡頭' },
+      { num: 2, title: 'Poisson 的 fixed window' },
+      { num: 3, title: '從 rare opportunities 到 event stream' },
+      { num: 4, title: 'Exponential 的 empty window' },
+      { num: 5, title: 'Continuous memorylessness' },
+      { num: 6, title: 'Gamma 是等待片段的總和' },
+      { num: 7, title: 'Shape 與 rate 的不同工作' },
+      { num: 8, title: 'Count／wait duality' },
+    ],
+  },
+  ch16: {
+    title: '第十六章：連續區間、比例與 transformations',
+    steps: [
+      { num: 1, title: 'Probability 住在 interval area' },
+      { num: 2, title: 'Uniform 的 equal-length rule' },
+      { num: 3, title: 'Affine map 與 density 補償' },
+      { num: 4, title: 'Nonlinear compression' },
+      { num: 5, title: 'Normalize 正重量成 proportion' },
+      { num: 6, title: 'Beta 的 center 與 concentration' },
+      { num: 7, title: 'Beta 不是 Binomial count' },
+      { num: 8, title: 'Transformation family map' },
+    ],
+  },
+  ch17: {
+    title: '第十七章：Normal、χ² 與 distribution family map',
+    steps: [
+      { num: 1, title: 'Additive effects 生成中央聚集' },
+      { num: 2, title: 'Normal 的 location 與 scale' },
+      { num: 3, title: 'z-score 是 standardized coordinate' },
+      { num: 4, title: '平方折掉 sign' },
+      { num: 5, title: 'χ² 是 total squared energy' },
+      { num: 6, title: 'Degrees of freedom' },
+      { num: 7, title: 'χ²、Gamma 與 Beta bridge' },
+      { num: 8, title: 'Distribution family map' },
+    ],
+  },
+  ch18: {
+    title: '第十八章：大數法則不是未來補償過去',
+    steps: [
+      { num: 1, title: 'Running average 靠稀釋穩定' },
+      { num: 2, title: 'Many worlds 的 averages 收束' },
+      { num: 3, title: '固定 ε-band 看 outside worlds' },
+      { num: 4, title: 'Sum 與 average 的不同 scale' },
+      { num: 5, title: 'Dilution 不是 compensation' },
+      { num: 6, title: 'Dependence 與 effective information' },
+      { num: 7, title: 'Heavy tails 與 finite mean' },
+      { num: 8, title: 'LLN 與 CLT 的兩副鏡頭' },
+    ],
+  },
+  ch19: {
+    title: '第十九章：中央極限定理是一副 √n 顯微鏡',
+    steps: [
+      { num: 1, title: '用 √n 放大 shrinking error' },
+      { num: 2, title: '不同 sources 進入 sum machine' },
+      { num: 3, title: 'Centering 與 scaling' },
+      { num: 4, title: 'Universality 與 Normal attractor' },
+      { num: 5, title: 'CLT 不會改寫 raw data' },
+      { num: 6, title: 'Conditions 與 convergence speed' },
+      { num: 7, title: 'Normal approximation' },
+      { num: 8, title: 'Probability v2 finale' },
+    ],
+  },
 };
 
 const STATS_CHAPTERS: Record<string, ChapterConfig> = {
@@ -2078,6 +2188,20 @@ const SUBJECTS: Record<string, Record<string, ChapterConfig>> = {
   stats: STATS_CHAPTERS,
   reg: REG_CHAPTERS,
   bayes: BAYES_CHAPTERS,
+};
+
+const SUBJECT_LABELS: Record<string, string> = {
+  algebra: '抽象代數',
+  linalg: '線性代數',
+  analysis: '實分析',
+  topology: '點集拓撲',
+  complex: '複分析',
+  ag: '代數幾何',
+  de: '微分方程',
+  prob: '機率論',
+  stats: '數理統計',
+  reg: '迴歸與線性模型',
+  bayes: '貝氏統計',
 };
 
 @Component({
@@ -2783,6 +2907,51 @@ const SUBJECTS: Record<string, Record<string, ChapterConfig>> = {
     ProbV2GeometricStoppingComponent,
     ProbV2GeometricMemorylessComponent,
     ProbV2NegativeBinomialComponent,
+    // Probability v2 Ch15
+    ProbV2EventStreamLensesComponent,
+    ProbV2PoissonWindowComponent,
+    ProbV2PoissonOriginComponent,
+    ProbV2ExponentialWaitComponent,
+    ProbV2ExponentialMemorylessComponent,
+    ProbV2GammaCheckpointsComponent,
+    ProbV2GammaShapeRateComponent,
+    ProbV2CountWaitDualityComponent,
+    // Probability v2 Ch16
+    ProbV2ContinuousIntervalComponent,
+    ProbV2UniformRulerComponent,
+    ProbV2AffineTransportComponent,
+    ProbV2NonlinearCompressionComponent,
+    ProbV2BetaRatioComponent,
+    ProbV2BetaShapeComponent,
+    ProbV2BetaVsBinomialComponent,
+    ProbV2TransformationMapComponent,
+    // Probability v2 Ch17
+    ProbV2AdditiveNoiseComponent,
+    ProbV2NormalLocationScaleComponent,
+    ProbV2ZCoordinateComponent,
+    ProbV2SquareFoldingComponent,
+    ProbV2ChiSquareEnergyComponent,
+    ProbV2DegreesFreedomComponent,
+    ProbV2GammaBetaBridgeComponent,
+    ProbV2DistributionFamilyMapComponent,
+    // Probability v2 Ch18
+    ProbV2RunningAverageComponent,
+    ProbV2ManyWorldsComponent,
+    ProbV2EpsilonBandComponent,
+    ProbV2SumAverageScaleComponent,
+    ProbV2NoCompensationComponent,
+    ProbV2LlnDependenceComponent,
+    ProbV2HeavyTailBoundaryComponent,
+    ProbV2LlnCltBridgeComponent,
+    // Probability v2 Ch19
+    ProbV2SqrtNMicroscopeComponent,
+    ProbV2SourceToSumComponent,
+    ProbV2CenteringScalingComponent,
+    ProbV2UniversalityComponent,
+    ProbV2RawDataMythComponent,
+    ProbV2CltConditionsComponent,
+    ProbV2NormalApproximationComponent,
+    ProbV2ProbabilityFinaleComponent,
     // Stats
     StatsCh1InverseProblemComponent,
     StatsCh1SampleStatsComponent,
@@ -2871,6 +3040,11 @@ export class ChapterComponent {
   });
   readonly chapterTitle = computed(() => this.config().title);
   readonly steps = computed(() => this.config().steps);
+  readonly subjectLabel = computed(() => SUBJECT_LABELS[this.subject()] ?? '教學');
+  readonly chapterNumberLabel = computed(() => {
+    const chapterNumber = Number(this.chapterId().replace('ch', ''));
+    return Number.isFinite(chapterNumber) ? `第 ${chapterNumber} 章` : '目前章節';
+  });
 
   readonly currentStep = computed(() =>
     Math.max(1, Math.min(this.stepParam(), this.steps().length)),

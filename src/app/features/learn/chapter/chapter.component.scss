@@ -1,11 +1,112 @@
 .chapter {
   max-width: 720px;
   margin: 0 auto;
-  padding: 28px 24px 64px;
+  padding: 18px 24px 64px;
 }
 
 .chapter.wide-lesson {
   max-width: 1120px;
+}
+
+.course-context {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 54px;
+  margin: 0 -10px 24px;
+  padding: 7px 10px;
+  border: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
+  border-radius: 13px;
+  background: color-mix(in srgb, var(--bg) 91%, transparent);
+  box-shadow: 0 8px 22px color-mix(in srgb, var(--text) 7%, transparent);
+  backdrop-filter: blur(14px);
+}
+
+.course-back {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  min-width: 0;
+  padding: 4px 8px 4px 4px;
+  border-radius: 9px;
+  color: var(--text);
+  text-decoration: none;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+
+  &:hover {
+    background: var(--accent-10);
+    color: var(--accent);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+
+.course-back-icon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  border: 1px solid var(--border-strong);
+  border-radius: 9px;
+  background: var(--bg-surface);
+
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.6;
+  }
+}
+
+.course-back-copy {
+  display: grid;
+  gap: 1px;
+
+  small {
+    color: var(--text-muted);
+    font-size: 10px;
+    line-height: 1.2;
+  }
+
+  strong {
+    overflow: hidden;
+    font-size: 13px;
+    line-height: 1.25;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.course-location {
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  padding: 7px 11px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  white-space: nowrap;
+
+  i {
+    width: 1px;
+    height: 14px;
+    background: var(--border-strong);
+  }
 }
 
 .chapter-title {
@@ -21,14 +122,19 @@
 }
 
 .step-footer {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 16px;
+  align-items: center;
   margin-top: 40px;
   padding-top: 20px;
   border-top: 1px solid var(--border);
 }
 
 .nav-btn {
+  display: inline-flex;
+  gap: 7px;
+  align-items: center;
   padding: 10px 20px;
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -38,6 +144,29 @@
   color: var(--text-secondary);
   transition: all 0.15s ease;
 
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  &.prev {
+    justify-self: start;
+  }
+
+  &.catalog {
+    justify-self: center;
+    padding-inline: 15px;
+    color: var(--text-muted);
+
+    svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.35;
+    }
+  }
+
   &:hover {
     background: var(--accent-10);
     color: var(--text);
@@ -45,6 +174,7 @@
   }
 
   &.next {
+    justify-self: end;
     color: var(--text);
     border-color: var(--accent-30);
     background: var(--accent-10);
@@ -52,5 +182,12 @@
     &:hover {
       background: var(--accent-18);
     }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .course-back,
+  .nav-btn {
+    transition: none;
   }
 }

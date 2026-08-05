@@ -149,39 +149,31 @@
 - covariance
 - 可展開：LOTUS
 
-### Ch14 Distribution 來自生成故事
+### Ch14 重複 Yes／No 世界
 
-核心 insight：用「資料怎麼生成」辨認 distribution。
+核心 insight：Bernoulli、Binomial、Geometric、Negative Binomial 是同一台 binary generator 在不同 measurement 與 stopping rule 下的投影。
 
-- Bernoulli / Binomial：固定次數成功計數
-- Geometric：等到第一次成功
-- Poisson：區間內稀疏事件計數
-- Uniform：區間內等密度
-- Exponential：等待下一事件
-- Normal：許多小效應相加
-- Gamma、Beta、chi-squared 作為延伸地圖
+### Ch15 連續事件流的 count／wait 雙視角
+
+核心 insight：在同一條 constant-rate event stream 上，固定時間窗內數事件得到 Poisson；等待下一個或第 k 個事件則得到 Exponential／Gamma。
+
+### Ch16 連續區間、比例與 transformations
+
+核心 insight：Uniform 提供等密度的原始座標；經過 transformation 或把兩份正重量 normalize 成比例，會自然長出新的 continuous distributions，尤其是 Beta。
+
+### Ch17 Normal、χ² 與 distribution family map
+
+核心 insight：Normal 來自許多小效應的加總；平方、加總與 normalize 等操作，把 Normal、χ²、Gamma、Beta 接成一張生成關係圖。
 
 ## Part V — 隨機如何產生規律
 
-### Ch15 大數法則
+### Ch18 大數法則
 
 核心 insight：Law of Large Numbers（LLN）談的是樣本平均靠近期望值，不是未來會補償過去。
 
-- 多條 sample paths
-- proportion 的波動尺度
-- gambler’s fallacy
-- convergence 的直覺與適用條件
-- 可展開：weak / strong LLN
+### Ch19 中央極限定理
 
-### Ch16 中央極限定理
-
-核心 insight：Central Limit Theorem（CLT）談的是標準化總和的分布形狀，不是「所有資料都是 Normal」。
-
-- sums of varied distributions
-- centering 與 scaling
-- LLN vs CLT
-- approximation quality 與失效情況
-- 可展開：常見版本的條件
+核心 insight：Central Limit Theorem（CLT）談的是標準化總和的 distribution shape，不是「所有資料都是 Normal」。
 
 ## 第一章 storyboard
 
@@ -1850,4 +1842,506 @@ P(T_r=t)=C(t−1,r−1)pʳ(1−p)ᵗ⁻ʳ、最後一格為 success 的組合解
 
 最後如何檢查能否遷移：
 看到「第 5 位顧客購買出現在第幾位訪客」時，先指出固定量與 random quantity，再選模型。
+```
+
+## 第十五章 storyboard
+
+### 本章只使用一條 event stream
+
+第十四章的 Bernoulli machine 每一格都問一次 Yes／No；第十五章把格線縮到看不見，留下連續時間上的 event marks。全章只改變觀察鏡頭：框住一段時間數 marks，或從現在開始量到某個 mark 的距離。
+
+```text
+Constant-rate event stream
+├─ fixed window + count events ──→ Poisson
+└─ start now + measure waiting time
+   ├─ next event ────────────────→ Exponential
+   └─ k-th event ────────────────→ Gamma
+```
+
+### Step 1 — 格線消失後，trial count 變成 event timeline
+
+```text
+核心 insight：continuous event stream 不預先提供第 1、2、3 次 trial；events 可以落在時間線任意位置，我們必須另外選擇 count lens 或 wait lens。
+常見誤解：把每分鐘是否來電當成精確 trial，誤以為同一分鐘最多只能發生一件事。
+具體問題：客服電話可在 10:03:12 與 10:03:48 各來一通；minute boxes 是世界本身，還是我們畫上的 measuring grid？
+視覺／操作：把 8、16、32 個 Bernoulli slots 逐步縮細；event marks 保持在原位置，切換 COUNT WINDOW／WAIT ARROW。
+保持不變：同一組 event times。
+壓縮：events 是世界；window 與 arrow 是問題。
+正式層：point process、counting process N(t) 的記號。
+遷移：網站請求、放射性衰變與來電都可先畫成 event timeline。
+```
+
+### Step 2 — Poisson 是固定 window 接住多少 events
+
+```text
+核心 insight：Poisson distribution 回答固定 exposure 內的 count；rate λ 與 window length t 只透過 μ=λt 決定整張 count map。
+常見誤解：把 λ 當成這次一定發生的件數，或認為只有整數小時才能使用。
+具體問題：平均每小時 3 通電話，觀察 2 小時時 distribution center 應留在 3 還是移到 6？
+視覺／操作：拖動 rate 與 window length；timeline window、μ marker、Poisson PMF bars 同步更新。
+保持不變：homogeneous rate 與 count measurement。
+壓縮：rate × exposure = expected count，不是 guaranteed count。
+正式層：P(N(t)=k)=e^{-λt}(λt)^k/k!、mean 與 variance。
+遷移：用「每公里坑洞率 × 行駛公里」辨認 exposure 不一定是時間。
+```
+
+### Step 3 — Poisson 從大量微小、稀疏且近乎獨立的機會浮現
+
+```text
+核心 insight：把固定 exposure 切成越多微小 slots，每格 event chance 同步縮小、總 expected count 保持 μ，Binomial count map 會逼近 Poisson。
+常見誤解：任何 count data 都能套 Poisson，忽略 constant rate、independent increments 與 events 不成群的生成條件。
+具體問題：把一小時切得更細，為何不能讓每格 chance 保持 20%？
+視覺／操作：調整 slot 數，並切換 stable stream、rush hour、burst cluster 三種 generator；比較 Binomial 與 Poisson bars。
+保持不變：valid mode 的總 μ。
+壓縮：more opportunities + rarer per opportunity + stable total rate。
+正式層：Binomial(n, μ/n) → Poisson(μ) 與 Poisson process assumptions。
+遷移：判斷球賽進球可能近似，而伺服器 outage 造成的成群 errors 不適合。
+```
+
+### Step 4 — Exponential 的 tail 就是前方 window 完全沒有 event
+
+```text
+核心 insight：等待時間 W 超過 t，和長度 t 的前方 window 內 count 為 0 是同一件事；Exponential 由 Poisson 的 zero-count probability 直接長出。
+常見誤解：把 density height 當成「正好等 t」的 probability，或把 Exponential 視為無關的新公式。
+具體問題：若下一事件要等超過 2 分鐘，前 2 分鐘的 window 裡必須看到幾個 events？
+視覺／操作：拖動 t；timeline empty window、survival meter 與 density tail 同步縮放。
+保持不變：同一 rate λ 與同一 event stream。
+壓縮：wait longer than t ↔ zero events by t。
+正式層：P(W>t)=e^{-λt}、CDF、PDF 與 mean 1/λ。
+遷移：把「下一位顧客超過 10 分鐘才來」翻成前 10 分鐘零顧客。
+```
+
+### Step 5 — Continuous memorylessness 來自未改變的 rate
+
+```text
+核心 insight：已知一段時間沒有 event，只是把已知空白 timeline 剪掉；若 rate 仍 constant，未來等待 law 與重新開始完全相同。
+常見誤解：已經等很久便覺得 event「快來了」，或把 memorylessness 套到 aging mechanism。
+具體問題：固定 rate 下已等 8 分鐘，再等超過 3 分鐘的 chance 是否比剛開始更小？
+視覺／操作：調整已等待 m 與未來 s，切換 stable／aging rate，比較兩條 survival meters。
+保持不變：stable mode 的未來 rate。
+壓縮：history 可剪掉，只因 mechanism 沒變。
+正式層：P(W>m+s|W>m)=P(W>s)。
+遷移：燈泡老化的 failure rate 改變，因此通常不 memoryless。
+```
+
+### Step 6 — Gamma 是把終點移到第 k 個 event
+
+```text
+核心 insight：等第 k 個 event 的總時間，是 k 段「等下一 event」的 Exponential gaps 相加；Gamma 不是另一條陌生 curve。
+常見誤解：只看 Gamma formula，不知道 shape k 在數 checkpoints。
+具體問題：第三位顧客在 7 分鐘抵達，7 分鐘是第三段 gap，還是三段 gaps 的總和？
+視覺／操作：調整 k，timeline 自動切成 k 個 colored gaps，Gamma density 隨 checkpoint 移動。
+保持不變：每段 gap 使用相同 rate 且 independent。
+壓縮：Gamma wait = Exponential gap + … + Exponential gap。
+正式層：integer-shape Gamma/Erlang density 與 convolution。
+遷移：完成第 k 筆交易、等第 k 次故障都先找 checkpoints。
+```
+
+### Step 7 — Shape 增加 checkpoints；rate 壓縮整條時間軸
+
+```text
+核心 insight：Gamma shape α 累積正向 pieces，讓 density 離開 0 並相對集中；rate β 加快每段機制，等比例壓縮等待時間。
+常見誤解：靠背誦右偏曲線辨認 Gamma，或混淆 rate 與 scale。
+具體問題：checkpoint 數從 1 變 5 與 rate 從 1 變 2，哪一個是在加段數，哪一個是在讓每段跑更快？
+視覺／操作：獨立調整 shape 與 rate；density、mean α/β、SD √α/β 與 gap strip 同步變形。
+保持不變：總時間始終非負。
+壓縮：shape builds；rate squeezes。
+正式層：Gamma(α,β) density、rate/scale convention 與非整數 α 的延伸。
+遷移：看到 Gamma 參數前先確認教材第二參數採 rate 還是 scale。
+```
+
+### Step 8 — Count 與 wait 是同一事件的兩種語句
+
+```text
+核心 insight：第 k 個 event 在 t 以前抵達，等價於 t-window 內至少已有 k 個 events；Gamma CDF 與 Poisson tail 因此是同一塊 probability。
+常見誤解：把 discrete Poisson count 與 continuous Gamma wait 視為無法比較的世界。
+具體問題：T₃≤5 與 N(5)≥3 是否描述同一批 timelines？
+視覺／操作：調整 k、t、λ；同一條 timeline 上同步移動 checkpoint 與 window，兩個 probability meters 始終相等。
+保持不變：底層 event stream。
+壓縮：k-th arrival by t ↔ at least k arrivals in t。
+正式層：P(T_k≤t)=P(N(t)≥k) 的有限和。
+遷移：在「多久達到第 10 件」與「一小時能否至少 10 件」間切換問法。
+```
+
+## 第十六章 storyboard
+
+### 本章只追蹤一件事：probability mass 被搬到哪裡
+
+第十二章已建立「continuous probability 看 interval area，不看單點高度」。本章把這個模型往前推：先用 Uniform 建立一把等密度尺，再把尺拉伸、壓縮、彎曲；總重量永遠是 1，但 density 必須重新堆疊。Beta 則從兩份正重量 normalize 成比例，自然落在 0 到 1。
+
+```text
+uniform mass on a line
+├─ affine map ───────────────────→ another Uniform interval
+└─ nonlinear map ────────────────→ density changes by local compression
+
+two positive Gamma weights
+└─ normalize X / (X + Y) ───────→ Beta proportion
+```
+
+### Step 1 — Continuous 世界的 probability 住在 interval，不住在 point
+
+```text
+核心 insight：continuous random variable 的單一 point 可以有 probability 0，但一整段 interval 由無限多個零機率點組成後仍有正重量；density 是每單位長度承載重量的速率。
+常見誤解：P(X=x)=0 代表 x 不可能出現，或認為曲線高度就是單點 probability。
+具體問題：隨機在 0–1 尺上落點，落在正好 0.5 的 chance 為 0，為何最後仍一定落在某一點？
+視覺／操作：把 0.4–0.6 的 interval 不斷縮窄成 point；同步顯示 width、density、area。
+保持不變：整條尺的總 probability mass 為 1。
+壓縮：point 沒有寬度；probability 是 density × width 形成的 area。
+正式層：P(X=x)=0、P(a≤X≤b)=∫f，以及零測度直覺。
+遷移：區分「正好等 3 秒」與「落在 2.9–3.1 秒」。
+```
+
+### Step 2 — Uniform 的真正意思是 equal length 得到 equal weight
+
+```text
+核心 insight：均勻分布（Uniform distribution）不是「每個 point 分到一樣的正 probability」，而是相同長度的 intervals 接住相同重量。
+常見誤解：把 continuous Uniform 想成有無限格、每格各分一點 probability。
+具體問題：在 0–10 尺上，長度同為 2 的 [1,3] 與 [7,9] 是否同樣重？
+視覺／操作：拖曳固定寬度 window；area meter 保持不變，再調整寬度觀察重量只由 length 決定。
+保持不變：flat density 與 support [a,b]。
+壓縮：equal length → equal probability。
+正式層：Uniform(a,b) PDF、CDF、mean 與 variance。
+遷移：用 random timestamp、random angle 判斷何時 uniform 是合理 mechanism。
+```
+
+### Step 3 — Affine transformation 只重畫刻度，不改相對位置
+
+```text
+核心 insight：Y=a+bX 對整條尺做平移與等比例伸縮；每一小段都被同倍率拉長，因此 flat density 仍保持 flat，只需調整高度守住總面積 1。
+常見誤解：範圍拉成兩倍後 density 高度仍不變，導致總重量變成 2。
+具體問題：把 0–1 尺拉成 10–20，原本每 0.1 的重量搬到每 1 單位後，density 應變高還是變低？
+視覺／操作：調整 stretch b 與 shift a；before/after rulers 用連線一一對應，density rectangle 同步反向改變高度。
+保持不變：quantile 的相對位置與總 area。
+壓縮：空間拉寬幾倍，density 就壓低幾倍。
+正式層：f_Y(y)=f_X((y-a)/b)/|b| 與 b<0 的方向翻轉。
+遷移：把 U∼Uniform(0,1) 轉成指定 [a,b] 的 random value。
+```
+
+### Step 4 — Nonlinear transformation 會在局部壓縮處堆高 density
+
+```text
+核心 insight：若 transformation 各處伸縮倍率不同，原本等寬、等重的 pieces 到新軸後寬度不同；被壓窄的 pieces 必須變高以保存重量。
+常見誤解：Uniform input 經任何函數後仍 Uniform，或直接把 x 軸標籤換掉卻不改 density。
+具體問題：U 在 0–1 均勻，Y=U² 後，靠近 0 的原始 pieces 被壓得更窄，重量會消失還是堆高？
+視覺／操作：調整 power q；十個 equal-mass strips 從 U 軸連到 U^q 軸，output histogram 由 strip width 自動決定高度。
+保持不變：每一 strip 的 probability mass 與總重量 1。
+壓縮：density 在 transformation 壓縮空間的地方升高。
+正式層：CDF method、inverse derivative/Jacobian 的一維版本。
+遷移：預測平方、平方根會把 Uniform mass 推向哪一端。
+```
+
+### Step 5 — Proportion 是兩份正重量 normalize 後的位置
+
+```text
+核心 insight：任意兩份正重量 G₁、G₂ 經 R=G₁/(G₁+G₂) normalize 後，都落在 0–1；兩份 Gamma weights 的 ratio 會生成 Beta distribution。
+常見誤解：把 ratio 當成憑空出現的 0–1 數字，或不知道 Beta 為何自然描述 proportions。
+具體問題：左、右兩堆重量總量同時加倍，分界位置 R 會改變嗎？
+視覺／操作：拖動兩份正重量並可鎖定 ratio、縮放 total；balance bar 與 proportion pointer 同步。
+保持不變：共同縮放 G₁、G₂ 時的 ratio。
+壓縮：normalize removes total size and keeps relative share。
+正式層：若 G₁∼Gamma(α,1)、G₂∼Gamma(β,1) independent，則 ratio∼Beta(α,β)。
+遷移：市場份額、完成比例、未知 success chance 都是 0–1 relative share。
+```
+
+### Step 6 — Beta shape 是兩端邊界力量的拉鋸
+
+```text
+核心 insight：Beta(α,β) 的 α 控制離開 0 的力量，β 控制離開 1 的力量；兩者相等時對稱，不代表一定 flat，只有 α=β=1 才是 Uniform。
+常見誤解：把 α 當 mean、β 當 variance，或認為 α=β 的 Beta 都是 Uniform。
+具體問題：Beta(8,8) 與 Beta(1,1) 都左右對稱，為何一個集中中央、一個完全平坦？
+視覺／操作：α、β sliders 與 presets；density ribbon、balance point α/(α+β) 和 concentration α+β 同步變化。
+保持不變：support 始終 [0,1]、總 area 始終 1。
+壓縮：ratio 決定 center；sum 決定 concentration。
+正式層：Beta PDF、Beta function、mean 與 variance，並展示 α或β<1 的 boundary shapes。
+遷移：先用 center／concentration 語言比較 Beta(2,2)、Beta(20,20)、Beta(2,8)。
+```
+
+### Step 7 — Beta 描述 unknown proportion；Binomial 描述 observed success count
+
+```text
+核心 insight：Binomial 的橫軸是 0…n 的 count，假設 p 固定；Beta 的橫軸是 0…1 的 possible p，描述對未知 proportion 的 uncertainty。兩者可互相更新，但不是同一種 random variable。
+常見誤解：因為都使用 α、β、n、success 等語言，就把 Beta curve 當成 normalized Binomial histogram。
+具體問題：10 次中成功 7 次；「下次重做又成功幾次」與「真正 success chance 可能是多少」是否在問同一件事？
+視覺／操作：切換 DATA REPEAT／UNKNOWN p；同一筆 7/10 資訊分別投影到 count bars 與 proportion ribbon，橫軸與問題句同步切換。
+保持不變：已觀察資料 7 successes / 10 trials。
+壓縮：Binomial randomizes count given p；Beta randomizes p itself。
+正式層：Beta-Binomial conjugacy 只作預告，完整 inference 留到 Bayes 課。
+遷移：看到 0–1 curve 時先問橫軸是 future fraction、unknown p，還是單次 continuous measurement。
+```
+
+### Step 8 — Transformation 不是公式清單，而是重量守恆的操作語言
+
+```text
+核心 insight：辨認 continuous distribution 時，先追問原始重量、做了哪個 map、哪些區域被拉伸／壓縮；Uniform、transformed Uniform、Gamma ratio 與 Beta 因此連成生成關係而非名詞表。
+常見誤解：靠曲線外觀猜 distribution，忽略同一 shape 可由不同 mechanism 產生。
+具體問題：三個 0–1 outputs 分別來自直接均勻抽點、U²、兩份 Gamma normalize；只看 support 能否判斷它們相同？
+視覺／操作：family workbench 選擇 source 與 operation，流程節點逐步亮起，並比較 output mass map。
+保持不變：每條 pipeline 的總 probability mass 為 1。
+壓縮：source + operation 決定 distribution；shape 只是留下的影子。
+正式層：change-of-variables checklist 與 monotone transformation 通式。
+遷移：面對陌生 distribution，先畫生成 pipeline 再決定是否需要公式。
+```
+
+## 第十七章 storyboard
+
+### 本章沿三個 verbs 建立 family map
+
+```
+add signed effects ──→ Normal
+square + add Normals ──→ χ² = Gamma
+normalize positive totals ──→ Beta
+```
+
+本章不提前證明 CLT。Normal 先作為 additive-noise mechanism 的核心模型；「多廣泛的 sources 會在什麼條件下逼近 Normal」留到第十九章。
+
+### Step 1 — Normal 先是一台 additive machine
+
+```
+核心 insight：許多小型、可正可負的 effects 相加時，中間總和可由大量正負組合形成，極端總和則需要罕見的同向合作。
+常見誤解：Normal 的定義只是「長得像鐘」，或任何相加都自動 exactly Normal。
+視覺／操作：調整 effect 數量；單一 case 顯示 signed contributions，多案例 histogram 同步形成中央聚集。
+保持不變：effects 使用同一個 centered generator；總和除以 √n 以便比較 shape。
+壓縮：mechanism first, bell shape second。
+正式層：Normal 的 closure under independent Normal sums；CLT 條件延後。
+遷移：把測量誤差拆成校正、環境、讀值等小 contributions。
+```
+
+### Step 2 — μ 搬中心；σ 伸縮偏差座標
+
+```
+核心 insight：Normal 的 μ 是 location，σ 是橫軸上的 scale；curve 變寬時高度必須降低以守住 area 1。
+常見誤解：σ 是曲線高度，或調整 μ 會改變 shape。
+視覺／操作：獨立拖動 μ、σ；density、center line 與 one-σ bracket 同步。
+壓縮：μ = where；σ = unit of deviation。
+正式層：Normal density 與 N(μ,σ²) convention。
+```
+
+### Step 3 — z-score 是新座標，不是 probability
+
+```
+核心 insight：z=(x−μ)/σ 先移除 location，再以 σ 為一格；它回答「離中心幾個 scale units」。
+常見誤解：把 z=2 讀成 2% 或直接當 tail probability。
+視覺／操作：raw axis 與 z-axis 同步，調整 x、μ、σ 看同一點換座標。
+壓縮：z is position; probability is area。
+正式層：X∼N(μ,σ²) ⇒ Z∼N(0,1)。
+```
+
+### Step 4 — Square folding 刪掉方向，留下 energy
+
+```
+核心 insight：+z 與 −z 經平方後映到同一個 z²；output 只保留 magnitude，因此住在非負軸。
+常見誤解：平方只是換單位，仍保留原本左右方向。
+視覺／操作：拖動 |z|，看左右兩點沿箭頭折到同一 energy point。
+壓縮：signed deviation → unsigned energy。
+正式層：Z∼N(0,1) ⇒ Z²∼χ²₁。
+```
+
+### Step 5 — χ² 是多方向的 total squared distance
+
+```
+核心 insight：每個 independent standardized coordinate 貢獻 Zᵢ²，加總等於點到原點的 squared radius。
+常見誤解：χ² 只是統計檢定公式，沒有可操作的 random mechanism。
+視覺／操作：調整 active dimensions、換一個 point；coordinate energy bars、stack 與 radius 同步。
+壓縮：χ² = total standardized energy。
+正式層：ΣZᵢ²∼χ²ᵥ 與 independence 條件。
+```
+
+### Step 6 — Degrees of freedom 是可獨立貢獻 energy 的方向數
+
+```
+核心 insight：ν 每增加 1 就加入一份平均為 1 的 squared contribution；mean 移到 ν，relative width 則下降。
+常見誤解：degrees of freedom 只是 n−1 的背誦修正，沒有生成意義。
+視覺／操作：調整 ν；density、piece tiles、mean、SD 與 relative SD 同步。
+壓縮：more directions add energy and average irregularity。
+正式層：E[Q]=ν、Var(Q)=2ν。
+```
+
+### Step 7 — χ²、Gamma、Beta 是 operations 接起的家族
+
+```
+核心 insight：χ²ᵥ 等同 Gamma(ν/2, rate=1/2)；兩份 independent χ² normalize total 後形成 Beta(ν₁/2,ν₂/2)。
+常見誤解：只因 curves 相似便宣稱 distributions 相同。
+視覺／操作：調整左右 degrees of freedom；兩個 energy pools、Gamma shapes 與 Beta ratio curve 同步。
+壓縮：Normal² → χ²=Gamma；normalize two → Beta。
+正式層：參數對應與 common-rate、independence 條件。
+```
+
+### Step 8 — Family map 沿 verbs 讀
+
+```
+核心 insight：source 與 operation 一起決定 support 和 distribution；signed sum、square sum、normalized ratio 分別留下 real-line、nonnegative、[0,1] outputs。
+常見誤解：把 family map 當名詞分類樹，或只靠 curve 外觀辨認。
+視覺／操作：選 ADD、SQUARE+SUM、NORMALIZE 三條 route，只高亮相應 source、verb 與 output。
+壓縮：source + operation → support and shape。
+正式層：完整符號地圖，以及 Ch18 LLN、Ch19 CLT 的邊界。
+```
+
+## 第十八章 storyboard
+
+### 本章同時保留一條 path 與 many worlds
+
+```
+one world: observations → running average path
+many worlds: repeat n observations → distribution of sample means
+LLN: for fixed ε, outside worlds disappear as n grows
+```
+
+### Step 1 — Running average 靠稀釋穩定
+
+```
+核心 insight：新 observation 對 X̄ₙ 的 weight 是 1/n，因此後期仍會晃動，但單步影響縮小。
+常見誤解：LLN 要求 running average 每一步都更接近 μ。
+視覺／操作：逐步揭露固定 sequence，average path、last move 與 μ baseline 同步。
+壓縮：convergence can wobble; old noise is diluted。
+正式層：X̄ₙ=X̄ₙ₋₁+(Xₙ−X̄ₙ₋₁)/n。
+```
+
+### Step 2 — LLN 要看所有 possible averages
+
+```
+核心 insight：固定 n 重做整場 experiment，sample means 形成 sampling distribution；n 增加時它集中到 μ。
+常見誤解：用一條剛好平滑的 path 冒充定律。
+視覺／操作：240 worlds 的 dots 與 histogram，同步標出離 μ 超過 0.1 的 worlds。
+壓縮：concentration is a statement across worlds。
+```
+
+### Step 3 — 先固定 ε，再讓 outside probability 下降
+
+```
+核心 insight：LLN 不要求差距在有限 n 等於 0，而是對每個 fixed ε>0，P(|X̄ₙ−μ|>ε)→0。
+常見誤解：讓 tolerance 跟著 n 任意縮，或把 probability 趨零讀成有限 n 後不可能。
+視覺／操作：調整 n、ε；safe band 與 outside-world meter 同步。
+正式層：Weak LLN 與 Chebyshev bound。
+```
+
+### Step 4 — Sum noise 長成 √n，average noise 縮成 1/√n
+
+```
+核心 insight：independent sum 的 SD 是 σ√n；除以 n 後，sample mean 的 SD 是 σ/√n。
+常見誤解：n 變四倍會讓 average width 直接變 1/4。
+視覺／操作：同一 n 下並排 sum cloud 與 average cloud。
+壓縮：the denominator wins。
+正式層：Var(Sₙ)=nσ²、Var(X̄ₙ)=σ²/n。
+```
+
+### Step 5 — Dilution 不是 compensation
+
+```
+核心 insight：streak 不改變 independent next trial；偏差消退是因固定 history 在更多資料中占比下降。
+常見誤解：硬幣連續 H 後「欠」了 T。
+視覺／操作：調整 existing streak 與 future data；next-chance meter 固定 50/50，streak-share meter 下降。
+壓縮：future stays fair; past imbalance gets diluted。
+```
+
+### Step 6 — Row count 不等於 information count
+
+```
+核心 insight：複製或成群的 observations 帶有 dependence；n 增加但 independent sources 不增加時，average uncertainty 不會照 1/√n 縮小。
+常見誤解：任何 500 rows 都比 50 rows 穩定。
+視覺／操作：切換 independent、blocks of 10、one clone；比較 rows、effective sources 與 mean histogram。
+正式層：average variance 的 covariance sum 與 weak dependence 說明。
+```
+
+### Step 7 — 沒有 finite mean，就沒有收束目標
+
+```
+核心 insight：Cauchy extremes 足以反覆推走 sample average，且 expectation 不存在；more data 不是無條件保證。
+常見誤解：heavy-tail failure 只是需要再多一點 n。
+視覺／操作：bounded／Cauchy path 切換，追蹤 largest observation 與 current average。
+正式層：iid Strong LLN 的 E|X|<∞ 條件與 Cauchy stability。
+```
+
+### Step 8 — LLN 與 CLT 是同一 cloud 的不同鏡頭
+
+```
+核心 insight：LLN 在原尺度看 X̄ₙ cloud 塌到 μ；CLT 放大 √n 倍後研究 shrinking error 的 shape。
+常見誤解：LLN 已經說明 Normal shape，或 CLT 只是重複「平均更穩」。
+視覺／操作：n slider 同步控制 original-scale cloud；magnified lens 保留可見寬度。
+壓縮：LLN = location collapse；CLT = magnified error shape。
+正式層：convergence in probability 與 convergence in distribution 預告。
+```
+
+## 第十九章 storyboard
+
+### 本章只換一副 √n 顯微鏡
+
+```
+average error width ≈ σ/√n
+multiply by √n/σ
+→ cloud remains visible
+→ ask what shape survives
+```
+
+### Step 1 — √n 恰好抵消 shrinking error
+
+```
+核心 insight：X̄ₙ−μ 的 width 按 1/√n 縮；乘 √n/σ 後可在固定座標比較 shapes。
+常見誤解：CLT 只是「平均更穩」，或應該放大 n 倍。
+視覺／操作：n 同步控制 original cloud 與 magnified cloud。
+壓縮：CLT is a microscope theorem。
+正式層：Zₙ=√n(X̄ₙ−μ)/σ。
+```
+
+### Step 2 — 非 Normal sources 的 standardized sums 改變 shape
+
+```
+核心 insight：Bernoulli、Uniform、Exponential sources 保持原貌，但它們的 standardized-sum distributions 隨 n 走向 Normal。
+常見誤解：只有 Normal input 才能得到 Normal sum。
+視覺／操作：source selector、n slider、raw draws 與 320-world histogram。
+壓縮：output changes shape; source does not。
+正式層：iid finite-variance CLT。
+```
+
+### Step 3 — Centering 與 scaling 各修一個問題
+
+```
+核心 insight：subtract nμ 阻止 center 漂移；divide σ√n 阻止 width 改變。
+常見誤解：只除以 n 或只扣 mean 就完成 standardization。
+視覺／操作：兩個 transformation switches 控制 cloud position 與 width。
+壓縮：subtract center, divide natural width。
+```
+
+### Step 4 — Universality 是 output limit 的共享
+
+```
+核心 insight：不同 microscopic sources 經相同 add-and-standardize operation，能共享 standard Normal attractor。
+常見誤解：universality 代表 inputs 變相同，或沒有任何條件。
+視覺／操作：三個 source histograms 隨同一 n 同步變形。
+壓縮：different micro shapes, shared macro limit。
+```
+
+### Step 5 — Raw data 不會因樣本多就變 Normal
+
+```
+核心 insight：CLT 描述 groups 的 sums／means；raw-data histogram 仍收斂到原始 source law。
+常見誤解：「資料夠多便服從 Normal」。
+視覺／操作：並排 raw Exponential histogram 與 grouped standardized means。
+壓縮：先指出 histogram 每一點代表 observation 還是 statistic。
+```
+
+### Step 6 — Large n 不能取代 conditions
+
+```
+核心 insight：finite variance、fresh information、沒有單項支配是 classic CLT 的機制；rare spikes 可使合法收斂非常慢。
+常見誤解：n≥30 是不需判斷 source 的魔法規則。
+視覺／操作：classic、rare spike、Cauchy、cloned 四個 generators 與 assumption lights。
+壓縮：valid limit 與 good finite-n approximation 是兩個問題。
+```
+
+### Step 7 — Normal approximation 把 thresholds 搬到 z 尺
+
+```
+核心 insight：sample mean 約有 center μ、standard error σ/√n；standardize threshold 後可用 Normal area 近似 probability。
+常見誤解：approximation 等於 exact，或 standard error 是 raw SD。
+視覺／操作：n 與 time threshold 同步控制 z marker、tail area 與 probability。
+正式層：X̄ₙ≈N(μ,σ²/n) 與 tail calculation。
+```
+
+### Step 8 — Probability v2 finale
+
+```
+核心 insight：完整思考流程是 world → information → measurement → repeated-world pattern；公式只壓縮已辨認的結構。
+常見誤解：完成課程等於記住 distribution names 與公式表。
+視覺／操作：十九章 course spine、最後 misconception check、LLN／CLT duet。
+壓縮：先辨認 random object 與 mechanism，再選擇 probability language。
+正式層：LLN 與 CLT 的兩條 convergence 並列。
 ```

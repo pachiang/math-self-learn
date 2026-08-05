@@ -15,9 +15,37 @@
       chapterId() === 'ch11' ||
       chapterId() === 'ch12' ||
       chapterId() === 'ch13' ||
-      chapterId() === 'ch14')
+      chapterId() === 'ch14' ||
+      chapterId() === 'ch15' ||
+      chapterId() === 'ch16' ||
+      chapterId() === 'ch17' ||
+      chapterId() === 'ch18' ||
+      chapterId() === 'ch19')
   "
 >
+  <nav class="course-context" aria-label="課程位置與章節導覽">
+    <a class="course-back" [routerLink]="['/learn', subject()]">
+      <span class="course-back-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M10 6 4 12l6 6" />
+          <path d="M5 12h6" />
+          <rect x="14" y="5" width="6" height="5" rx="1" />
+          <rect x="14" y="14" width="6" height="5" rx="1" />
+        </svg>
+      </span>
+      <span class="course-back-copy">
+        <small>返回章節目錄</small>
+        <strong>{{ subjectLabel() }}</strong>
+      </span>
+    </a>
+
+    <div class="course-location" aria-label="目前學習位置">
+      <span>{{ chapterNumberLabel() }}</span>
+      <i aria-hidden="true"></i>
+      <span>小節 {{ currentStep() }} / {{ steps().length }}</span>
+    </div>
+  </nav>
+
   <h1 class="chapter-title">{{ chapterTitle() }}</h1>
 
   <app-step-nav [steps]="steps()" [subject]="subject()" [chapterId]="chapterId()" />
@@ -2167,6 +2195,146 @@
           }
         }
       }
+      @case ('prob/ch15') {
+        @switch (currentStep()) {
+          @case (1) {
+            <app-prob-v2-event-stream-lenses />
+          }
+          @case (2) {
+            <app-prob-v2-poisson-window />
+          }
+          @case (3) {
+            <app-prob-v2-poisson-origin />
+          }
+          @case (4) {
+            <app-prob-v2-exponential-wait />
+          }
+          @case (5) {
+            <app-prob-v2-exponential-memoryless />
+          }
+          @case (6) {
+            <app-prob-v2-gamma-checkpoints />
+          }
+          @case (7) {
+            <app-prob-v2-gamma-shape-rate />
+          }
+          @case (8) {
+            <app-prob-v2-count-wait-duality />
+          }
+        }
+      }
+      @case ('prob/ch16') {
+        @switch (currentStep()) {
+          @case (1) {
+            <app-prob-v2-continuous-interval />
+          }
+          @case (2) {
+            <app-prob-v2-uniform-ruler />
+          }
+          @case (3) {
+            <app-prob-v2-affine-transport />
+          }
+          @case (4) {
+            <app-prob-v2-nonlinear-compression />
+          }
+          @case (5) {
+            <app-prob-v2-beta-ratio />
+          }
+          @case (6) {
+            <app-prob-v2-beta-shape />
+          }
+          @case (7) {
+            <app-prob-v2-beta-vs-binomial />
+          }
+          @case (8) {
+            <app-prob-v2-transformation-map />
+          }
+        }
+      }
+      @case ('prob/ch17') {
+        @switch (currentStep()) {
+          @case (1) {
+            <app-prob-v2-additive-noise />
+          }
+          @case (2) {
+            <app-prob-v2-normal-location-scale />
+          }
+          @case (3) {
+            <app-prob-v2-z-coordinate />
+          }
+          @case (4) {
+            <app-prob-v2-square-folding />
+          }
+          @case (5) {
+            <app-prob-v2-chi-square-energy />
+          }
+          @case (6) {
+            <app-prob-v2-degrees-freedom />
+          }
+          @case (7) {
+            <app-prob-v2-gamma-beta-bridge />
+          }
+          @case (8) {
+            <app-prob-v2-distribution-family-map />
+          }
+        }
+      }
+      @case ('prob/ch18') {
+        @switch (currentStep()) {
+          @case (1) {
+            <app-prob-v2-running-average />
+          }
+          @case (2) {
+            <app-prob-v2-many-worlds />
+          }
+          @case (3) {
+            <app-prob-v2-epsilon-band />
+          }
+          @case (4) {
+            <app-prob-v2-sum-average-scale />
+          }
+          @case (5) {
+            <app-prob-v2-no-compensation />
+          }
+          @case (6) {
+            <app-prob-v2-lln-dependence />
+          }
+          @case (7) {
+            <app-prob-v2-heavy-tail-boundary />
+          }
+          @case (8) {
+            <app-prob-v2-lln-clt-bridge />
+          }
+        }
+      }
+      @case ('prob/ch19') {
+        @switch (currentStep()) {
+          @case (1) {
+            <app-prob-v2-sqrt-n-microscope />
+          }
+          @case (2) {
+            <app-prob-v2-source-to-sum />
+          }
+          @case (3) {
+            <app-prob-v2-centering-scaling />
+          }
+          @case (4) {
+            <app-prob-v2-universality />
+          }
+          @case (5) {
+            <app-prob-v2-raw-data-myth />
+          }
+          @case (6) {
+            <app-prob-v2-clt-conditions />
+          }
+          @case (7) {
+            <app-prob-v2-normal-approximation />
+          }
+          @case (8) {
+            <app-prob-v2-probability-finale />
+          }
+        }
+      }
       @case ('stats/ch1') {
         @switch (currentStep()) {
           @case (1) {
@@ -2475,12 +2643,21 @@
     } @else {
       <span></span>
     }
+    <a class="nav-btn catalog" [routerLink]="['/learn', subject()]">
+      <svg viewBox="0 0 20 20" aria-hidden="true">
+        <rect x="2.5" y="3" width="6" height="5" rx="1" />
+        <rect x="11.5" y="3" width="6" height="5" rx="1" />
+        <rect x="2.5" y="12" width="6" height="5" rx="1" />
+        <rect x="11.5" y="12" width="6" height="5" rx="1" />
+      </svg>
+      全部章節
+    </a>
     @if (hasNext()) {
       <a class="nav-btn next" [routerLink]="['/learn', subject(), chapterId(), nextStep()]">
         下一步 →
       </a>
     } @else {
-      <a class="nav-btn next" [routerLink]="['/learn', subject()]"> 回到目錄 </a>
+      <a class="nav-btn next" [routerLink]="['/learn', subject()]"> 完成本章 → </a>
     }
   </nav>
 </div>
