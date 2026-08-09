@@ -1,0 +1,89 @@
+.alg-ch8-lesson {
+  --lesson-accent: #765071;
+  --lesson-accent-soft: #eadfea;
+  --loop: #a06b35;
+
+  .loop-layout { display: grid; gap: 1rem; grid-template-columns: minmax(520px, 1.15fr) minmax(340px, 0.85fr); }
+  .loop-board { background: color-mix(in srgb, var(--bg-elevated) 86%, white); border-radius: 0.85rem; min-height: 350px; padding: 0.7rem; }
+  .loop-board svg { display: block; height: 310px; width: 100%; }
+  .loop-edge { fill: none; marker-end: url(#loop-arrow); stroke: color-mix(in srgb, var(--lesson-ink) 20%, transparent); stroke-width: 3; }
+  .loop-edge.traversed { stroke: var(--lesson-accent); stroke-dasharray: 8 4; }
+  .loop-node circle { fill: var(--bg-inset); stroke: color-mix(in srgb, var(--lesson-ink) 25%, transparent); stroke-width: 2; }
+  .loop-node text { fill: var(--lesson-ink); font: 750 16px 'JetBrains Mono', monospace; text-anchor: middle; }
+  .loop-node.current circle { fill: var(--lesson-accent-soft); stroke: var(--lesson-accent); stroke-width: 4; }
+  .path-tape { align-items: center; display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.55rem; }
+  .path-tape span { background: var(--lesson-accent-soft); border: 1px solid var(--lesson-accent); border-radius: 0.45rem; font: 700 0.78rem/1.2 'JetBrains Mono', monospace; padding: 0.45rem; }
+  .loop-console { background: var(--lesson-accent-soft); border-radius: 0.85rem; display: grid; gap: 0.75rem; padding: 1rem; }
+  .loop-console h4,
+  .loop-console p { margin: 0; }
+  .loop-console p { line-height: 1.6; }
+  .relation-stamp { border: 3px double var(--lesson-accent); border-radius: 0.75rem; font: 800 0.9rem/1.5 'JetBrains Mono', monospace; padding: 0.75rem; text-align: center; }
+  .relation-stamp.open { border-color: var(--loop); }
+
+  .rewrite-layout { display: grid; gap: 1rem; grid-template-columns: minmax(590px, 1.2fr) minmax(310px, 0.8fr); }
+  .rewrite-bench { background: color-mix(in srgb, var(--bg-elevated) 86%, white); border-radius: 0.85rem; display: grid; gap: 0.9rem; padding: 1rem; }
+  .rewrite-tape { align-items: center; display: flex; flex-wrap: wrap; gap: 0.4rem; min-height: 5rem; }
+  .rewrite-chip { align-items: center; background: var(--lesson-accent-soft); border: 2px solid var(--lesson-accent); border-radius: 0.55rem; display: inline-flex; font: 800 1rem/1 'JetBrains Mono', monospace; height: 3rem; justify-content: center; min-width: 3rem; }
+  .rewrite-chip.loop-window { background: #f0dfce; border-color: var(--loop); }
+  .rewrite-chip.identity { border-style: dashed; }
+  .rewrite-history { display: grid; gap: 0.45rem; }
+  .rewrite-history div { background: var(--bg-inset); border-left: 4px solid var(--lesson-accent); border-radius: 0.55rem; display: grid; gap: 0.4rem; grid-template-columns: 8rem 1fr; padding: 0.65rem; }
+  .rewrite-history span { color: var(--lesson-muted); font-size: 0.72rem; }
+  .endpoint-console { background: var(--lesson-accent-soft); border-radius: 0.85rem; display: grid; gap: 0.75rem; padding: 1rem; }
+  .effect-triad { display: grid; gap: 0.45rem; grid-template-columns: repeat(3, 1fr); }
+  .effect-triad div { background: var(--bg-inset); border: 2px solid transparent; border-radius: 0.6rem; padding: 0.65rem; text-align: center; }
+  .effect-triad div.current { border-color: var(--lesson-accent); }
+
+  .order-worlds { display: grid; gap: 0.65rem; grid-template-columns: repeat(2, 1fr); }
+  .order-worlds button { text-align: left; }
+  .order-worlds strong,
+  .order-worlds span { display: block; }
+  .order-worlds span { color: var(--lesson-muted); font-size: 0.72rem; margin-top: 0.25rem; }
+  .order-worlds button[aria-pressed='true'] span { color: rgb(255 255 255 / 78%); }
+  .order-layout { display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .order-lane { background: color-mix(in srgb, var(--bg-elevated) 86%, white); border-radius: 0.85rem; display: grid; gap: 0.7rem; padding: 1rem; }
+  .order-lane h4,
+  .order-lane p { margin: 0; }
+  .order-lane p { color: var(--lesson-muted); line-height: 1.55; }
+  .state-sequence { align-items: stretch; display: grid; gap: 0.45rem; grid-template-columns: 1fr auto 1fr auto 1fr; }
+  .state-sequence div { background: var(--bg-inset); border-radius: 0.6rem; min-height: 5.5rem; padding: 0.65rem; text-align: center; }
+  .state-sequence span,
+  .state-sequence strong { display: block; }
+  .state-sequence span { color: var(--lesson-muted); font-size: 0.66rem; }
+  .state-sequence strong { font: 750 0.86rem/1.5 'JetBrains Mono', monospace; margin-top: 0.4rem; }
+  .order-verdict { border: 3px double var(--lesson-accent); border-radius: 0.75rem; font-weight: 750; line-height: 1.55; padding: 0.8rem; }
+  .order-verdict.fail { border-color: var(--loop); }
+
+  .presentation-controls { display: grid; gap: 0.65rem; grid-template-columns: repeat(3, 1fr); }
+  .presentation-controls button { text-align: left; }
+  .presentation-controls strong,
+  .presentation-controls span { display: block; }
+  .presentation-controls span { color: var(--lesson-muted); font-size: 0.72rem; margin-top: 0.25rem; }
+  .presentation-controls button[aria-pressed='true'] span { color: rgb(255 255 255 / 78%); }
+  .fold-layout { display: grid; gap: 1rem; grid-template-columns: minmax(520px, 1.1fr) minmax(360px, 0.9fr); }
+  .word-viewport { background: color-mix(in srgb, var(--bg-elevated) 86%, white); border-radius: 0.85rem; display: grid; gap: 0.5rem; grid-template-columns: repeat(4, 1fr); padding: 1rem; }
+  .power-card { background: var(--bg-inset); border: 2px solid transparent; border-radius: 0.6rem; padding: 0.65rem; text-align: center; }
+  .power-card.selected { border-color: var(--lesson-accent); }
+  .power-card strong,
+  .power-card span { display: block; }
+  .power-card span { color: var(--lesson-muted); font-size: 0.68rem; margin-top: 0.25rem; }
+  .bucket-console { background: var(--lesson-accent-soft); border-radius: 0.85rem; display: grid; gap: 0.65rem; padding: 1rem; }
+  .bucket-console h4,
+  .bucket-console p { margin: 0; }
+  .bucket-console p { line-height: 1.55; }
+  .effect-buckets { display: grid; gap: 0.45rem; grid-template-columns: repeat(2, 1fr); }
+  .effect-bucket { background: var(--bg-inset); border: 2px solid transparent; border-radius: 0.6rem; padding: 0.65rem; }
+  .effect-bucket.selected { border-color: var(--lesson-accent); }
+  .effect-bucket strong,
+  .effect-bucket span { display: block; }
+  .effect-bucket span { color: var(--lesson-muted); font-size: 0.67rem; line-height: 1.4; margin-top: 0.25rem; }
+}
+
+@media (max-width: 900px) {
+  .alg-ch8-lesson {
+    .loop-layout,
+    .rewrite-layout,
+    .order-layout,
+    .fold-layout { grid-template-columns: 1fr; }
+  }
+}

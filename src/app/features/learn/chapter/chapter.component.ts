@@ -4,96 +4,105 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { StepNavComponent, StepDef } from './step-nav/step-nav.component';
 
-// Ch1 steps
-import { StepSymmetryComponent } from './steps/step-symmetry.component';
-import { StepCompositionComponent } from './steps/step-composition.component';
-import { StepOrderComponent } from './steps/step-order.component';
-import { StepRulesComponent } from './steps/step-rules.component';
-import { StepDefinitionComponent } from './steps/step-definition.component';
-import { StepBeyondComponent } from './steps/step-beyond.component';
-
-// Ch2 steps
-import { Ch2StubComponent } from './steps/ch2/ch2-stub.component';
-import { StepEquivalenceComponent } from './steps/ch2/step-equivalence.component';
-import { StepCosetsComponent } from './steps/ch2/step-cosets.component';
-import { StepWhySubgroupComponent } from './steps/ch2/step-why-subgroup.component';
-
-// Ch3 steps
-import { StepLeftRightCosetsComponent } from './steps/ch3/step-left-right-cosets.component';
-import { StepWhyNormalComponent } from './steps/ch3/step-why-normal.component';
-import { StepQuotientComponent } from './steps/ch3/step-quotient.component';
-import { StepHomomorphismComponent } from './steps/ch3/step-homomorphism.component';
-import { StepIsomorphismComponent } from './steps/ch3/step-isomorphism.component';
-import { StepKernelComponent } from './steps/ch3/step-kernel.component';
-import { StepFirstIsoComponent } from './steps/ch3/step-first-iso.component';
-
-// Ch4 steps
-import { StepSymmetricGroupComponent } from './steps/ch4/step-symmetric-group.component';
-import { StepCyclesComponent } from './steps/ch4/step-cycles.component';
-import { StepTranspositionsComponent } from './steps/ch4/step-transpositions.component';
-import { StepSignComponent } from './steps/ch4/step-sign.component';
-import { StepAlternatingComponent } from './steps/ch4/step-alternating.component';
-import { StepCayleyTheoremComponent } from './steps/ch4/step-cayley-theorem.component';
-
-// Ch6 Sylow steps
-import { StepConjugacyComponent } from './steps/ch6-sylow/step-conjugacy.component';
-import { StepClassEquationComponent } from './steps/ch6-sylow/step-class-equation.component';
-import { StepPGroupsComponent } from './steps/ch6-sylow/step-p-groups.component';
-import { StepSylow1Component } from './steps/ch6-sylow/step-sylow1.component';
-import { StepSylow23Component } from './steps/ch6-sylow/step-sylow23.component';
-import { StepClassificationComponent } from './steps/ch6-sylow/step-classification.component';
-
-// Ch7 (Rings) steps
-import { StepIntegersToRingsComponent } from './steps/ch6/step-integers-to-rings.component';
-import { StepRingExamplesComponent } from './steps/ch6/step-ring-examples.component';
-import { StepZeroDivisorsComponent } from './steps/ch6/step-zero-divisors.component';
-import { StepIdealsComponent } from './steps/ch6/step-ideals.component';
-import { StepQuotientRingComponent } from './steps/ch6/step-quotient-ring.component';
-import { StepRingHomomorphismComponent } from './steps/ch6/step-ring-homomorphism.component';
-
-// Ch7 steps
-import { StepWhatIsFieldComponent } from './steps/ch7/step-what-is-field.component';
-import { StepFiniteFieldsComponent } from './steps/ch7/step-finite-fields.component';
-import { StepPolynomialsComponent } from './steps/ch7/step-polynomials.component';
-import { StepIrreducibleComponent } from './steps/ch7/step-irreducible.component';
-import { StepFieldExtensionsComponent } from './steps/ch7/step-field-extensions.component';
-import { StepGfComponent } from './steps/ch7/step-gf.component';
-
-// Ch8 steps
-import { StepRootsExtensionsComponent } from './steps/ch8/step-roots-extensions.component';
-import { StepSplittingFieldComponent } from './steps/ch8/step-splitting-field.component';
-import { StepAutomorphismsComponent } from './steps/ch8/step-automorphisms.component';
-import { StepGaloisGroupComponent } from './steps/ch8/step-galois-group.component';
-import { StepCorrespondenceComponent } from './steps/ch8/step-correspondence.component';
-import { StepQuinticComponent } from './steps/ch8/step-quintic.component';
-
-// Ch10 Rubik
-import { StepRubikGroupComponent } from './steps/ch10-rubik/step-rubik-group.component';
-import { StepCommutatorsComponent } from './steps/ch10-rubik/step-commutators.component';
-import { StepCubeStructureComponent } from './steps/ch10-rubik/step-cube-structure.component';
-import { StepGodsNumberComponent } from './steps/ch10-rubik/step-gods-number.component';
-import { StepCubeSolveComponent } from './steps/ch10-rubik/step-cube-solve.component';
-
-// Ch11 Representation
-import { StepWhatIsRepComponent } from './steps/ch11-rep/step-what-is-rep.component';
-import { StepCharactersComponent } from './steps/ch11-rep/step-characters.component';
-import { StepIrreducibleRepComponent } from './steps/ch11-rep/step-irreducible-rep.component';
-import { StepRepPhysicsComponent } from './steps/ch11-rep/step-rep-physics.component';
-import { StepFourierComponent } from './steps/ch11-rep/step-fourier.component';
-
-// Ch12 Algebraic Geometry
-import { StepVarietiesComponent } from './steps/ch12-alggeom/step-varieties.component';
-import { StepIdealVarietyComponent } from './steps/ch12-alggeom/step-ideal-variety.component';
-import { StepNullstellensatzComponent } from './steps/ch12-alggeom/step-nullstellensatz.component';
-import { StepEllipticCurvesComponent } from './steps/ch12-alggeom/step-elliptic-curves.component';
-import { StepModernAgComponent } from './steps/ch12-alggeom/step-modern-ag.component';
-
-// Ch13 Coding Theory
-import { StepNoisyChannelComponent } from './steps/ch13-coding/step-noisy-channel.component';
-import { StepHammingDistanceComponent } from './steps/ch13-coding/step-hamming-distance.component';
-import { StepLinearCodeComponent } from './steps/ch13-coding/step-linear-code.component';
-import { StepHammingCodeComponent } from './steps/ch13-coding/step-hamming-code.component';
-import { StepReedSolomonComponent } from './steps/ch13-coding/step-reed-solomon.component';
+// Abstract Algebra v2
+import { AlgebraV2LessonComponent } from './steps/algebra-v2/algebra-v2-lesson.component';
+import { ALGEBRA_V2_LESSONS, AlgebraV2ChapterId } from './steps/algebra-v2/algebra-v2-lessons';
+import { AlgebraV3StateVsActionComponent } from './steps/algebra-v3-ch1/step-state-vs-action.component';
+import { AlgebraV3WholeWorldActionComponent } from './steps/algebra-v3-ch1/step-whole-world-action.component';
+import { AlgebraV3StructurePreservedComponent } from './steps/algebra-v3-ch1/step-structure-preserved.component';
+import { AlgebraV3BeyondGeometryComponent } from './steps/algebra-v3-ch1/step-beyond-geometry.component';
+import { AlgebraV3CompositionCompressorComponent } from './steps/algebra-v3-ch2/step-composition-compressor.component';
+import { AlgebraV3OrderMattersComponent } from './steps/algebra-v3-ch2/step-order-matters.component';
+import { AlgebraV3CayleyRecorderComponent } from './steps/algebra-v3-ch2/step-cayley-recorder.component';
+import { AlgebraV3IdentityScannerComponent } from './steps/algebra-v3-ch3/step-identity-scanner.component';
+import { AlgebraV3InverseTesterComponent } from './steps/algebra-v3-ch3/step-inverse-tester.component';
+import { AlgebraV3CancellationTapeComponent } from './steps/algebra-v3-ch3/step-cancellation-tape.component';
+import { AlgebraV3InformationFibersComponent } from './steps/algebra-v3-ch3/step-information-fibers.component';
+import { AlgebraV3BracketCompressorComponent } from './steps/algebra-v3-ch4/step-bracket-compressor.component';
+import { AlgebraV3TwoTestBenchComponent } from './steps/algebra-v3-ch4/step-two-test-bench.component';
+import { AlgebraV3PointwisePipelineComponent } from './steps/algebra-v3-ch4/step-pointwise-pipeline.component';
+import { AlgebraV3SetBoundaryMachineComponent } from './steps/algebra-v3-ch5/step-set-boundary-machine.component';
+import { AlgebraV3SystemBuilderComponent } from './steps/algebra-v3-ch5/step-system-builder.component';
+import { AlgebraV3EvidenceScannerComponent } from './steps/algebra-v3-ch5/step-evidence-scanner.component';
+import { AlgebraV3ContractWiresComponent } from './steps/algebra-v3-ch6/step-contract-wires.component';
+import { AlgebraV3GuidedAuditComponent } from './steps/algebra-v3-ch6/step-guided-audit.component';
+import { AlgebraV3SymbolTranslatorComponent } from './steps/algebra-v3-ch6/step-symbol-translator.component';
+import { AlgebraV3ReachabilityWaveComponent } from './steps/algebra-v3-ch7/step-reachability-wave.component';
+import { AlgebraV3GeneratingSetMixerComponent } from './steps/algebra-v3-ch7/step-generating-set-mixer.component';
+import { AlgebraV3WordEffectEvaluatorComponent } from './steps/algebra-v3-ch7/step-word-effect-evaluator.component';
+import { AlgebraV3ClosureWaveComponent } from './steps/algebra-v3-ch7/step-closure-wave.component';
+import { AlgebraV3RelationLoopComponent } from './steps/algebra-v3-ch8/step-relation-loop.component';
+import { AlgebraV3RelationRewriteComponent } from './steps/algebra-v3-ch8/step-relation-rewrite.component';
+import { AlgebraV3OrderSwapComponent } from './steps/algebra-v3-ch8/step-order-swap.component';
+import { AlgebraV3PresentationFolderComponent } from './steps/algebra-v3-ch8/step-presentation-folder.component';
+import { AlgebraV3FirstReturnComponent } from './steps/algebra-v3-ch9/step-first-return.component';
+import { AlgebraV3OrbitVsWorldComponent } from './steps/algebra-v3-ch9/step-orbit-vs-world.component';
+import { AlgebraV3CyclicScannerComponent } from './steps/algebra-v3-ch9/step-cyclic-scanner.component';
+import { AlgebraV3GcdCycleSplitterComponent } from './steps/algebra-v3-ch9/step-gcd-cycle-splitter.component';
+import { AlgebraV3RelabelingBoardComponent } from './steps/algebra-v3-ch10/step-relabeling-board.component';
+import { AlgebraV3HomomorphismSquareComponent } from './steps/algebra-v3-ch10/step-homomorphism-square.component';
+import { AlgebraV3IsomorphismGatesComponent } from './steps/algebra-v3-ch10/step-isomorphism-gates.component';
+import { AlgebraV3InvariantDetectorComponent } from './steps/algebra-v3-ch10/step-invariant-detector.component';
+import { AlgebraV3SubworldBoundaryComponent } from './steps/algebra-v3-ch11/step-subworld-boundary.component';
+import { AlgebraV3SubgroupTestScannerComponent } from './steps/algebra-v3-ch11/step-subgroup-test-scanner.component';
+import { AlgebraV3SeedClosureWaveComponent } from './steps/algebra-v3-ch11/step-seed-closure-wave.component';
+import { AlgebraV3SubgroupLatticeComponent } from './steps/algebra-v3-ch11/step-subgroup-lattice.component';
+import { AlgebraV3WholeTileTranslatorComponent } from './steps/algebra-v3-ch12/step-whole-tile-translator.component';
+import { AlgebraV3ReversibleTransportComponent } from './steps/algebra-v3-ch12/step-reversible-transport.component';
+import { AlgebraV3OverlapSnapComponent } from './steps/algebra-v3-ch12/step-overlap-snap.component';
+import { AlgebraV3PartitionSorterComponent } from './steps/algebra-v3-ch12/step-partition-sorter.component';
+import { AlgebraV3EqualTileCounterComponent } from './steps/algebra-v3-ch13/step-equal-tile-counter.component';
+import { AlgebraV3IndexLensComponent } from './steps/algebra-v3-ch13/step-index-lens.component';
+import { AlgebraV3ElementCycleTilerComponent } from './steps/algebra-v3-ch13/step-element-cycle-tiler.component';
+import { AlgebraV3DivisorFilterComponent } from './steps/algebra-v3-ch13/step-divisor-filter.component';
+import { AlgebraV3CompressionLensComponent } from './steps/algebra-v3-ch14/step-compression-lens.component';
+import { AlgebraV3UniversalCommutingScannerComponent } from './steps/algebra-v3-ch14/step-universal-commuting-scanner.component';
+import { AlgebraV3RoleConsequenceComponent } from './steps/algebra-v3-ch14/step-role-consequence.component';
+import { AlgebraV3ImageReachabilityComponent } from './steps/algebra-v3-ch15/step-image-reachability.component';
+import { AlgebraV3KernelInvisibilityComponent } from './steps/algebra-v3-ch15/step-kernel-invisibility.component';
+import { AlgebraV3FiberShifterComponent } from './steps/algebra-v3-ch15/step-fiber-shifter.component';
+import { AlgebraV3MapDetectorComponent } from './steps/algebra-v3-ch15/step-map-detector.component';
+import { AlgebraV3KernelCoordinateComponent } from './steps/algebra-v3-ch16/step-kernel-coordinate.component';
+import { AlgebraV3CosetMirrorComponent } from './steps/algebra-v3-ch16/step-coset-mirror.component';
+import { AlgebraV3NormalityScannerComponent } from './steps/algebra-v3-ch16/step-normality-scanner.component';
+import { AlgebraV3CosetCompressorComponent } from './steps/algebra-v3-ch17/step-coset-compressor.component';
+import { AlgebraV3RepresentativeSwapComponent } from './steps/algebra-v3-ch17/step-representative-swap.component';
+import { AlgebraV3CanonicalProjectionComponent } from './steps/algebra-v3-ch17/step-canonical-projection.component';
+import { AlgebraV3InformationDashboardComponent } from './steps/algebra-v3-ch17/step-information-dashboard.component';
+import { AlgebraV3CollisionFingerprintComponent } from './steps/algebra-v3-ch18/step-collision-fingerprint.component';
+import { AlgebraV3InducedIsomorphismComponent } from './steps/algebra-v3-ch18/step-induced-isomorphism.component';
+import { AlgebraV3FactorizationBlueprintComponent } from './steps/algebra-v3-ch18/step-factorization-blueprint.component';
+import { AlgebraV3AssignmentGateComponent } from './steps/algebra-v3-ch19/step-assignment-gate.component';
+import { AlgebraV3CompositionOrderComponent } from './steps/algebra-v3-ch19/step-composition-order.component';
+import { AlgebraV3SymmetricGroupDeckComponent } from './steps/algebra-v3-ch19/step-symmetric-group-deck.component';
+import { AlgebraV3OrbitTracerComponent } from './steps/algebra-v3-ch20/step-orbit-tracer.component';
+import { AlgebraV3DisjointExtractorComponent } from './steps/algebra-v3-ch20/step-disjoint-extractor.component';
+import { AlgebraV3CycleSwapMachineComponent } from './steps/algebra-v3-ch20/step-cycle-swap-machine.component';
+import { AlgebraV3ParityScannerComponent } from './steps/algebra-v3-ch20/step-parity-scanner.component';
+import { AlgebraV3LeftTranslationFactoryComponent } from './steps/algebra-v3-ch21/step-left-translation-factory.component';
+import { AlgebraV3CompositionBridgeComponent } from './steps/algebra-v3-ch21/step-composition-bridge.component';
+import { AlgebraV3CayleyEmbeddingComponent } from './steps/algebra-v3-ch21/step-cayley-embedding.component';
+import { AlgebraV3ActionTranslatorComponent } from './steps/algebra-v3-ch22/step-action-translator.component';
+import { AlgebraV3MultiWorldLensComponent } from './steps/algebra-v3-ch22/step-multi-world-lens.component';
+import { AlgebraV3KernelScannerComponent } from './steps/algebra-v3-ch22/step-kernel-scanner.component';
+import { AlgebraV3ActionDetectorComponent } from './steps/algebra-v3-ch22/step-action-detector.component';
+import { AlgebraV3ReachabilitySweepComponent } from './steps/algebra-v3-ch23/step-reachability-sweep.component';
+import { AlgebraV3LocalSymmetryFilterComponent } from './steps/algebra-v3-ch23/step-local-symmetry-filter.component';
+import { AlgebraV3TwoReadingsTableComponent } from './steps/algebra-v3-ch23/step-two-readings-table.component';
+import { AlgebraV3MovingLocalFrameComponent } from './steps/algebra-v3-ch23/step-moving-local-frame.component';
+import { AlgebraV3ActionFiberSorterComponent } from './steps/algebra-v3-ch24/step-action-fiber-sorter.component';
+import { AlgebraV3ConservationDashboardComponent } from './steps/algebra-v3-ch24/step-conservation-dashboard.component';
+import { AlgebraV3CubeRotationCounterComponent } from './steps/algebra-v3-ch24/step-cube-rotation-counter.component';
+import { AlgebraV3CoordinateSandwichComponent } from './steps/algebra-v3-ch25/step-coordinate-sandwich.component';
+import { AlgebraV3ReframingOrbitComponent } from './steps/algebra-v3-ch25/step-reframing-orbit.component';
+import { AlgebraV3GlobalFixedCoreComponent } from './steps/algebra-v3-ch25/step-global-fixed-core.component';
+import { AlgebraV3CommutingFrameFilterComponent } from './steps/algebra-v3-ch26/step-commuting-frame-filter.component';
+import { AlgebraV3ClassSizePacketizerComponent } from './steps/algebra-v3-ch26/step-class-size-packetizer.component';
+import { AlgebraV3ClassEquationAssemblerComponent } from './steps/algebra-v3-ch26/step-class-equation-assembler.component';
+import { AlgebraV3OrbitTargetSwitchComponent } from './steps/algebra-v3-ch27/step-orbit-target-switch.component';
+import { AlgebraV3FixedIncidenceTableComponent } from './steps/algebra-v3-ch27/step-fixed-incidence-table.component';
+import { AlgebraV3OrbitBucketRebalanceComponent } from './steps/algebra-v3-ch27/step-orbit-bucket-rebalance.component';
+import { AlgebraV3NecklaceCycleCounterComponent } from './steps/algebra-v3-ch27/step-necklace-cycle-counter.component';
 
 // Linalg Ch1 steps
 import { StepWhatIsVectorComponent } from './steps/linalg-ch1/step-what-is-vector.component';
@@ -861,14 +870,6 @@ import { StepRankComponent } from './steps/linalg-ch5/step-rank.component';
 import { StepFourSubspacesComponent } from './steps/linalg-ch5/step-four-subspaces.component';
 import { StepFundamentalThmComponent } from './steps/linalg-ch5/step-fundamental-thm.component';
 
-// Ch5 steps
-import { StepActionComponent } from './steps/ch5/step-action.component';
-import { StepOrbitsComponent } from './steps/ch5/step-orbits.component';
-import { StepStabilizersComponent } from './steps/ch5/step-stabilizers.component';
-import { StepOrbitStabilizerComponent } from './steps/ch5/step-orbit-stabilizer.component';
-import { StepBurnsideComponent } from './steps/ch5/step-burnside.component';
-import { StepNecklacesComponent } from './steps/ch5/step-necklaces.component';
-
 interface ChapterConfig {
   title: string;
   steps: StepDef[];
@@ -876,144 +877,278 @@ interface ChapterConfig {
 
 const ALGEBRA_CHAPTERS: Record<string, ChapterConfig> = {
   ch1: {
-    title: '第一章：什麼是群？',
+    title: '第一章：狀態不是動作',
     steps: [
-      { num: 1, title: '對稱是什麼' },
-      { num: 2, title: '操作的組合' },
-      { num: 3, title: '順序重要嗎' },
-      { num: 4, title: '隱藏規則' },
-      { num: 5, title: '群的定義' },
-      { num: 6, title: '其他群' },
+      { num: 1, title: '圖形相同，動作不同' },
+      { num: 2, title: 'Action 管整個世界' },
+      { num: 3, title: 'Symmetry 保留結構' },
+      { num: 4, title: '幾何只是入口' },
     ],
   },
   ch2: {
-    title: '第二章：群的內部結構',
+    title: '第二章：合成是在執行一串動作',
     steps: [
-      { num: 1, title: '元素的階' },
-      { num: 2, title: '生成元' },
-      { num: 3, title: '子群' },
-      { num: 4, title: '等價關係' },
-      { num: 5, title: '陪集' },
-      { num: 6, title: '為什麼是子群' },
-      { num: 7, title: '拉格朗日' },
+      { num: 1, title: '壓縮成總效果' },
+      { num: 2, title: '順序可能換世界' },
+      { num: 3, title: 'Cayley table' },
     ],
   },
   ch3: {
-    title: '第三章：商群與同態',
+    title: '第三章：停留、撤銷與資訊',
     steps: [
-      { num: 1, title: '左右陪集' },
-      { num: 2, title: '為什麼正規' },
-      { num: 3, title: '商群' },
-      { num: 4, title: '同態' },
-      { num: 5, title: '同構' },
-      { num: 6, title: '核' },
-      { num: 7, title: '第一同構定理' },
+      { num: 1, title: 'Identity 固定所有 states' },
+      { num: 2, title: 'Inverse 撤銷 action' },
+      { num: 3, title: 'Cancellation 是 undo' },
+      { num: 4, title: '不可逆會遺失資訊' },
     ],
   },
   ch4: {
-    title: '第四章：置換群',
+    title: '第四章：括號不改變 action chain',
     steps: [
-      { num: 1, title: 'S\u2099' },
-      { num: 2, title: '循環記號' },
-      { num: 3, title: '對換' },
-      { num: 4, title: '奇偶性' },
-      { num: 5, title: '交替群' },
-      { num: 6, title: '凱萊定理' },
+      { num: 1, title: '括號只改分組' },
+      { num: 2, title: '分組 vs 交換' },
+      { num: 3, title: 'Composition 自然 associative' },
     ],
   },
   ch5: {
-    title: '第五章：群作用',
+    title: '第五章：世界必須對操作封閉',
     steps: [
-      { num: 1, title: '什麼是群作用' },
-      { num: 2, title: '軌道' },
-      { num: 3, title: '穩定子' },
-      { num: 4, title: '軌道-穩定子' },
-      { num: 5, title: 'Burnside' },
-      { num: 6, title: '項鍊計數' },
+      { num: 1, title: 'Output 不能掉出去' },
+      { num: 2, title: 'Set 與 operation 綁定' },
+      { num: 3, title: '全域承諾與反例' },
     ],
   },
   ch6: {
-    title: '第六章：Sylow 定理',
+    title: '第六章：四條條件是一份契約',
     steps: [
-      { num: 1, title: '共軛類' },
-      { num: 2, title: '類方程' },
-      { num: 3, title: 'p-群' },
-      { num: 4, title: 'Sylow I' },
-      { num: 5, title: 'Sylow II\u3001III' },
-      { num: 6, title: '群分類' },
+      { num: 1, title: '四種故障，四條規則' },
+      { num: 2, title: 'Group detector' },
+      { num: 3, title: '從具體讀回符號' },
     ],
   },
   ch7: {
-    title: '第七章：環',
+    title: '第七章：少數按鈕可以走遍世界',
     steps: [
-      { num: 1, title: '從整數到環' },
-      { num: 2, title: '環的例子' },
-      { num: 3, title: '零因子' },
-      { num: 4, title: '理想' },
-      { num: 5, title: '商環' },
-      { num: 6, title: '環同態' },
+      { num: 1, title: 'Generator 是可重複按鈕' },
+      { num: 2, title: '一顆或多顆 generators' },
+      { num: 3, title: 'Word 與 effect' },
+      { num: 4, title: '生成的最小世界' },
     ],
   },
   ch8: {
-    title: '第八章：域與多項式',
+    title: '第八章：Relations 是閉合回路',
     steps: [
-      { num: 1, title: '什麼是域' },
-      { num: 2, title: '有限域' },
-      { num: 3, title: '多項式環' },
-      { num: 4, title: '不可約多項式' },
-      { num: 5, title: '域擴張' },
-      { num: 6, title: 'GF(p\u207F)' },
+      { num: 1, title: 'Relation 是 action loop' },
+      { num: 2, title: '用 relation 壓縮 word' },
+      { num: 3, title: '交換是額外 relation' },
+      { num: 4, title: 'Presentation 壓縮世界' },
     ],
   },
   ch9: {
-    title: '第九章：伽羅瓦理論',
+    title: '第九章：重複一個動作形成週期',
     steps: [
-      { num: 1, title: '根與域擴張' },
-      { num: 2, title: '分裂域' },
-      { num: 3, title: '域自同構' },
-      { num: 4, title: '伽羅瓦群' },
-      { num: 5, title: '伽羅瓦對應' },
-      { num: 6, title: '五次不可解' },
+      { num: 1, title: '第一次回到 identity' },
+      { num: 2, title: '元素階不是群大小' },
+      { num: 3, title: 'Cyclic group' },
+      { num: 4, title: '步長與 gcd' },
     ],
   },
   ch10: {
-    title: '專題：魔術方塊群',
+    title: '第十章：名字不同，運作方式相同',
     steps: [
-      { num: 1, title: '魔方是群' },
-      { num: 2, title: '交換子' },
-      { num: 3, title: '子群結構' },
-      { num: 4, title: '上帝之數' },
-      { num: 5, title: '解法策略' },
+      { num: 1, title: 'Relabeling 不改結構' },
+      { num: 2, title: '翻譯必須保留合成' },
+      { num: 3, title: '可逆的結構翻譯' },
+      { num: 4, title: 'Invariant 偵測器' },
     ],
   },
   ch11: {
-    title: '專題：表示論入門',
+    title: '第十一章：完整機器裡的封閉子機器',
     steps: [
-      { num: 1, title: '什麼是表示' },
-      { num: 2, title: '特徵標' },
-      { num: 3, title: '不可約表示' },
-      { num: 4, title: '物理應用' },
-      { num: 5, title: '傅立葉' },
+      { num: 1, title: '子世界要自行運作' },
+      { num: 2, title: 'Subgroup test' },
+      { num: 3, title: 'Seeds 張成 subgroup' },
+      { num: 4, title: 'Subgroup lattice' },
     ],
   },
   ch12: {
-    title: '專題：代數幾何入門',
+    title: '第十二章：用同一塊模板平移整個群',
     steps: [
-      { num: 1, title: '代數簇' },
-      { num: 2, title: '理想與簇' },
-      { num: 3, title: '零點定理' },
-      { num: 4, title: '橢圓曲線' },
-      { num: 5, title: '現代面貌' },
+      { num: 1, title: 'Coset 是整塊搬移' },
+      { num: 2, title: '每塊一樣大' },
+      { num: 3, title: '相同或完全分離' },
+      { num: 4, title: 'Cosets partition the group' },
     ],
   },
   ch13: {
-    title: '專題：編碼理論',
+    title: '第十三章：整除來自等大拼圖',
     steps: [
-      { num: 1, title: '為什麼需要糾錯碼' },
-      { num: 2, title: '漢明距離' },
-      { num: 3, title: '線性碼' },
-      { num: 4, title: '漢明碼' },
-      { num: 5, title: 'Reed-Solomon' },
+      { num: 1, title: 'Lagrange 的拼圖原因' },
+      { num: 2, title: 'Index 是 tiles 數' },
+      { num: 3, title: 'Element order 整除群大小' },
+      { num: 4, title: '必要不代表存在' },
+    ],
+  },
+  ch14: {
+    title: '第十四章：保留合成的結構翻譯',
+    steps: [
+      { num: 1, title: '允許壓縮，不改合成' },
+      { num: 2, title: 'Commuting square' },
+      { num: 3, title: 'Identity 與 inverse 的影子' },
+    ],
+  },
+  ch15: {
+    title: '第十五章：看得見什麼、看不見什麼',
+    steps: [
+      { num: 1, title: 'Image 是可達輸出' },
+      { num: 2, title: 'Kernel 是不可見 actions' },
+      { num: 3, title: 'Fibers 是 kernel cosets' },
+      { num: 4, title: 'Injective / surjective detector' },
+    ],
+  },
+  ch16: {
+    title: '第十六章：不可見差異要對所有座標穩定',
+    steps: [
+      { num: 1, title: 'Kernel 為何 normal' },
+      { num: 2, title: 'Left / right cosets 對齊' },
+      { num: 3, title: 'Normal detector' },
+    ],
+  },
+  ch17: {
+    title: '第十七章：把不可見差異壓成一點',
+    steps: [
+      { num: 1, title: 'Cosets 成為新 elements' },
+      { num: 2, title: 'Well-defined multiplication' },
+      { num: 3, title: 'Canonical projection' },
+      { num: 4, title: '保留與遺忘的資訊' },
+    ],
+  },
+  ch18: {
+    title: '第十八章：每種結構壓縮都走同一條路',
+    steps: [
+      { num: 1, title: '先按 kernel 分塊' },
+      { num: 2, title: 'Quotient 與 image 對齊' },
+      { num: 3, title: '壓縮藍圖' },
+    ],
+  },
+  ch19: {
+    title: '第十九章：重新排列就是 transformation',
+    steps: [
+      { num: 1, title: 'Permutation 是可逆重排' },
+      { num: 2, title: 'Composition order' },
+      { num: 3, title: 'Symmetric group Sₙ' },
+    ],
+  },
+  ch20: {
+    title: '第二十章：Cycles 與 parity',
+    steps: [
+      { num: 1, title: 'Cycle 是閉合 orbit' },
+      { num: 2, title: 'Disjoint cycles' },
+      { num: 3, title: 'Transposition decomposition' },
+      { num: 4, title: 'Parity invariant' },
+    ],
+  },
+  ch21: {
+    title: '第二十一章：每個群都能成為 permutation group',
+    steps: [
+      { num: 1, title: 'Left translation factory' },
+      { num: 2, title: '乘法變成 composition' },
+      { num: 3, title: 'Identity witness 與 Cayley theorem' },
+    ],
+  },
+  ch22: {
+    title: '第二十二章：同一群可以操作不同世界',
+    steps: [
+      { num: 1, title: 'Action translator' },
+      { num: 2, title: 'Multi-world lens' },
+      { num: 3, title: 'Kernel 與 faithful' },
+      { num: 4, title: 'Action detector' },
+    ],
+  },
+  ch23: {
+    title: '第二十三章：能到哪裡、誰讓它不動',
+    steps: [
+      { num: 1, title: 'Reachability sweep' },
+      { num: 2, title: 'Local symmetry filter' },
+      { num: 3, title: 'One table, two readings' },
+      { num: 4, title: 'Moving local frame' },
+    ],
+  },
+  ch24: {
+    title: '第二十四章：Reachability 與 local symmetry 守恆',
+    steps: [
+      { num: 1, title: 'Action-fiber sorter' },
+      { num: 2, title: 'Conservation dashboard' },
+      { num: 3, title: 'Cube rotation counter' },
+    ],
+  },
+  ch25: {
+    title: '第二十五章：同一動作換一個觀察座標',
+    steps: [
+      { num: 1, title: 'Coordinate sandwich' },
+      { num: 2, title: 'Re-framing orbit' },
+      { num: 3, title: 'Global fixed core' },
+    ],
+  },
+  ch26: {
+    title: '第二十六章：按 action type 分類整個群',
+    steps: [
+      { num: 1, title: 'Commuting-frame filter' },
+      { num: 2, title: 'Class-size packetizer' },
+      { num: 3, title: 'Class-equation assembler' },
+    ],
+  },
+  ch27: {
+    title: '第二十七章：用 fixed points 數 symmetry classes',
+    steps: [
+      { num: 1, title: 'Orbit target switch' },
+      { num: 2, title: 'Fixed-incidence table' },
+      { num: 3, title: 'Orbit-bucket rebalance' },
+      { num: 4, title: 'Necklace cycle counter' },
+    ],
+  },
+  ch28: {
+    title: '第二十八章：把獨立 actions 接成座標',
+    steps: [
+      { num: 1, title: 'Direct-product coordinates' },
+      { num: 2, title: '同步 cycle clocks' },
+      { num: 3, title: 'Internal direct product' },
+      { num: 4, title: 'Cyclic product criterion' },
+    ],
+  },
+  ch29: {
+    title: '第二十九章：Prime divisor 逼出真實 cycle',
+    steps: [
+      { num: 1, title: 'Cauchy theorem' },
+      { num: 2, title: 'p-tuple action proof' },
+      { num: 3, title: 'p-groups' },
+      { num: 4, title: 'Nontrivial center' },
+    ],
+  },
+  ch30: {
+    title: '第三十章：最大 p-power 結構一定存在',
+    steps: [
+      { num: 1, title: 'Sylow p-subgroup' },
+      { num: 2, title: '逐層擴張 p-subgroup' },
+      { num: 3, title: '三個定理的責任' },
+    ],
+  },
+  ch31: {
+    title: '第三十一章：最大 p-subgroups 如何分布',
+    steps: [
+      { num: 1, title: 'Sylow subgroups conjugate' },
+      { num: 2, title: 'nₚ divides m' },
+      { num: 3, title: 'nₚ ≡ 1 mod p' },
+      { num: 4, title: 'Finite-group constraint solver' },
+    ],
+  },
+  ch32: {
+    title: '第三十二章：面對陌生群要看哪裡',
+    steps: [
+      { num: 1, title: '先選 action representation' },
+      { num: 2, title: 'Map / quotient route' },
+      { num: 3, title: 'Action / counting route' },
+      { num: 4, title: 'Finite-group route' },
     ],
   },
 };
@@ -2210,92 +2345,103 @@ const SUBJECT_LABELS: Record<string, string> = {
   imports: [
     RouterLink,
     StepNavComponent,
-    // Ch1
-    StepSymmetryComponent,
-    StepCompositionComponent,
-    StepOrderComponent,
-    StepRulesComponent,
-    StepDefinitionComponent,
-    StepBeyondComponent,
-    // Ch2
-    Ch2StubComponent,
-    StepEquivalenceComponent,
-    StepCosetsComponent,
-    StepWhySubgroupComponent,
-    // Ch3
-    StepLeftRightCosetsComponent,
-    StepWhyNormalComponent,
-    StepQuotientComponent,
-    StepHomomorphismComponent,
-    StepIsomorphismComponent,
-    StepKernelComponent,
-    StepFirstIsoComponent,
-    // Ch4
-    StepSymmetricGroupComponent,
-    StepCyclesComponent,
-    StepTranspositionsComponent,
-    StepSignComponent,
-    StepAlternatingComponent,
-    StepCayleyTheoremComponent,
-    // Ch6 Sylow
-    StepConjugacyComponent,
-    StepClassEquationComponent,
-    StepPGroupsComponent,
-    StepSylow1Component,
-    StepSylow23Component,
-    StepClassificationComponent,
-    // Ch7 Rings
-    StepIntegersToRingsComponent,
-    StepRingExamplesComponent,
-    StepZeroDivisorsComponent,
-    StepIdealsComponent,
-    StepQuotientRingComponent,
-    StepRingHomomorphismComponent,
-    // Ch5
-    StepActionComponent,
-    StepOrbitsComponent,
-    StepStabilizersComponent,
-    StepOrbitStabilizerComponent,
-    StepBurnsideComponent,
-    StepNecklacesComponent,
-    // Ch7
-    StepWhatIsFieldComponent,
-    StepFiniteFieldsComponent,
-    StepPolynomialsComponent,
-    StepIrreducibleComponent,
-    StepFieldExtensionsComponent,
-    StepGfComponent,
-    // Ch8
-    StepRootsExtensionsComponent,
-    StepSplittingFieldComponent,
-    StepAutomorphismsComponent,
-    StepGaloisGroupComponent,
-    StepCorrespondenceComponent,
-    StepQuinticComponent,
-    // Ch10 Rubik
-    StepRubikGroupComponent,
-    StepCommutatorsComponent,
-    StepCubeStructureComponent,
-    StepGodsNumberComponent,
-    StepCubeSolveComponent,
-    // Ch11 Representation
-    StepWhatIsRepComponent,
-    StepCharactersComponent,
-    StepIrreducibleRepComponent,
-    StepRepPhysicsComponent,
-    StepFourierComponent,
-    // Ch12 Algebraic Geometry
-    StepVarietiesComponent,
-    StepIdealVarietyComponent,
-    StepNullstellensatzComponent,
-    StepEllipticCurvesComponent,
-    StepModernAgComponent,
-    // Ch13 Coding Theory
-    StepNoisyChannelComponent,
-    StepHammingDistanceComponent,
-    StepLinearCodeComponent,
-    StepHammingCodeComponent,
-    StepReedSolomonComponent,
+    AlgebraV2LessonComponent,
+    AlgebraV3StateVsActionComponent,
+    AlgebraV3WholeWorldActionComponent,
+    AlgebraV3StructurePreservedComponent,
+    AlgebraV3BeyondGeometryComponent,
+    AlgebraV3CompositionCompressorComponent,
+    AlgebraV3OrderMattersComponent,
+    AlgebraV3CayleyRecorderComponent,
+    AlgebraV3IdentityScannerComponent,
+    AlgebraV3InverseTesterComponent,
+    AlgebraV3CancellationTapeComponent,
+    AlgebraV3InformationFibersComponent,
+    AlgebraV3BracketCompressorComponent,
+    AlgebraV3TwoTestBenchComponent,
+    AlgebraV3PointwisePipelineComponent,
+    AlgebraV3SetBoundaryMachineComponent,
+    AlgebraV3SystemBuilderComponent,
+    AlgebraV3EvidenceScannerComponent,
+    AlgebraV3ContractWiresComponent,
+    AlgebraV3GuidedAuditComponent,
+    AlgebraV3SymbolTranslatorComponent,
+    AlgebraV3ReachabilityWaveComponent,
+    AlgebraV3GeneratingSetMixerComponent,
+    AlgebraV3WordEffectEvaluatorComponent,
+    AlgebraV3ClosureWaveComponent,
+    AlgebraV3RelationLoopComponent,
+    AlgebraV3RelationRewriteComponent,
+    AlgebraV3OrderSwapComponent,
+    AlgebraV3PresentationFolderComponent,
+    AlgebraV3FirstReturnComponent,
+    AlgebraV3OrbitVsWorldComponent,
+    AlgebraV3CyclicScannerComponent,
+    AlgebraV3GcdCycleSplitterComponent,
+    AlgebraV3RelabelingBoardComponent,
+    AlgebraV3HomomorphismSquareComponent,
+    AlgebraV3IsomorphismGatesComponent,
+    AlgebraV3InvariantDetectorComponent,
+    AlgebraV3SubworldBoundaryComponent,
+    AlgebraV3SubgroupTestScannerComponent,
+    AlgebraV3SeedClosureWaveComponent,
+    AlgebraV3SubgroupLatticeComponent,
+    AlgebraV3WholeTileTranslatorComponent,
+    AlgebraV3ReversibleTransportComponent,
+    AlgebraV3OverlapSnapComponent,
+    AlgebraV3PartitionSorterComponent,
+    AlgebraV3EqualTileCounterComponent,
+    AlgebraV3IndexLensComponent,
+    AlgebraV3ElementCycleTilerComponent,
+    AlgebraV3DivisorFilterComponent,
+    AlgebraV3CompressionLensComponent,
+    AlgebraV3UniversalCommutingScannerComponent,
+    AlgebraV3RoleConsequenceComponent,
+    AlgebraV3ImageReachabilityComponent,
+    AlgebraV3KernelInvisibilityComponent,
+    AlgebraV3FiberShifterComponent,
+    AlgebraV3MapDetectorComponent,
+    AlgebraV3KernelCoordinateComponent,
+    AlgebraV3CosetMirrorComponent,
+    AlgebraV3NormalityScannerComponent,
+    AlgebraV3CosetCompressorComponent,
+    AlgebraV3RepresentativeSwapComponent,
+    AlgebraV3CanonicalProjectionComponent,
+    AlgebraV3InformationDashboardComponent,
+    AlgebraV3CollisionFingerprintComponent,
+    AlgebraV3InducedIsomorphismComponent,
+    AlgebraV3FactorizationBlueprintComponent,
+    AlgebraV3AssignmentGateComponent,
+    AlgebraV3CompositionOrderComponent,
+    AlgebraV3SymmetricGroupDeckComponent,
+    AlgebraV3OrbitTracerComponent,
+    AlgebraV3DisjointExtractorComponent,
+    AlgebraV3CycleSwapMachineComponent,
+    AlgebraV3ParityScannerComponent,
+    AlgebraV3LeftTranslationFactoryComponent,
+    AlgebraV3CompositionBridgeComponent,
+    AlgebraV3CayleyEmbeddingComponent,
+    AlgebraV3ActionTranslatorComponent,
+    AlgebraV3MultiWorldLensComponent,
+    AlgebraV3KernelScannerComponent,
+    AlgebraV3ActionDetectorComponent,
+    AlgebraV3ReachabilitySweepComponent,
+    AlgebraV3LocalSymmetryFilterComponent,
+    AlgebraV3TwoReadingsTableComponent,
+    AlgebraV3MovingLocalFrameComponent,
+    AlgebraV3ActionFiberSorterComponent,
+    AlgebraV3ConservationDashboardComponent,
+    AlgebraV3CubeRotationCounterComponent,
+    AlgebraV3CoordinateSandwichComponent,
+    AlgebraV3ReframingOrbitComponent,
+    AlgebraV3GlobalFixedCoreComponent,
+    AlgebraV3CommutingFrameFilterComponent,
+    AlgebraV3ClassSizePacketizerComponent,
+    AlgebraV3ClassEquationAssemblerComponent,
+    AlgebraV3OrbitTargetSwitchComponent,
+    AlgebraV3FixedIncidenceTableComponent,
+    AlgebraV3OrbitBucketRebalanceComponent,
+    AlgebraV3NecklaceCycleCounterComponent,
     // Linalg Ch1
     StepWhatIsVectorComponent,
     StepVectorOpsComponent,
@@ -3049,6 +3195,13 @@ export class ChapterComponent {
   readonly currentStep = computed(() =>
     Math.max(1, Math.min(this.stepParam(), this.steps().length)),
   );
+
+  readonly currentAlgebraV2Lesson = computed(() => {
+    if (this.subject() !== 'algebra') return null;
+
+    const lessons = ALGEBRA_V2_LESSONS[this.chapterId() as AlgebraV2ChapterId];
+    return lessons?.[this.currentStep() - 1] ?? null;
+  });
 
   readonly hasPrev = computed(() => this.currentStep() > 1);
   readonly hasNext = computed(() => this.currentStep() < this.steps().length);

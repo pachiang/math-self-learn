@@ -1,0 +1,55 @@
+.alg-ch9-lesson {
+  --lesson-accent: #3d6b66;
+  --lesson-accent-soft: #dcebe7;
+  --return: #9b6535;
+
+  .world-picker,
+  .candidate-picker { display: flex; flex-wrap: wrap; gap: 0.65rem; }
+  .counter-layout,
+  .orbit-layout,
+  .scanner-layout,
+  .gcd-layout { display: grid; gap: 1rem; grid-template-columns: minmax(540px, 1.15fr) minmax(330px, 0.85fr); }
+  .counter-track { align-items: center; background: color-mix(in srgb, var(--bg-elevated) 86%, white); border-radius: 0.85rem; display: flex; flex-wrap: wrap; gap: 0.5rem; min-height: 250px; padding: 1rem; }
+  .counter-state { align-items: center; background: var(--bg-inset); border: 2px solid color-mix(in srgb, var(--lesson-ink) 18%, transparent); border-radius: 0.65rem; display: flex; flex-direction: column; height: 5rem; justify-content: center; min-width: 5rem; padding: 0.5rem; }
+  .counter-state.return { border: 4px double var(--return); }
+  .counter-state strong,
+  .counter-state span { display: block; }
+  .counter-state span { color: var(--lesson-muted); font-size: 0.65rem; margin-top: 0.3rem; }
+  .counter-console,
+  .orbit-console,
+  .scanner-console,
+  .gcd-console { background: var(--lesson-accent-soft); border-radius: 0.85rem; display: grid; gap: 0.75rem; padding: 1rem; }
+  .counter-console h4,.counter-console p,.orbit-console h4,.orbit-console p,.scanner-console h4,.scanner-console p,.gcd-console h4,.gcd-console p { margin: 0; }
+  .counter-console p,.orbit-console p,.scanner-console p,.gcd-console p { line-height: 1.6; }
+  .order-readout { border: 3px double var(--lesson-accent); border-radius: 0.7rem; font: 800 0.88rem/1.5 'JetBrains Mono', monospace; padding: 0.75rem; }
+  .order-readout.waiting { border-color: var(--return); }
+
+  .world-grid { display: grid; gap: 0.65rem; grid-template-columns: repeat(3, 1fr); }
+  .world-node { background: var(--bg-inset); border: 2px solid color-mix(in srgb, var(--lesson-ink) 15%, transparent); border-radius: 0.7rem; min-height: 6rem; padding: 0.75rem; }
+  .world-node.orbit { border-color: var(--lesson-accent); border-width: 3px; }
+  .world-node strong,.world-node span { display: block; }
+  .world-node span { color: var(--lesson-muted); font-size: 0.7rem; line-height: 1.45; margin-top: 0.35rem; }
+  .measure-pair { display: grid; gap: 0.55rem; grid-template-columns: repeat(2, 1fr); }
+  .measure-pair div { background: var(--bg-inset); border-radius: 0.65rem; padding: 0.75rem; }
+  .measure-pair span,.measure-pair strong { display: block; }
+  .measure-pair span { color: var(--lesson-muted); font-size: 0.68rem; }
+  .measure-pair strong { font-size: 1.15rem; margin-top: 0.25rem; }
+
+  .coverage-board { background: color-mix(in srgb, var(--bg-elevated) 86%, white); border-radius: 0.85rem; display: grid; gap: 0.6rem; grid-template-columns: repeat(3, 1fr); padding: 1rem; }
+  .coverage-node { background: var(--bg-inset); border: 2px dashed color-mix(in srgb, var(--lesson-ink) 20%, transparent); border-radius: 0.65rem; padding: 0.75rem; text-align: center; }
+  .coverage-node.reached { border: 3px solid var(--lesson-accent); }
+  .coverage-node span { color: var(--lesson-muted); display: block; font-size: 0.67rem; margin-top: 0.25rem; }
+
+  .range-controls { display: grid; gap: 0.8rem; grid-template-columns: repeat(2, 1fr); }
+  .range-control { background: var(--bg-inset); border-radius: 0.7rem; display: grid; gap: 0.5rem; grid-template-columns: 1fr auto; padding: 0.8rem; }
+  .range-control input { grid-column: 1 / -1; width: 100%; }
+  .cycle-grid { display: grid; gap: 0.55rem; grid-template-columns: repeat(6, 1fr); }
+  .cycle-node { background: var(--bg-inset); border: 2px solid color-mix(in srgb, var(--lesson-ink) 16%, transparent); border-radius: 0.65rem; min-height: 5.3rem; padding: 0.6rem; }
+  .cycle-node.selected { border-color: var(--lesson-accent); border-width: 3px; }
+  .cycle-node strong,.cycle-node span { display: block; }
+  .cycle-node span { color: var(--lesson-muted); font-size: 0.62rem; line-height: 1.4; margin-top: 0.25rem; }
+  .cycle-ledger { display: grid; gap: 0.4rem; max-height: 210px; overflow: auto; }
+  .cycle-ledger div { background: var(--bg-inset); border-left: 4px solid var(--lesson-accent); border-radius: 0.5rem; font: 650 0.72rem/1.45 'JetBrains Mono', monospace; padding: 0.55rem; }
+}
+
+@media (max-width: 900px) {.alg-ch9-lesson {.counter-layout,.orbit-layout,.scanner-layout,.gcd-layout { grid-template-columns: 1fr; }}}

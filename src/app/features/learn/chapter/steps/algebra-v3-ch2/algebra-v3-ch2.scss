@@ -1,0 +1,72 @@
+.alg-ch2-lesson {
+  --lesson-accent: #76512f;
+  --lesson-accent-soft: #eee2d4;
+
+  .chip-tray { align-items: center; display: flex; flex-wrap: wrap; gap: 0.55rem; }
+  .action-chip { font-family: 'JetBrains Mono', monospace; font-weight: 700; min-width: 3.2rem; }
+  .sequence-strip { align-items: center; display: flex; flex-wrap: wrap; gap: 0.45rem; min-height: 3.2rem; }
+  .sequence-strip .empty { color: var(--lesson-muted); font-style: italic; }
+  .sequence-strip b { background: var(--lesson-accent); border-radius: 0.55rem; color: white; min-width: 2.6rem; padding: 0.62rem; text-align: center; }
+  .sequence-strip i { color: var(--lesson-muted); font-style: normal; }
+  .scrubber { align-items: center; display: grid; gap: 0.65rem; grid-template-columns: auto 1fr auto; }
+  .scrubber input { accent-color: var(--lesson-accent); width: 100%; }
+  .mapping-board { display: grid; gap: 0.65rem; margin-top: 0.8rem; }
+  .mapping-lane {
+    align-items: center;
+    background: color-mix(in srgb, var(--bg-elevated) 82%, white);
+    border: 1px solid color-mix(in srgb, var(--lesson-ink) 12%, transparent);
+    border-radius: 0.75rem;
+    display: grid;
+    gap: 0.7rem;
+    grid-template-columns: 2.3rem 1fr 2.3rem;
+    padding: 0.65rem 0.8rem;
+  }
+  .mapping-lane > b { align-items: center; background: var(--lesson-accent); border-radius: 50%; color: white; display: flex; height: 2.3rem; justify-content: center; }
+  .mapping-lane .history { color: var(--lesson-muted); font: 600 0.84rem/1.45 'JetBrains Mono', monospace; overflow-wrap: anywhere; text-align: center; }
+  .mapping-lane .destination { background: var(--lesson-accent-soft); color: var(--lesson-accent); }
+  .effect-stamp { align-items: center; display: flex; gap: 1rem; justify-content: space-between; }
+  .effect-stamp strong { font: 700 1.35rem/1.2 'JetBrains Mono', monospace; }
+
+  .order-controls { align-items: end; display: flex; flex-wrap: wrap; gap: 0.8rem; }
+  .order-controls label { display: grid; font-size: 0.8rem; font-weight: 700; gap: 0.35rem; }
+  .order-controls select { background: var(--bg-elevated); border: 1px solid color-mix(in srgb, var(--lesson-ink) 18%, transparent); border-radius: 0.65rem; color: var(--lesson-ink); min-height: 2.75rem; padding: 0.45rem 2rem 0.45rem 0.7rem; }
+  .versus { color: var(--lesson-muted); font: 700 0.82rem/1.2 'JetBrains Mono', monospace; padding-bottom: 0.8rem; }
+  .robot-boards { display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .robot-board { background: color-mix(in srgb, var(--bg-elevated) 86%, white); border: 1px solid color-mix(in srgb, var(--lesson-ink) 12%, transparent); border-radius: 0.8rem; padding: 0.8rem; }
+  .robot-board h4 { font-family: 'JetBrains Mono', monospace; margin: 0 0 0.55rem; }
+  .robot-board svg { display: block; height: auto; width: 100%; }
+  .grid-line { stroke: color-mix(in srgb, var(--lesson-ink) 12%, transparent); stroke-width: 1; }
+  .robot-path { fill: none; marker-end: url(#robot-arrow); stroke: var(--lesson-accent); stroke-width: 5; }
+  .robot-start { fill: var(--bg-elevated); stroke: var(--lesson-ink); stroke-width: 2; }
+  .robot-final { fill: var(--lesson-accent); stroke: white; stroke-width: 2; }
+  .heading-arrow { stroke: white; stroke-linecap: round; stroke-width: 3; }
+  .step-badge { fill: var(--lesson-ink); font: 700 12px 'JetBrains Mono', monospace; }
+  .pose { color: var(--lesson-muted); font: 600 0.83rem/1.5 'JetBrains Mono', monospace; margin: 0.5rem 0 0; }
+  .comparison-badge { border: 2px solid var(--lesson-accent); border-radius: 0.7rem; font-weight: 750; padding: 0.75rem 1rem; text-align: center; }
+
+  .experiment-layout { display: grid; gap: 1rem; grid-template-columns: minmax(390px, 1.15fr) minmax(280px, 0.85fr); }
+  .cayley-table { border-collapse: separate; border-spacing: 0.35rem; width: 100%; }
+  .cayley-table th { color: var(--lesson-muted); font: 700 0.78rem/1.2 'JetBrains Mono', monospace; }
+  .cayley-table button { font-family: 'JetBrains Mono', monospace; font-weight: 700; min-width: 3.6rem; width: 100%; }
+  .cayley-table button.selected { box-shadow: 0 0 0 3px var(--lesson-accent); }
+  .cayley-table button.revealed { background: var(--lesson-accent-soft); color: var(--lesson-accent); }
+  .cycle-lab { background: color-mix(in srgb, var(--bg-elevated) 86%, white); border-radius: 0.8rem; display: grid; gap: 0.8rem; padding: 1rem; }
+  .cycle-lab h4 { margin: 0; }
+  .cycle-track { align-items: center; display: grid; grid-template-columns: repeat(3, 1fr); }
+  .cycle-node { align-items: center; display: flex; flex-direction: column; gap: 0.45rem; text-align: center; }
+  .cycle-node b { align-items: center; background: var(--bg-inset); border: 2px solid color-mix(in srgb, var(--lesson-ink) 20%, transparent); border-radius: 50%; display: flex; height: 3rem; justify-content: center; width: 3rem; }
+  .cycle-node.active b { background: var(--lesson-accent); border-color: var(--lesson-accent); color: white; }
+  .cycle-node span { color: var(--lesson-muted); font-size: 0.75rem; }
+  .trace-list { display: grid; gap: 0.45rem; margin: 0; padding: 0; }
+  .trace-list li { align-items: center; display: flex; gap: 0.55rem; list-style: none; }
+  .trace-list li::before { content: '○'; font-family: monospace; }
+  .trace-list li.done::before { content: '✓'; color: var(--lesson-accent); font-weight: 800; }
+  .table-progress { color: var(--lesson-muted); font: 600 0.82rem/1.4 'JetBrains Mono', monospace; }
+}
+
+@media (max-width: 900px) {
+  .alg-ch2-lesson {
+    .robot-boards,
+    .experiment-layout { grid-template-columns: 1fr; }
+  }
+}

@@ -1,26 +1,27 @@
 <div
   class="chapter"
   [class.wide-lesson]="
-    subject() === 'prob' &&
-    (chapterId() === 'ch1' ||
-      chapterId() === 'ch2' ||
-      chapterId() === 'ch3' ||
-      chapterId() === 'ch4' ||
-      chapterId() === 'ch5' ||
-      chapterId() === 'ch6' ||
-      chapterId() === 'ch7' ||
-      chapterId() === 'ch8' ||
-      chapterId() === 'ch9' ||
-      chapterId() === 'ch10' ||
-      chapterId() === 'ch11' ||
-      chapterId() === 'ch12' ||
-      chapterId() === 'ch13' ||
-      chapterId() === 'ch14' ||
-      chapterId() === 'ch15' ||
-      chapterId() === 'ch16' ||
-      chapterId() === 'ch17' ||
-      chapterId() === 'ch18' ||
-      chapterId() === 'ch19')
+    (subject() === 'prob' &&
+      (chapterId() === 'ch1' ||
+        chapterId() === 'ch2' ||
+        chapterId() === 'ch3' ||
+        chapterId() === 'ch4' ||
+        chapterId() === 'ch5' ||
+        chapterId() === 'ch6' ||
+        chapterId() === 'ch7' ||
+        chapterId() === 'ch8' ||
+        chapterId() === 'ch9' ||
+        chapterId() === 'ch10' ||
+        chapterId() === 'ch11' ||
+        chapterId() === 'ch12' ||
+        chapterId() === 'ch13' ||
+        chapterId() === 'ch14' ||
+        chapterId() === 'ch15' ||
+        chapterId() === 'ch16' ||
+        chapterId() === 'ch17' ||
+        chapterId() === 'ch18' ||
+        chapterId() === 'ch19')) ||
+    subject() === 'algebra'
   "
 >
   <nav class="course-context" aria-label="課程位置與章節導覽">
@@ -51,2584 +52,2589 @@
   <app-step-nav [steps]="steps()" [subject]="subject()" [chapterId]="chapterId()" />
 
   <div class="step-content">
-    @switch (subject() + '/' + chapterId()) {
-      @case ('algebra/ch1') {
+    @if (subject() === 'algebra') {
+      @if (chapterId() === 'ch1') {
         @switch (currentStep()) {
           @case (1) {
-            <app-step-symmetry />
+            <app-algebra-v3-state-vs-action />
           }
           @case (2) {
-            <app-step-composition />
+            <app-algebra-v3-whole-world-action />
           }
           @case (3) {
-            <app-step-order />
+            <app-algebra-v3-structure-preserved />
           }
           @case (4) {
-            <app-step-rules />
+            <app-algebra-v3-beyond-geometry />
           }
-          @case (5) {
-            <app-step-definition />
-          }
-          @case (6) {
-            <app-step-beyond />
-          }
-        }
-      }
-      @case ('algebra/ch2') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-ch2-stub
-              title="元素的階"
-              section="§2.1"
-              hint="一直做同一個操作，要幾次才能回到起點？"
-            />
-          }
-          @case (2) {
-            <app-ch2-stub
-              title="生成元與循環群"
-              section="§2.2"
-              hint="從一個元素出發，反覆操作，能產生多少元素？"
-            />
-          }
-          @case (3) {
-            <app-ch2-stub
-              title="子群：群中的群"
-              section="§2.3"
-              hint="生成出來的子集，本身也是群嗎？"
-            />
-          }
-          @case (4) {
-            <app-step-equivalence />
-          }
-          @case (5) {
-            <app-step-cosets />
-          }
-          @case (6) {
-            <app-step-why-subgroup />
-          }
-          @case (7) {
-            <app-ch2-stub
-              title="拉格朗日定理"
-              section="§2.7"
-              hint="為什麼子群的大小總是整除群的大小？"
-            />
-          }
-        }
-      }
-      @case ('algebra/ch3') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-left-right-cosets />
-          }
-          @case (2) {
-            <app-step-why-normal />
-          }
-          @case (3) {
-            <app-step-quotient />
-          }
-          @case (4) {
-            <app-step-homomorphism />
-          }
-          @case (5) {
-            <app-step-isomorphism />
-          }
-          @case (6) {
-            <app-step-kernel />
-          }
-          @case (7) {
-            <app-step-first-iso />
-          }
-        }
-      }
-      @case ('algebra/ch4') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-symmetric-group />
-          }
-          @case (2) {
-            <app-step-cycles />
-          }
-          @case (3) {
-            <app-step-transpositions />
-          }
-          @case (4) {
-            <app-step-sign />
-          }
-          @case (5) {
-            <app-step-alternating />
-          }
-          @case (6) {
-            <app-step-cayley-theorem />
-          }
-        }
-      }
-      @case ('algebra/ch5') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-action />
-          }
-          @case (2) {
-            <app-step-orbits />
-          }
-          @case (3) {
-            <app-step-stabilizers />
-          }
-          @case (4) {
-            <app-step-orbit-stabilizer />
-          }
-          @case (5) {
-            <app-step-burnside />
-          }
-          @case (6) {
-            <app-step-necklaces />
-          }
-        }
-      }
-      @case ('algebra/ch6') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-conjugacy />
-          }
-          @case (2) {
-            <app-step-class-equation />
-          }
-          @case (3) {
-            <app-step-p-groups />
-          }
-          @case (4) {
-            <app-step-sylow1 />
-          }
-          @case (5) {
-            <app-step-sylow23 />
-          }
-          @case (6) {
-            <app-step-classification />
-          }
-        }
-      }
-      @case ('algebra/ch7') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-integers-to-rings />
-          }
-          @case (2) {
-            <app-step-ring-examples />
-          }
-          @case (3) {
-            <app-step-zero-divisors />
-          }
-          @case (4) {
-            <app-step-ideals />
-          }
-          @case (5) {
-            <app-step-quotient-ring />
-          }
-          @case (6) {
-            <app-step-ring-homomorphism />
-          }
-        }
-      }
-      @case ('algebra/ch8') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-what-is-field />
-          }
-          @case (2) {
-            <app-step-finite-fields />
-          }
-          @case (3) {
-            <app-step-polynomials />
-          }
-          @case (4) {
-            <app-step-irreducible />
-          }
-          @case (5) {
-            <app-step-field-extensions />
-          }
-          @case (6) {
-            <app-step-gf />
-          }
-        }
-      }
-      @case ('algebra/ch9') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-roots-extensions />
-          }
-          @case (2) {
-            <app-step-splitting-field />
-          }
-          @case (3) {
-            <app-step-automorphisms />
-          }
-          @case (4) {
-            <app-step-galois-group />
-          }
-          @case (5) {
-            <app-step-correspondence />
-          }
-          @case (6) {
-            <app-step-quintic />
-          }
-        }
-      }
-      @case ('algebra/ch10') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-rubik-group />
-          }
-          @case (2) {
-            <app-step-commutators />
-          }
-          @case (3) {
-            <app-step-cube-structure />
-          }
-          @case (4) {
-            <app-step-gods-number />
-          }
-          @case (5) {
-            <app-step-cube-solve />
-          }
-        }
-      }
-      @case ('algebra/ch11') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-what-is-rep />
-          }
-          @case (2) {
-            <app-step-characters />
-          }
-          @case (3) {
-            <app-step-irreducible-rep />
-          }
-          @case (4) {
-            <app-step-rep-physics />
-          }
-          @case (5) {
-            <app-step-fourier />
-          }
-        }
-      }
-      @case ('algebra/ch12') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-varieties />
-          }
-          @case (2) {
-            <app-step-ideal-variety />
-          }
-          @case (3) {
-            <app-step-nullstellensatz />
-          }
-          @case (4) {
-            <app-step-elliptic-curves />
-          }
-          @case (5) {
-            <app-step-modern-ag />
-          }
-        }
-      }
-      @case ('algebra/ch13') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-noisy-channel />
-          }
-          @case (2) {
-            <app-step-hamming-distance />
-          }
-          @case (3) {
-            <app-step-linear-code />
-          }
-          @case (4) {
-            <app-step-hamming-code />
-          }
-          @case (5) {
-            <app-step-reed-solomon />
-          }
-        }
-      }
-      @case ('linalg/ch1') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-what-is-vector />
-          }
-          @case (2) {
-            <app-step-vector-ops />
-          }
-          @case (3) {
-            <app-step-linear-combo />
-          }
-          @case (4) {
-            <app-step-span />
-          }
-          @case (5) {
-            <app-step-independence />
-          }
-          @case (6) {
-            <app-step-basis />
-          }
-        }
-      }
-      @case ('linalg/ch2') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-what-is-transform />
-          }
-          @case (2) {
-            <app-step-matrix-fingerprint />
-          }
-          @case (3) {
-            <app-step-matrix-vector />
-          }
-          @case (4) {
-            <app-step-linalg-composition />
-          }
-          @case (5) {
-            <app-step-determinant />
-          }
-          @case (6) {
-            <app-step-inverse />
-          }
-        }
-      }
-      @case ('linalg/ch3') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-dot-product />
-          }
-          @case (2) {
-            <app-step-dot-geometry />
-          }
-          @case (3) {
-            <app-step-projection />
-          }
-          @case (4) {
-            <app-step-orthogonal />
-          }
-          @case (5) {
-            <app-step-orthonormal-basis />
-          }
-          @case (6) {
-            <app-step-gram-schmidt />
-          }
-        }
-      }
-      @case ('linalg/ch4') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-two-lines />
-          }
-          @case (2) {
-            <app-step-matrix-form />
-          }
-          @case (3) {
-            <app-step-elimination />
-          }
-          @case (4) {
-            <app-step-when-solvable />
-          }
-          @case (5) {
-            <app-step-solution-space />
-          }
-          @case (6) {
-            <app-step-applications />
-          }
-        }
-      }
-      @case ('linalg/ch5') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-subspace />
-          }
-          @case (2) {
-            <app-step-column-space />
-          }
-          @case (3) {
-            <app-step-null-space />
-          }
-          @case (4) {
-            <app-step-rank />
-          }
-          @case (5) {
-            <app-step-four-subspaces />
-          }
-          @case (6) {
-            <app-step-fundamental-thm />
-          }
-        }
-      }
-      @case ('linalg/ch6') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-invariant-directions />
-          }
-          @case (2) {
-            <app-step-eigen-definition />
-          }
-          @case (3) {
-            <app-step-characteristic />
-          }
-          @case (4) {
-            <app-step-diagonalization />
-          }
-          @case (5) {
-            <app-step-matrix-powers />
-          }
-          @case (6) {
-            <app-step-markov />
-          }
-        }
-      }
-      @case ('linalg/ch7') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-what-is-symmetric />
-          }
-          @case (2) {
-            <app-step-quadratic-form />
-          }
-          @case (3) {
-            <app-step-surface-shapes />
-          }
-          @case (4) {
-            <app-step-orthogonal-eigenvectors />
-          }
-          @case (5) {
-            <app-step-principal-axes />
-          }
-          @case (6) {
-            <app-step-positive-definite />
-          }
-        }
-      }
-      @case ('linalg/ch8') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-why-svd />
-          }
-          @case (2) {
-            <app-step-svd-geometry />
-          }
-          @case (3) {
-            <app-step-svd-subspaces />
-          }
-          @case (4) {
-            <app-step-low-rank />
-          }
-          @case (5) {
-            <app-step-image-compression />
-          }
-          @case (6) {
-            <app-step-pca />
-          }
-        }
-      }
-      @case ('linalg/ch9') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-1d-ode />
-          }
-          @case (2) {
-            <app-step-vector-field />
-          }
-          @case (3) {
-            <app-step-eigenvalue-solution />
-          }
-          @case (4) {
-            <app-step-matrix-exp />
-          }
-          @case (5) {
-            <app-step-stability />
-          }
-          @case (6) {
-            <app-step-damped-oscillator />
-          }
-          @case (7) {
-            <app-step-lorenz />
-          }
-        }
-      }
-      @case ('linalg/ch10') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-why-complex />
-          }
-          @case (2) {
-            <app-step-complex-vectors />
-          }
-          @case (3) {
-            <app-step-hermitian />
-          }
-          @case (4) {
-            <app-step-unitary />
-          }
-          @case (5) {
-            <app-step-pauli />
-          }
-          @case (6) {
-            <app-step-bloch-sphere />
-          }
-          @case (7) {
-            <app-step-quantum-gates />
-          }
-          @case (8) {
-            <app-step-measurement />
-          }
-        }
-      }
-      @case ('linalg/ch11') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-abstract-vector-space />
-          }
-          @case (2) {
-            <app-step-polynomial-space />
-          }
-          @case (3) {
-            <app-step-basis-dimension />
-          }
-          @case (4) {
-            <app-step-linearity />
-          }
-          @case (5) {
-            <app-step-differential-matrix />
-          }
-          @case (6) {
-            <app-step-function-space />
-          }
-          @case (7) {
-            <app-step-functions-as-vectors />
-          }
-        }
-      }
-      @case ('linalg/ch12') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-function-inner-product />
-          }
-          @case (2) {
-            <app-step-orthogonal-functions />
-          }
-          @case (3) {
-            <app-step-function-projection />
-          }
-          @case (4) {
-            <app-step-legendre />
-          }
-          @case (5) {
-            <app-step-fourier-basis />
-          }
-          @case (6) {
-            <app-step-fourier-series />
-          }
-          @case (7) {
-            <app-step-gibbs />
-          }
-        }
-      }
-      @case ('linalg/ch13') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-linear-regression />
-          }
-          @case (2) {
-            <app-step-polynomial-fit />
-          }
-          @case (3) {
-            <app-step-ridge />
-          }
-          @case (4) {
-            <app-step-logistic />
-          }
-          @case (5) {
-            <app-step-neural-net />
-          }
-          @case (6) {
-            <app-step-convolution />
-          }
-          @case (7) {
-            <app-step-backprop />
-          }
-          @case (8) {
-            <app-step-matrix-factorization />
-          }
-        }
-      }
-      @case ('linalg/ch14') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-graph-matrix />
-          }
-          @case (2) {
-            <app-step-incidence />
-          }
-          @case (3) {
-            <app-step-laplacian />
-          }
-          @case (4) {
-            <app-step-fiedler />
-          }
-          @case (5) {
-            <app-step-spectral-clustering />
-          }
-          @case (6) {
-            <app-step-pagerank />
-          }
-          @case (7) {
-            <app-step-random-walk />
-          }
-        }
-      }
-      @case ('linalg/ch15') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-floating-point />
-          }
-          @case (2) {
-            <app-step-condition-number />
-          }
-          @case (3) {
-            <app-step-lu-decomposition />
-          }
-          @case (4) {
-            <app-step-pivoting />
-          }
-          @case (5) {
-            <app-step-qr-decomposition />
-          }
-          @case (6) {
-            <app-step-iterative-methods />
-          }
-          @case (7) {
-            <app-step-conjugate-gradient />
-          }
-        }
-      }
-      @case ('linalg/ch16') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-why-least-squares />
-          }
-          @case (2) {
-            <app-step-column-space-projection />
-          }
-          @case (3) {
-            <app-step-normal-equations />
-          }
-          @case (4) {
-            <app-step-qr-least-squares />
-          }
-          @case (5) {
-            <app-step-pseudoinverse />
-          }
-          @case (6) {
-            <app-step-minimum-norm />
-          }
-        }
-      }
-      @case ('linalg/ch17') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-defective-matrix />
-          }
-          @case (2) {
-            <app-step-schur-decomposition />
-          }
-          @case (3) {
-            <app-step-cayley-hamilton />
-          }
-          @case (4) {
-            <app-step-generalized-eigenvectors />
-          }
-          @case (5) {
-            <app-step-jordan-blocks />
-          }
-          @case (6) {
-            <app-step-jordan-form />
-          }
-          @case (7) {
-            <app-step-jordan-applications />
-          }
-        }
-      }
-      @case ('linalg/ch18') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-linear-functional />
-          }
-          @case (2) {
-            <app-step-dual-space />
-          }
-          @case (3) {
-            <app-step-dual-basis />
-          }
-          @case (4) {
-            <app-step-transpose-dual />
-          }
-          @case (5) {
-            <app-step-annihilator />
-          }
-          @case (6) {
-            <app-step-covectors-physics />
-          }
-          @case (7) {
-            <app-step-double-dual />
-          }
-        }
-      }
-      @case ('analysis/ch1') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-rational-enough />
-          }
-          @case (2) {
-            <app-step-rational-holes />
-          }
-          @case (3) {
-            <app-step-sup-inf />
-          }
-          @case (4) {
-            <app-step-completeness-axiom />
-          }
-          @case (5) {
-            <app-step-archimedean />
-          }
-          @case (6) {
-            <app-step-nested-intervals />
-          }
-          @case (7) {
-            <app-step-decimal-expansion />
-          }
-          @case (8) {
-            <app-step-uncountability />
-          }
-          @case (9) {
-            <app-step-cantor-set />
-          }
-          @case (10) {
-            <app-step-mind-map />
-          }
-        }
-      }
-      @case ('analysis/ch2') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-what-is-sequence />
-          }
-          @case (2) {
-            <app-step-epsilon-n />
-          }
-          @case (3) {
-            <app-step-limit-laws />
-          }
-          @case (4) {
-            <app-step-monotone-bounded />
-          }
-          @case (5) {
-            <app-step-bolzano-weierstrass />
-          }
-          @case (6) {
-            <app-step-cauchy />
-          }
-          @case (7) {
-            <app-step-important-limits />
-          }
-          @case (8) {
-            <app-step-limsup-liminf />
-          }
-          @case (9) {
-            <app-step-ch2-mind-map />
-          }
-        }
-      }
-      @case ('analysis/ch3') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-what-is-series />
-          }
-          @case (2) {
-            <app-step-comparison-tests />
-          }
-          @case (3) {
-            <app-step-ratio-root-tests />
-          }
-          @case (4) {
-            <app-step-integral-test />
-          }
-          @case (5) {
-            <app-step-alternating-series />
-          }
-          @case (6) {
-            <app-step-absolute-conditional />
-          }
-          @case (7) {
-            <app-step-power-series />
-          }
-          @case (8) {
-            <app-step-taylor-series />
-          }
-          @case (9) {
-            <app-step-ch3-mind-map />
-          }
-        }
-      }
-      @case ('analysis/ch4') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-function-limits />
-          }
-          @case (2) {
-            <app-step-continuity-def />
-          }
-          @case (3) {
-            <app-step-continuity-intuition />
-          }
-          @case (4) {
-            <app-step-discontinuity-types />
-          }
-          @case (5) {
-            <app-step-ivt />
-          }
-          @case (6) {
-            <app-step-extreme-value />
-          }
-          @case (7) {
-            <app-step-uniform-continuity />
-          }
-          @case (8) {
-            <app-step-function-spaces />
-          }
-          @case (9) {
-            <app-step-ch4-mind-map />
-          }
-          @case (10) {
-            <app-step-explore-fourier-approx />
-          }
-          @case (11) {
-            <app-step-explore-taylor />
-          }
-          @case (12) {
-            <app-step-explore-pde />
-          }
-        }
-      }
-      @case ('analysis/ch5') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-derivative-def />
-          }
-          @case (2) {
-            <app-step-diff-continuous />
-          }
-          @case (3) {
-            <app-step-diff-rules />
-          }
-          @case (4) {
-            <app-step-mean-value />
-          }
-          @case (5) {
-            <app-step-lhopital />
-          }
-          @case (6) {
-            <app-step-taylor-revisit />
-          }
-          @case (7) {
-            <app-step-convex-functions />
-          }
-          @case (8) {
-            <app-step-inverse-function />
-          }
-          @case (9) {
-            <app-step-ch5-mind-map />
-          }
-        }
-      }
-      @case ('analysis/ch6') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-riemann-idea />
-          }
-          @case (2) {
-            <app-step-upper-lower-sums />
-          }
-          @case (3) {
-            <app-step-integrability />
-          }
-          @case (4) {
-            <app-step-ftc />
-          }
-          @case (5) {
-            <app-step-integration-techniques />
-          }
-          @case (6) {
-            <app-step-improper-integrals />
-          }
-          @case (7) {
-            <app-step-interchange />
-          }
-          @case (8) {
-            <app-step-gamma-function />
-          }
-          @case (9) {
-            <app-step-ch6-mind-map />
-          }
-        }
-      }
-      @case ('analysis/ch7') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-pointwise-convergence />
-          }
-          @case (2) {
-            <app-step-uniform-convergence />
-          }
-          @case (3) {
-            <app-step-m-test />
-          }
-          @case (4) {
-            <app-step-continuity-preservation />
-          }
-          @case (5) {
-            <app-step-term-differentiation />
-          }
-          @case (6) {
-            <app-step-term-integration />
-          }
-          @case (7) {
-            <app-step-power-series-properties />
-          }
-          @case (8) {
-            <app-step-stone-weierstrass />
-          }
-          @case (9) {
-            <app-step-arzela-ascoli />
-          }
-          @case (10) {
-            <app-step-ch7-mind-map />
-          }
-        }
-      }
-      @case ('analysis/ch8') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-metric-space-def />
-          }
-          @case (2) {
-            <app-step-lp-balls />
-          }
-          @case (3) {
-            <app-step-function-metrics />
-          }
-          @case (4) {
-            <app-step-open-closed />
-          }
-          @case (5) {
-            <app-step-convergence-completeness />
-          }
-          @case (6) {
-            <app-step-compactness />
-          }
-          @case (7) {
-            <app-step-connectedness />
-          }
-          @case (8) {
-            <app-step-contraction />
-          }
-          @case (9) {
-            <app-step-unification />
-          }
-          @case (10) {
-            <app-step-ch8-mind-map />
-          }
-        }
-      }
-      @case ('analysis/ch9') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-riemann-limits />
-          }
-          @case (2) {
-            <app-step-outer-measure />
-          }
-          @case (3) {
-            <app-step-measurable-sets />
-          }
-          @case (4) {
-            <app-step-measure-properties />
-          }
-          @case (5) {
-            <app-step-measure-zero />
-          }
-          @case (6) {
-            <app-step-nonmeasurable />
-          }
-          @case (7) {
-            <app-step-measurable-functions />
-          }
-          @case (8) {
-            <app-step-riemann-comparison />
-          }
-          @case (9) {
-            <app-step-ch9-mind-map />
-          }
-        }
-      }
-      @case ('analysis/ch10') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-simple-integral />
-          }
-          @case (2) {
-            <app-step-nonneg-integral />
-          }
-          @case (3) {
-            <app-step-general-integral />
-          }
-          @case (4) {
-            <app-step-mct />
-          }
-          @case (5) {
-            <app-step-fatou />
-          }
-          @case (6) {
-            <app-step-dct />
-          }
-          @case (7) {
-            <app-step-riemann-lebesgue />
-          }
-          @case (8) {
-            <app-step-fubini-preview />
-          }
-          @case (9) {
-            <app-step-ch10-mind-map />
-          }
-        }
-      }
-      @case ('analysis/ch11') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-lp-space-def />
-          }
-          @case (2) {
-            <app-step-holder />
-          }
-          @case (3) {
-            <app-step-minkowski />
-          }
-          @case (4) {
-            <app-step-riesz-fischer />
-          }
-          @case (5) {
-            <app-step-l2-inner />
-          }
-          @case (6) {
-            <app-step-dense-subsets />
-          }
-          @case (7) {
-            <app-step-convergence-modes />
-          }
-          @case (8) {
-            <app-step-lp-dual />
-          }
-          @case (9) {
-            <app-step-ch11-mind-map />
-          }
-        }
-      }
-      @case ('analysis/ch12') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-inner-product-space />
-          }
-          @case (2) {
-            <app-step-orthogonal-projection />
-          }
-          @case (3) {
-            <app-step-fourier-expansion />
-          }
-          @case (4) {
-            <app-step-orthogonal-complement />
-          }
-          @case (5) {
-            <app-step-riesz-representation />
-          }
-          @case (6) {
-            <app-step-weak-convergence />
-          }
-          @case (7) {
-            <app-step-compact-operators />
-          }
-          @case (8) {
-            <app-step-quantum-language />
-          }
-          @case (9) {
-            <app-step-ch12-mind-map />
-          }
-        }
-      }
-      @case ('analysis/ch13') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-rn-topology />
-          }
-          @case (2) {
-            <app-step-multivariable-limits />
-          }
-          @case (3) {
-            <app-step-partial-derivatives />
-          }
-          @case (4) {
-            <app-step-total-derivative />
-          }
-          @case (5) {
-            <app-step-chain-rule-mv />
-          }
-          @case (6) {
-            <app-step-mvt-taylor-mv />
-          }
-          @case (7) {
-            <app-step-inverse-function-mv />
-          }
-          @case (8) {
-            <app-step-implicit-function />
-          }
-          @case (9) {
-            <app-step-ch13-mind-map />
-          }
-        }
-      }
-      @case ('analysis/ch14') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-double-integral-idea />
-          }
-          @case (2) {
-            <app-step-fubini />
-          }
-          @case (3) {
-            <app-step-iterated-integrals />
-          }
-          @case (4) {
-            <app-step-nonrectangular />
-          }
-          @case (5) {
-            <app-step-change-of-order />
-          }
-          @case (6) {
-            <app-step-polar-coords />
-          }
-          @case (7) {
-            <app-step-change-of-variables />
-          }
-          @case (8) {
-            <app-step-improper-2d />
-          }
-          @case (9) {
-            <app-step-applications-2d />
-          }
-          @case (10) {
-            <app-step-ch14-mind-map />
-          }
-        }
-      }
-      @case ('analysis/ch15') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-vector-fields-intro />
-          }
-          @case (2) {
-            <app-step-line-integral-scalar />
-          }
-          @case (3) {
-            <app-step-line-integral-vector />
-          }
-          @case (4) {
-            <app-step-conservative-fields />
-          }
-          @case (5) {
-            <app-step-curl-divergence />
-          }
-          @case (6) {
-            <app-step-green-theorem />
-          }
-          @case (7) {
-            <app-step-green-area />
-          }
-          @case (8) {
-            <app-step-flux />
-          }
-          @case (9) {
-            <app-step-simply-connected />
-          }
-          @case (10) {
-            <app-step-ch15-mind-map />
-          }
-        }
-      }
-      @case ('analysis/ch16') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-parametric-surfaces />
-          }
-          @case (2) {
-            <app-step-surface-area />
-          }
-          @case (3) {
-            <app-step-scalar-surface-integral />
-          }
-          @case (4) {
-            <app-step-flux-3d />
-          }
-          @case (5) {
-            <app-step-divergence-theorem />
-          }
-          @case (6) {
-            <app-step-curl-3d />
-          }
-          @case (7) {
-            <app-step-stokes-theorem />
-          }
-          @case (8) {
-            <app-step-orientation />
-          }
-          @case (9) {
-            <app-step-unification-ftc />
-          }
-          @case (10) {
-            <app-step-ch16-mind-map />
-          }
-        }
-      }
-      @case ('analysis/ch17') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-why-fourier />
-          }
-          @case (2) {
-            <app-step-fourier-coefficients />
-          }
-          @case (3) {
-            <app-step-partial-sums />
-          }
-          @case (4) {
-            <app-step-gibbs-phenomenon />
-          }
-          @case (5) {
-            <app-step-convergence-theorems />
-          }
-          @case (6) {
-            <app-step-parseval />
-          }
-          @case (7) {
-            <app-step-fourier-transform />
-          }
-          @case (8) {
-            <app-step-convolution-fourier />
-          }
-          @case (9) {
-            <app-step-applications-fourier />
-          }
-          @case (10) {
-            <app-step-ch17-mind-map />
-          }
-        }
-      }
-      @case ('analysis/ch19') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-why-forms />
-          }
-          @case (2) {
-            <app-step-one-forms />
-          }
-          @case (3) {
-            <app-step-two-forms />
-          }
-          @case (4) {
-            <app-step-exterior-derivative />
-          }
-          @case (5) {
-            <app-step-pullback />
-          }
-          @case (6) {
-            <app-step-generalized-stokes />
-          }
-          @case (7) {
-            <app-step-closed-exact />
-          }
-          @case (8) {
-            <app-step-integration-forms />
-          }
-          @case (9) {
-            <app-step-manifolds-preview />
-          }
-          @case (10) {
-            <app-step-ch19-mind-map />
-          }
-        }
-      }
-      @case ('analysis/ch18') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-why-distributions />
-          }
-          @case (2) {
-            <app-step-test-functions />
-          }
-          @case (3) {
-            <app-step-distribution-def />
-          }
-          @case (4) {
-            <app-step-dirac-delta />
-          }
-          @case (5) {
-            <app-step-distributional-derivative />
-          }
-          @case (6) {
-            <app-step-schwartz-space />
-          }
-          @case (7) {
-            <app-step-fourier-distributions />
-          }
-          @case (8) {
-            <app-step-convolution-distributions />
-          }
-          @case (9) {
-            <app-step-green-function />
-          }
-          @case (10) {
-            <app-step-ch18-mind-map />
-          }
-        }
-      }
-      @case ('complex/ch1') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-what-is-complex />
-          }
-          @case (2) {
-            <app-step-complex-arithmetic />
-          }
-          @case (3) {
-            <app-step-polar-form />
-          }
-          @case (4) {
-            <app-step-complex-sets />
-          }
-        }
-      }
-      @case ('complex/ch2') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-complex-functions />
-          }
-          @case (2) {
-            <app-step-cauchy-riemann />
-          }
-          @case (3) {
-            <app-step-analytic-examples />
-          }
-          @case (4) {
-            <app-step-harmonic />
-          }
-          @case (5) {
-            <app-step-complex-dissection />
-          }
-          @case (6) {
-            <app-step-deep-inversion />
-          }
-          @case (7) {
-            <app-step-deep-square />
-          }
-          @case (8) {
-            <app-step-deep-exp />
-          }
-        }
-      }
-      @case ('complex/ch3') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-contour-integral />
-          }
-          @case (2) {
-            <app-step-cauchy-theorem />
-          }
-          @case (3) {
-            <app-step-cauchy-formula />
-          }
-          @case (4) {
-            <app-step-liouville />
-          }
-          @case (5) {
-            <app-step-max-modulus />
-          }
-        }
-      }
-      @case ('complex/ch4') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-taylor-complex />
-          }
-          @case (2) {
-            <app-step-laurent />
-          }
-          @case (3) {
-            <app-step-singularities />
-          }
-          @case (4) {
-            <app-step-zeros-poles />
-          }
-          @case (5) {
-            <app-step-riemann-sphere />
-          }
-        }
-      }
-      @case ('ag/ch1') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-poly-shapes />
-          }
-          @case (2) {
-            <app-step-affine-variety />
-          }
-          @case (3) {
-            <app-step-singular-points />
-          }
-          @case (4) {
-            <app-step-curve-topology />
-          }
-          @case (5) {
-            <app-step-projective />
-          }
-        }
-      }
-      @case ('ag/ch2') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-variety-to-ideal />
-          }
-          @case (2) {
-            <app-step-ideal-to-variety />
-          }
-          @case (3) {
-            <app-step-ag-nullstellensatz />
-          }
-          @case (4) {
-            <app-step-ag-irreducible />
-          }
-          @case (5) {
-            <app-step-zariski />
-          }
-        }
-      }
-      @case ('ag/ch3') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-ec-intro />
-          }
-          @case (2) {
-            <app-step-ec-group-law />
-          }
-          @case (3) {
-            <app-step-ec-identity />
-          }
-          @case (4) {
-            <app-step-ec-rational />
-          }
-          @case (5) {
-            <app-step-ec-crypto />
-          }
-        }
-      }
-      @case ('ag/ch4') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-poly-division-problem />
-          }
-          @case (2) {
-            <app-step-monomial-order />
-          }
-          @case (3) {
-            <app-step-multi-division />
-          }
-          @case (4) {
-            <app-step-groebner-basis />
-          }
-          @case (5) {
-            <app-step-ag-elimination />
-          }
-        }
-      }
-      @case ('ag/ch5') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-curves-to-surfaces />
-          }
-          @case (2) {
-            <app-step-quadric-surfaces />
-          }
-          @case (3) {
-            <app-step-cubic-surface />
-          }
-          @case (4) {
-            <app-step-surface-singularities />
-          }
-          @case (5) {
-            <app-step-surface-classification />
-          }
-        }
-      }
-      @case ('ag/ch6') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-what-is-blowup />
-          }
-          @case (2) {
-            <app-step-blowup-curves />
-          }
-          @case (3) {
-            <app-step-resolve-node />
-          }
-          @case (4) {
-            <app-step-resolve-cusp />
-          }
-          @case (5) {
-            <app-step-hironaka />
-          }
-        }
-      }
-      @case ('ag/ch7') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-what-is-divisor />
-          }
-          @case (2) {
-            <app-step-principal-divisor />
-          }
-          @case (3) {
-            <app-step-line-bundle />
-          }
-          @case (4) {
-            <app-step-divisor-bundle-corresp />
-          }
-          @case (5) {
-            <app-step-section-space />
-          }
-          @case (6) {
-            <app-step-ag-riemann-roch />
-          }
-          @case (7) {
-            <app-step-rr-applications />
-          }
-        }
-      }
-      @case ('de/ch1') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-de-ch1-phenomenon />
-          }
-          @case (2) {
-            <app-de-ch1-slope-field />
-          }
-          @case (3) {
-            <app-de-ch1-following-arrows />
-          }
-          @case (4) {
-            <app-de-ch1-ivp />
-          }
-          @case (5) {
-            <app-de-ch1-analytic-vs-numerical />
-          }
-          @case (6) {
-            <app-de-ch1-classification />
-          }
-          @case (7) {
-            <app-de-ch1-free-fall />
-          }
-          @case (8) {
-            <app-de-ch1-roadmap />
-          }
-        }
-      }
-      @case ('de/ch2') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-de-ch2-map />
-          }
-          @case (2) {
-            <app-de-ch2-separable />
-          }
-          @case (3) {
-            <app-de-ch2-linear />
-          }
-          @case (4) {
-            <app-de-ch2-exact />
-          }
-          @case (5) {
-            <app-de-ch2-substitution />
-          }
-          @case (6) {
-            <app-de-ch2-diagnostic />
-          }
-        }
-      }
-      @case ('de/ch3') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-de-ch3-workflow />
-          }
-          @case (2) {
-            <app-de-ch3-cooling />
-          }
-          @case (3) {
-            <app-de-ch3-mixing />
-          }
-          @case (4) {
-            <app-de-ch3-rc />
-          }
-          @case (5) {
-            <app-de-ch3-projectile />
-          }
-          @case (6) {
-            <app-de-ch3-logistic />
-          }
-          @case (7) {
-            <app-de-ch3-philosophy />
-          }
-        }
-      }
-      @case ('de/ch4') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-de-ch4-existence />
-          }
-          @case (2) {
-            <app-de-ch4-euler />
-          }
-          @case (3) {
-            <app-de-ch4-error />
-          }
-          @case (4) {
-            <app-de-ch4-rk />
-          }
-          @case (5) {
-            <app-de-ch4-adaptive />
-          }
-          @case (6) {
-            <app-de-ch4-stiff />
-          }
-          @case (7) {
-            <app-de-ch4-summary />
-          }
-        }
-      }
-      @case ('de/ch5') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-de-ch5-intro />
-          }
-          @case (2) {
-            <app-de-ch5-char-eq />
-          }
-          @case (3) {
-            <app-de-ch5-shm />
-          }
-          @case (4) {
-            <app-de-ch5-damping />
-          }
-          @case (5) {
-            <app-de-ch5-energy />
-          }
-          @case (6) {
-            <app-de-ch5-phase />
-          }
-          @case (7) {
-            <app-de-ch5-universality />
-          }
-        }
-      }
-      @case ('de/ch6') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-de-ch6-nonhom />
-          }
-          @case (2) {
-            <app-de-ch6-undetermined />
-          }
-          @case (3) {
-            <app-de-ch6-resonance />
-          }
-          @case (4) {
-            <app-de-ch6-freq-response />
-          }
-          @case (5) {
-            <app-de-ch6-beats />
-          }
-          @case (6) {
-            <app-de-ch6-applications />
-          }
-        }
-      }
-      @case ('de/ch7') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-de-ch7-definition />
-          }
-          @case (2) {
-            <app-de-ch7-solve-ode />
-          }
-          @case (3) {
-            <app-de-ch7-inverse />
-          }
-          @case (4) {
-            <app-de-ch7-step-impulse />
-          }
-          @case (5) {
-            <app-de-ch7-convolution />
-          }
-          @case (6) {
-            <app-de-ch7-summary />
-          }
-        }
-      }
-      @case ('de/ch8') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-de-ch8-intro />
-          }
-          @case (2) {
-            <app-de-ch8-matrix-exp />
-          }
-          @case (3) {
-            <app-de-ch8-eigen />
-          }
-          @case (4) {
-            <app-de-ch8-portraits />
-          }
-          @case (5) {
-            <app-de-ch8-trace-det />
-          }
-          @case (6) {
-            <app-de-ch8-coupled />
-          }
-        }
-      }
-      @case ('de/ch9') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-de-ch9-intro />
-          }
-          @case (2) {
-            <app-de-ch9-equilibria />
-          }
-          @case (3) {
-            <app-de-ch9-hartman />
-          }
-          @case (4) {
-            <app-de-ch9-lotka />
-          }
-          @case (5) {
-            <app-de-ch9-vdp />
-          }
-          @case (6) {
-            <app-de-ch9-pendulum />
-          }
-        }
-      }
-      @case ('de/ch10') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-de-ch10-why-series />
-          }
-          @case (2) {
-            <app-de-ch10-power-series />
-          }
-          @case (3) {
-            <app-de-ch10-frobenius />
-          }
-          @case (4) {
-            <app-de-ch10-special-gallery />
-          }
-          @case (5) {
-            <app-de-ch10-physics-link />
-          }
-        }
-      }
-      @case ('de/ch11') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-de-ch11-bvp-vs-ivp />
-          }
-          @case (2) {
-            <app-de-ch11-eigenvalue />
-          }
-          @case (3) {
-            <app-de-ch11-orthogonality />
-          }
-          @case (4) {
-            <app-de-ch11-expansion />
-          }
-          @case (5) {
-            <app-de-ch11-sl-form />
-          }
-        }
-      }
-      @case ('de/ch12') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-de-ch12-what-is-pde />
-          }
-          @case (2) {
-            <app-de-ch12-heat-derivation />
-          }
-          @case (3) {
-            <app-de-ch12-separation />
-          }
-          @case (4) {
-            <app-de-ch12-fourier-solution />
-          }
-          @case (5) {
-            <app-de-ch12-boundary-variations />
-          }
-          @case (6) {
-            <app-de-ch12-heat-gallery />
-          }
-        }
-      }
-      @case ('de/ch13') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-de-ch13-wave-derivation />
-          }
-          @case (2) {
-            <app-de-ch13-dalembert />
-          }
-          @case (3) {
-            <app-de-ch13-standing />
-          }
-          @case (4) {
-            <app-de-ch13-drum />
-          }
-          @case (5) {
-            <app-de-ch13-energy />
-          }
-        }
-      }
-      @case ('de/ch14') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-de-ch14-intro />
-          }
-          @case (2) {
-            <app-de-ch14-harmonic />
-          }
-          @case (3) {
-            <app-de-ch14-dirichlet />
-          }
-          @case (4) {
-            <app-de-ch14-disk />
-          }
-          @case (5) {
-            <app-de-ch14-summary />
-          }
-        }
-      }
-      @case ('de/ch15') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-de-ch15-bifurcation-intro />
-          }
-          @case (2) {
-            <app-de-ch15-hopf />
-          }
-          @case (3) {
-            <app-de-ch15-lorenz />
-          }
-          @case (4) {
-            <app-de-ch15-logistic />
-          }
-          @case (5) {
-            <app-de-ch15-finale />
-          }
         }
-      }
-      @case ('prob/ch1') {
+      } @else if (chapterId() === 'ch2') {
         @switch (currentStep()) {
           @case (1) {
-            <app-prob-v2-not-prophecy />
+            <app-algebra-v3-composition-compressor />
           }
           @case (2) {
-            <app-prob-v2-short-run-chaos />
+            <app-algebra-v3-order-matters />
           }
           @case (3) {
-            <app-prob-v2-long-run-pattern />
+            <app-algebra-v3-cayley-recorder />
           }
         }
-      }
-      @case ('prob/ch2') {
+      } @else if (chapterId() === 'ch3') {
         @switch (currentStep()) {
           @case (1) {
-            <app-prob-v2-experiment-outcome-space />
+            <app-algebra-v3-identity-scanner />
           }
           @case (2) {
-            <app-prob-v2-complete-outcomes />
+            <app-algebra-v3-inverse-tester />
           }
           @case (3) {
-            <app-prob-v2-events-as-regions />
+            <app-algebra-v3-cancellation-tape />
           }
           @case (4) {
-            <app-prob-v2-modeling-granularity />
+            <app-algebra-v3-information-fibers />
           }
         }
-      }
-      @case ('prob/ch3') {
+      } @else if (chapterId() === 'ch4') {
         @switch (currentStep()) {
           @case (1) {
-            <app-prob-v2-names-vs-weights />
+            <app-algebra-v3-bracket-compressor />
           }
           @case (2) {
-            <app-prob-v2-probability-mass />
+            <app-algebra-v3-two-test-bench />
           }
           @case (3) {
-            <app-prob-v2-equal-likelihood />
-          }
-          @case (4) {
-            <app-prob-v2-probability-foundations />
+            <app-algebra-v3-pointwise-pipeline />
           }
         }
-      }
-      @case ('prob/ch4') {
+      } @else if (chapterId() === 'ch5') {
         @switch (currentStep()) {
           @case (1) {
-            <app-prob-v2-event-operations />
+            <app-algebra-v3-set-boundary-machine />
           }
           @case (2) {
-            <app-prob-v2-double-counting />
+            <app-algebra-v3-system-builder />
           }
           @case (3) {
-            <app-prob-v2-complement-demorgan />
+            <app-algebra-v3-evidence-scanner />
           }
-          @case (4) {
-            <app-prob-v2-mutually-exclusive />
-          }
         }
-      }
-      @case ('prob/ch5') {
+      } @else if (chapterId() === 'ch6') {
         @switch (currentStep()) {
           @case (1) {
-            <app-prob-v2-branching-world />
+            <app-algebra-v3-contract-wires />
           }
           @case (2) {
-            <app-prob-v2-path-multiplication />
+            <app-algebra-v3-guided-audit />
           }
           @case (3) {
-            <app-prob-v2-replacement-world />
-          }
-          @case (4) {
-            <app-prob-v2-branch-sum />
+            <app-algebra-v3-symbol-translator />
           }
         }
-      }
-      @case ('prob/ch6') {
+      } @else if (chapterId() === 'ch7') {
         @switch (currentStep()) {
           @case (1) {
-            <app-prob-v2-counting-principle />
+            <app-algebra-v3-reachability-wave />
           }
           @case (2) {
-            <app-prob-v2-permutation-slots />
+            <app-algebra-v3-generating-set-mixer />
           }
           @case (3) {
-            <app-prob-v2-combination-clusters />
+            <app-algebra-v3-word-effect-evaluator />
           }
           @case (4) {
-            <app-prob-v2-repeated-elements />
+            <app-algebra-v3-closure-wave />
           }
-          @case (5) {
-            <app-prob-v2-birthday-model />
-          }
         }
-      }
-      @case ('prob/ch7') {
+      } @else if (chapterId() === 'ch8') {
         @switch (currentStep()) {
           @case (1) {
-            <app-prob-v2-count-language />
+            <app-algebra-v3-relation-loop />
           }
           @case (2) {
-            <app-prob-v2-complement-paths />
+            <app-algebra-v3-relation-rewrite />
           }
           @case (3) {
-            <app-prob-v2-reliability />
+            <app-algebra-v3-order-swap />
           }
           @case (4) {
-            <app-prob-v2-strategy-choice />
+            <app-algebra-v3-presentation-folder />
           }
         }
-      }
-      @case ('prob/ch8') {
+      } @else if (chapterId() === 'ch9') {
         @switch (currentStep()) {
           @case (1) {
-            <app-prob-v2-world-shrinks />
+            <app-algebra-v3-first-return />
           }
           @case (2) {
-            <app-prob-v2-given-direction />
+            <app-algebra-v3-orbit-vs-world />
           }
           @case (3) {
-            <app-prob-v2-nested-proportion />
+            <app-algebra-v3-cyclic-scanner />
           }
           @case (4) {
-            <app-prob-v2-information-updates-bag />
+            <app-algebra-v3-gcd-cycle-splitter />
           }
         }
-      }
-      @case ('prob/ch9') {
+      } @else if (chapterId() === 'ch10') {
         @switch (currentStep()) {
           @case (1) {
-            <app-prob-v2-ratio-invariant />
+            <app-algebra-v3-relabeling-board />
           }
           @case (2) {
-            <app-prob-v2-exclusive-vs-independent />
+            <app-algebra-v3-homomorphism-square />
           }
           @case (3) {
-            <app-prob-v2-approximate-independence />
+            <app-algebra-v3-isomorphism-gates />
           }
           @case (4) {
-            <app-prob-v2-shared-cause />
+            <app-algebra-v3-invariant-detector />
           }
         }
-      }
-      @case ('prob/ch10') {
+      } @else if (chapterId() === 'ch11') {
         @switch (currentStep()) {
           @case (1) {
-            <app-prob-v2-reverse-conditioning />
+            <app-algebra-v3-subworld-boundary />
           }
           @case (2) {
-            <app-prob-v2-false-positive-frequencies />
+            <app-algebra-v3-subgroup-test-scanner />
           }
           @case (3) {
-            <app-prob-v2-bayes-weight-update />
+            <app-algebra-v3-seed-closure-wave />
           }
           @case (4) {
-            <app-prob-v2-total-evidence-pool />
+            <app-algebra-v3-subgroup-lattice />
           }
         }
-      }
-      @case ('prob/ch11') {
+      } @else if (chapterId() === 'ch12') {
         @switch (currentStep()) {
           @case (1) {
-            <app-prob-v2-random-variable-machine />
+            <app-algebra-v3-whole-tile-translator />
           }
           @case (2) {
-            <app-prob-v2-many-measurements />
+            <app-algebra-v3-reversible-transport />
           }
           @case (3) {
-            <app-prob-v2-preimage-event />
+            <app-algebra-v3-overlap-snap />
           }
           @case (4) {
-            <app-prob-v2-output-scale />
+            <app-algebra-v3-partition-sorter />
           }
         }
-      }
-      @case ('prob/ch12') {
+      } @else if (chapterId() === 'ch13') {
         @switch (currentStep()) {
           @case (1) {
-            <app-prob-v2-weight-map />
+            <app-algebra-v3-equal-tile-counter />
           }
           @case (2) {
-            <app-prob-v2-pmf-point-mass />
+            <app-algebra-v3-index-lens />
           }
           @case (3) {
-            <app-prob-v2-cdf-threshold />
+            <app-algebra-v3-element-cycle-tiler />
           }
           @case (4) {
-            <app-prob-v2-pdf-area />
-          }
-          @case (5) {
-            <app-prob-v2-normalization />
+            <app-algebra-v3-divisor-filter />
           }
         }
-      }
-      @case ('prob/ch13') {
+      } @else if (chapterId() === 'ch14') {
         @switch (currentStep()) {
           @case (1) {
-            <app-prob-v2-expectation-balance />
+            <app-algebra-v3-compression-lens />
           }
           @case (2) {
-            <app-prob-v2-same-center />
+            <app-algebra-v3-universal-commuting-scanner />
           }
           @case (3) {
-            <app-prob-v2-linearity />
-          }
-          @case (4) {
-            <app-prob-v2-variance />
-          }
-          @case (5) {
-            <app-prob-v2-covariance />
+            <app-algebra-v3-role-consequence />
           }
         }
-      }
-      @case ('prob/ch14') {
+      } @else if (chapterId() === 'ch15') {
         @switch (currentStep()) {
           @case (1) {
-            <app-prob-v2-bernoulli-indicator />
+            <app-algebra-v3-image-reachability />
           }
           @case (2) {
-            <app-prob-v2-repeated-trials />
+            <app-algebra-v3-kernel-invisibility />
           }
           @case (3) {
-            <app-prob-v2-binomial-compression />
+            <app-algebra-v3-fiber-shifter />
           }
           @case (4) {
-            <app-prob-v2-binomial-shape />
-          }
-          @case (5) {
-            <app-prob-v2-binomial-assumptions />
+            <app-algebra-v3-map-detector />
           }
-          @case (6) {
-            <app-prob-v2-geometric-stopping />
-          }
-          @case (7) {
-            <app-prob-v2-geometric-memoryless />
-          }
-          @case (8) {
-            <app-prob-v2-negative-binomial />
-          }
         }
-      }
-      @case ('prob/ch15') {
+      } @else if (chapterId() === 'ch16') {
         @switch (currentStep()) {
           @case (1) {
-            <app-prob-v2-event-stream-lenses />
+            <app-algebra-v3-kernel-coordinate />
           }
           @case (2) {
-            <app-prob-v2-poisson-window />
+            <app-algebra-v3-coset-mirror />
           }
           @case (3) {
-            <app-prob-v2-poisson-origin />
-          }
-          @case (4) {
-            <app-prob-v2-exponential-wait />
-          }
-          @case (5) {
-            <app-prob-v2-exponential-memoryless />
-          }
-          @case (6) {
-            <app-prob-v2-gamma-checkpoints />
+            <app-algebra-v3-normality-scanner />
           }
-          @case (7) {
-            <app-prob-v2-gamma-shape-rate />
-          }
-          @case (8) {
-            <app-prob-v2-count-wait-duality />
-          }
         }
-      }
-      @case ('prob/ch16') {
+      } @else if (chapterId() === 'ch17') {
         @switch (currentStep()) {
-          @case (1) {
-            <app-prob-v2-continuous-interval />
-          }
-          @case (2) {
-            <app-prob-v2-uniform-ruler />
-          }
-          @case (3) {
-            <app-prob-v2-affine-transport />
-          }
-          @case (4) {
-            <app-prob-v2-nonlinear-compression />
-          }
-          @case (5) {
-            <app-prob-v2-beta-ratio />
-          }
-          @case (6) {
-            <app-prob-v2-beta-shape />
-          }
-          @case (7) {
-            <app-prob-v2-beta-vs-binomial />
-          }
-          @case (8) {
-            <app-prob-v2-transformation-map />
-          }
+          @case (1) { <app-algebra-v3-coset-compressor /> }
+          @case (2) { <app-algebra-v3-representative-swap /> }
+          @case (3) { <app-algebra-v3-canonical-projection /> }
+          @case (4) { <app-algebra-v3-information-dashboard /> }
         }
-      }
-      @case ('prob/ch17') {
+      } @else if (chapterId() === 'ch18') {
         @switch (currentStep()) {
-          @case (1) {
-            <app-prob-v2-additive-noise />
-          }
-          @case (2) {
-            <app-prob-v2-normal-location-scale />
-          }
-          @case (3) {
-            <app-prob-v2-z-coordinate />
-          }
-          @case (4) {
-            <app-prob-v2-square-folding />
-          }
-          @case (5) {
-            <app-prob-v2-chi-square-energy />
-          }
-          @case (6) {
-            <app-prob-v2-degrees-freedom />
-          }
-          @case (7) {
-            <app-prob-v2-gamma-beta-bridge />
-          }
-          @case (8) {
-            <app-prob-v2-distribution-family-map />
-          }
+          @case (1) { <app-algebra-v3-collision-fingerprint /> }
+          @case (2) { <app-algebra-v3-induced-isomorphism /> }
+          @case (3) { <app-algebra-v3-factorization-blueprint /> }
         }
-      }
-      @case ('prob/ch18') {
+      } @else if (chapterId() === 'ch19') {
         @switch (currentStep()) {
-          @case (1) {
-            <app-prob-v2-running-average />
-          }
-          @case (2) {
-            <app-prob-v2-many-worlds />
-          }
-          @case (3) {
-            <app-prob-v2-epsilon-band />
-          }
-          @case (4) {
-            <app-prob-v2-sum-average-scale />
-          }
-          @case (5) {
-            <app-prob-v2-no-compensation />
-          }
-          @case (6) {
-            <app-prob-v2-lln-dependence />
-          }
-          @case (7) {
-            <app-prob-v2-heavy-tail-boundary />
-          }
-          @case (8) {
-            <app-prob-v2-lln-clt-bridge />
-          }
+          @case (1) { <app-algebra-v3-assignment-gate /> }
+          @case (2) { <app-algebra-v3-composition-order /> }
+          @case (3) { <app-algebra-v3-symmetric-group-deck /> }
         }
-      }
-      @case ('prob/ch19') {
+      } @else if (chapterId() === 'ch20') {
         @switch (currentStep()) {
-          @case (1) {
-            <app-prob-v2-sqrt-n-microscope />
-          }
-          @case (2) {
-            <app-prob-v2-source-to-sum />
-          }
-          @case (3) {
-            <app-prob-v2-centering-scaling />
-          }
-          @case (4) {
-            <app-prob-v2-universality />
-          }
-          @case (5) {
-            <app-prob-v2-raw-data-myth />
-          }
-          @case (6) {
-            <app-prob-v2-clt-conditions />
-          }
-          @case (7) {
-            <app-prob-v2-normal-approximation />
-          }
-          @case (8) {
-            <app-prob-v2-probability-finale />
-          }
+          @case (1) { <app-algebra-v3-orbit-tracer /> }
+          @case (2) { <app-algebra-v3-disjoint-extractor /> }
+          @case (3) { <app-algebra-v3-cycle-swap-machine /> }
+          @case (4) { <app-algebra-v3-parity-scanner /> }
         }
-      }
-      @case ('stats/ch1') {
+      } @else if (chapterId() === 'ch21') {
         @switch (currentStep()) {
-          @case (1) {
-            <app-stats-ch1-inverse-problem />
-          }
-          @case (2) {
-            <app-stats-ch1-sample-stats />
-          }
-          @case (3) {
-            <app-stats-ch1-sampling-dist />
-          }
+          @case (1) { <app-algebra-v3-left-translation-factory /> }
+          @case (2) { <app-algebra-v3-composition-bridge /> }
+          @case (3) { <app-algebra-v3-cayley-embedding /> }
         }
-      }
-      @case ('stats/ch2') {
+      } @else if (chapterId() === 'ch22') {
         @switch (currentStep()) {
-          @case (1) {
-            <app-stats-ch2-estimator-properties />
-          }
-          @case (2) {
-            <app-stats-ch2-mle />
-          }
-          @case (3) {
-            <app-stats-ch2-mom />
-          }
-          @case (4) {
-            <app-stats-ch2-crlb />
-          }
+          @case (1) { <app-algebra-v3-action-translator /> }
+          @case (2) { <app-algebra-v3-multi-world-lens /> }
+          @case (3) { <app-algebra-v3-kernel-scanner /> }
+          @case (4) { <app-algebra-v3-action-detector /> }
         }
-      }
-      @case ('stats/ch3') {
+      } @else if (chapterId() === 'ch23') {
         @switch (currentStep()) {
-          @case (1) {
-            <app-stats-ch3-ci-intuition />
-          }
-          @case (2) {
-            <app-stats-ch3-mean-ci />
-          }
-          @case (3) {
-            <app-stats-ch3-proportion-ci />
-          }
+          @case (1) { <app-algebra-v3-reachability-sweep /> }
+          @case (2) { <app-algebra-v3-local-symmetry-filter /> }
+          @case (3) { <app-algebra-v3-two-readings-table /> }
+          @case (4) { <app-algebra-v3-moving-local-frame /> }
         }
-      }
-      @case ('stats/ch4') {
+      } @else if (chapterId() === 'ch24') {
         @switch (currentStep()) {
-          @case (1) {
-            <app-stats-ch4-hypothesis-framework />
-          }
-          @case (2) {
-            <app-stats-ch4-z-t-test />
-          }
-          @case (3) {
-            <app-stats-ch4-power />
-          }
-          @case (4) {
-            <app-stats-ch4-neyman-pearson />
-          }
+          @case (1) { <app-algebra-v3-action-fiber-sorter /> }
+          @case (2) { <app-algebra-v3-conservation-dashboard /> }
+          @case (3) { <app-algebra-v3-cube-rotation-counter /> }
         }
-      }
-      @case ('stats/ch5') {
+      } @else if (chapterId() === 'ch25') {
         @switch (currentStep()) {
-          @case (1) {
-            <app-stats-ch5-two-sample />
-          }
-          @case (2) {
-            <app-stats-ch5-chi-square />
-          }
-          @case (3) {
-            <app-stats-ch5-anova />
-          }
+          @case (1) { <app-algebra-v3-coordinate-sandwich /> }
+          @case (2) { <app-algebra-v3-reframing-orbit /> }
+          @case (3) { <app-algebra-v3-global-fixed-core /> }
         }
-      }
-      @case ('stats/ch6') {
+      } @else if (chapterId() === 'ch26') {
         @switch (currentStep()) {
-          @case (1) {
-            <app-stats-ch6-regression />
-          }
-          @case (2) {
-            <app-stats-ch6-r-squared />
-          }
-          @case (3) {
-            <app-stats-ch6-finale />
-          }
+          @case (1) { <app-algebra-v3-commuting-frame-filter /> }
+          @case (2) { <app-algebra-v3-class-size-packetizer /> }
+          @case (3) { <app-algebra-v3-class-equation-assembler /> }
         }
-      }
-      @case ('reg/ch1') {
+      } @else if (chapterId() === 'ch27') {
         @switch (currentStep()) {
-          @case (1) {
-            <app-reg-ch1-ols />
-          }
-          @case (2) {
-            <app-reg-ch1-variance-decomposition />
-          }
-          @case (3) {
-            <app-reg-ch1-residuals />
-          }
-          @case (4) {
-            <app-reg-ch1-inference />
-          }
+          @case (1) { <app-algebra-v3-orbit-target-switch /> }
+          @case (2) { <app-algebra-v3-fixed-incidence-table /> }
+          @case (3) { <app-algebra-v3-orbit-bucket-rebalance /> }
+          @case (4) { <app-algebra-v3-necklace-cycle-counter /> }
         }
-      }
-      @case ('reg/ch2') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-reg-ch2-why-multi />
-          }
-          @case (2) {
-            <app-reg-ch2-matrix-form />
-          }
-          @case (3) {
-            <app-reg-ch2-projection />
-          }
-          @case (4) {
-            <app-reg-ch2-partial-regression />
-          }
+      } @else {
+        @if (currentAlgebraV2Lesson(); as lesson) {
+          <app-algebra-v2-lesson [lesson]="lesson" />
         }
       }
-      @case ('reg/ch3') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-reg-ch3-assumptions />
-          }
-          @case (2) {
-            <app-reg-ch3-gauss-markov />
-          }
-          @case (3) {
-            <app-reg-ch3-f-test />
+    } @else {
+      @switch (subject() + '/' + chapterId()) {
+        @case ('linalg/ch1') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-what-is-vector />
+            }
+            @case (2) {
+              <app-step-vector-ops />
+            }
+            @case (3) {
+              <app-step-linear-combo />
+            }
+            @case (4) {
+              <app-step-span />
+            }
+            @case (5) {
+              <app-step-independence />
+            }
+            @case (6) {
+              <app-step-basis />
+            }
           }
         }
-      }
-      @case ('reg/ch4') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-reg-ch4-residual-diagnostics />
+        @case ('linalg/ch2') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-what-is-transform />
+            }
+            @case (2) {
+              <app-step-matrix-fingerprint />
+            }
+            @case (3) {
+              <app-step-matrix-vector />
+            }
+            @case (4) {
+              <app-step-linalg-composition />
+            }
+            @case (5) {
+              <app-step-determinant />
+            }
+            @case (6) {
+              <app-step-inverse />
+            }
           }
-          @case (2) {
-            <app-reg-ch4-qq-plot />
-          }
-          @case (3) {
-            <app-reg-ch4-leverage />
-          }
-          @case (4) {
-            <app-reg-ch4-vif />
-          }
         }
-      }
-      @case ('reg/ch5') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-reg-ch5-bias-variance />
-          }
-          @case (2) {
-            <app-reg-ch5-ridge />
-          }
-          @case (3) {
-            <app-reg-ch5-lasso />
-          }
-          @case (4) {
-            <app-reg-ch5-cv-elastic />
+        @case ('linalg/ch3') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-dot-product />
+            }
+            @case (2) {
+              <app-step-dot-geometry />
+            }
+            @case (3) {
+              <app-step-projection />
+            }
+            @case (4) {
+              <app-step-orthogonal />
+            }
+            @case (5) {
+              <app-step-orthonormal-basis />
+            }
+            @case (6) {
+              <app-step-gram-schmidt />
+            }
           }
         }
-      }
-      @case ('reg/ch6') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-reg-ch6-one-way />
-          }
-          @case (2) {
-            <app-reg-ch6-two-way />
+        @case ('linalg/ch4') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-two-lines />
+            }
+            @case (2) {
+              <app-step-matrix-form />
+            }
+            @case (3) {
+              <app-step-elimination />
+            }
+            @case (4) {
+              <app-step-when-solvable />
+            }
+            @case (5) {
+              <app-step-solution-space />
+            }
+            @case (6) {
+              <app-step-applications />
+            }
           }
-          @case (3) {
-            <app-reg-ch6-ancova />
-          }
         }
-      }
-      @case ('reg/ch7') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-reg-ch7-link-function />
-          }
-          @case (2) {
-            <app-reg-ch7-logistic />
-          }
-          @case (3) {
-            <app-reg-ch7-poisson />
-          }
-          @case (4) {
-            <app-reg-ch7-deviance />
+        @case ('linalg/ch5') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-subspace />
+            }
+            @case (2) {
+              <app-step-column-space />
+            }
+            @case (3) {
+              <app-step-null-space />
+            }
+            @case (4) {
+              <app-step-rank />
+            }
+            @case (5) {
+              <app-step-four-subspaces />
+            }
+            @case (6) {
+              <app-step-fundamental-thm />
+            }
           }
         }
-      }
-      @case ('reg/ch8') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-reg-ch8-flexible />
-          }
-          @case (2) {
-            <app-reg-ch8-finale />
+        @case ('linalg/ch6') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-invariant-directions />
+            }
+            @case (2) {
+              <app-step-eigen-definition />
+            }
+            @case (3) {
+              <app-step-characteristic />
+            }
+            @case (4) {
+              <app-step-diagonalization />
+            }
+            @case (5) {
+              <app-step-matrix-powers />
+            }
+            @case (6) {
+              <app-step-markov />
+            }
           }
         }
-      }
-      @case ('bayes/ch1') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-bayes-ch1-two-worlds />
-          }
-          @case (2) {
-            <app-bayes-ch1-bayes-theorem />
-          }
-          @case (3) {
-            <app-bayes-ch1-three-curves />
-          }
-          @case (4) {
-            <app-bayes-ch1-point-estimates />
+        @case ('linalg/ch7') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-what-is-symmetric />
+            }
+            @case (2) {
+              <app-step-quadratic-form />
+            }
+            @case (3) {
+              <app-step-surface-shapes />
+            }
+            @case (4) {
+              <app-step-orthogonal-eigenvectors />
+            }
+            @case (5) {
+              <app-step-principal-axes />
+            }
+            @case (6) {
+              <app-step-positive-definite />
+            }
           }
         }
-      }
-      @case ('bayes/ch2') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-bayes-ch2-beta-binomial />
+        @case ('linalg/ch8') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-why-svd />
+            }
+            @case (2) {
+              <app-step-svd-geometry />
+            }
+            @case (3) {
+              <app-step-svd-subspaces />
+            }
+            @case (4) {
+              <app-step-low-rank />
+            }
+            @case (5) {
+              <app-step-image-compression />
+            }
+            @case (6) {
+              <app-step-pca />
+            }
           }
-          @case (2) {
-            <app-bayes-ch2-normal-normal />
-          }
-          @case (3) {
-            <app-bayes-ch2-gamma-poisson />
-          }
         }
-      }
-      @case ('topology/ch1') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-why-topology />
-          }
-          @case (2) {
-            <app-step-open-set-axioms />
-          }
-          @case (3) {
-            <app-step-topology-examples />
-          }
-          @case (4) {
-            <app-step-topo-closed-sets />
-          }
-          @case (5) {
-            <app-step-topo-basis />
-          }
-          @case (6) {
-            <app-step-metric-topology />
-          }
-          @case (7) {
-            <app-step-comparing-topologies />
+        @case ('linalg/ch9') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-1d-ode />
+            }
+            @case (2) {
+              <app-step-vector-field />
+            }
+            @case (3) {
+              <app-step-eigenvalue-solution />
+            }
+            @case (4) {
+              <app-step-matrix-exp />
+            }
+            @case (5) {
+              <app-step-stability />
+            }
+            @case (6) {
+              <app-step-damped-oscillator />
+            }
+            @case (7) {
+              <app-step-lorenz />
+            }
           }
-          @case (8) {
-            <app-step-subspace-topology />
-          }
-          @case (9) {
-            <app-step-interior-closure />
-          }
-          @case (10) {
-            <app-step-ch1-topo-mind-map />
-          }
         }
-      }
-      @case ('topology/ch2') {
-        @switch (currentStep()) {
-          @case (1) {
-            <app-step-continuous-maps />
-          }
-          @case (2) {
-            <app-step-continuity-examples />
-          }
-          @case (3) {
-            <app-step-homeomorphism />
-          }
-          @case (4) {
-            <app-step-topological-invariants />
-          }
-          @case (5) {
-            <app-step-product-topology />
-          }
-          @case (6) {
-            <app-step-quotient-topology />
-          }
-          @case (7) {
-            <app-step-hausdorff />
-          }
-          @case (8) {
-            <app-step-open-closed-maps />
-          }
-          @case (9) {
-            <app-step-embedding />
+        @case ('linalg/ch10') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-why-complex />
+            }
+            @case (2) {
+              <app-step-complex-vectors />
+            }
+            @case (3) {
+              <app-step-hermitian />
+            }
+            @case (4) {
+              <app-step-unitary />
+            }
+            @case (5) {
+              <app-step-pauli />
+            }
+            @case (6) {
+              <app-step-bloch-sphere />
+            }
+            @case (7) {
+              <app-step-quantum-gates />
+            }
+            @case (8) {
+              <app-step-measurement />
+            }
           }
-          @case (10) {
-            <app-step-ch2-topo-mind-map />
+        }
+        @case ('linalg/ch11') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-abstract-vector-space />
+            }
+            @case (2) {
+              <app-step-polynomial-space />
+            }
+            @case (3) {
+              <app-step-basis-dimension />
+            }
+            @case (4) {
+              <app-step-linearity />
+            }
+            @case (5) {
+              <app-step-differential-matrix />
+            }
+            @case (6) {
+              <app-step-function-space />
+            }
+            @case (7) {
+              <app-step-functions-as-vectors />
+            }
+          }
+        }
+        @case ('linalg/ch12') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-function-inner-product />
+            }
+            @case (2) {
+              <app-step-orthogonal-functions />
+            }
+            @case (3) {
+              <app-step-function-projection />
+            }
+            @case (4) {
+              <app-step-legendre />
+            }
+            @case (5) {
+              <app-step-fourier-basis />
+            }
+            @case (6) {
+              <app-step-fourier-series />
+            }
+            @case (7) {
+              <app-step-gibbs />
+            }
+          }
+        }
+        @case ('linalg/ch13') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-linear-regression />
+            }
+            @case (2) {
+              <app-step-polynomial-fit />
+            }
+            @case (3) {
+              <app-step-ridge />
+            }
+            @case (4) {
+              <app-step-logistic />
+            }
+            @case (5) {
+              <app-step-neural-net />
+            }
+            @case (6) {
+              <app-step-convolution />
+            }
+            @case (7) {
+              <app-step-backprop />
+            }
+            @case (8) {
+              <app-step-matrix-factorization />
+            }
+          }
+        }
+        @case ('linalg/ch14') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-graph-matrix />
+            }
+            @case (2) {
+              <app-step-incidence />
+            }
+            @case (3) {
+              <app-step-laplacian />
+            }
+            @case (4) {
+              <app-step-fiedler />
+            }
+            @case (5) {
+              <app-step-spectral-clustering />
+            }
+            @case (6) {
+              <app-step-pagerank />
+            }
+            @case (7) {
+              <app-step-random-walk />
+            }
+          }
+        }
+        @case ('linalg/ch15') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-floating-point />
+            }
+            @case (2) {
+              <app-step-condition-number />
+            }
+            @case (3) {
+              <app-step-lu-decomposition />
+            }
+            @case (4) {
+              <app-step-pivoting />
+            }
+            @case (5) {
+              <app-step-qr-decomposition />
+            }
+            @case (6) {
+              <app-step-iterative-methods />
+            }
+            @case (7) {
+              <app-step-conjugate-gradient />
+            }
+          }
+        }
+        @case ('linalg/ch16') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-why-least-squares />
+            }
+            @case (2) {
+              <app-step-column-space-projection />
+            }
+            @case (3) {
+              <app-step-normal-equations />
+            }
+            @case (4) {
+              <app-step-qr-least-squares />
+            }
+            @case (5) {
+              <app-step-pseudoinverse />
+            }
+            @case (6) {
+              <app-step-minimum-norm />
+            }
+          }
+        }
+        @case ('linalg/ch17') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-defective-matrix />
+            }
+            @case (2) {
+              <app-step-schur-decomposition />
+            }
+            @case (3) {
+              <app-step-cayley-hamilton />
+            }
+            @case (4) {
+              <app-step-generalized-eigenvectors />
+            }
+            @case (5) {
+              <app-step-jordan-blocks />
+            }
+            @case (6) {
+              <app-step-jordan-form />
+            }
+            @case (7) {
+              <app-step-jordan-applications />
+            }
+          }
+        }
+        @case ('linalg/ch18') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-linear-functional />
+            }
+            @case (2) {
+              <app-step-dual-space />
+            }
+            @case (3) {
+              <app-step-dual-basis />
+            }
+            @case (4) {
+              <app-step-transpose-dual />
+            }
+            @case (5) {
+              <app-step-annihilator />
+            }
+            @case (6) {
+              <app-step-covectors-physics />
+            }
+            @case (7) {
+              <app-step-double-dual />
+            }
+          }
+        }
+        @case ('analysis/ch1') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-rational-enough />
+            }
+            @case (2) {
+              <app-step-rational-holes />
+            }
+            @case (3) {
+              <app-step-sup-inf />
+            }
+            @case (4) {
+              <app-step-completeness-axiom />
+            }
+            @case (5) {
+              <app-step-archimedean />
+            }
+            @case (6) {
+              <app-step-nested-intervals />
+            }
+            @case (7) {
+              <app-step-decimal-expansion />
+            }
+            @case (8) {
+              <app-step-uncountability />
+            }
+            @case (9) {
+              <app-step-cantor-set />
+            }
+            @case (10) {
+              <app-step-mind-map />
+            }
+          }
+        }
+        @case ('analysis/ch2') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-what-is-sequence />
+            }
+            @case (2) {
+              <app-step-epsilon-n />
+            }
+            @case (3) {
+              <app-step-limit-laws />
+            }
+            @case (4) {
+              <app-step-monotone-bounded />
+            }
+            @case (5) {
+              <app-step-bolzano-weierstrass />
+            }
+            @case (6) {
+              <app-step-cauchy />
+            }
+            @case (7) {
+              <app-step-important-limits />
+            }
+            @case (8) {
+              <app-step-limsup-liminf />
+            }
+            @case (9) {
+              <app-step-ch2-mind-map />
+            }
+          }
+        }
+        @case ('analysis/ch3') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-what-is-series />
+            }
+            @case (2) {
+              <app-step-comparison-tests />
+            }
+            @case (3) {
+              <app-step-ratio-root-tests />
+            }
+            @case (4) {
+              <app-step-integral-test />
+            }
+            @case (5) {
+              <app-step-alternating-series />
+            }
+            @case (6) {
+              <app-step-absolute-conditional />
+            }
+            @case (7) {
+              <app-step-power-series />
+            }
+            @case (8) {
+              <app-step-taylor-series />
+            }
+            @case (9) {
+              <app-step-ch3-mind-map />
+            }
+          }
+        }
+        @case ('analysis/ch4') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-function-limits />
+            }
+            @case (2) {
+              <app-step-continuity-def />
+            }
+            @case (3) {
+              <app-step-continuity-intuition />
+            }
+            @case (4) {
+              <app-step-discontinuity-types />
+            }
+            @case (5) {
+              <app-step-ivt />
+            }
+            @case (6) {
+              <app-step-extreme-value />
+            }
+            @case (7) {
+              <app-step-uniform-continuity />
+            }
+            @case (8) {
+              <app-step-function-spaces />
+            }
+            @case (9) {
+              <app-step-ch4-mind-map />
+            }
+            @case (10) {
+              <app-step-explore-fourier-approx />
+            }
+            @case (11) {
+              <app-step-explore-taylor />
+            }
+            @case (12) {
+              <app-step-explore-pde />
+            }
+          }
+        }
+        @case ('analysis/ch5') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-derivative-def />
+            }
+            @case (2) {
+              <app-step-diff-continuous />
+            }
+            @case (3) {
+              <app-step-diff-rules />
+            }
+            @case (4) {
+              <app-step-mean-value />
+            }
+            @case (5) {
+              <app-step-lhopital />
+            }
+            @case (6) {
+              <app-step-taylor-revisit />
+            }
+            @case (7) {
+              <app-step-convex-functions />
+            }
+            @case (8) {
+              <app-step-inverse-function />
+            }
+            @case (9) {
+              <app-step-ch5-mind-map />
+            }
+          }
+        }
+        @case ('analysis/ch6') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-riemann-idea />
+            }
+            @case (2) {
+              <app-step-upper-lower-sums />
+            }
+            @case (3) {
+              <app-step-integrability />
+            }
+            @case (4) {
+              <app-step-ftc />
+            }
+            @case (5) {
+              <app-step-integration-techniques />
+            }
+            @case (6) {
+              <app-step-improper-integrals />
+            }
+            @case (7) {
+              <app-step-interchange />
+            }
+            @case (8) {
+              <app-step-gamma-function />
+            }
+            @case (9) {
+              <app-step-ch6-mind-map />
+            }
+          }
+        }
+        @case ('analysis/ch7') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-pointwise-convergence />
+            }
+            @case (2) {
+              <app-step-uniform-convergence />
+            }
+            @case (3) {
+              <app-step-m-test />
+            }
+            @case (4) {
+              <app-step-continuity-preservation />
+            }
+            @case (5) {
+              <app-step-term-differentiation />
+            }
+            @case (6) {
+              <app-step-term-integration />
+            }
+            @case (7) {
+              <app-step-power-series-properties />
+            }
+            @case (8) {
+              <app-step-stone-weierstrass />
+            }
+            @case (9) {
+              <app-step-arzela-ascoli />
+            }
+            @case (10) {
+              <app-step-ch7-mind-map />
+            }
+          }
+        }
+        @case ('analysis/ch8') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-metric-space-def />
+            }
+            @case (2) {
+              <app-step-lp-balls />
+            }
+            @case (3) {
+              <app-step-function-metrics />
+            }
+            @case (4) {
+              <app-step-open-closed />
+            }
+            @case (5) {
+              <app-step-convergence-completeness />
+            }
+            @case (6) {
+              <app-step-compactness />
+            }
+            @case (7) {
+              <app-step-connectedness />
+            }
+            @case (8) {
+              <app-step-contraction />
+            }
+            @case (9) {
+              <app-step-unification />
+            }
+            @case (10) {
+              <app-step-ch8-mind-map />
+            }
+          }
+        }
+        @case ('analysis/ch9') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-riemann-limits />
+            }
+            @case (2) {
+              <app-step-outer-measure />
+            }
+            @case (3) {
+              <app-step-measurable-sets />
+            }
+            @case (4) {
+              <app-step-measure-properties />
+            }
+            @case (5) {
+              <app-step-measure-zero />
+            }
+            @case (6) {
+              <app-step-nonmeasurable />
+            }
+            @case (7) {
+              <app-step-measurable-functions />
+            }
+            @case (8) {
+              <app-step-riemann-comparison />
+            }
+            @case (9) {
+              <app-step-ch9-mind-map />
+            }
+          }
+        }
+        @case ('analysis/ch10') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-simple-integral />
+            }
+            @case (2) {
+              <app-step-nonneg-integral />
+            }
+            @case (3) {
+              <app-step-general-integral />
+            }
+            @case (4) {
+              <app-step-mct />
+            }
+            @case (5) {
+              <app-step-fatou />
+            }
+            @case (6) {
+              <app-step-dct />
+            }
+            @case (7) {
+              <app-step-riemann-lebesgue />
+            }
+            @case (8) {
+              <app-step-fubini-preview />
+            }
+            @case (9) {
+              <app-step-ch10-mind-map />
+            }
+          }
+        }
+        @case ('analysis/ch11') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-lp-space-def />
+            }
+            @case (2) {
+              <app-step-holder />
+            }
+            @case (3) {
+              <app-step-minkowski />
+            }
+            @case (4) {
+              <app-step-riesz-fischer />
+            }
+            @case (5) {
+              <app-step-l2-inner />
+            }
+            @case (6) {
+              <app-step-dense-subsets />
+            }
+            @case (7) {
+              <app-step-convergence-modes />
+            }
+            @case (8) {
+              <app-step-lp-dual />
+            }
+            @case (9) {
+              <app-step-ch11-mind-map />
+            }
+          }
+        }
+        @case ('analysis/ch12') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-inner-product-space />
+            }
+            @case (2) {
+              <app-step-orthogonal-projection />
+            }
+            @case (3) {
+              <app-step-fourier-expansion />
+            }
+            @case (4) {
+              <app-step-orthogonal-complement />
+            }
+            @case (5) {
+              <app-step-riesz-representation />
+            }
+            @case (6) {
+              <app-step-weak-convergence />
+            }
+            @case (7) {
+              <app-step-compact-operators />
+            }
+            @case (8) {
+              <app-step-quantum-language />
+            }
+            @case (9) {
+              <app-step-ch12-mind-map />
+            }
+          }
+        }
+        @case ('analysis/ch13') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-rn-topology />
+            }
+            @case (2) {
+              <app-step-multivariable-limits />
+            }
+            @case (3) {
+              <app-step-partial-derivatives />
+            }
+            @case (4) {
+              <app-step-total-derivative />
+            }
+            @case (5) {
+              <app-step-chain-rule-mv />
+            }
+            @case (6) {
+              <app-step-mvt-taylor-mv />
+            }
+            @case (7) {
+              <app-step-inverse-function-mv />
+            }
+            @case (8) {
+              <app-step-implicit-function />
+            }
+            @case (9) {
+              <app-step-ch13-mind-map />
+            }
+          }
+        }
+        @case ('analysis/ch14') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-double-integral-idea />
+            }
+            @case (2) {
+              <app-step-fubini />
+            }
+            @case (3) {
+              <app-step-iterated-integrals />
+            }
+            @case (4) {
+              <app-step-nonrectangular />
+            }
+            @case (5) {
+              <app-step-change-of-order />
+            }
+            @case (6) {
+              <app-step-polar-coords />
+            }
+            @case (7) {
+              <app-step-change-of-variables />
+            }
+            @case (8) {
+              <app-step-improper-2d />
+            }
+            @case (9) {
+              <app-step-applications-2d />
+            }
+            @case (10) {
+              <app-step-ch14-mind-map />
+            }
+          }
+        }
+        @case ('analysis/ch15') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-vector-fields-intro />
+            }
+            @case (2) {
+              <app-step-line-integral-scalar />
+            }
+            @case (3) {
+              <app-step-line-integral-vector />
+            }
+            @case (4) {
+              <app-step-conservative-fields />
+            }
+            @case (5) {
+              <app-step-curl-divergence />
+            }
+            @case (6) {
+              <app-step-green-theorem />
+            }
+            @case (7) {
+              <app-step-green-area />
+            }
+            @case (8) {
+              <app-step-flux />
+            }
+            @case (9) {
+              <app-step-simply-connected />
+            }
+            @case (10) {
+              <app-step-ch15-mind-map />
+            }
+          }
+        }
+        @case ('analysis/ch16') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-parametric-surfaces />
+            }
+            @case (2) {
+              <app-step-surface-area />
+            }
+            @case (3) {
+              <app-step-scalar-surface-integral />
+            }
+            @case (4) {
+              <app-step-flux-3d />
+            }
+            @case (5) {
+              <app-step-divergence-theorem />
+            }
+            @case (6) {
+              <app-step-curl-3d />
+            }
+            @case (7) {
+              <app-step-stokes-theorem />
+            }
+            @case (8) {
+              <app-step-orientation />
+            }
+            @case (9) {
+              <app-step-unification-ftc />
+            }
+            @case (10) {
+              <app-step-ch16-mind-map />
+            }
+          }
+        }
+        @case ('analysis/ch17') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-why-fourier />
+            }
+            @case (2) {
+              <app-step-fourier-coefficients />
+            }
+            @case (3) {
+              <app-step-partial-sums />
+            }
+            @case (4) {
+              <app-step-gibbs-phenomenon />
+            }
+            @case (5) {
+              <app-step-convergence-theorems />
+            }
+            @case (6) {
+              <app-step-parseval />
+            }
+            @case (7) {
+              <app-step-fourier-transform />
+            }
+            @case (8) {
+              <app-step-convolution-fourier />
+            }
+            @case (9) {
+              <app-step-applications-fourier />
+            }
+            @case (10) {
+              <app-step-ch17-mind-map />
+            }
+          }
+        }
+        @case ('analysis/ch19') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-why-forms />
+            }
+            @case (2) {
+              <app-step-one-forms />
+            }
+            @case (3) {
+              <app-step-two-forms />
+            }
+            @case (4) {
+              <app-step-exterior-derivative />
+            }
+            @case (5) {
+              <app-step-pullback />
+            }
+            @case (6) {
+              <app-step-generalized-stokes />
+            }
+            @case (7) {
+              <app-step-closed-exact />
+            }
+            @case (8) {
+              <app-step-integration-forms />
+            }
+            @case (9) {
+              <app-step-manifolds-preview />
+            }
+            @case (10) {
+              <app-step-ch19-mind-map />
+            }
+          }
+        }
+        @case ('analysis/ch18') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-why-distributions />
+            }
+            @case (2) {
+              <app-step-test-functions />
+            }
+            @case (3) {
+              <app-step-distribution-def />
+            }
+            @case (4) {
+              <app-step-dirac-delta />
+            }
+            @case (5) {
+              <app-step-distributional-derivative />
+            }
+            @case (6) {
+              <app-step-schwartz-space />
+            }
+            @case (7) {
+              <app-step-fourier-distributions />
+            }
+            @case (8) {
+              <app-step-convolution-distributions />
+            }
+            @case (9) {
+              <app-step-green-function />
+            }
+            @case (10) {
+              <app-step-ch18-mind-map />
+            }
+          }
+        }
+        @case ('complex/ch1') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-what-is-complex />
+            }
+            @case (2) {
+              <app-step-complex-arithmetic />
+            }
+            @case (3) {
+              <app-step-polar-form />
+            }
+            @case (4) {
+              <app-step-complex-sets />
+            }
+          }
+        }
+        @case ('complex/ch2') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-complex-functions />
+            }
+            @case (2) {
+              <app-step-cauchy-riemann />
+            }
+            @case (3) {
+              <app-step-analytic-examples />
+            }
+            @case (4) {
+              <app-step-harmonic />
+            }
+            @case (5) {
+              <app-step-complex-dissection />
+            }
+            @case (6) {
+              <app-step-deep-inversion />
+            }
+            @case (7) {
+              <app-step-deep-square />
+            }
+            @case (8) {
+              <app-step-deep-exp />
+            }
+          }
+        }
+        @case ('complex/ch3') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-contour-integral />
+            }
+            @case (2) {
+              <app-step-cauchy-theorem />
+            }
+            @case (3) {
+              <app-step-cauchy-formula />
+            }
+            @case (4) {
+              <app-step-liouville />
+            }
+            @case (5) {
+              <app-step-max-modulus />
+            }
+          }
+        }
+        @case ('complex/ch4') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-taylor-complex />
+            }
+            @case (2) {
+              <app-step-laurent />
+            }
+            @case (3) {
+              <app-step-singularities />
+            }
+            @case (4) {
+              <app-step-zeros-poles />
+            }
+            @case (5) {
+              <app-step-riemann-sphere />
+            }
+          }
+        }
+        @case ('ag/ch1') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-poly-shapes />
+            }
+            @case (2) {
+              <app-step-affine-variety />
+            }
+            @case (3) {
+              <app-step-singular-points />
+            }
+            @case (4) {
+              <app-step-curve-topology />
+            }
+            @case (5) {
+              <app-step-projective />
+            }
+          }
+        }
+        @case ('ag/ch2') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-variety-to-ideal />
+            }
+            @case (2) {
+              <app-step-ideal-to-variety />
+            }
+            @case (3) {
+              <app-step-ag-nullstellensatz />
+            }
+            @case (4) {
+              <app-step-ag-irreducible />
+            }
+            @case (5) {
+              <app-step-zariski />
+            }
+          }
+        }
+        @case ('ag/ch3') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-ec-intro />
+            }
+            @case (2) {
+              <app-step-ec-group-law />
+            }
+            @case (3) {
+              <app-step-ec-identity />
+            }
+            @case (4) {
+              <app-step-ec-rational />
+            }
+            @case (5) {
+              <app-step-ec-crypto />
+            }
+          }
+        }
+        @case ('ag/ch4') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-poly-division-problem />
+            }
+            @case (2) {
+              <app-step-monomial-order />
+            }
+            @case (3) {
+              <app-step-multi-division />
+            }
+            @case (4) {
+              <app-step-groebner-basis />
+            }
+            @case (5) {
+              <app-step-ag-elimination />
+            }
+          }
+        }
+        @case ('ag/ch5') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-curves-to-surfaces />
+            }
+            @case (2) {
+              <app-step-quadric-surfaces />
+            }
+            @case (3) {
+              <app-step-cubic-surface />
+            }
+            @case (4) {
+              <app-step-surface-singularities />
+            }
+            @case (5) {
+              <app-step-surface-classification />
+            }
+          }
+        }
+        @case ('ag/ch6') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-what-is-blowup />
+            }
+            @case (2) {
+              <app-step-blowup-curves />
+            }
+            @case (3) {
+              <app-step-resolve-node />
+            }
+            @case (4) {
+              <app-step-resolve-cusp />
+            }
+            @case (5) {
+              <app-step-hironaka />
+            }
+          }
+        }
+        @case ('ag/ch7') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-what-is-divisor />
+            }
+            @case (2) {
+              <app-step-principal-divisor />
+            }
+            @case (3) {
+              <app-step-line-bundle />
+            }
+            @case (4) {
+              <app-step-divisor-bundle-corresp />
+            }
+            @case (5) {
+              <app-step-section-space />
+            }
+            @case (6) {
+              <app-step-ag-riemann-roch />
+            }
+            @case (7) {
+              <app-step-rr-applications />
+            }
+          }
+        }
+        @case ('de/ch1') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-de-ch1-phenomenon />
+            }
+            @case (2) {
+              <app-de-ch1-slope-field />
+            }
+            @case (3) {
+              <app-de-ch1-following-arrows />
+            }
+            @case (4) {
+              <app-de-ch1-ivp />
+            }
+            @case (5) {
+              <app-de-ch1-analytic-vs-numerical />
+            }
+            @case (6) {
+              <app-de-ch1-classification />
+            }
+            @case (7) {
+              <app-de-ch1-free-fall />
+            }
+            @case (8) {
+              <app-de-ch1-roadmap />
+            }
+          }
+        }
+        @case ('de/ch2') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-de-ch2-map />
+            }
+            @case (2) {
+              <app-de-ch2-separable />
+            }
+            @case (3) {
+              <app-de-ch2-linear />
+            }
+            @case (4) {
+              <app-de-ch2-exact />
+            }
+            @case (5) {
+              <app-de-ch2-substitution />
+            }
+            @case (6) {
+              <app-de-ch2-diagnostic />
+            }
+          }
+        }
+        @case ('de/ch3') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-de-ch3-workflow />
+            }
+            @case (2) {
+              <app-de-ch3-cooling />
+            }
+            @case (3) {
+              <app-de-ch3-mixing />
+            }
+            @case (4) {
+              <app-de-ch3-rc />
+            }
+            @case (5) {
+              <app-de-ch3-projectile />
+            }
+            @case (6) {
+              <app-de-ch3-logistic />
+            }
+            @case (7) {
+              <app-de-ch3-philosophy />
+            }
+          }
+        }
+        @case ('de/ch4') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-de-ch4-existence />
+            }
+            @case (2) {
+              <app-de-ch4-euler />
+            }
+            @case (3) {
+              <app-de-ch4-error />
+            }
+            @case (4) {
+              <app-de-ch4-rk />
+            }
+            @case (5) {
+              <app-de-ch4-adaptive />
+            }
+            @case (6) {
+              <app-de-ch4-stiff />
+            }
+            @case (7) {
+              <app-de-ch4-summary />
+            }
+          }
+        }
+        @case ('de/ch5') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-de-ch5-intro />
+            }
+            @case (2) {
+              <app-de-ch5-char-eq />
+            }
+            @case (3) {
+              <app-de-ch5-shm />
+            }
+            @case (4) {
+              <app-de-ch5-damping />
+            }
+            @case (5) {
+              <app-de-ch5-energy />
+            }
+            @case (6) {
+              <app-de-ch5-phase />
+            }
+            @case (7) {
+              <app-de-ch5-universality />
+            }
+          }
+        }
+        @case ('de/ch6') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-de-ch6-nonhom />
+            }
+            @case (2) {
+              <app-de-ch6-undetermined />
+            }
+            @case (3) {
+              <app-de-ch6-resonance />
+            }
+            @case (4) {
+              <app-de-ch6-freq-response />
+            }
+            @case (5) {
+              <app-de-ch6-beats />
+            }
+            @case (6) {
+              <app-de-ch6-applications />
+            }
+          }
+        }
+        @case ('de/ch7') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-de-ch7-definition />
+            }
+            @case (2) {
+              <app-de-ch7-solve-ode />
+            }
+            @case (3) {
+              <app-de-ch7-inverse />
+            }
+            @case (4) {
+              <app-de-ch7-step-impulse />
+            }
+            @case (5) {
+              <app-de-ch7-convolution />
+            }
+            @case (6) {
+              <app-de-ch7-summary />
+            }
+          }
+        }
+        @case ('de/ch8') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-de-ch8-intro />
+            }
+            @case (2) {
+              <app-de-ch8-matrix-exp />
+            }
+            @case (3) {
+              <app-de-ch8-eigen />
+            }
+            @case (4) {
+              <app-de-ch8-portraits />
+            }
+            @case (5) {
+              <app-de-ch8-trace-det />
+            }
+            @case (6) {
+              <app-de-ch8-coupled />
+            }
+          }
+        }
+        @case ('de/ch9') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-de-ch9-intro />
+            }
+            @case (2) {
+              <app-de-ch9-equilibria />
+            }
+            @case (3) {
+              <app-de-ch9-hartman />
+            }
+            @case (4) {
+              <app-de-ch9-lotka />
+            }
+            @case (5) {
+              <app-de-ch9-vdp />
+            }
+            @case (6) {
+              <app-de-ch9-pendulum />
+            }
+          }
+        }
+        @case ('de/ch10') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-de-ch10-why-series />
+            }
+            @case (2) {
+              <app-de-ch10-power-series />
+            }
+            @case (3) {
+              <app-de-ch10-frobenius />
+            }
+            @case (4) {
+              <app-de-ch10-special-gallery />
+            }
+            @case (5) {
+              <app-de-ch10-physics-link />
+            }
+          }
+        }
+        @case ('de/ch11') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-de-ch11-bvp-vs-ivp />
+            }
+            @case (2) {
+              <app-de-ch11-eigenvalue />
+            }
+            @case (3) {
+              <app-de-ch11-orthogonality />
+            }
+            @case (4) {
+              <app-de-ch11-expansion />
+            }
+            @case (5) {
+              <app-de-ch11-sl-form />
+            }
+          }
+        }
+        @case ('de/ch12') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-de-ch12-what-is-pde />
+            }
+            @case (2) {
+              <app-de-ch12-heat-derivation />
+            }
+            @case (3) {
+              <app-de-ch12-separation />
+            }
+            @case (4) {
+              <app-de-ch12-fourier-solution />
+            }
+            @case (5) {
+              <app-de-ch12-boundary-variations />
+            }
+            @case (6) {
+              <app-de-ch12-heat-gallery />
+            }
+          }
+        }
+        @case ('de/ch13') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-de-ch13-wave-derivation />
+            }
+            @case (2) {
+              <app-de-ch13-dalembert />
+            }
+            @case (3) {
+              <app-de-ch13-standing />
+            }
+            @case (4) {
+              <app-de-ch13-drum />
+            }
+            @case (5) {
+              <app-de-ch13-energy />
+            }
+          }
+        }
+        @case ('de/ch14') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-de-ch14-intro />
+            }
+            @case (2) {
+              <app-de-ch14-harmonic />
+            }
+            @case (3) {
+              <app-de-ch14-dirichlet />
+            }
+            @case (4) {
+              <app-de-ch14-disk />
+            }
+            @case (5) {
+              <app-de-ch14-summary />
+            }
+          }
+        }
+        @case ('de/ch15') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-de-ch15-bifurcation-intro />
+            }
+            @case (2) {
+              <app-de-ch15-hopf />
+            }
+            @case (3) {
+              <app-de-ch15-lorenz />
+            }
+            @case (4) {
+              <app-de-ch15-logistic />
+            }
+            @case (5) {
+              <app-de-ch15-finale />
+            }
+          }
+        }
+        @case ('prob/ch1') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-prob-v2-not-prophecy />
+            }
+            @case (2) {
+              <app-prob-v2-short-run-chaos />
+            }
+            @case (3) {
+              <app-prob-v2-long-run-pattern />
+            }
+          }
+        }
+        @case ('prob/ch2') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-prob-v2-experiment-outcome-space />
+            }
+            @case (2) {
+              <app-prob-v2-complete-outcomes />
+            }
+            @case (3) {
+              <app-prob-v2-events-as-regions />
+            }
+            @case (4) {
+              <app-prob-v2-modeling-granularity />
+            }
+          }
+        }
+        @case ('prob/ch3') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-prob-v2-names-vs-weights />
+            }
+            @case (2) {
+              <app-prob-v2-probability-mass />
+            }
+            @case (3) {
+              <app-prob-v2-equal-likelihood />
+            }
+            @case (4) {
+              <app-prob-v2-probability-foundations />
+            }
+          }
+        }
+        @case ('prob/ch4') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-prob-v2-event-operations />
+            }
+            @case (2) {
+              <app-prob-v2-double-counting />
+            }
+            @case (3) {
+              <app-prob-v2-complement-demorgan />
+            }
+            @case (4) {
+              <app-prob-v2-mutually-exclusive />
+            }
+          }
+        }
+        @case ('prob/ch5') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-prob-v2-branching-world />
+            }
+            @case (2) {
+              <app-prob-v2-path-multiplication />
+            }
+            @case (3) {
+              <app-prob-v2-replacement-world />
+            }
+            @case (4) {
+              <app-prob-v2-branch-sum />
+            }
+          }
+        }
+        @case ('prob/ch6') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-prob-v2-counting-principle />
+            }
+            @case (2) {
+              <app-prob-v2-permutation-slots />
+            }
+            @case (3) {
+              <app-prob-v2-combination-clusters />
+            }
+            @case (4) {
+              <app-prob-v2-repeated-elements />
+            }
+            @case (5) {
+              <app-prob-v2-birthday-model />
+            }
+          }
+        }
+        @case ('prob/ch7') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-prob-v2-count-language />
+            }
+            @case (2) {
+              <app-prob-v2-complement-paths />
+            }
+            @case (3) {
+              <app-prob-v2-reliability />
+            }
+            @case (4) {
+              <app-prob-v2-strategy-choice />
+            }
+          }
+        }
+        @case ('prob/ch8') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-prob-v2-world-shrinks />
+            }
+            @case (2) {
+              <app-prob-v2-given-direction />
+            }
+            @case (3) {
+              <app-prob-v2-nested-proportion />
+            }
+            @case (4) {
+              <app-prob-v2-information-updates-bag />
+            }
+          }
+        }
+        @case ('prob/ch9') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-prob-v2-ratio-invariant />
+            }
+            @case (2) {
+              <app-prob-v2-exclusive-vs-independent />
+            }
+            @case (3) {
+              <app-prob-v2-approximate-independence />
+            }
+            @case (4) {
+              <app-prob-v2-shared-cause />
+            }
+          }
+        }
+        @case ('prob/ch10') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-prob-v2-reverse-conditioning />
+            }
+            @case (2) {
+              <app-prob-v2-false-positive-frequencies />
+            }
+            @case (3) {
+              <app-prob-v2-bayes-weight-update />
+            }
+            @case (4) {
+              <app-prob-v2-total-evidence-pool />
+            }
+          }
+        }
+        @case ('prob/ch11') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-prob-v2-random-variable-machine />
+            }
+            @case (2) {
+              <app-prob-v2-many-measurements />
+            }
+            @case (3) {
+              <app-prob-v2-preimage-event />
+            }
+            @case (4) {
+              <app-prob-v2-output-scale />
+            }
+          }
+        }
+        @case ('prob/ch12') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-prob-v2-weight-map />
+            }
+            @case (2) {
+              <app-prob-v2-pmf-point-mass />
+            }
+            @case (3) {
+              <app-prob-v2-cdf-threshold />
+            }
+            @case (4) {
+              <app-prob-v2-pdf-area />
+            }
+            @case (5) {
+              <app-prob-v2-normalization />
+            }
+          }
+        }
+        @case ('prob/ch13') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-prob-v2-expectation-balance />
+            }
+            @case (2) {
+              <app-prob-v2-same-center />
+            }
+            @case (3) {
+              <app-prob-v2-linearity />
+            }
+            @case (4) {
+              <app-prob-v2-variance />
+            }
+            @case (5) {
+              <app-prob-v2-covariance />
+            }
+          }
+        }
+        @case ('prob/ch14') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-prob-v2-bernoulli-indicator />
+            }
+            @case (2) {
+              <app-prob-v2-repeated-trials />
+            }
+            @case (3) {
+              <app-prob-v2-binomial-compression />
+            }
+            @case (4) {
+              <app-prob-v2-binomial-shape />
+            }
+            @case (5) {
+              <app-prob-v2-binomial-assumptions />
+            }
+            @case (6) {
+              <app-prob-v2-geometric-stopping />
+            }
+            @case (7) {
+              <app-prob-v2-geometric-memoryless />
+            }
+            @case (8) {
+              <app-prob-v2-negative-binomial />
+            }
+          }
+        }
+        @case ('prob/ch15') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-prob-v2-event-stream-lenses />
+            }
+            @case (2) {
+              <app-prob-v2-poisson-window />
+            }
+            @case (3) {
+              <app-prob-v2-poisson-origin />
+            }
+            @case (4) {
+              <app-prob-v2-exponential-wait />
+            }
+            @case (5) {
+              <app-prob-v2-exponential-memoryless />
+            }
+            @case (6) {
+              <app-prob-v2-gamma-checkpoints />
+            }
+            @case (7) {
+              <app-prob-v2-gamma-shape-rate />
+            }
+            @case (8) {
+              <app-prob-v2-count-wait-duality />
+            }
+          }
+        }
+        @case ('prob/ch16') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-prob-v2-continuous-interval />
+            }
+            @case (2) {
+              <app-prob-v2-uniform-ruler />
+            }
+            @case (3) {
+              <app-prob-v2-affine-transport />
+            }
+            @case (4) {
+              <app-prob-v2-nonlinear-compression />
+            }
+            @case (5) {
+              <app-prob-v2-beta-ratio />
+            }
+            @case (6) {
+              <app-prob-v2-beta-shape />
+            }
+            @case (7) {
+              <app-prob-v2-beta-vs-binomial />
+            }
+            @case (8) {
+              <app-prob-v2-transformation-map />
+            }
+          }
+        }
+        @case ('prob/ch17') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-prob-v2-additive-noise />
+            }
+            @case (2) {
+              <app-prob-v2-normal-location-scale />
+            }
+            @case (3) {
+              <app-prob-v2-z-coordinate />
+            }
+            @case (4) {
+              <app-prob-v2-square-folding />
+            }
+            @case (5) {
+              <app-prob-v2-chi-square-energy />
+            }
+            @case (6) {
+              <app-prob-v2-degrees-freedom />
+            }
+            @case (7) {
+              <app-prob-v2-gamma-beta-bridge />
+            }
+            @case (8) {
+              <app-prob-v2-distribution-family-map />
+            }
+          }
+        }
+        @case ('prob/ch18') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-prob-v2-running-average />
+            }
+            @case (2) {
+              <app-prob-v2-many-worlds />
+            }
+            @case (3) {
+              <app-prob-v2-epsilon-band />
+            }
+            @case (4) {
+              <app-prob-v2-sum-average-scale />
+            }
+            @case (5) {
+              <app-prob-v2-no-compensation />
+            }
+            @case (6) {
+              <app-prob-v2-lln-dependence />
+            }
+            @case (7) {
+              <app-prob-v2-heavy-tail-boundary />
+            }
+            @case (8) {
+              <app-prob-v2-lln-clt-bridge />
+            }
+          }
+        }
+        @case ('prob/ch19') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-prob-v2-sqrt-n-microscope />
+            }
+            @case (2) {
+              <app-prob-v2-source-to-sum />
+            }
+            @case (3) {
+              <app-prob-v2-centering-scaling />
+            }
+            @case (4) {
+              <app-prob-v2-universality />
+            }
+            @case (5) {
+              <app-prob-v2-raw-data-myth />
+            }
+            @case (6) {
+              <app-prob-v2-clt-conditions />
+            }
+            @case (7) {
+              <app-prob-v2-normal-approximation />
+            }
+            @case (8) {
+              <app-prob-v2-probability-finale />
+            }
+          }
+        }
+        @case ('stats/ch1') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-stats-ch1-inverse-problem />
+            }
+            @case (2) {
+              <app-stats-ch1-sample-stats />
+            }
+            @case (3) {
+              <app-stats-ch1-sampling-dist />
+            }
+          }
+        }
+        @case ('stats/ch2') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-stats-ch2-estimator-properties />
+            }
+            @case (2) {
+              <app-stats-ch2-mle />
+            }
+            @case (3) {
+              <app-stats-ch2-mom />
+            }
+            @case (4) {
+              <app-stats-ch2-crlb />
+            }
+          }
+        }
+        @case ('stats/ch3') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-stats-ch3-ci-intuition />
+            }
+            @case (2) {
+              <app-stats-ch3-mean-ci />
+            }
+            @case (3) {
+              <app-stats-ch3-proportion-ci />
+            }
+          }
+        }
+        @case ('stats/ch4') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-stats-ch4-hypothesis-framework />
+            }
+            @case (2) {
+              <app-stats-ch4-z-t-test />
+            }
+            @case (3) {
+              <app-stats-ch4-power />
+            }
+            @case (4) {
+              <app-stats-ch4-neyman-pearson />
+            }
+          }
+        }
+        @case ('stats/ch5') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-stats-ch5-two-sample />
+            }
+            @case (2) {
+              <app-stats-ch5-chi-square />
+            }
+            @case (3) {
+              <app-stats-ch5-anova />
+            }
+          }
+        }
+        @case ('stats/ch6') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-stats-ch6-regression />
+            }
+            @case (2) {
+              <app-stats-ch6-r-squared />
+            }
+            @case (3) {
+              <app-stats-ch6-finale />
+            }
+          }
+        }
+        @case ('reg/ch1') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-reg-ch1-ols />
+            }
+            @case (2) {
+              <app-reg-ch1-variance-decomposition />
+            }
+            @case (3) {
+              <app-reg-ch1-residuals />
+            }
+            @case (4) {
+              <app-reg-ch1-inference />
+            }
+          }
+        }
+        @case ('reg/ch2') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-reg-ch2-why-multi />
+            }
+            @case (2) {
+              <app-reg-ch2-matrix-form />
+            }
+            @case (3) {
+              <app-reg-ch2-projection />
+            }
+            @case (4) {
+              <app-reg-ch2-partial-regression />
+            }
+          }
+        }
+        @case ('reg/ch3') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-reg-ch3-assumptions />
+            }
+            @case (2) {
+              <app-reg-ch3-gauss-markov />
+            }
+            @case (3) {
+              <app-reg-ch3-f-test />
+            }
+          }
+        }
+        @case ('reg/ch4') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-reg-ch4-residual-diagnostics />
+            }
+            @case (2) {
+              <app-reg-ch4-qq-plot />
+            }
+            @case (3) {
+              <app-reg-ch4-leverage />
+            }
+            @case (4) {
+              <app-reg-ch4-vif />
+            }
+          }
+        }
+        @case ('reg/ch5') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-reg-ch5-bias-variance />
+            }
+            @case (2) {
+              <app-reg-ch5-ridge />
+            }
+            @case (3) {
+              <app-reg-ch5-lasso />
+            }
+            @case (4) {
+              <app-reg-ch5-cv-elastic />
+            }
+          }
+        }
+        @case ('reg/ch6') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-reg-ch6-one-way />
+            }
+            @case (2) {
+              <app-reg-ch6-two-way />
+            }
+            @case (3) {
+              <app-reg-ch6-ancova />
+            }
+          }
+        }
+        @case ('reg/ch7') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-reg-ch7-link-function />
+            }
+            @case (2) {
+              <app-reg-ch7-logistic />
+            }
+            @case (3) {
+              <app-reg-ch7-poisson />
+            }
+            @case (4) {
+              <app-reg-ch7-deviance />
+            }
+          }
+        }
+        @case ('reg/ch8') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-reg-ch8-flexible />
+            }
+            @case (2) {
+              <app-reg-ch8-finale />
+            }
+          }
+        }
+        @case ('bayes/ch1') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-bayes-ch1-two-worlds />
+            }
+            @case (2) {
+              <app-bayes-ch1-bayes-theorem />
+            }
+            @case (3) {
+              <app-bayes-ch1-three-curves />
+            }
+            @case (4) {
+              <app-bayes-ch1-point-estimates />
+            }
+          }
+        }
+        @case ('bayes/ch2') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-bayes-ch2-beta-binomial />
+            }
+            @case (2) {
+              <app-bayes-ch2-normal-normal />
+            }
+            @case (3) {
+              <app-bayes-ch2-gamma-poisson />
+            }
+          }
+        }
+        @case ('topology/ch1') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-why-topology />
+            }
+            @case (2) {
+              <app-step-open-set-axioms />
+            }
+            @case (3) {
+              <app-step-topology-examples />
+            }
+            @case (4) {
+              <app-step-topo-closed-sets />
+            }
+            @case (5) {
+              <app-step-topo-basis />
+            }
+            @case (6) {
+              <app-step-metric-topology />
+            }
+            @case (7) {
+              <app-step-comparing-topologies />
+            }
+            @case (8) {
+              <app-step-subspace-topology />
+            }
+            @case (9) {
+              <app-step-interior-closure />
+            }
+            @case (10) {
+              <app-step-ch1-topo-mind-map />
+            }
+          }
+        }
+        @case ('topology/ch2') {
+          @switch (currentStep()) {
+            @case (1) {
+              <app-step-continuous-maps />
+            }
+            @case (2) {
+              <app-step-continuity-examples />
+            }
+            @case (3) {
+              <app-step-homeomorphism />
+            }
+            @case (4) {
+              <app-step-topological-invariants />
+            }
+            @case (5) {
+              <app-step-product-topology />
+            }
+            @case (6) {
+              <app-step-quotient-topology />
+            }
+            @case (7) {
+              <app-step-hausdorff />
+            }
+            @case (8) {
+              <app-step-open-closed-maps />
+            }
+            @case (9) {
+              <app-step-embedding />
+            }
+            @case (10) {
+              <app-step-ch2-topo-mind-map />
+            }
           }
         }
       }

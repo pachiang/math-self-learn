@@ -1,0 +1,23 @@
+import { Component, computed, signal } from '@angular/core';
+
+@Component({
+  selector: 'app-algebra-v3-collision-fingerprint',
+  standalone: true,
+  template: `
+    <article class="algebra-v3-lesson alg-ch18-lesson">
+      <header class="hero"><p class="eyebrow">Abstract Algebra · 18.1</p><h2>每一次 output collision，都有同一枚 fingerprint：兩個 inputs 相差一個 kernel action</h2><p class="lede">回到 φ:ℤ₁₂→ℤ₈、φ(n)=2n。選 a、b，同時看 output、difference 與 kernel-coset bucket；三個儀表其實在回答同一件事。</p></header>
+      <section class="prediction"><p class="kicker">先預測</p><h3>若 φ(a)=φ(b)，只是偶然撞到同一 output，還是一定能從 kernel 解釋？</h3><div class="choice-row"><button type="button" (click)="prediction.set(true)">一定由 kernel 解釋</button><button type="button" (click)="prediction.set(false)">可能只是偶然</button></div>@if(prediction()!==null){<p class="feedback" [class.warning]="!prediction()">{{prediction()?'對。φ(a−b)=φ(a)−φ(b)=0，所以 a−b∈ker φ。':'Homomorphism 的 collisions 不是散亂例外；kernel 收集了全部差異。'}}</p>}</section>
+      <section class="lab"><div class="lab-heading"><div><p class="kicker">Collision fingerprint</p><h3>替換 a、b，看三個判斷是否永遠同步</h3></div><p>預設是一組 collision；把 b 換到別桶即可看到三個儀表一起翻面。</p></div>
+        <div class="pair-pickers"><div role="group" aria-label="選擇 a">@for(n of domain;track n){<button type="button" [attr.aria-pressed]="a()===n" (click)="a.set(n)">a={{n}}</button>}</div><div role="group" aria-label="選擇 b">@for(n of domain;track n){<button type="button" [attr.aria-pressed]="b()===n" (click)="b.set(n)">b={{n}}</button>}</div></div>
+        <div class="stage fingerprint-stage"><section class="kernel-buckets" aria-label="ℤ₁₂ kernel cosets">@for(bucket of buckets;track $index){<article [class.has-a]="bucket.includes(a())" [class.has-b]="bucket.includes(b())"><span>COSET {{$index}}</span><div>@for(n of bucket;track n){<i [class.a]="n===a()" [class.b]="n===b()">{{n}}</i>}</div><small>{{bucket.includes(a())&&bucket.includes(b())?'A + B TOGETHER':bucket.includes(a())?'CONTAINS A':bucket.includes(b())?'CONTAINS B':'OTHER'}}</small></article>}</section><section class="fingerprint-console" aria-live="polite"><p class="kicker">THREE SYNCHRONIZED READINGS</p><div class="fingerprint-readings"><article><span>OUTPUTS</span><strong>{{map(a())}} {{sameOutput()?'=':'≠'}} {{map(b())}}</strong><small>{{sameOutput()?'COLLIDE':'SEPARATE'}}</small></article><article><span>DIFFERENCE a−b</span><strong>{{difference()}}</strong><small>{{differenceInKernel()?'IN KERNEL':'NOT IN KERNEL'}}</small></article><article><span>COSET</span><strong>{{bucketOf(a())}} {{sameBucket()?'=':'≠'}} {{bucketOf(b())}}</strong><small>{{sameBucket()?'SAME BUCKET':'DIFFERENT BUCKETS'}}</small></article></div><div class="map-verdict" [class.fail]="!sameOutput()">{{sameOutput()?'✓ ONE COLLISION · THREE EQUIVALENT READINGS':'× NO COLLISION · ALL THREE SEPARATE'}}</div></section></div>
+      </section>
+      <aside class="insight-card"><div class="insight-visual" aria-hidden="true"><span>φ(a)=φ(b)</span><i>exactly when</i><span>a⁻¹b∈ker φ</span><i>exactly when</i><span>same coset</span></div><p><strong>Kernel cosets 不是任意分桶；它們精確重現 homomorphism 的 collision pattern。</strong>沒有多合併，也沒有漏掉任何 collision。</p></aside>
+      <section class="transfer"><p class="kicker">遷移</p><h3>若兩個 elements 在不同 kernel cosets，φ 還可能把它們送到同一 output 嗎？</h3><div class="choice-row"><button type="button" (click)="transfer.set(false)">不可能</button><button type="button" (click)="transfer.set(true)">可能</button></div>@if(transfer()!==null){<p class="feedback" [class.warning]="transfer()">{{transfer()?'若 outputs 相同，它們就必須相差 kernel element，因而同 coset。':'對。分到不同 cosets 後，所有原始 collisions 已經被消除。'}}</p>}</section>
+      <section class="secondary"><p>SECONDARY LAYER</p><details><summary>一般 multiplicative proof</summary><div>φ(a)=φ(b) ⇔ φ(a)⁻¹φ(b)=e ⇔ φ(a⁻¹b)=e ⇔ a⁻¹b∈ker φ ⇔ a ker φ=b ker φ。</div></details><details><summary>本例的四個 fibers</summary><div>{{'{0,4,8}'}}→0、{{'{1,5,9}'}}→2、{{'{2,6,10}'}}→4、{{'{3,7,11}'}}→6；恰是 ℤ₁₂/ker φ 的四個 cosets。</div></details></section>
+    </article>
+  `,
+})
+export class AlgebraV3CollisionFingerprintComponent {
+  readonly prediction=signal<boolean|null>(null);readonly transfer=signal<boolean|null>(null);readonly a=signal(1);readonly b=signal(5);readonly domain=Array.from({length:12},(_,n)=>n);readonly buckets=[[0,4,8],[1,5,9],[2,6,10],[3,7,11]];
+  map(n:number):number{return(2*n)%8;}difference():number{return((this.a()-this.b())%12+12)%12;}differenceInKernel():boolean{return[0,4,8].includes(this.difference());}bucketOf(n:number):number{return n%4;}sameBucket():boolean{return this.bucketOf(this.a())===this.bucketOf(this.b());}sameOutput():boolean{return this.map(this.a())===this.map(this.b());}
+}

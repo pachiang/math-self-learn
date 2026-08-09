@@ -1,0 +1,83 @@
+.alg-ch6-lesson {
+  --lesson-accent: #8a5c35;
+  --lesson-accent-soft: #efe2d5;
+  --fault: #a34d45;
+
+  .contract-grid { display: grid; gap: 0.65rem; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .contract-grid button { text-align: left; }
+  .contract-grid strong,
+  .contract-grid span { display: block; }
+  .contract-grid span { color: var(--lesson-muted); font-size: 0.72rem; margin-top: 0.3rem; }
+  .contract-grid button[aria-pressed='true'] span { color: rgb(255 255 255 / 78%); }
+  .failure-stage { align-items: center; display: grid; gap: 1rem; grid-template-columns: minmax(250px, 0.8fr) minmax(380px, 1.2fr); }
+  .machine-schematic { background: color-mix(in srgb, var(--bg-elevated) 85%, white); border-radius: 0.9rem; min-height: 260px; padding: 1rem; position: relative; }
+  .state-nodes { display: grid; gap: 0.8rem; grid-template-columns: repeat(3, 1fr); margin-top: 2rem; }
+  .state-node { align-items: center; background: var(--lesson-accent-soft); border: 2px solid var(--lesson-accent); border-radius: 50%; color: var(--lesson-accent); display: flex; height: 4rem; justify-content: center; justify-self: center; width: 4rem; }
+  .state-node.outside { background: #ead4d0; border-color: var(--fault); color: var(--fault); translate: 0 4.5rem; }
+  .machine-arrow { color: var(--lesson-accent); font: 750 0.76rem/1.5 'JetBrains Mono', monospace; margin-top: 1.2rem; text-align: center; }
+  .machine-arrow.broken { color: var(--fault); text-decoration: line-through 3px; }
+  .failure-story { display: grid; gap: 0.8rem; }
+  .failure-story h4 { font-size: 1.25rem; margin: 0; }
+  .failure-story p { color: var(--lesson-muted); line-height: 1.65; margin: 0; }
+  .failure-example { background: var(--bg-inset); border-left: 5px solid var(--fault); border-radius: 0.65rem; font: 650 0.9rem/1.6 'JetBrains Mono', monospace; padding: 0.8rem; }
+  .lost-capability { border: 2px solid var(--fault); border-radius: 0.7rem; font-weight: 750; padding: 0.75rem; }
+  .contract-ledger { display: grid; gap: 0.55rem; grid-template-columns: repeat(4, 1fr); }
+  .contract-ledger div { background: var(--lesson-accent-soft); border-radius: 0.65rem; padding: 0.7rem; text-align: center; }
+  .contract-ledger div.cut { background: #ead4d0; box-shadow: inset 0 -4px 0 var(--fault); }
+  .contract-ledger span { color: var(--lesson-muted); display: block; font-size: 0.7rem; }
+  .contract-ledger strong { display: block; margin-top: 0.2rem; }
+
+  .system-picker { display: grid; gap: 0.65rem; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .system-picker button { text-align: left; }
+  .system-picker strong,
+  .system-picker span { display: block; }
+  .system-picker span { color: var(--lesson-muted); font-size: 0.72rem; margin-top: 0.25rem; }
+  .system-picker button[aria-pressed='true'] span { color: rgb(255 255 255 / 78%); }
+  .audit-layout { display: grid; gap: 1rem; grid-template-columns: minmax(390px, 1fr) minmax(330px, 0.85fr); }
+  .audit-list { display: grid; gap: 0.6rem; }
+  .audit-item { align-items: center; background: color-mix(in srgb, var(--bg-elevated) 85%, white); border: 1px solid color-mix(in srgb, var(--lesson-ink) 12%, transparent); border-radius: 0.75rem; display: grid; gap: 0.6rem; grid-template-columns: 2.2rem 1fr auto; padding: 0.75rem; }
+  .audit-item .index { align-items: center; background: var(--bg-inset); border-radius: 50%; display: flex; height: 2.2rem; justify-content: center; }
+  .audit-item strong,
+  .audit-item span { display: block; }
+  .audit-item span { color: var(--lesson-muted); font-size: 0.75rem; margin-top: 0.2rem; }
+  .audit-item .status { font: 750 0.78rem/1.2 'JetBrains Mono', monospace; }
+  .audit-item.failed { border-color: var(--fault); }
+  .audit-item.failed .status { color: var(--fault); }
+  .audit-item.passed .status { color: var(--lesson-accent); }
+  .audit-console { background: var(--lesson-accent-soft); border-radius: 0.85rem; display: grid; gap: 0.75rem; padding: 1rem; }
+  .audit-console h4 { margin: 0; }
+  .audit-console p { line-height: 1.6; margin: 0; }
+  .audit-verdict { border: 2px solid var(--lesson-accent); border-radius: 0.7rem; font-weight: 750; line-height: 1.55; padding: 0.75rem; }
+  .audit-verdict.fail { border-color: var(--fault); }
+
+  .translator-worlds { display: grid; gap: 0.65rem; grid-template-columns: repeat(3, 1fr); }
+  .translator-worlds button { text-align: left; }
+  .translator-worlds strong,
+  .translator-worlds span { display: block; }
+  .translator-worlds span { color: var(--lesson-muted); font-size: 0.72rem; margin-top: 0.25rem; }
+  .translator-worlds button[aria-pressed='true'] span { color: rgb(255 255 255 / 78%); }
+  .symbol-workbench { display: grid; gap: 1rem; grid-template-columns: minmax(310px, 0.8fr) minmax(420px, 1.2fr); }
+  .symbol-buttons { display: grid; gap: 0.65rem; grid-template-columns: repeat(2, 1fr); }
+  .symbol-buttons button { font: 750 1.35rem/1.2 'JetBrains Mono', monospace; min-height: 5rem; }
+  .translation-card { background: var(--lesson-accent-soft); border: 2px solid var(--lesson-accent); border-radius: 0.9rem; display: grid; gap: 0.8rem; padding: 1rem; }
+  .translation-flow { align-items: center; display: grid; gap: 0.65rem; grid-template-columns: 1fr auto 1fr; }
+  .translation-flow div { background: var(--bg-inset); border-radius: 0.7rem; min-height: 5.3rem; padding: 0.85rem; text-align: center; }
+  .translation-flow span { color: var(--lesson-muted); display: block; font-size: 0.72rem; }
+  .translation-flow strong { display: block; font-size: 1.1rem; margin-top: 0.4rem; }
+  .translation-flow i { color: var(--lesson-accent); font-style: normal; }
+  .role-reading { line-height: 1.65; margin: 0; }
+  .vocabulary-strip { display: grid; gap: 0.55rem; grid-template-columns: repeat(4, 1fr); }
+  .vocabulary-strip div { background: var(--bg-inset); border-radius: 0.6rem; padding: 0.7rem; text-align: center; }
+  .vocabulary-strip b { display: block; font: 750 1.05rem/1.2 'JetBrains Mono', monospace; }
+  .vocabulary-strip span { color: var(--lesson-muted); font-size: 0.7rem; }
+}
+
+@media (max-width: 900px) {
+  .alg-ch6-lesson {
+    .contract-grid,
+    .system-picker { grid-template-columns: repeat(2, 1fr); }
+    .failure-stage,
+    .audit-layout,
+    .symbol-workbench { grid-template-columns: 1fr; }
+  }
+}

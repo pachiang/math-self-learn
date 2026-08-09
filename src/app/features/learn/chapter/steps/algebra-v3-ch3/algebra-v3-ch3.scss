@@ -1,0 +1,89 @@
+.alg-ch3-lesson {
+  --lesson-accent: #5d4e78;
+  --lesson-accent-soft: #e8e1ee;
+  --loss-accent: #9a4e46;
+
+  .program-picker,
+  .operation-picker { display: grid; gap: 0.65rem; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .operation-picker { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .program-picker button,
+  .operation-picker button { text-align: left; }
+  .program-picker button strong,
+  .operation-picker button strong { display: block; font-family: 'JetBrains Mono', monospace; }
+  .program-picker button span,
+  .operation-picker button span { color: var(--lesson-muted); display: block; font-size: 0.74rem; margin-top: 0.2rem; }
+  .program-picker button[aria-pressed='true'] span,
+  .operation-picker button[aria-pressed='true'] span { color: rgb(255 255 255 / 75%); }
+
+  .world-scan { display: grid; gap: 0.65rem; }
+  .scan-row {
+    align-items: center;
+    background: color-mix(in srgb, var(--bg-elevated) 84%, white);
+    border: 1px solid color-mix(in srgb, var(--lesson-ink) 12%, transparent);
+    border-radius: 0.75rem;
+    display: grid;
+    gap: 0.7rem;
+    grid-template-columns: 2.5rem 1fr 2.5rem minmax(130px, 0.65fr);
+    padding: 0.7rem 0.85rem;
+  }
+  .scan-row b { align-items: center; background: var(--lesson-accent); border-radius: 50%; color: white; display: flex; height: 2.5rem; justify-content: center; }
+  .scan-row .path { color: var(--lesson-muted); font: 600 0.82rem/1.5 'JetBrains Mono', monospace; text-align: center; }
+  .scan-row .end { background: var(--lesson-accent-soft); color: var(--lesson-accent); }
+  .scan-row .verdict { font-size: 0.82rem; font-weight: 700; }
+  .scan-row .verdict.changed { color: var(--loss-accent); }
+  .world-verdict { border: 2px solid var(--lesson-accent); border-radius: 0.8rem; font-weight: 750; padding: 0.85rem 1rem; text-align: center; }
+
+  .undo-controls { align-items: end; display: flex; flex-wrap: wrap; gap: 0.85rem; }
+  .undo-controls label { display: grid; font-size: 0.76rem; font-weight: 750; gap: 0.35rem; }
+  .undo-controls select { background: var(--bg-elevated); border: 1px solid color-mix(in srgb, var(--lesson-ink) 18%, transparent); border-radius: 0.65rem; color: var(--lesson-ink); min-height: 2.75rem; padding: 0.5rem 2rem 0.5rem 0.7rem; }
+  .undo-boards { display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .undo-board { background: color-mix(in srgb, var(--bg-elevated) 85%, white); border: 1px solid color-mix(in srgb, var(--lesson-ink) 12%, transparent); border-radius: 0.85rem; padding: 1rem; }
+  .undo-board h4 { font-family: 'JetBrains Mono', monospace; margin: 0 0 0.8rem; }
+  .undo-row { align-items: center; display: grid; gap: 0.4rem; grid-template-columns: 2rem auto 2rem auto 2rem; margin: 0.55rem 0; }
+  .undo-row b { align-items: center; background: var(--bg-inset); border: 1px solid color-mix(in srgb, var(--lesson-ink) 18%, transparent); border-radius: 50%; display: flex; height: 2rem; justify-content: center; }
+  .undo-row i { color: var(--lesson-accent); font: 700 0.78rem/1.2 'JetBrains Mono', monospace; text-align: center; }
+  .undo-row .returned { background: var(--lesson-accent); color: white; }
+  .undo-row .missed { background: #ead6d2; border-color: var(--loss-accent); color: var(--loss-accent); }
+  .undo-board footer { border-top: 1px solid color-mix(in srgb, var(--lesson-ink) 12%, transparent); font-weight: 750; margin-top: 0.8rem; padding-top: 0.75rem; }
+  .test-progress { align-items: center; display: grid; gap: 0.7rem; grid-template-columns: auto 1fr auto; }
+  .test-progress input { accent-color: var(--lesson-accent); width: 100%; }
+
+  .equation-board { display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .equation-path { background: color-mix(in srgb, var(--bg-elevated) 85%, white); border-radius: 0.85rem; display: grid; gap: 0.8rem; padding: 1rem; }
+  .equation-path h4 { margin: 0; }
+  .symbol-tape { align-items: center; display: flex; flex-wrap: wrap; gap: 0.45rem; min-height: 3.3rem; }
+  .symbol-tape b { background: var(--lesson-accent-soft); border: 2px solid transparent; border-radius: 0.55rem; color: var(--lesson-accent); font: 750 1rem/1.2 'JetBrains Mono', monospace; padding: 0.65rem 0.75rem; }
+  .symbol-tape b.inverse-pair { border-color: var(--lesson-accent); box-shadow: inset 0 -4px 0 color-mix(in srgb, var(--lesson-accent) 26%, transparent); }
+  .symbol-tape i { color: var(--lesson-muted); font-style: normal; }
+  .tape-note { color: var(--lesson-muted); line-height: 1.55; margin: 0; }
+  .side-picker { display: grid; gap: 0.7rem; grid-template-columns: 1fr 1fr; }
+  .reduction-step { align-items: center; display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; }
+  .reduction-step span { background: var(--bg-inset); border-radius: 0.55rem; font-family: 'JetBrains Mono', monospace; padding: 0.6rem; }
+  .reduction-step i { color: var(--lesson-accent); font-style: normal; }
+  .proof-debt { border: 1px dashed var(--lesson-accent); border-radius: 0.75rem; color: var(--lesson-muted); line-height: 1.6; padding: 0.85rem 1rem; }
+
+  .fiber-workbench { display: grid; gap: 1rem; grid-template-columns: minmax(360px, 1fr) minmax(300px, 0.85fr); }
+  .mapping-fibers { display: grid; gap: 0.55rem; }
+  .fiber-row { align-items: center; display: grid; gap: 0.55rem; grid-template-columns: minmax(90px, 1fr) 2.2rem minmax(90px, 1fr); }
+  .fiber-row span { background: var(--bg-elevated); border: 1px solid color-mix(in srgb, var(--lesson-ink) 14%, transparent); border-radius: 0.6rem; font: 650 0.85rem/1.2 'JetBrains Mono', monospace; padding: 0.65rem; text-align: center; }
+  .fiber-row i { color: var(--lesson-accent); font-style: normal; text-align: center; }
+  .fiber-row.collision span:last-child { border-color: var(--loss-accent); box-shadow: inset 4px 0 0 var(--loss-accent); }
+  .source-inspector { background: color-mix(in srgb, var(--bg-elevated) 85%, white); border-radius: 0.85rem; display: grid; gap: 0.8rem; padding: 1rem; }
+  .source-inspector h4 { margin: 0; }
+  .output-picker { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .source-list { display: flex; flex-wrap: wrap; gap: 0.5rem; min-height: 2.8rem; }
+  .source-list b { background: var(--lesson-accent-soft); border-radius: 0.55rem; color: var(--lesson-accent); font-family: 'JetBrains Mono', monospace; padding: 0.65rem; }
+  .source-list.ambiguous b { background: #ead6d2; color: var(--loss-accent); }
+  .fiber-verdict { border: 2px solid var(--lesson-accent); border-radius: 0.7rem; font-weight: 750; line-height: 1.5; padding: 0.8rem; }
+  .fiber-verdict.loss { border-color: var(--loss-accent); }
+}
+
+@media (max-width: 900px) {
+  .alg-ch3-lesson {
+    .program-picker,
+    .operation-picker { grid-template-columns: repeat(2, 1fr); }
+    .undo-boards,
+    .equation-board,
+    .fiber-workbench { grid-template-columns: 1fr; }
+  }
+}

@@ -84,8 +84,8 @@ import { RouterLink } from '@angular/router';
           </div>
           <div class="sc-body">
             <h3 class="sc-title">抽象代數</h3>
-            <p class="sc-desc">從正三角形的對稱出發，到群論、環論、伽羅瓦理論。</p>
-            <span class="sc-meta">9 章主線 + 4 專題</span>
+            <p class="sc-desc">從 actions 的穩定運作，到 generators、cosets 與等大拼圖。</p>
+            <span class="sc-meta">群論 32 章 · 完整直覺主線</span>
           </div>
         </a>
 

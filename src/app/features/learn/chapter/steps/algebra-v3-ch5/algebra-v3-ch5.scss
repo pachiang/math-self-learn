@@ -1,0 +1,77 @@
+.alg-ch5-lesson {
+  --lesson-accent: #55703d;
+  --lesson-accent-soft: #e2ead9;
+  --escape: #a44f42;
+
+  .machine-controls { display: grid; gap: 0.8rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .machine-controls fieldset { border: 1px solid color-mix(in srgb, var(--lesson-ink) 14%, transparent); border-radius: 0.8rem; margin: 0; padding: 0.85rem; }
+  .machine-controls legend { color: var(--lesson-muted); font: 700 0.72rem/1.2 'JetBrains Mono', monospace; padding: 0 0.4rem; }
+  .machine-controls .choice-row { margin-top: 0; }
+  .number-pair { align-items: center; display: grid; gap: 0.75rem; grid-column: 1 / -1; grid-template-columns: 1fr auto 1fr; }
+  .number-pair label { display: grid; gap: 0.35rem; }
+  .number-pair input { accent-color: var(--lesson-accent); width: 100%; }
+  .number-pair select { background: var(--bg-elevated); border: 1px solid color-mix(in srgb, var(--lesson-ink) 18%, transparent); border-radius: 0.6rem; color: var(--lesson-ink); min-height: 2.7rem; padding: 0.45rem 0.7rem; }
+  .number-pair i { color: var(--lesson-accent); font: 750 1.2rem/1 'JetBrains Mono', monospace; }
+  .boundary-machine { align-items: center; display: grid; gap: 1rem; grid-template-columns: 1fr auto 0.8fr; }
+  .set-boundary { background: var(--lesson-accent-soft); border: 3px solid var(--lesson-accent); border-radius: 1.2rem; min-height: 180px; padding: 1rem; position: relative; }
+  .set-boundary > span { color: var(--lesson-accent); font: 700 0.75rem/1.2 'JetBrains Mono', monospace; }
+  .input-tokens { display: flex; gap: 0.7rem; justify-content: center; margin-top: 2rem; }
+  .input-tokens b,
+  .output-token { align-items: center; background: var(--lesson-accent); border-radius: 50%; color: white; display: flex; font: 750 1.1rem/1 'JetBrains Mono', monospace; height: 3.5rem; justify-content: center; min-width: 3.5rem; padding: 0 0.35rem; }
+  .operation-gate { display: grid; gap: 0.4rem; place-items: center; }
+  .operation-gate span { color: var(--lesson-muted); font-size: 0.72rem; }
+  .operation-gate b { border: 2px solid var(--lesson-accent); border-radius: 0.7rem; color: var(--lesson-accent); font: 750 1.25rem/1 'JetBrains Mono', monospace; padding: 0.8rem; }
+  .output-zone { display: grid; gap: 0.7rem; justify-items: center; }
+  .output-zone.escape .output-token { background: var(--escape); }
+  .output-zone strong { text-align: center; }
+  .output-zone.escape strong { color: var(--escape); }
+  .pair-ledger { display: grid; gap: 0.65rem; grid-template-columns: repeat(3, 1fr); }
+  .pair-ledger div { background: var(--bg-inset); border-radius: 0.65rem; padding: 0.75rem; text-align: center; }
+  .pair-ledger span { color: var(--lesson-muted); display: block; font-size: 0.72rem; }
+  .pair-ledger strong { display: block; margin-top: 0.3rem; }
+
+  .slot-builder { align-items: stretch; display: grid; gap: 1rem; grid-template-columns: 1fr auto 1fr; }
+  .system-slot { background: color-mix(in srgb, var(--bg-elevated) 85%, white); border: 1px solid color-mix(in srgb, var(--lesson-ink) 12%, transparent); border-radius: 0.85rem; padding: 1rem; }
+  .system-slot h4 { margin: 0 0 0.8rem; }
+  .system-slot .choice-row { display: grid; margin: 0; }
+  .slot-link { align-self: center; color: var(--lesson-accent); font: 750 1.5rem/1 'JetBrains Mono', monospace; }
+  .system-card { background: var(--lesson-accent-soft); border: 2px solid var(--lesson-accent); border-radius: 0.9rem; display: grid; gap: 0.8rem; padding: 1rem; }
+  .world-verdict { border: 2px solid var(--lesson-accent); border-radius: 0.7rem; font-weight: 750; padding: 0.75rem; text-align: center; }
+  .system-name { font: 750 1.3rem/1.2 'JetBrains Mono', monospace; text-align: center; }
+  .general-reason { background: color-mix(in srgb, var(--bg-elevated) 80%, white); border-radius: 0.7rem; line-height: 1.65; padding: 0.85rem; }
+  .witness-row { align-items: center; display: flex; flex-wrap: wrap; gap: 0.55rem; justify-content: center; }
+  .witness-row span { background: var(--bg-inset); border-radius: 0.55rem; font-family: 'JetBrains Mono', monospace; padding: 0.6rem; }
+  .witness-row i { color: var(--lesson-accent); font-style: normal; }
+  .witness-row.escape i,
+  .witness-row.escape strong { color: var(--escape); }
+
+  .world-picker { display: grid; gap: 0.65rem; grid-template-columns: repeat(3, 1fr); }
+  .world-picker button { text-align: left; }
+  .world-picker strong,
+  .world-picker span { display: block; }
+  .world-picker span { color: var(--lesson-muted); font-size: 0.73rem; margin-top: 0.25rem; }
+  .world-picker button[aria-pressed='true'] span { color: rgb(255 255 255 / 75%); }
+  .scan-layout { display: grid; gap: 1rem; grid-template-columns: minmax(430px, 1.25fr) minmax(280px, 0.75fr); }
+  .evidence-table { border-collapse: separate; border-spacing: 0.3rem; width: 100%; }
+  .evidence-table th { color: var(--lesson-muted); font: 700 0.73rem/1.2 'JetBrains Mono', monospace; }
+  .evidence-table button { font-family: 'JetBrains Mono', monospace; min-width: 3.2rem; width: 100%; }
+  .evidence-table button.inside { background: var(--lesson-accent-soft); color: var(--lesson-accent); }
+  .evidence-table button.outside { background: #ead5d0; border-color: var(--escape); color: var(--escape); }
+  .evidence-panel { background: color-mix(in srgb, var(--bg-elevated) 85%, white); border-radius: 0.85rem; display: grid; gap: 0.8rem; padding: 1rem; }
+  .evidence-panel h4 { margin: 0; }
+  .scope-meter { display: grid; gap: 0.45rem; grid-template-columns: repeat(2, 1fr); }
+  .scope-meter div { background: var(--bg-inset); border-radius: 0.6rem; padding: 0.7rem; text-align: center; }
+  .scope-meter span { color: var(--lesson-muted); display: block; font-size: 0.7rem; }
+  .scope-meter strong { display: block; margin-top: 0.2rem; }
+  .evidence-status { border: 2px solid var(--lesson-accent); border-radius: 0.75rem; font-weight: 750; line-height: 1.55; padding: 0.8rem; }
+  .evidence-status.refuted { border-color: var(--escape); }
+}
+
+@media (max-width: 900px) {
+  .alg-ch5-lesson {
+    .boundary-machine,
+    .slot-builder,
+    .scan-layout { grid-template-columns: 1fr; }
+    .slot-link { rotate: 90deg; justify-self: center; }
+  }
+}
