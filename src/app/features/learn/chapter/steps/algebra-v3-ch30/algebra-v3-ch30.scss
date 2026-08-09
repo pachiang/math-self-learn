@@ -1,0 +1,427 @@
+.alg-ch30-lesson {
+  --lesson-accent: #476b50;
+  --lesson-accent-surface: #476b50;
+  --lesson-accent-soft: #dfeadf;
+  --lesson-warning: #9c5738;
+
+  button[aria-pressed='true'],
+  button.primary,
+  .insight-card {
+    background: var(--lesson-accent-surface);
+  }
+  .feedback.warning {
+    border-left: 3px solid var(--lesson-warning);
+  }
+  .target-presets,
+  .stage-tabs,
+  .decoder-tabs,
+  .lifter-tabs,
+  .phase-controls,
+  .coset-picker,
+  .rung-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .rung-picker {
+    align-items: center;
+  }
+  .rung-picker > span {
+    color: var(--lesson-muted);
+    font:
+      700 0.6rem/1.2 'JetBrains Mono',
+      monospace;
+    margin-right: auto;
+  }
+  .target-stage,
+  .coset-pack-stage,
+  .normalizer-stage,
+  .lifter-stage,
+  .ladder-stage {
+    display: grid;
+    gap: 0.8rem;
+    grid-template-columns: minmax(0, 1fr) 270px;
+  }
+  .target-console,
+  .orbit-console,
+  .normalizer-console,
+  .lifter-console,
+  .ladder-console {
+    align-content: start;
+    background: color-mix(in srgb, var(--lesson-accent) 8%, var(--bg-elevated));
+    border-radius: 0.7rem;
+    display: grid;
+    gap: 0.65rem;
+    padding: 0.85rem;
+  }
+  .target-console > div,
+  .orbit-console > div,
+  .normalizer-console > div,
+  .lifter-console > div,
+  .ladder-console > div {
+    border-top: 1px solid color-mix(in srgb, var(--lesson-accent) 22%, transparent);
+    display: grid;
+    gap: 0.2rem;
+    padding-top: 0.5rem;
+  }
+  .target-console span,
+  .target-console small,
+  .orbit-console span,
+  .orbit-console small,
+  .normalizer-console span,
+  .normalizer-console small,
+  .lifter-console span,
+  .lifter-console small,
+  .ladder-console span,
+  .ladder-console small {
+    color: var(--lesson-muted);
+    font:
+      700 0.54rem/1.25 'JetBrains Mono',
+      monospace;
+  }
+  .factor-rack {
+    background: color-mix(in srgb, var(--lesson-accent) 6%, var(--bg-elevated));
+    border-radius: 0.7rem;
+    padding: 0.8rem;
+  }
+  .factor-rack header,
+  .quotient-cycle header,
+  .lifted-fibers header {
+    display: flex;
+    font:
+      700 0.62rem/1.2 'JetBrains Mono',
+      monospace;
+    justify-content: space-between;
+  }
+  .factor-rack > div {
+    align-items: stretch;
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.8rem;
+  }
+  .factor-rack article {
+    background: var(--lesson-accent-soft);
+    border: 2px solid var(--lesson-accent);
+    border-radius: 0.6rem;
+    display: grid;
+    gap: 0.5rem;
+    min-width: 110px;
+    padding: 0.75rem;
+  }
+  .factor-rack article.remainder {
+    background: var(--bg-elevated);
+    border-color: color-mix(in srgb, var(--lesson-ink) 25%, transparent);
+    border-style: dashed;
+  }
+  .factor-rack small,
+  .factor-rack span {
+    color: var(--lesson-muted);
+    font:
+      700 0.52rem/1.2 'JetBrains Mono',
+      monospace;
+  }
+  .factor-rack b {
+    font-size: 1.4rem;
+  }
+  .factor-rack i {
+    align-self: center;
+    color: var(--lesson-muted);
+    font-style: normal;
+  }
+
+  .orbit-deck {
+    align-content: start;
+    display: grid;
+    gap: 0.45rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .orbit-deck article {
+    background: var(--bg-elevated);
+    border: 1px dashed color-mix(in srgb, var(--lesson-ink) 22%, transparent);
+    border-radius: 0.55rem;
+    display: grid;
+    gap: 0.45rem;
+    padding: 0.55rem;
+  }
+  .orbit-deck article.fixed {
+    background: var(--lesson-accent-soft);
+    border: 3px double var(--lesson-accent);
+  }
+  .orbit-deck header {
+    display: flex;
+    font:
+      700 0.52rem/1.2 'JetBrains Mono',
+      monospace;
+    justify-content: space-between;
+  }
+  .orbit-deck article > div {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+  .orbit-deck article > div > span {
+    background: color-mix(in srgb, var(--lesson-accent) 7%, var(--bg-elevated));
+    border-radius: 0.35rem;
+    display: grid;
+    font:
+      700 0.55rem/1.2 'JetBrains Mono',
+      monospace;
+    gap: 0.2rem;
+    padding: 0.35rem;
+  }
+  .orbit-deck small {
+    color: var(--lesson-muted);
+    font-size: 0.44rem;
+    max-width: 170px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .orbit-deck i {
+    color: var(--lesson-muted);
+    font-style: normal;
+  }
+  .coset-picker button {
+    display: grid;
+    gap: 0.1rem;
+    min-width: 72px;
+  }
+  .coset-picker small {
+    font:
+      700 0.48rem/1 'JetBrains Mono',
+      monospace;
+  }
+
+  .conjugation-bench {
+    align-items: center;
+    display: grid;
+    gap: 0.7rem;
+    grid-template-columns: 1fr 150px 1fr;
+  }
+  .conjugation-bench article {
+    background: var(--bg-elevated);
+    border: 1px solid color-mix(in srgb, var(--lesson-accent) 24%, transparent);
+    border-radius: 0.65rem;
+    display: grid;
+    gap: 0.7rem;
+    min-height: 180px;
+    padding: 0.8rem;
+  }
+  .conjugation-bench article.same {
+    background: var(--lesson-accent-soft);
+    border: 3px double var(--lesson-accent);
+  }
+  .conjugation-bench article.changed {
+    border: 2px dashed var(--lesson-warning);
+  }
+  .conjugation-bench span,
+  .conjugation-bench small {
+    color: var(--lesson-muted);
+    font:
+      700 0.58rem/1.45 'JetBrains Mono',
+      monospace;
+  }
+  .conjugation-bench > i {
+    color: var(--lesson-muted);
+    font:
+      700 0.65rem/1.35 'JetBrains Mono',
+      monospace;
+    font-style: normal;
+    text-align: center;
+  }
+  .normalizer-verdict {
+    background: var(--lesson-accent-soft);
+    border: 2px solid var(--lesson-accent);
+    border-radius: 0.55rem;
+    padding: 0.6rem;
+  }
+  .normalizer-verdict.fail {
+    background: color-mix(in srgb, var(--lesson-warning) 10%, var(--bg-elevated));
+    border-color: var(--lesson-warning);
+    border-style: dashed;
+  }
+
+  .lifter-stage {
+    grid-template-rows: auto auto;
+  }
+  .quotient-cycle,
+  .lifted-fibers {
+    background: color-mix(in srgb, var(--lesson-accent) 6%, var(--bg-elevated));
+    border-radius: 0.7rem;
+    padding: 0.8rem;
+  }
+  .quotient-cycle > div {
+    align-items: center;
+    display: flex;
+    gap: 0.6rem;
+    justify-content: center;
+    margin-top: 0.8rem;
+  }
+  .quotient-cycle article {
+    background: var(--bg-elevated);
+    border: 1px dashed var(--lesson-accent);
+    border-radius: 0.6rem;
+    display: grid;
+    gap: 0.4rem;
+    min-width: 190px;
+    padding: 0.7rem;
+  }
+  .quotient-cycle article.active {
+    border: 3px double var(--lesson-accent);
+  }
+  .quotient-cycle small {
+    color: var(--lesson-muted);
+    font:
+      0.5rem/1.3 'JetBrains Mono',
+      monospace;
+  }
+  .quotient-cycle i {
+    color: var(--lesson-muted);
+    font:
+      700 0.58rem/1.2 'JetBrains Mono',
+      monospace;
+    font-style: normal;
+  }
+  .quotient-cycle i.active {
+    color: var(--lesson-accent);
+  }
+  .lifted-fibers {
+    grid-column: 1;
+    opacity: 0.38;
+  }
+  .lifted-fibers.revealed {
+    opacity: 1;
+  }
+  .lifted-fibers > div {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 0.7rem;
+  }
+  .lifted-fibers article {
+    background: var(--bg-elevated);
+    border: 2px solid var(--lesson-accent);
+    border-radius: 0.55rem;
+    padding: 0.6rem;
+  }
+  .lifted-fibers article > span {
+    color: var(--lesson-muted);
+    font:
+      700 0.52rem/1.2 'JetBrains Mono',
+      monospace;
+  }
+  .lifted-fibers article > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-top: 0.5rem;
+  }
+  .lifted-fibers article b {
+    background: var(--lesson-accent-soft);
+    border-radius: 0.3rem;
+    font:
+      700 0.58rem/1.2 'JetBrains Mono',
+      monospace;
+    padding: 0.3rem;
+  }
+  .lifter-console {
+    grid-column: 2;
+    grid-row: 1/3;
+  }
+
+  .growth-rungs {
+    align-items: center;
+    display: grid;
+    gap: 0.55rem;
+    grid-template-columns: 1fr 55px 1fr 55px 1fr;
+  }
+  .growth-rungs > article {
+    background: var(--bg-elevated);
+    border: 1px dashed color-mix(in srgb, var(--lesson-ink) 22%, transparent);
+    border-radius: 0.65rem;
+    display: grid;
+    gap: 0.55rem;
+    min-height: 235px;
+    padding: 0.7rem;
+  }
+  .growth-rungs > article.current {
+    background: var(--lesson-accent-soft);
+    border: 3px double var(--lesson-accent);
+  }
+  .growth-rungs > article.complete {
+    border-style: solid;
+  }
+  .growth-rungs > article.locked {
+    opacity: 0.45;
+  }
+  .growth-rungs header {
+    display: flex;
+    font:
+      700 0.52rem/1.2 'JetBrains Mono',
+      monospace;
+    justify-content: space-between;
+  }
+  .growth-rungs strong {
+    font-size: 1.1rem;
+  }
+  .growth-rungs small,
+  .growth-rungs div span {
+    color: var(--lesson-muted);
+    font:
+      700 0.5rem/1.25 'JetBrains Mono',
+      monospace;
+  }
+  .growth-rungs div {
+    border-top: 1px solid color-mix(in srgb, var(--lesson-ink) 14%, transparent);
+    display: flex;
+    justify-content: space-between;
+    padding-top: 0.35rem;
+  }
+  .growth-rungs > i {
+    color: var(--lesson-muted);
+    font:
+      700 0.64rem/1.2 'JetBrains Mono',
+      monospace;
+    font-style: normal;
+    text-align: center;
+  }
+  .growth-rungs > i.open {
+    color: var(--lesson-accent);
+  }
+  .ladder-console button {
+    width: 100%;
+  }
+  .insight-visual {
+    flex-wrap: wrap;
+    min-width: 0;
+  }
+}
+
+:root[data-theme='dark'] .alg-ch30-lesson {
+  --lesson-ink: #f0ece6;
+  --lesson-muted: #bab3aa;
+  --lesson-accent: #9bc6a4;
+  --lesson-accent-surface: #3f6949;
+  --lesson-accent-soft: #294332;
+  --lesson-warning: #e09a76;
+  .feedback.warning {
+    background: color-mix(in srgb, var(--lesson-warning) 13%, var(--bg-surface));
+  }
+}
+
+@media (max-width: 1050px) {
+  .alg-ch30-lesson {
+    .target-stage,
+    .coset-pack-stage,
+    .normalizer-stage,
+    .lifter-stage,
+    .ladder-stage {
+      grid-template-columns: 1fr;
+    }
+    .lifter-console {
+      grid-column: 1;
+      grid-row: auto;
+    }
+  }
+}

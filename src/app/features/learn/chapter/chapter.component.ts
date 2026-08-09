@@ -103,6 +103,20 @@ import { AlgebraV3OrbitTargetSwitchComponent } from './steps/algebra-v3-ch27/ste
 import { AlgebraV3FixedIncidenceTableComponent } from './steps/algebra-v3-ch27/step-fixed-incidence-table.component';
 import { AlgebraV3OrbitBucketRebalanceComponent } from './steps/algebra-v3-ch27/step-orbit-bucket-rebalance.component';
 import { AlgebraV3NecklaceCycleCounterComponent } from './steps/algebra-v3-ch27/step-necklace-cycle-counter.component';
+import { AlgebraV3ProductGridBuilderComponent } from './steps/algebra-v3-ch28/step-product-grid-builder.component';
+import { AlgebraV3IndependentAxisComposerComponent } from './steps/algebra-v3-ch28/step-independent-axis-composer.component';
+import { AlgebraV3SynchronizedClockTracerComponent } from './steps/algebra-v3-ch28/step-synchronized-clock-tracer.component';
+import { AlgebraV3HiddenCoordinateDecoderComponent } from './steps/algebra-v3-ch28/step-hidden-coordinate-decoder.component';
+import { AlgebraV3PrimeGuaranteeBoundaryComponent } from './steps/algebra-v3-ch29/step-prime-guarantee-boundary.component';
+import { AlgebraV3ConstrainedTupleRoomComponent } from './steps/algebra-v3-ch29/step-constrained-tuple-room.component';
+import { AlgebraV3CyclicRotationInvariantComponent } from './steps/algebra-v3-ch29/step-cyclic-rotation-invariant.component';
+import { AlgebraV3PrimePacketSorterComponent } from './steps/algebra-v3-ch29/step-prime-packet-sorter.component';
+import { AlgebraV3FixedTupleDecoderComponent } from './steps/algebra-v3-ch29/step-fixed-tuple-decoder.component';
+import { AlgebraV3PPartTargetGaugeComponent } from './steps/algebra-v3-ch30/step-p-part-target-gauge.component';
+import { AlgebraV3CosetOrbitPackerComponent } from './steps/algebra-v3-ch30/step-coset-orbit-packer.component';
+import { AlgebraV3NormalizerDecoderComponent } from './steps/algebra-v3-ch30/step-normalizer-decoder.component';
+import { AlgebraV3QuotientSeedLifterComponent } from './steps/algebra-v3-ch30/step-quotient-seed-lifter.component';
+import { AlgebraV3SylowGrowthLadderComponent } from './steps/algebra-v3-ch30/step-sylow-growth-ladder.component';
 
 // Linalg Ch1 steps
 import { StepWhatIsVectorComponent } from './steps/linalg-ch1/step-what-is-vector.component';
@@ -1108,29 +1122,32 @@ const ALGEBRA_CHAPTERS: Record<string, ChapterConfig> = {
     ],
   },
   ch28: {
-    title: '第二十八章：把獨立 actions 接成座標',
+    title: '第二十八章：把獨立 coordinates 接成一個群',
     steps: [
-      { num: 1, title: 'Direct-product coordinates' },
-      { num: 2, title: '同步 cycle clocks' },
-      { num: 3, title: 'Internal direct product' },
-      { num: 4, title: 'Cyclic product criterion' },
+      { num: 1, title: 'Product-grid builder' },
+      { num: 2, title: 'Independent-axis composer' },
+      { num: 3, title: 'Synchronized-clock tracer' },
+      { num: 4, title: 'Hidden-coordinate decoder' },
     ],
   },
   ch29: {
-    title: '第二十九章：Prime divisor 逼出真實 cycle',
+    title: '第二十九章：Prime divisor 為什麼一定留下 cycle',
     steps: [
-      { num: 1, title: 'Cauchy theorem' },
-      { num: 2, title: 'p-tuple action proof' },
-      { num: 3, title: 'p-groups' },
-      { num: 4, title: 'Nontrivial center' },
+      { num: 1, title: 'Prime-guarantee boundary' },
+      { num: 2, title: 'Constrained-tuple room' },
+      { num: 3, title: 'Cyclic-rotation invariant' },
+      { num: 4, title: 'Prime-packet sorter' },
+      { num: 5, title: 'Fixed-tuple decoder' },
     ],
   },
   ch30: {
-    title: '第三十章：最大 p-power 結構一定存在',
+    title: '第三十章：p-subgroup 為什麼能一路長到上限',
     steps: [
-      { num: 1, title: 'Sylow p-subgroup' },
-      { num: 2, title: '逐層擴張 p-subgroup' },
-      { num: 3, title: '三個定理的責任' },
+      { num: 1, title: 'p-part target gauge' },
+      { num: 2, title: 'Coset-orbit packer' },
+      { num: 3, title: 'Normalizer decoder' },
+      { num: 4, title: 'Quotient-seed lifter' },
+      { num: 5, title: 'Sylow growth ladder' },
     ],
   },
   ch31: {
@@ -2442,6 +2459,20 @@ const SUBJECT_LABELS: Record<string, string> = {
     AlgebraV3FixedIncidenceTableComponent,
     AlgebraV3OrbitBucketRebalanceComponent,
     AlgebraV3NecklaceCycleCounterComponent,
+    AlgebraV3ProductGridBuilderComponent,
+    AlgebraV3IndependentAxisComposerComponent,
+    AlgebraV3SynchronizedClockTracerComponent,
+    AlgebraV3HiddenCoordinateDecoderComponent,
+    AlgebraV3PrimeGuaranteeBoundaryComponent,
+    AlgebraV3ConstrainedTupleRoomComponent,
+    AlgebraV3CyclicRotationInvariantComponent,
+    AlgebraV3PrimePacketSorterComponent,
+    AlgebraV3FixedTupleDecoderComponent,
+    AlgebraV3PPartTargetGaugeComponent,
+    AlgebraV3CosetOrbitPackerComponent,
+    AlgebraV3NormalizerDecoderComponent,
+    AlgebraV3QuotientSeedLifterComponent,
+    AlgebraV3SylowGrowthLadderComponent,
     // Linalg Ch1
     StepWhatIsVectorComponent,
     StepVectorOpsComponent,
