@@ -89,6 +89,22 @@ import { RouterLink } from '@angular/router';
           </div>
         </a>
 
+        <a class="subject-card" routerLink="/learn/rings">
+          <div class="sc-icon-wrap">
+            <svg viewBox="-30 -30 60 60" class="sc-icon" role="img" aria-label="兩層 operation wiring">
+              <circle cx="-15" cy="0" r="8" fill="none" stroke="var(--v0)" stroke-width="2" />
+              <circle cx="15" cy="0" r="8" fill="none" stroke="var(--v1)" stroke-width="4" stroke-dasharray="3 2" />
+              <path d="M-7 0 H7" fill="none" stroke="var(--accent)" stroke-width="2" />
+              <path d="M0 -18 V18" fill="none" stroke="var(--border-strong)" stroke-width="1.5" stroke-dasharray="3 3" />
+            </svg>
+          </div>
+          <div class="sc-body">
+            <h3 class="sc-title">Rings & Ideals</h3>
+            <p class="sc-desc">兩種 operations 如何共存，以及哪些差異能安全壓成零。</p>
+            <span class="sc-meta">20 章規畫 · 已完成 9 章</span>
+          </div>
+        </a>
+
         <a class="subject-card" routerLink="/learn/ag">
           <div class="sc-icon-wrap">
             <svg viewBox="-30 -30 60 60" class="sc-icon">

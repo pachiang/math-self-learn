@@ -21,7 +21,8 @@
         chapterId() === 'ch17' ||
         chapterId() === 'ch18' ||
         chapterId() === 'ch19')) ||
-    subject() === 'algebra'
+    subject() === 'algebra' ||
+    subject() === 'rings'
   "
 >
   <nav class="course-context" aria-label="課程位置與章節導覽">
@@ -515,6 +516,86 @@
       } @else {
         @if (currentAlgebraV2Lesson(); as lesson) {
           <app-algebra-v2-lesson [lesson]="lesson" />
+        }
+      }
+    } @else if (subject() === 'rings') {
+      @switch (subject() + '/' + chapterId()) {
+        @case ('rings/ch1') {
+          @switch (currentStep()) {
+            @case (1) { <app-rings-ch1-two-operation-routes /> }
+            @case (2) { <app-rings-ch1-unequal-undo /> }
+            @case (3) { <app-rings-ch1-function-elements /> }
+            @case (4) { <app-rings-ch1-compatibility-gap /> }
+          }
+        }
+        @case ('rings/ch2') {
+          @switch (currentStep()) {
+            @case (1) { <app-rings-ch2-cell-conservation /> }
+            @case (2) { <app-rings-ch2-mixed-route-machine /> }
+            @case (3) { <app-rings-ch2-compatibility-fault /> }
+            @case (4) { <app-rings-ch2-function-distribution /> }
+          }
+        }
+        @case ('rings/ch3') {
+          @switch (currentStep()) {
+            @case (1) { <app-rings-ch3-additive-backbone /> }
+            @case (2) { <app-rings-ch3-multiplication-contract /> }
+            @case (3) { <app-rings-ch3-ring-blueprint /> }
+            @case (4) { <app-rings-ch3-zero-absorption /> }
+            @case (5) { <app-rings-ch3-ring-detector /> }
+          }
+        }
+        @case ('rings/ch4') {
+          @switch (currentStep()) {
+            @case (1) { <app-rings-ch4-inverse-dock /> }
+            @case (2) { <app-rings-ch4-ambient-unit /> }
+            @case (3) { <app-rings-ch4-global-undo /> }
+            @case (4) { <app-rings-ch4-modular-unit-detector /> }
+            @case (5) { <app-rings-ch4-unit-group /> }
+            @case (6) { <app-rings-ch4-function-units /> }
+          }
+        }
+        @case ('rings/ch5') {
+          @switch (currentStep()) {
+            @case (1) { <app-rings-ch5-collision-cancellation /> }
+            @case (2) { <app-rings-ch5-difference-packet /> }
+            @case (3) { <app-rings-ch5-nonunit-boundary /> }
+            @case (4) { <app-rings-ch5-function-support /> }
+            @case (5) { <app-rings-ch5-witness-translator /> }
+          }
+        }
+        @case ('rings/ch6') {
+          @switch (currentStep()) {
+            @case (1) { <app-rings-ch6-inherited-operations /> }
+            @case (2) { <app-rings-ch6-universal-closure /> }
+            @case (3) { <app-rings-ch6-subring-contract /> }
+            @case (4) { <app-rings-ch6-identity-convention /> }
+            @case (5) { <app-rings-ch6-generated-subring /> }
+          }
+        }
+        @case ('rings/ch7') {
+          @switch (currentStep()) {
+            @case (1) { <app-rings-ch7-two-route-bridge /> }
+            @case (2) { <app-rings-ch7-independent-contracts /> }
+            @case (3) { <app-rings-ch7-identity-gate /> }
+            @case (4) { <app-rings-ch7-collision-difference /> }
+          }
+        }
+        @case ('rings/ch8') {
+          @switch (currentStep()) {
+            @case (1) { <app-rings-ch8-zero-fiber-kernel /> }
+            @case (2) { <app-rings-ch8-additive-stability /> }
+            @case (3) { <app-rings-ch8-ambient-absorption /> }
+            @case (4) { <app-rings-ch8-ideal-contract /> }
+          }
+        }
+        @case ('rings/ch9') {
+          @switch (currentStep()) {
+            @case (1) { <app-rings-ch9-input-scope /> }
+            @case (2) { <app-rings-ch9-subring-not-ideal /> }
+            @case (3) { <app-rings-ch9-ideal-not-unital-subring /> }
+            @case (4) { <app-rings-ch9-contract-matrix /> }
+          }
         }
       }
     } @else {

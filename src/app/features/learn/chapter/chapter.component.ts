@@ -128,6 +128,47 @@ import { AlgebraV3CompressionRouteComponent } from './steps/algebra-v3-ch32/step
 import { AlgebraV3ActionWorldSelectorComponent } from './steps/algebra-v3-ch32/step-action-world-selector.component';
 import { AlgebraV3FiniteConstraintLadderComponent } from './steps/algebra-v3-ch32/step-finite-constraint-ladder.component';
 import { AlgebraV3RouteChainConferenceComponent } from './steps/algebra-v3-ch32/step-route-chain-conference.component';
+import { RingsCh1TwoOperationRoutesComponent } from './steps/rings-ch1/step-two-operation-routes.component';
+import { RingsCh1UnequalUndoComponent } from './steps/rings-ch1/step-unequal-undo.component';
+import { RingsCh1FunctionElementsComponent } from './steps/rings-ch1/step-function-elements.component';
+import { RingsCh1CompatibilityGapComponent } from './steps/rings-ch1/step-compatibility-gap.component';
+import { RingsCh2CellConservationComponent } from './steps/rings-ch2/step-cell-conservation.component';
+import { RingsCh2MixedRouteMachineComponent } from './steps/rings-ch2/step-mixed-route-machine.component';
+import { RingsCh2CompatibilityFaultComponent } from './steps/rings-ch2/step-compatibility-fault.component';
+import { RingsCh2FunctionDistributionComponent } from './steps/rings-ch2/step-function-distribution.component';
+import { RingsCh3AdditiveBackboneComponent } from './steps/rings-ch3/step-additive-backbone.component';
+import { RingsCh3MultiplicationContractComponent } from './steps/rings-ch3/step-multiplication-contract.component';
+import { RingsCh3RingBlueprintComponent } from './steps/rings-ch3/step-ring-blueprint.component';
+import { RingsCh3ZeroAbsorptionComponent } from './steps/rings-ch3/step-zero-absorption.component';
+import { RingsCh3RingDetectorComponent } from './steps/rings-ch3/step-ring-detector.component';
+import { RingsCh4InverseDockComponent } from './steps/rings-ch4/step-inverse-dock.component';
+import { RingsCh4AmbientUnitComponent } from './steps/rings-ch4/step-ambient-unit.component';
+import { RingsCh4GlobalUndoComponent } from './steps/rings-ch4/step-global-undo.component';
+import { RingsCh4ModularUnitDetectorComponent } from './steps/rings-ch4/step-modular-unit-detector.component';
+import { RingsCh4UnitGroupComponent } from './steps/rings-ch4/step-unit-group.component';
+import { RingsCh4FunctionUnitsComponent } from './steps/rings-ch4/step-function-units.component';
+import { RingsCh5CollisionCancellationComponent } from './steps/rings-ch5/step-collision-cancellation.component';
+import { RingsCh5DifferencePacketComponent } from './steps/rings-ch5/step-difference-packet.component';
+import { RingsCh5NonunitBoundaryComponent } from './steps/rings-ch5/step-nonunit-boundary.component';
+import { RingsCh5FunctionSupportComponent } from './steps/rings-ch5/step-function-support.component';
+import { RingsCh5WitnessTranslatorComponent } from './steps/rings-ch5/step-witness-translator.component';
+import { RingsCh6InheritedOperationsComponent } from './steps/rings-ch6/step-inherited-operations.component';
+import { RingsCh6UniversalClosureComponent } from './steps/rings-ch6/step-universal-closure.component';
+import { RingsCh6SubringContractComponent } from './steps/rings-ch6/step-subring-contract.component';
+import { RingsCh6IdentityConventionComponent } from './steps/rings-ch6/step-identity-convention.component';
+import { RingsCh6GeneratedSubringComponent } from './steps/rings-ch6/step-generated-subring.component';
+import { RingsCh7TwoRouteBridgeComponent } from './steps/rings-ch7/step-two-route-bridge.component';
+import { RingsCh7IndependentContractsComponent } from './steps/rings-ch7/step-independent-contracts.component';
+import { RingsCh7IdentityGateComponent } from './steps/rings-ch7/step-identity-gate.component';
+import { RingsCh7CollisionDifferenceComponent } from './steps/rings-ch7/step-collision-difference.component';
+import { RingsCh8ZeroFiberKernelComponent } from './steps/rings-ch8/step-zero-fiber-kernel.component';
+import { RingsCh8AdditiveStabilityComponent } from './steps/rings-ch8/step-additive-stability.component';
+import { RingsCh8AmbientAbsorptionComponent } from './steps/rings-ch8/step-ambient-absorption.component';
+import { RingsCh8IdealContractComponent } from './steps/rings-ch8/step-ideal-contract.component';
+import { RingsCh9InputScopeComponent } from './steps/rings-ch9/step-input-scope.component';
+import { RingsCh9SubringNotIdealComponent } from './steps/rings-ch9/step-subring-not-ideal.component';
+import { RingsCh9IdealNotUnitalSubringComponent } from './steps/rings-ch9/step-ideal-not-unital-subring.component';
+import { RingsCh9ContractMatrixComponent } from './steps/rings-ch9/step-contract-matrix.component';
 
 // Linalg Ch1 steps
 import { StepWhatIsVectorComponent } from './steps/linalg-ch1/step-what-is-vector.component';
@@ -1180,6 +1221,95 @@ const ALGEBRA_CHAPTERS: Record<string, ChapterConfig> = {
       { num: 4, title: 'Action world selector' },
       { num: 5, title: 'Finite-order constraint ladder' },
       { num: 6, title: 'Route-chain case conference' },
+    ],
+  },
+};
+
+const RINGS_CHAPTERS: Record<string, ChapterConfig> = {
+  ch1: {
+    title: '第一章：一個世界，兩種合成方式',
+    steps: [
+      { num: 1, title: '同一 objects，兩條 routes' },
+      { num: 2, title: '兩種 operations，不同 undo' },
+      { num: 3, title: 'Functions 也是 elements' },
+      { num: 4, title: '還缺 compatibility' },
+    ],
+  },
+  ch2: {
+    title: '第二章：Distributivity 是同步齒輪',
+    steps: [
+      { num: 1, title: '同一批 cells，兩種分組' },
+      { num: 2, title: 'Mixed-operation routes' },
+      { num: 3, title: 'Closure 不保證 compatibility' },
+      { num: 4, title: 'Function lanes 仍同步' },
+    ],
+  },
+  ch3: {
+    title: '第三章：什麼條件才撐得住 ring world？',
+    steps: [
+      { num: 1, title: 'ADD 是可撤銷底盤' },
+      { num: 2, title: 'MULTIPLY 不保證倒帶' },
+      { num: 3, title: '組裝 ring blueprint' },
+      { num: 4, title: 'Zero absorption 是結果' },
+      { num: 5, title: 'Contract 與 scope detector' },
+    ],
+  },
+  ch4: {
+    title: '第四章：哪些 elements 真正能把 multiplication 倒帶？',
+    steps: [
+      { num: 1, title: 'Unit inverse dock' },
+      { num: 2, title: 'Ambient ring 改變答案' },
+      { num: 3, title: 'Inverse 是 global undo' },
+      { num: 4, title: 'Modular coverage detector' },
+      { num: 5, title: 'Units 組成 group' },
+      { num: 6, title: 'Function units 逐點組裝' },
+    ],
+  },
+  ch5: {
+    title: '第五章：非零也可能把資訊乘沒',
+    steps: [
+      { num: 1, title: '相同 output，不同 input' },
+      { num: 2, title: '被乘成 0 的 difference' },
+      { num: 3, title: 'Nonunit 與 collision' },
+      { num: 4, title: 'Function support witness' },
+      { num: 5, title: '三種 witness 語言' },
+    ],
+  },
+  ch6: {
+    title: '第六章：Subring 如何在邊界內自給自足？',
+    steps: [
+      { num: 1, title: '沿用 ambient operations' },
+      { num: 2, title: 'Universal no-escape' },
+      { num: 3, title: '三個 autonomy ports' },
+      { num: 4, title: 'Ambient identity convention' },
+      { num: 5, title: 'Generated subring frontier' },
+    ],
+  },
+  ch7: {
+    title: '第七章：一張 map，兩套 wiring 都不能翻壞',
+    steps: [
+      { num: 1, title: '雙 operation two-route bridge' },
+      { num: 2, title: '兩份 preservation 合約' },
+      { num: 3, title: 'Identity convention gate' },
+      { num: 4, title: 'Collision 變成 zero difference' },
+    ],
+  },
+  ch8: {
+    title: '第八章：看不見的 difference，為什麼乘完仍看不見？',
+    steps: [
+      { num: 1, title: '完整 zero-output fiber' },
+      { num: 2, title: 'Invisible difference stability' },
+      { num: 3, title: 'Ambient absorption' },
+      { num: 4, title: 'Ideal two-port contract' },
+    ],
+  },
+  ch9: {
+    title: '第九章：Subring 與 ideal 把 inputs 接在不同地方',
+    steps: [
+      { num: 1, title: 'Internal 與 ambient input scope' },
+      { num: 2, title: 'Subring 不保證 absorption' },
+      { num: 3, title: 'Ideal 不提供 ambient 1' },
+      { num: 4, title: 'Two-contract matrix' },
     ],
   },
 };
@@ -2344,6 +2474,7 @@ const BAYES_CHAPTERS: Record<string, ChapterConfig> = {
 
 const SUBJECTS: Record<string, Record<string, ChapterConfig>> = {
   algebra: ALGEBRA_CHAPTERS,
+  rings: RINGS_CHAPTERS,
   linalg: LINALG_CHAPTERS,
   analysis: ANALYSIS_CHAPTERS,
   topology: TOPOLOGY_CHAPTERS,
@@ -2358,6 +2489,7 @@ const SUBJECTS: Record<string, Record<string, ChapterConfig>> = {
 
 const SUBJECT_LABELS: Record<string, string> = {
   algebra: '抽象代數',
+  rings: 'Rings & Ideals',
   linalg: '線性代數',
   analysis: '實分析',
   topology: '點集拓撲',
@@ -2498,6 +2630,47 @@ const SUBJECT_LABELS: Record<string, string> = {
     AlgebraV3ActionWorldSelectorComponent,
     AlgebraV3FiniteConstraintLadderComponent,
     AlgebraV3RouteChainConferenceComponent,
+    RingsCh1TwoOperationRoutesComponent,
+    RingsCh1UnequalUndoComponent,
+    RingsCh1FunctionElementsComponent,
+    RingsCh1CompatibilityGapComponent,
+    RingsCh2CellConservationComponent,
+    RingsCh2MixedRouteMachineComponent,
+    RingsCh2CompatibilityFaultComponent,
+    RingsCh2FunctionDistributionComponent,
+    RingsCh3AdditiveBackboneComponent,
+    RingsCh3MultiplicationContractComponent,
+    RingsCh3RingBlueprintComponent,
+    RingsCh3ZeroAbsorptionComponent,
+    RingsCh3RingDetectorComponent,
+    RingsCh4InverseDockComponent,
+    RingsCh4AmbientUnitComponent,
+    RingsCh4GlobalUndoComponent,
+    RingsCh4ModularUnitDetectorComponent,
+    RingsCh4UnitGroupComponent,
+    RingsCh4FunctionUnitsComponent,
+    RingsCh5CollisionCancellationComponent,
+    RingsCh5DifferencePacketComponent,
+    RingsCh5NonunitBoundaryComponent,
+    RingsCh5FunctionSupportComponent,
+    RingsCh5WitnessTranslatorComponent,
+    RingsCh6InheritedOperationsComponent,
+    RingsCh6UniversalClosureComponent,
+    RingsCh6SubringContractComponent,
+    RingsCh6IdentityConventionComponent,
+    RingsCh6GeneratedSubringComponent,
+    RingsCh7TwoRouteBridgeComponent,
+    RingsCh7IndependentContractsComponent,
+    RingsCh7IdentityGateComponent,
+    RingsCh7CollisionDifferenceComponent,
+    RingsCh8ZeroFiberKernelComponent,
+    RingsCh8AdditiveStabilityComponent,
+    RingsCh8AmbientAbsorptionComponent,
+    RingsCh8IdealContractComponent,
+    RingsCh9InputScopeComponent,
+    RingsCh9SubringNotIdealComponent,
+    RingsCh9IdealNotUnitalSubringComponent,
+    RingsCh9ContractMatrixComponent,
     // Linalg Ch1
     StepWhatIsVectorComponent,
     StepVectorOpsComponent,

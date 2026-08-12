@@ -482,3 +482,9 @@ Conjugacy proof、fixed-coset inclusion、orbit–stabilizer equation、唯一 f
 首屏密度目標：hero 與 prediction 後只露出 active lab 的標題、主要 controls 與 stage 上緣；不要求一個 1080px viewport 看完整節。Lab 內主要 stage 優先維持單一橫向因果流，輔助 ledger／readout 不超過一欄。任何需要先閱讀操作說明才能理解的 icon 都補永久文字 label；所有 merge、fixed、candidate、contradiction states 都同時使用 border pattern、shape 與 stamp。
 
 實作 checkpoint：六個專屬 components、共用 diagnostic model、章節 route 與 catalog metadata 已完成。模型 assertions 得 representation distinct signatures `1,2,6,6`；D₃ 全部 36 組 input pairs 均滿足 `same output ⇔ difference in kernel`；orders 12、21、30 的 Sylow candidates 分別與 Ch31 solver 一致；order-30 extreme branches 得 `1+6(5−1)+10(3−1)=45`。Angular compiler 與 production build 通過，僅保留專案既有 budget／unused-import warnings。依使用者指示，本輪未啟動 dev server 或瀏覽器；1920×1080 layout、實際 interaction state、keyboard focus、non-color、dark theme 與 reduced-motion 仍待聯合視覺驗收，故本章暫不標 passed。
+
+## Ch32 後的課程邊界
+
+使用者決定本課正式停在 Ch32。Ch1–32 定位為完整的 **Group Theory Foundations**：由 action 直覺建立 group language，走過 subgroups／cosets、homomorphisms／quotients、permutations／group actions、conjugation／counting，最後以 Cauchy、Sylow 與陌生群 diagnostic routes 收束。先前構想的 p-group center、semidirect products、composition factors 與 solvability 不再列為本課待完成章節；若未來需要，改成獨立的 Advanced Finite Groups 選修支線。
+
+推薦的下一門主課是 **Abstract Algebra II · Rings, Ideals, and Fields**。它不沿用 Ch33 編號，因為 ring 同時有 addition 與 multiplication，ideals 的 absorption、factorization 與 field construction 需要新的雙運算 visual grammar。後續 field extensions 與 Galois theory 再獨立成第三門課；不把 rings、fields 與 Galois theory 追加成這門群論課尚未完成的尾巴。

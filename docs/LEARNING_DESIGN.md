@@ -165,6 +165,82 @@
 - **保持條件可見**：公平、等可能、獨立、不放回等假設不可藏在細字裡。
 - **先形成判斷力，再練計算力**：練習先問「該怎麼想／哪個模型適用」，再問數值答案。
 
+### 一般機制、特例與例子偏差
+
+具體例子是入口，不是概念本身。選例與設計互動時，必須防止學習者把例子的偶然特徵誤認為一般結構。
+
+#### 先分開四個層級
+
+每個重要概念在規畫時都要明確區分：
+
+1. **一般定義或機制**：跨不同 worlds 仍保持的結構是什麼？
+2. **目前的 concrete instance**：這個例子如何讓機制可操作？
+3. **特例專用 detector**：哪些判準只在特定結構成立？
+4. **Course convention**：哪些是假設範圍，而不是所有教材共用的定義？
+
+例如 unit 的一般定義是「inverse 必須存在於同一 ambient ring」；`gcd(a,n)=1` 只是 `ℤ/nℤ` 的 detector，不能視覺上呈現成 unit 的一般定義。Commutative rings 可以是課程主線，但 noncommutative 不代表「不是 ring」。
+
+若主流程使用特例專用判準，畫面要持續顯示適用 world，例如 `CASE STUDY · ℤ/nℤ ONLY`，不能只在開頭或註腳說一次。
+
+#### 選例前先做 accidental-property audit
+
+採用一個主例子前，先列出它具有、但目標概念並不要求的偶然性質。若這些性質會讓一般 mechanism 看起來比實際更簡單，應換例、加入對照，或把一般模型放在例子上層。
+
+常見風險包括：
+
+- 所有 inverse 剛好等於自己，使學習者以為 inverse 通常不會換 element。
+- Example 恰好 commutative，使 order reversal 在數值上不可見。
+- 對稱參數讓兩個不同角色得到相同數值。
+- 小型 finite example 中所有 samples 剛好通過，造成「抽查就是 proof」的錯覺。
+- 座標、角度、距離或面積在圖中碰巧對應答案，使視覺暗示一條並不存在的一般公式。
+- Ambient world 固定不變，使學習者誤以為性質只由 element 本身決定。
+
+例子不必刻意變複雜；應選擇最小但**非退化（non-degenerate）**的例子，也就是能讓本節需要區分的角色真正產生不同可見結果。
+
+#### 一般性檢查要改一件事、固定其他事
+
+至少安排一次受控 transfer，以隔離 property 真正依賴什麼：
+
+- **換 ambient world，固定 element 與 equation**：檢查性質是否依賴世界，例如 `2` 在 `ℤ` 與 `ℚ` 的 unit status。
+- **換 representation，固定 mechanism**：從 number tiles 換到 functions，檢查理解是否只依賴外觀。
+- **換 surface example，固定 invariant**：確認學習者能辨認同一條 two-route、conservation 或 quotient mechanism。
+- **保持表面相似，破壞一項假設**：用 decisive witness 讓錯誤泛化產生可見矛盾。
+
+Transfer 不是章末再舉一題。它必須說清楚「這次改了什麼、什麼沒改、因此證明理解依附的是哪個結構」。
+
+#### 視覺模型也要接受語意審核
+
+在採用 dial、距離、旋轉、面積、力、流體、容器等隱喻前，逐項詢問：
+
+- 圖上的位置或距離真的具有數學語意，還是只是 selector？
+- 動畫路徑真的代表推導過程，還是只從答案 A 飛到答案 B？
+- 兩個物件畫得相同，是否會暗示它們角色相同？
+- 兩個物件畫得不同，是否會掩蓋它們其實是同一 structure 的不同表示？
+- 使用者能否從圖中做出一般預測，還是只能記住這張圖的外觀？
+
+若角度、面積或空間鄰近沒有真實對應，不要用它暗示 operation。純粹用來選值的控制項應畫成 cards、ruler、buttons 或明確標示的 selector，而不是偽裝成具有推理意義的幾何。
+
+#### Evidence 的強度必須可見
+
+- 一個成功 example 只能展示 possibility 或 mechanism，不能證明 universal claim。
+- 一個 failure witness 足以推翻 universal claim。
+- 完整 finite scan 可以證明該 finite model，但不能冒充一般 theorem 的 proof。
+- Simulation 支援 intuition 與估計，不取代 proof。
+
+UI 應明示目前提供的是 `EXAMPLE`、`WITNESS`、`FINITE EXHAUSTION`、`SIMULATION` 或 `GENERAL ARGUMENT`，避免所有綠色 PASS 看起來具有相同證明力。
+
+#### 章節的一般性最低要求
+
+一個核心 insight 在離開規畫階段前，至少要通過：
+
+1. 能用不綁定目前例子的語句表達。
+2. 已列出主例子的 accidental properties。
+3. 至少有一個 non-degenerate state，使需要區分的角色不會數值重合。
+4. 特例 detector 與 course convention 都有持續可見的 scope label。
+5. 至少一次 transfer 能改變 surface 或 ambient world，同時保留目標 mechanism。
+6. 視覺沒有暗示不存在的幾何、順序、可逆性或因果。
+7. Evidence 類型與它實際能支持的結論相符。
+
 ## 8. 文案與版面
 
 - 一個段落通常只承擔一個意思；能用兩句講清楚就不寫六句。
@@ -249,10 +325,16 @@
 核心 insight：
 學習者原本可能怎麼誤解：
 第一個具體問題：
+一般機制如何表述：
+主例子的 accidental properties：
+哪個 non-degenerate state 讓角色真正分開：
 主要視覺模型：
+視覺可能造成的假暗示：
 學習者能操作的變數：
 操作時保持不變的東西：
 預測 → 回饋 → 壓縮：
+目前 evidence 屬於 example／witness／finite exhaustion／simulation／general argument 的哪一種：
+特例 detector 與 course convention 如何持續標示 scope：
 正式內容放在哪個展開層：
 最後如何檢查能否遷移：
 ```
@@ -270,6 +352,10 @@
 - 公式在有需要之後才出場，假設與適用範圍清楚。
 - 有至少一次預測或主動判斷，以及有解釋的回饋。
 - 有一張可帶走的觀念圖卡或等價的視覺總結。
+- 主例子已通過 accidental-property audit；一般機制、特例 detector 與 course convention 沒有混成同一層。
+- 至少一個 non-degenerate state 讓本節要區分的角色在畫面或數值上真正分離。
+- 視覺沒有用無數學語意的角度、距離、面積或動線暗示不存在的一般規律。
+- Example、witness、finite exhaustion、simulation 與 general argument 的 evidence 強度沒有被混淆。
 - 在主要桌面環境中可用滑鼠與鍵盤完成核心學習，低動態偏好不會遺失關鍵資訊。
 - 數學正確，build/type check 通過。
 

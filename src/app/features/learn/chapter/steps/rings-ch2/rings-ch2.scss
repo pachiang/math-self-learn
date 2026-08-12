@@ -1,0 +1,55 @@
+@use '../rings-ch1/rings-ch1';
+
+.rings-lesson {
+  --whole: var(--ring-add);
+  --split: var(--ring-multiply);
+
+  .route-toggle { display: inline-flex; gap: 7px; padding: 5px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-surface); }
+  .route-stack { display: grid; gap: 14px; min-height: 380px; align-content: center; }
+  .route-lane { display: grid; grid-template-columns: minmax(100px, .8fr) 72px minmax(100px, .8fr) 72px minmax(100px, .8fr); gap: 8px; align-items: center; padding: 16px; border: 2px solid var(--border); border-radius: 16px; opacity: .43; }
+  .route-lane.active { opacity: 1; }
+  .route-lane.whole { border-color: var(--whole); }
+  .route-lane.split { border-color: var(--split); border-style: dashed; }
+  .route-node { min-height: 70px; display: grid; place-items: center; padding: 8px; border-radius: 12px; background: var(--bg); text-align: center; }
+  .route-node strong { display: block; font-size: 22px; }
+  .route-arrow { text-align: center; color: var(--text-muted); font-size: 12px; font-weight: 800; }
+  .endpoint { border: 2px solid var(--whole); }
+  .route-lane.split .endpoint { border-color: var(--split); }
+  .endpoint.mismatch { border-style: dashed; border-color: #e66b6b; }
+  .same-stamp { text-align: center; font-weight: 850; letter-spacing: .08em; color: var(--whole); }
+  .same-stamp.fail { color: #e66b6b; }
+
+  .tile-lab { min-height: 390px; display: grid; align-content: center; gap: 18px; }
+  .tile-board { display: grid; gap: 3px; width: min(100%, 720px); margin: 0 auto; }
+  .tile-cell { aspect-ratio: 1.45; min-height: 24px; border: 1px solid color-mix(in srgb, var(--text) 18%, transparent); border-radius: 3px; display: grid; place-items: center; font-size: 10px; color: var(--text-muted); }
+  .tile-cell.left { background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--whole) 24%, transparent) 0 5px, color-mix(in srgb, var(--whole) 9%, transparent) 5px 10px); }
+  .tile-cell.right { background: repeating-linear-gradient(45deg, color-mix(in srgb, var(--split) 22%, transparent) 0 4px, color-mix(in srgb, var(--split) 7%, transparent) 4px 9px); }
+  .tile-cell.seam { border-left: 3px solid var(--text); }
+  .tile-legend { display: flex; justify-content: center; gap: 18px; color: var(--text-secondary); }
+  .tile-legend i { display: inline-block; width: 18px; height: 12px; margin-right: 5px; border-radius: 2px; }
+  .tile-legend .left { background: var(--whole); }
+  .tile-legend .right { background: var(--split); }
+  label.compact-control { display: flex; align-items: center; gap: 7px; }
+  label.compact-control input { width: 115px; accent-color: var(--whole); }
+
+  .fault-layout { display: grid; grid-template-columns: minmax(260px, .72fr) minmax(0, 1.28fr); gap: 18px; align-items: center; }
+  .operation-table { display: grid; grid-template-columns: repeat(4, 52px); gap: 5px; justify-content: center; }
+  .table-cell { min-height: 48px; display: grid; place-items: center; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); font-weight: 750; }
+  .table-cell.header { color: var(--text-muted); background: transparent; border-color: transparent; }
+  .table-cell.changed { border: 3px dashed #e66b6b; position: relative; }
+  .table-cell.changed::after { content: 'was 0'; position: absolute; top: -15px; right: -10px; padding: 1px 4px; background: var(--bg-surface); color: #e66b6b; font-size: 9px; }
+  .test-badges { display: flex; gap: 9px; justify-content: center; margin-top: 12px; flex-wrap: wrap; }
+  .test-badges span { padding: 6px 9px; border: 1px solid var(--border); border-radius: 999px; font-size: 12px; }
+  .test-badges .pass { border-color: var(--whole); }
+  .test-badges .fail { border-color: #e66b6b; }
+
+  .function-routes { min-height: 390px; display: grid; align-content: center; gap: 16px; }
+  .function-route { display: grid; grid-template-columns: 88px 1fr 1fr 1fr; gap: 8px; align-items: center; border: 2px solid var(--border); border-radius: 15px; padding: 12px; }
+  .function-route.whole { border-color: var(--whole); }
+  .function-route.split { border-color: var(--split); border-style: dashed; }
+  .function-route .cell { min-height: 62px; display: grid; place-items: center; text-align: center; border-radius: 10px; background: var(--bg); }
+  .function-route .cell strong { font-size: 19px; }
+  .function-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .function-summary span { padding: 9px; border: 1px solid var(--border); border-radius: 9px; text-align: center; }
+  .function-summary span.focus { border-color: var(--ring-violet); background: color-mix(in srgb, var(--ring-violet) 10%, transparent); }
+}

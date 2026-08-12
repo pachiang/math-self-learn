@@ -1,0 +1,66 @@
+@use '../rings-ch7/rings-ch7';
+
+.rings-lesson {
+  .kernel-shell { border:3px solid var(--gear-layer);border-radius:18px;padding:14px;position:relative;background:color-mix(in srgb,var(--gear-layer) 5%,var(--bg)); }
+  .kernel-shell::before { content:'KER φ · ZERO-OUTPUT FIBER';position:absolute;top:-12px;left:16px;padding:3px 9px;background:var(--bg-surface);color:var(--gear-layer);font-size:10px;font-weight:900;letter-spacing:.08em; }
+  .fiber-scanner { min-height:440px;display:grid;grid-template-columns:minmax(0,1fr) 150px 250px;gap:16px;align-items:center; }
+  .fiber-source { display:grid;grid-template-columns:repeat(4,minmax(65px,1fr));gap:8px;padding:14px;border:2px solid var(--border);border-radius:17px;background:var(--bg); }
+  .fiber-source.integer { grid-template-columns:repeat(5,minmax(52px,1fr)); }
+  .fiber-card { min-height:62px;padding:7px;border:2px solid var(--border);border-radius:10px;background:var(--bg-surface);display:grid;place-items:center;text-align:center;opacity:.34; }
+  button.fiber-card { color:inherit;font:inherit; }
+  .fiber-card.lit { opacity:1;border-color:var(--add-layer); }
+  .fiber-card.kernel { border-color:var(--gear-layer);border-width:4px; }
+  .fiber-card strong { font-size:16px; }
+  .fiber-card small { color:var(--text-muted); }
+  .target-docks { display:grid;gap:8px; }
+  .target-dock { min-height:64px;padding:9px;border:2px solid var(--border);border-radius:11px;text-align:center;display:grid;place-items:center; }
+  button.target-dock { color:inherit;font:inherit; }
+  .target-dock.active { border-color:var(--multiply-layer);border-width:4px; }
+  .target-dock.zero { border-style:double;border-width:5px; }
+  .fiber-summary { padding:14px;border:2px solid var(--border);border-radius:14px;display:grid;gap:10px; }
+  .fiber-arrow-stack { display:grid;align-content:center;gap:12px;text-align:center; }
+  .fiber-trace { height:5px;background:var(--gear-layer);position:relative; }
+  .fiber-trace::after { content:'›';position:absolute;right:-3px;top:-18px;font-size:30px; }
+  .callback-strip { margin-top:12px;padding:10px 13px;border:1px dashed var(--border-strong);border-radius:11px;display:flex;justify-content:center;gap:12px;align-items:center;color:var(--text-muted);font-size:12px; }
+
+  .kernel-difference-lab { min-height:430px;display:grid;grid-template-columns:minmax(0,1fr) 170px 250px;gap:16px;align-items:center; }
+  .kernel-members { display:grid;grid-template-columns:1fr 1fr;gap:12px; }
+  .kernel-member { padding:14px;border:3px solid var(--gear-layer);border-radius:14px;background:var(--bg);display:grid;gap:9px;text-align:center; }
+  .kernel-member.output { grid-column:1/-1;border-color:var(--add-layer); }
+  .value-selector { display:flex;justify-content:center;gap:6px;flex-wrap:wrap; }
+  .value-selector button { min-height:30px;padding:2px 9px; }
+  .difference-port-large { min-height:100px;padding:13px;border:4px solid var(--add-layer);border-radius:50%;display:grid;place-items:center;text-align:center;font-weight:900; }
+  .target-proof { display:grid;gap:10px; }
+  .proof-stage { padding:11px;border:2px dashed var(--border);border-radius:10px;opacity:.35; }
+  .proof-stage.active { opacity:1;border-style:solid;border-color:var(--add-layer); }
+  .assumption-card { margin-top:13px;padding:12px;border:2px dashed var(--border-strong);border-radius:12px; }
+
+  .absorption-lab { min-height:440px;display:grid;grid-template-columns:220px 150px minmax(0,1fr);gap:16px;align-items:center; }
+  .ambient-zone { min-height:350px;padding:18px;border:2px solid var(--border);border-radius:18px;background:var(--bg);display:grid;align-content:center;gap:16px;position:relative; }
+  .ambient-zone::before { content:'AMBIENT R';position:absolute;top:10px;left:12px;color:var(--text-muted);font-size:10px;font-weight:900; }
+  .role-card { padding:13px;border:3px solid var(--border);border-radius:13px;background:var(--bg-surface);display:grid;gap:5px;text-align:center; }
+  .role-card.ambient { border-color:var(--multiply-layer); }
+  .role-card.inside { border-color:var(--gear-layer); }
+  .role-card.product { border-color:var(--add-layer); }
+  .ambient-action-port { min-height:112px;padding:12px;border:6px double var(--multiply-layer);border-radius:50%;display:grid;place-items:center;text-align:center;font-weight:900; }
+  .product-zone { display:grid;gap:13px; }
+  .dual-status { display:grid;grid-template-columns:1fr 1fr;gap:9px; }
+  .semantic-status { min-height:64px;padding:10px;border:2px solid var(--border);border-radius:11px;display:grid;place-items:center;text-align:center;font-size:11px;font-weight:850; }
+  .semantic-status.true { border-color:var(--add-layer); }
+  .semantic-status.false { border-color:#e6b35d;border-style:dashed; }
+  .target-zero-reason { padding:12px;border:2px solid var(--gear-layer);border-radius:11px;font-family:monospace;font-weight:800;text-align:center; }
+
+  .ideal-contract-lab { min-height:430px;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px; }
+  .ideal-boundary { border:4px solid var(--gear-layer);border-radius:20px;padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:15px;align-content:center;position:relative;background:color-mix(in srgb,var(--gear-layer) 5%,var(--bg)); }
+  .ideal-boundary::before { content:'CANDIDATE BOUNDARY I';position:absolute;top:10px;left:16px;font-size:10px;font-weight:900;color:var(--gear-layer); }
+  .ideal-port { min-height:190px;padding:17px;border:4px solid var(--border);border-radius:17px;display:grid;align-content:center;gap:10px;opacity:.38; }
+  button.ideal-port { color:inherit;text-align:left;font:inherit; }
+  .ideal-port.active,.ideal-port.checked { opacity:1;border-color:var(--add-layer); }
+  .ideal-port.ambient { border-style:double;border-width:7px; }
+  .ideal-port.ambient.active,.ideal-port.ambient.checked { border-color:var(--multiply-layer); }
+  .identity-outside { grid-column:1/-1;padding:10px;border:2px dashed var(--border-strong);border-radius:11px;text-align:center;color:var(--text-muted); }
+  .contract-ledger { display:grid;align-content:center;gap:11px; }
+  .contract-line { padding:12px;border:2px solid var(--border);border-radius:11px; }
+  .contract-line.checked { border-color:var(--add-layer); }
+  .ideal-nameplate { padding:15px;border:5px double var(--gear-layer);border-radius:14px;text-align:center;font-weight:900;font-size:20px; }
+}
