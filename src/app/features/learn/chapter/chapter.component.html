@@ -473,6 +473,45 @@
             <app-algebra-v3-sylow-growth-ladder />
           }
         }
+      } @else if (chapterId() === 'ch31') {
+        @switch (currentStep()) {
+          @case (1) {
+            <app-algebra-v3-sylow-landscape />
+          }
+          @case (2) {
+            <app-algebra-v3-coset-fixed-magnet />
+          }
+          @case (3) {
+            <app-algebra-v3-normalizer-orbit-meter />
+          }
+          @case (4) {
+            <app-algebra-v3-self-action-residue />
+          }
+          @case (5) {
+            <app-algebra-v3-sylow-constraint-solver />
+          }
+        }
+      } @else if (chapterId() === 'ch32') {
+        @switch (currentStep()) {
+          @case (1) {
+            <app-algebra-v3-observable-compass />
+          }
+          @case (2) {
+            <app-algebra-v3-representation-resolution />
+          }
+          @case (3) {
+            <app-algebra-v3-compression-route />
+          }
+          @case (4) {
+            <app-algebra-v3-action-world-selector />
+          }
+          @case (5) {
+            <app-algebra-v3-finite-constraint-ladder />
+          }
+          @case (6) {
+            <app-algebra-v3-route-chain-conference />
+          }
+        }
       } @else {
         @if (currentAlgebraV2Lesson(); as lesson) {
           <app-algebra-v2-lesson [lesson]="lesson" />

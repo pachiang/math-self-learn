@@ -117,6 +117,17 @@ import { AlgebraV3CosetOrbitPackerComponent } from './steps/algebra-v3-ch30/step
 import { AlgebraV3NormalizerDecoderComponent } from './steps/algebra-v3-ch30/step-normalizer-decoder.component';
 import { AlgebraV3QuotientSeedLifterComponent } from './steps/algebra-v3-ch30/step-quotient-seed-lifter.component';
 import { AlgebraV3SylowGrowthLadderComponent } from './steps/algebra-v3-ch30/step-sylow-growth-ladder.component';
+import { AlgebraV3SylowLandscapeComponent } from './steps/algebra-v3-ch31/step-sylow-landscape.component';
+import { AlgebraV3CosetFixedMagnetComponent } from './steps/algebra-v3-ch31/step-coset-fixed-magnet.component';
+import { AlgebraV3NormalizerOrbitMeterComponent } from './steps/algebra-v3-ch31/step-normalizer-orbit-meter.component';
+import { AlgebraV3SelfActionResidueComponent } from './steps/algebra-v3-ch31/step-self-action-residue.component';
+import { AlgebraV3SylowConstraintSolverComponent } from './steps/algebra-v3-ch31/step-sylow-constraint-solver.component';
+import { AlgebraV3ObservableCompassComponent } from './steps/algebra-v3-ch32/step-observable-compass.component';
+import { AlgebraV3RepresentationResolutionComponent } from './steps/algebra-v3-ch32/step-representation-resolution.component';
+import { AlgebraV3CompressionRouteComponent } from './steps/algebra-v3-ch32/step-compression-route.component';
+import { AlgebraV3ActionWorldSelectorComponent } from './steps/algebra-v3-ch32/step-action-world-selector.component';
+import { AlgebraV3FiniteConstraintLadderComponent } from './steps/algebra-v3-ch32/step-finite-constraint-ladder.component';
+import { AlgebraV3RouteChainConferenceComponent } from './steps/algebra-v3-ch32/step-route-chain-conference.component';
 
 // Linalg Ch1 steps
 import { StepWhatIsVectorComponent } from './steps/linalg-ch1/step-what-is-vector.component';
@@ -1153,19 +1164,22 @@ const ALGEBRA_CHAPTERS: Record<string, ChapterConfig> = {
   ch31: {
     title: '第三十一章：最大 p-subgroups 如何分布',
     steps: [
-      { num: 1, title: 'Sylow subgroups conjugate' },
-      { num: 2, title: 'nₚ divides m' },
-      { num: 3, title: 'nₚ ≡ 1 mod p' },
-      { num: 4, title: 'Finite-group constraint solver' },
+      { num: 1, title: 'Sylow landscape builder' },
+      { num: 2, title: 'Coset fixed-point magnet' },
+      { num: 3, title: 'Normalizer orbit meter' },
+      { num: 4, title: 'Self-action residue' },
+      { num: 5, title: 'Sylow constraint solver' },
     ],
   },
   ch32: {
     title: '第三十二章：面對陌生群要看哪裡',
     steps: [
-      { num: 1, title: '先選 action representation' },
-      { num: 2, title: 'Map / quotient route' },
-      { num: 3, title: 'Action / counting route' },
-      { num: 4, title: 'Finite-group route' },
+      { num: 1, title: 'Question-to-observable compass' },
+      { num: 2, title: 'Representation resolution dial' },
+      { num: 3, title: 'Map / quotient compression route' },
+      { num: 4, title: 'Action world selector' },
+      { num: 5, title: 'Finite-order constraint ladder' },
+      { num: 6, title: 'Route-chain case conference' },
     ],
   },
 };
@@ -2473,6 +2487,17 @@ const SUBJECT_LABELS: Record<string, string> = {
     AlgebraV3NormalizerDecoderComponent,
     AlgebraV3QuotientSeedLifterComponent,
     AlgebraV3SylowGrowthLadderComponent,
+    AlgebraV3SylowLandscapeComponent,
+    AlgebraV3CosetFixedMagnetComponent,
+    AlgebraV3NormalizerOrbitMeterComponent,
+    AlgebraV3SelfActionResidueComponent,
+    AlgebraV3SylowConstraintSolverComponent,
+    AlgebraV3ObservableCompassComponent,
+    AlgebraV3RepresentationResolutionComponent,
+    AlgebraV3CompressionRouteComponent,
+    AlgebraV3ActionWorldSelectorComponent,
+    AlgebraV3FiniteConstraintLadderComponent,
+    AlgebraV3RouteChainConferenceComponent,
     // Linalg Ch1
     StepWhatIsVectorComponent,
     StepVectorOpsComponent,
