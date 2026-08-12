@@ -597,6 +597,63 @@
             @case (4) { <app-rings-ch9-contract-matrix /> }
           }
         }
+        @case ('rings/ch10') {
+          @switch (currentStep()) {
+            @case (1) { <app-rings-ch10-ambient-multiple-frontier /> }
+            @case (2) { <app-rings-ch10-principal-ideal-contract /> }
+            @case (3) { <app-rings-ch10-mixed-seed-combinations /> }
+            @case (4) { <app-rings-ch10-generated-minimality-certificate /> }
+          }
+        }
+        @case ('rings/ch11') {
+          @switch (currentStep()) {
+            @case (1) { <app-rings-ch11-difference-resolution-gate /> }
+            @case (2) { <app-rings-ch11-resolution-partition-builder /> }
+            @case (3) { <app-rings-ch11-operation-representative-safety /> }
+            @case (4) { <app-rings-ch11-quotient-ring-construction /> }
+            @case (5) { <app-rings-ch11-ideal-resolution-merge /> }
+          }
+        }
+        @case ('rings/ch12') {
+          @switch (currentStep()) {
+            @case (1) { <app-rings-ch12-canonical-projection-fibers /> }
+            @case (2) { <app-rings-ch12-map-descent-gate /> }
+            @case (3) { <app-rings-ch12-induced-map-builder /> }
+            @case (4) { <app-rings-ch12-minimum-loss-compression /> }
+          }
+        }
+        @case ('rings/ch13') {
+          @switch (currentStep()) {
+            @case (1) { <app-rings-ch13-collision-kernel-detector /> }
+            @case (2) { <app-rings-ch13-fibers-kernel-translates /> }
+            @case (3) { <app-rings-ch13-kernel-quotient-effective-domain /> }
+            @case (4) { <app-rings-ch13-image-isomorphism /> }
+          }
+        }
+        @case ('rings/ch14') {
+          @switch (currentStep()) {
+            @case (1) { <app-rings-ch14-downstairs-ideal-pullback /> }
+            @case (2) { <app-rings-ch14-upstairs-ideal-shadow /> }
+            @case (3) { <app-rings-ch14-ideal-lattice-correspondence /> }
+            @case (4) { <app-rings-ch14-two-stage-quotient /> }
+          }
+        }
+        @case ('rings/ch15') {
+          @switch (currentStep()) {
+            @case (1) { <app-rings-ch15-paired-quotient-address /> }
+            @case (2) { <app-rings-ch15-shared-blind-spot /> }
+            @case (3) { <app-rings-ch15-product-grid-reachability /> }
+            @case (4) { <app-rings-ch15-crt-reconstruction /> }
+          }
+        }
+        @case ('rings/ch16') {
+          @switch (currentStep()) {
+            @case (1) { <app-rings-ch16-maximal-growth-audit /> }
+            @case (2) { <app-rings-ch16-identity-inverse-certificate /> }
+            @case (3) { <app-rings-ch16-maximal-field-correspondence /> }
+            @case (4) { <app-rings-ch16-maximal-prime-boundary /> }
+          }
+        }
       }
     } @else {
       @switch (subject() + '/' + chapterId()) {

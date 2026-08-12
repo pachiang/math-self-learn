@@ -1,0 +1,113 @@
+.rings-lesson {
+  .paired-address-lab,.shared-blind-lab,.reachability-lab,.crt-reconstruction-lab { min-height: 560px; display: grid; gap: 16px; align-content: center; }
+  .paired-source,.coordinate-board,.pair-address-check,.dual-zero-gates,.blind-region-board,.ideal-control-panel,.target-grid-panel,.preimage-scanner,.selector-mixer,.inverse-address-table,.operation-workbench { padding: 15px; border: 3px solid var(--border); border-radius: 16px; background: var(--bg); }
+  .selector-stack { display: grid; gap: 8px; margin: 24px 0 14px; }
+
+  .paired-address-lab { grid-template-columns: minmax(340px,.75fr) minmax(430px,1fr); grid-template-rows: auto auto auto; align-items: center; }
+  .paired-source { border-color: var(--multiply-layer); }
+  .crt-ambient-grid { display: grid; grid-template-columns: repeat(6,1fr); gap: 7px; }
+  .crt-ambient-grid button { min-height: 64px; padding: 6px; border: 2px solid var(--border); border-radius: 9px; display: grid; place-items: center; gap: 3px; color: inherit; font: inherit; background: var(--bg-surface); }
+  .crt-ambient-grid button.selected { outline: 4px solid var(--multiply-layer); outline-offset: 2px; }
+  .crt-ambient-grid button.routed { border: 5px double var(--gear-layer); }
+  .crt-ambient-grid small,.reader-branch small,.source-port small,.address-socket small,.address-certificate small,.input-output-card small,.collision-indicator small,.difference-core small,.zero-gate small,.ideal-region small,.overlap-lens small,.kernel-equivalence small,.ideal-control small,.sum-mixer small,.sum-result small,.reachability-grid small,.scanner-target small,.scanner-beam small,.scanner-result small,.reachability-meter small,.coordinate-request small,.selector-piece small,.quotient-reconstruction small,.inverse-address-table small,.operation-routes small { color: var(--text-muted); font-size: 8px; font-weight: 850; }
+  .paired-reader-machine { min-height: 180px; padding: 14px; border: 4px double var(--gear-layer); border-radius: 16px; display: grid; grid-template-columns: 1fr 110px 1fr; gap: 12px; align-items: center; background: var(--bg); }
+  .reader-branch,.source-port { min-height: 130px; padding: 10px; border: 3px solid var(--border); border-radius: 12px; display: grid; place-items: center; gap: 4px; text-align: center; background: var(--bg-surface); }
+  .reader-branch { border-color: var(--add-layer); }
+  .reader-branch span,.source-port span { width: 42px; height: 42px; border: 4px double var(--gear-layer); border-radius: 50%; display: grid; place-items: center; font-weight: 900; }
+  .reader-branch b { font-size: 24px; }
+  .source-port strong { font-size: 23px; }
+  .coordinate-board { grid-column: 1/-1; border-color: var(--add-layer); }
+  .coordinate-column-labels { display: grid; grid-template-columns: 48px repeat(3,1fr); gap: 8px; text-align: center; margin: 8px 0; }
+  .coordinate-row { display: grid; grid-template-columns: 48px repeat(3,1fr); gap: 8px; margin-top: 8px; }
+  .row-label { display: grid; place-items: center; }
+  .address-socket { min-height: 88px; padding: 9px; border: 3px dashed var(--border-strong); border-radius: 11px; display: grid; gap: 7px; background: var(--bg-surface); }
+  .address-socket.current { outline: 4px solid var(--multiply-layer); outline-offset: 2px; }
+  .address-socket.complete { border: 5px double var(--add-layer); }
+  .address-socket > span { display: flex; gap: 8px; }
+  .address-socket i { min-width: 38px; padding: 6px; border: 2px dashed var(--border); border-radius: 8px; text-align: center; color: var(--text-muted); font-style: normal; }
+  .address-socket i.arrived { border-style: solid; border-color: var(--gear-layer); color: var(--text); }
+  .address-certificate { grid-column: 1/-1; padding: 13px; border: 4px double var(--gear-layer); border-radius: 14px; display: grid; grid-template-columns: 1fr 40px 1fr 40px 1fr; gap: 8px; align-items: center; text-align: center; background: var(--bg-surface); }
+  .address-certificate > div { display: grid; gap: 4px; }
+  .address-certificate > span { font-size: 22px; font-weight: 900; }
+
+  .shared-blind-lab { grid-template-columns: 1fr 140px 1fr; grid-template-rows: auto auto auto auto; align-items: center; }
+  .pair-address-check { grid-column: 1/-1; border-color: var(--multiply-layer); display: grid; grid-template-columns: 1fr 1.25fr 1fr; gap: 12px; }
+  .input-output-card,.collision-indicator,.difference-core,.zero-gate { min-height: 100px; padding: 11px; border: 3px solid var(--border); border-radius: 12px; display: grid; place-items: center; gap: 5px; text-align: center; background: var(--bg-surface); }
+  .input-output-card strong,.difference-core strong,.zero-gate strong { font-size: 22px; }
+  .input-output-card span,.difference-core span,.zero-gate span { color: var(--text-secondary); font-size: 10px; }
+  .collision-indicator.collision { border: 6px double var(--add-layer); }
+  .difference-core { grid-column: 1/-1; width: 260px; justify-self: center; border-color: var(--gear-layer); }
+  .dual-zero-gates { grid-column: 1/-1; border-color: var(--gear-layer); display: grid; grid-template-columns: 1fr 70px 1fr; gap: 12px; align-items: center; }
+  .zero-gate.passed { border: 5px double var(--add-layer); }
+  .zero-gate.blocked { border: 5px dashed #c45f5a; }
+  .intersection-symbol { text-align: center; font-size: 32px; font-weight: 900; }
+  .blind-region-board { grid-column: 1/-1; border-color: var(--add-layer); display: grid; grid-template-columns: 1fr 170px 1fr; gap: 10px; align-items: center; }
+  .ideal-region { min-height: 155px; padding: 10px; border: 3px solid var(--border); border-radius: 50%; display: flex; flex-wrap: wrap; align-content: center; justify-content: center; gap: 6px; background: var(--bg-surface); }
+  .ideal-region > small { width: 100%; text-align: center; }
+  .ideal-region i { min-width: 30px; padding: 5px; border: 2px dashed var(--border); border-radius: 50%; text-align: center; opacity: .25; font-style: normal; }
+  .ideal-region i.member { opacity: 1; border-style: solid; }
+  .ideal-region i.shared { border: 5px double var(--gear-layer); }
+  .overlap-lens { min-height: 120px; border: 5px double var(--gear-layer); border-radius: 50%; display: grid; place-items: center; gap: 5px; text-align: center; background: var(--bg); }
+  .overlap-lens strong { font-size: 18px; }
+  .overlap-lens span { color: var(--text-secondary); font-size: 9px; }
+  .kernel-equivalence { grid-column: 1/-1; padding: 13px; border: 4px dashed var(--border-strong); border-radius: 14px; display: grid; grid-template-columns: 1fr 60px 1fr; gap: 10px; align-items: center; text-align: center; background: var(--bg); }
+  .kernel-equivalence.verified { border-style: double; border-color: var(--multiply-layer); }
+  .kernel-equivalence > div { display: grid; gap: 4px; }
+  .kernel-equivalence > span { font-size: 27px; font-weight: 900; }
+
+  .reachability-lab { grid-template-columns: minmax(320px,.8fr) minmax(420px,1.2fr); grid-template-rows: auto auto auto; align-items: stretch; }
+  .ideal-control-panel { border-color: var(--multiply-layer); display: grid; grid-template-columns: 1fr 90px 1fr; gap: 10px; align-items: center; }
+  .ideal-control,.sum-mixer,.sum-result { min-height: 120px; padding: 10px; border: 3px solid var(--border); border-radius: 11px; display: grid; place-items: center; gap: 5px; text-align: center; background: var(--bg-surface); }
+  .ideal-control span,.sum-result span { color: var(--text-secondary); font-size: 9px; }
+  .sum-mixer span { font-size: 28px; font-weight: 900; }
+  .sum-result { grid-column: 1/-1; min-height: 85px; border-style: dashed; }
+  .sum-result.whole { border: 5px double var(--add-layer); }
+  .target-grid-panel { border-color: var(--add-layer); }
+  .reachability-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+  .reachability-grid.four-columns { grid-template-columns: repeat(4,1fr); }
+  .reachability-grid button { min-height: 88px; padding: 8px; border: 3px dashed var(--border-strong); border-radius: 10px; display: grid; place-items: center; gap: 4px; color: inherit; font: inherit; background: var(--bg-surface); }
+  .reachability-grid button.selected { outline: 4px solid var(--multiply-layer); outline-offset: 2px; }
+  .reachability-grid button.reachable { border: 5px double var(--add-layer); }
+  .reachability-grid button.unreachable { border: 5px dashed #c45f5a; }
+  .reachability-grid button span { font-size: 9px; color: var(--text-secondary); }
+  .preimage-scanner { grid-column: 1/-1; border-color: var(--gear-layer); display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 12px; align-items: center; }
+  .scanner-target,.scanner-result { min-height: 105px; padding: 10px; border: 3px solid var(--border); border-radius: 11px; display: grid; place-items: center; gap: 4px; text-align: center; background: var(--bg-surface); }
+  .scanner-target strong,.scanner-result strong { font-size: 21px; }
+  .scanner-target span,.scanner-result span { color: var(--text-secondary); font-size: 9px; }
+  .scanner-beam { text-align: center; display: grid; place-items: center; gap: 5px; }
+  .scanner-beam span { font-size: 30px; }
+  .scanner-result.found { border: 5px double var(--add-layer); }
+  .scanner-result.missing { border: 5px dashed #c45f5a; }
+  .reachability-meter { grid-column: 1/-1; display: grid; grid-template-columns: 1fr 45px 1fr 45px 1fr; gap: 8px; align-items: center; }
+  .reachability-meter > div { min-height: 72px; padding: 9px; border: 2px solid var(--border); border-radius: 10px; display: grid; place-items: center; gap: 4px; text-align: center; background: var(--bg-surface); }
+  .reachability-meter > span { text-align: center; font-size: 22px; font-weight: 900; }
+
+  .crt-reconstruction-lab { grid-template-columns: 1fr; }
+  .selector-mixer { border-color: var(--gear-layer); display: grid; grid-template-columns: 1fr 1fr 45px 1fr 45px 1fr; gap: 9px; align-items: center; }
+  .coordinate-request,.selector-piece,.quotient-reconstruction { min-height: 135px; padding: 10px; border: 3px solid var(--border); border-radius: 11px; display: grid; place-items: center; gap: 5px; text-align: center; background: var(--bg-surface); }
+  .coordinate-request strong,.quotient-reconstruction strong { font-size: 23px; }
+  .coordinate-request span,.selector-piece span,.quotient-reconstruction span { color: var(--text-secondary); font-size: 9px; }
+  .selector-piece { border-color: var(--multiply-layer); }
+  .selector-piece b { font-size: 22px; }
+  .quotient-reconstruction.rebuilt { border: 6px double var(--add-layer); }
+  .mix-symbol { text-align: center; font-size: 25px; font-weight: 900; }
+  .inverse-address-table { border-color: var(--add-layer); display: grid; grid-template-columns: repeat(6,1fr); gap: 8px; }
+  .inverse-address-table .tray-heading { grid-column: 1/-1; }
+  .inverse-address-table > div:not(.tray-heading) { min-height: 105px; padding: 8px; border: 3px dashed var(--border); border-radius: 10px; display: grid; place-items: center; gap: 3px; text-align: center; opacity: .42; background: var(--bg-surface); }
+  .inverse-address-table > div.visible { opacity: 1; border-style: solid; border-color: var(--add-layer); }
+  .inverse-address-table > div.current { outline: 4px solid var(--multiply-layer); outline-offset: 2px; }
+  .inverse-address-table em { color: var(--text-muted); font-size: 8px; }
+  .operation-workbench { border-color: var(--multiply-layer); }
+  .operation-controls { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; margin-bottom: 12px; }
+  .operation-controls button { min-height: 38px; padding: 7px 10px; border: 1px solid var(--border); border-radius: 9px; color: inherit; font: inherit; background: var(--bg-surface); }
+  .operation-controls button.active { border-color: var(--add-layer); background: color-mix(in srgb,var(--add-layer) 12%,var(--bg)); }
+  .operation-routes { padding: 13px; border: 4px dashed var(--border-strong); border-radius: 13px; display: grid; grid-template-columns: 1fr 60px 1fr; gap: 12px; align-items: center; text-align: center; background: var(--bg-surface); }
+  .operation-routes.checked { border-style: double; border-color: var(--gear-layer); }
+  .operation-routes > div { display: grid; gap: 5px; }
+  .operation-routes > span { font-size: 28px; font-weight: 900; }
+  .operation-routes div span { color: var(--text-secondary); font-size: 10px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .crt-ambient-grid button,.address-socket,.zero-gate,.ideal-region i,.reachability-grid button,.scanner-result,.quotient-reconstruction,.inverse-address-table > div,.operation-routes { transition: none; animation: none; }
+  }
+}

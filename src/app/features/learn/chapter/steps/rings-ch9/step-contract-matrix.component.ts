@@ -29,7 +29,7 @@ type Candidate = 'D' | 'K';
 
       @if(complete()){<section class="transfer-match"><div><p class="kicker">TRANSFER A · ℤ⊂ℚ</p><strong>1/2·1=1/2∉ℤ</strong><div class="choice-row"><button type="button" (click)="transferA.set(true)">SUBRING-ONLY</button><button type="button" (click)="transferA.set(false)">IDEAL-ONLY</button></div>@if(transferA()!==null){<p class="feedback" [class.warning]="!transferA()">{{transferA()?'對；共用1且internal operations留在ℤ，但ambient rational可推出去。':'Ambient witness否決ideal，不是否決subring。'}}</p>}</div><div><p class="kicker">TRANSFER B · 2ℤ⊂ℤ</p><strong>r·2k=2(rk)，但1∉2ℤ</strong><div class="choice-row"><button type="button" (click)="transferB.set(true)">IDEAL-ONLY</button><button type="button" (click)="transferB.set(false)">SUBRING-ONLY</button></div>@if(transferB()!==null){<p class="feedback" [class.warning]="!transferB()">{{transferB()?'對，限本課same-identity convention。':'它通過ambient absorption，失敗的是subring identity gate。'}}</p>}</div></section>}
       <section class="insight"><span class="insight-icon">2×2</span><div><strong>不要問哪個比較強</strong><span>先問你要的是internal world，還是ambient-stable difference region。</span></div></section>
-      <div class="next-question"><strong>NEXT QUESTION · Ch10</strong><p>現在會檢查已給定boundary；下一章問seed會被ideal contract強迫長成多大。</p></div>
+      <div class="next-question"><strong>NEXT QUESTION · Ch10</strong><p>Ideal 是ambient-stable difference region；若指定一張seed未來必須算作0，這份contract還會強迫哪些cards一起歸零？</p></div>
     </article>
   `,
 })

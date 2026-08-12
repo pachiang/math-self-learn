@@ -169,6 +169,35 @@ import { RingsCh9InputScopeComponent } from './steps/rings-ch9/step-input-scope.
 import { RingsCh9SubringNotIdealComponent } from './steps/rings-ch9/step-subring-not-ideal.component';
 import { RingsCh9IdealNotUnitalSubringComponent } from './steps/rings-ch9/step-ideal-not-unital-subring.component';
 import { RingsCh9ContractMatrixComponent } from './steps/rings-ch9/step-contract-matrix.component';
+import { RingsCh10AmbientMultipleFrontierComponent } from './steps/rings-ch10/step-ambient-multiple-frontier.component';
+import { RingsCh10PrincipalIdealContractComponent } from './steps/rings-ch10/step-principal-ideal-contract.component';
+import { RingsCh10MixedSeedCombinationsComponent } from './steps/rings-ch10/step-mixed-seed-combinations.component';
+import { RingsCh10GeneratedMinimalityCertificateComponent } from './steps/rings-ch10/step-generated-minimality-certificate.component';
+import { RingsCh11DifferenceResolutionGateComponent } from './steps/rings-ch11/step-difference-resolution-gate.component';
+import { RingsCh11ResolutionPartitionBuilderComponent } from './steps/rings-ch11/step-resolution-partition-builder.component';
+import { RingsCh11OperationRepresentativeSafetyComponent } from './steps/rings-ch11/step-operation-representative-safety.component';
+import { RingsCh11QuotientRingConstructionComponent } from './steps/rings-ch11/step-quotient-ring-construction.component';
+import { RingsCh11IdealResolutionMergeComponent } from './steps/rings-ch11/step-ideal-resolution-merge.component';
+import { RingsCh12CanonicalProjectionFibersComponent } from './steps/rings-ch12/step-canonical-projection-fibers.component';
+import { RingsCh12MapDescentGateComponent } from './steps/rings-ch12/step-map-descent-gate.component';
+import { RingsCh12InducedMapBuilderComponent } from './steps/rings-ch12/step-induced-map-builder.component';
+import { RingsCh12MinimumLossCompressionComponent } from './steps/rings-ch12/step-minimum-loss-compression.component';
+import { RingsCh13CollisionKernelDetectorComponent } from './steps/rings-ch13/step-collision-kernel-detector.component';
+import { RingsCh13FibersKernelTranslatesComponent } from './steps/rings-ch13/step-fibers-kernel-translates.component';
+import { RingsCh13KernelQuotientEffectiveDomainComponent } from './steps/rings-ch13/step-kernel-quotient-effective-domain.component';
+import { RingsCh13ImageIsomorphismComponent } from './steps/rings-ch13/step-image-isomorphism.component';
+import { RingsCh14DownstairsIdealPullbackComponent } from './steps/rings-ch14/step-downstairs-ideal-pullback.component';
+import { RingsCh14UpstairsIdealShadowComponent } from './steps/rings-ch14/step-upstairs-ideal-shadow.component';
+import { RingsCh14IdealLatticeCorrespondenceComponent } from './steps/rings-ch14/step-ideal-lattice-correspondence.component';
+import { RingsCh14TwoStageQuotientComponent } from './steps/rings-ch14/step-two-stage-quotient.component';
+import { RingsCh15PairedQuotientAddressComponent } from './steps/rings-ch15/step-paired-quotient-address.component';
+import { RingsCh15SharedBlindSpotComponent } from './steps/rings-ch15/step-shared-blind-spot.component';
+import { RingsCh15ProductGridReachabilityComponent } from './steps/rings-ch15/step-product-grid-reachability.component';
+import { RingsCh15CrtReconstructionComponent } from './steps/rings-ch15/step-crt-reconstruction.component';
+import { RingsCh16MaximalGrowthAuditComponent } from './steps/rings-ch16/step-maximal-growth-audit.component';
+import { RingsCh16IdentityInverseCertificateComponent } from './steps/rings-ch16/step-identity-inverse-certificate.component';
+import { RingsCh16MaximalFieldCorrespondenceComponent } from './steps/rings-ch16/step-maximal-field-correspondence.component';
+import { RingsCh16MaximalPrimeBoundaryComponent } from './steps/rings-ch16/step-maximal-prime-boundary.component';
 
 // Linalg Ch1 steps
 import { StepWhatIsVectorComponent } from './steps/linalg-ch1/step-what-is-vector.component';
@@ -1231,7 +1260,7 @@ const RINGS_CHAPTERS: Record<string, ChapterConfig> = {
     steps: [
       { num: 1, title: '同一 objects，兩條 routes' },
       { num: 2, title: '兩種 operations，不同 undo' },
-      { num: 3, title: 'Functions 也是 elements' },
+      { num: 3, title: 'Whole function 才是一個 element' },
       { num: 4, title: '還缺 compatibility' },
     ],
   },
@@ -1310,6 +1339,70 @@ const RINGS_CHAPTERS: Record<string, ChapterConfig> = {
       { num: 2, title: 'Subring 不保證 absorption' },
       { num: 3, title: 'Ideal 不提供 ambient 1' },
       { num: 4, title: 'Two-contract matrix' },
+    ],
+  },
+  ch10: {
+    title: '第十章：若 seed 必須變成 0，什麼會一起消失？',
+    steps: [
+      { num: 1, title: 'Seed 歸零會拖走所有 ambient multiples' },
+      { num: 2, title: 'Principal ideal 是完整的 safe-collapse region' },
+      { num: 3, title: '多個 seeds 會強迫 mixed combinations' },
+      { num: 4, title: 'Generated ideal 是最小的安全壓縮' },
+    ],
+  },
+  ch11: {
+    title: '第十一章：把 ideal 壓成 0，世界會變成什麼？',
+    steps: [
+      { num: 1, title: 'I 歸零會強迫 representatives 合併' },
+      { num: 2, title: 'Whole coset 才是新 element' },
+      { num: 3, title: 'Operations 必須不依賴 representative' },
+      { num: 4, title: 'Ambient compute，再 wrap 成 quotient ring' },
+      { num: 5, title: 'Larger ideal 造成更強 compression' },
+    ],
+  },
+  ch12: {
+    title: '第十二章：Quotient 為什麼是最不浪費的壓縮？',
+    steps: [
+      { num: 1, title: 'Canonical projection 把 collapse 變成 map' },
+      { num: 2, title: '只有殺掉 I 的 maps 能讀 quotient' },
+      { num: 3, title: 'Induced map 被每個 coset 強迫唯一' },
+      { num: 4, title: 'R/I 是 minimum-loss compression' },
+    ],
+  },
+  ch13: {
+    title: '第十三章：一張 map 真正忘掉了哪些差異？',
+    steps: [
+      { num: 1, title: 'Collision 的差正好落進 kernel' },
+      { num: 2, title: '每條 fiber 都是 kernel 的平移' },
+      { num: 3, title: 'R/ker f 是 exact effective domain' },
+      { num: 4, title: 'Quotient 對準 image，不一定是 target' },
+    ],
+  },
+  ch14: {
+    title: '第十四章：壓縮之後，還能合法地再壓掉什麼？',
+    steps: [
+      { num: 1, title: 'Downstairs ideal 拉回後必定包含 K' },
+      { num: 2, title: 'Upstairs 的 J⊇K 留下唯一 shadow' },
+      { num: 3, title: 'Ideal lattice 原樣下降' },
+      { num: 4, title: '分兩次壓等於直接壓到底' },
+    ],
+  },
+  ch15: {
+    title: '第十五章：兩個 quotient views 合起來，能把世界拼回來嗎？',
+    steps: [
+      { num: 1, title: '兩張 quotient views 形成座標' },
+      { num: 2, title: '共同 blind spot 是 I∩J' },
+      { num: 3, title: 'Product reachability 由 I+J 決定' },
+      { num: 4, title: 'Comaximal views 成為可逆 CRT 座標' },
+    ],
+  },
+  ch16: {
+    title: '第十六章：Maximal ideal 如何讓 quotient 處處可逆？',
+    steps: [
+      { num: 1, title: 'Every outside seed 的 maximal detector' },
+      { num: 2, title: 'Growth 與 inverse 的 identity certificate' },
+      { num: 3, title: 'Maximal ideal 等於 field quotient' },
+      { num: 4, title: 'Maximal 與 prime 的強弱邊界' },
     ],
   },
 };
@@ -2671,6 +2764,35 @@ const SUBJECT_LABELS: Record<string, string> = {
     RingsCh9SubringNotIdealComponent,
     RingsCh9IdealNotUnitalSubringComponent,
     RingsCh9ContractMatrixComponent,
+    RingsCh10AmbientMultipleFrontierComponent,
+    RingsCh10PrincipalIdealContractComponent,
+    RingsCh10MixedSeedCombinationsComponent,
+    RingsCh10GeneratedMinimalityCertificateComponent,
+    RingsCh11DifferenceResolutionGateComponent,
+    RingsCh11ResolutionPartitionBuilderComponent,
+    RingsCh11OperationRepresentativeSafetyComponent,
+    RingsCh11QuotientRingConstructionComponent,
+    RingsCh11IdealResolutionMergeComponent,
+    RingsCh12CanonicalProjectionFibersComponent,
+    RingsCh12MapDescentGateComponent,
+    RingsCh12InducedMapBuilderComponent,
+    RingsCh12MinimumLossCompressionComponent,
+    RingsCh13CollisionKernelDetectorComponent,
+    RingsCh13FibersKernelTranslatesComponent,
+    RingsCh13KernelQuotientEffectiveDomainComponent,
+    RingsCh13ImageIsomorphismComponent,
+    RingsCh14DownstairsIdealPullbackComponent,
+    RingsCh14UpstairsIdealShadowComponent,
+    RingsCh14IdealLatticeCorrespondenceComponent,
+    RingsCh14TwoStageQuotientComponent,
+    RingsCh15PairedQuotientAddressComponent,
+    RingsCh15SharedBlindSpotComponent,
+    RingsCh15ProductGridReachabilityComponent,
+    RingsCh15CrtReconstructionComponent,
+    RingsCh16MaximalGrowthAuditComponent,
+    RingsCh16IdentityInverseCertificateComponent,
+    RingsCh16MaximalFieldCorrespondenceComponent,
+    RingsCh16MaximalPrimeBoundaryComponent,
     // Linalg Ch1
     StepWhatIsVectorComponent,
     StepVectorOpsComponent,
