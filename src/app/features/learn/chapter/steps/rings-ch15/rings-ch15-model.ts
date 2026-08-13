@@ -1,6 +1,3 @@
-import { multiplyPairs, Pair, principalPairMembers } from '../rings-ch10/rings-ch10-model';
-import { containsPair, pairBucketIndex, pairPartition } from '../rings-ch12/rings-ch12-model';
-
 export interface CoordinateAddress {
   readonly mod2: number;
   readonly second: number;
@@ -82,28 +79,3 @@ export function verifyRingsCh15Model(): void {
 }
 
 verifyRingsCh15Model();
-
-// Compatibility exports for the currently wired later chapter. They do not shape Ch15's curriculum.
-export type BoundaryId = 'K' | 'Q' | 'W';
-export const IDEAL_Q: readonly Pair[] = principalPairMembers([2, 2]);
-const COMPAT_WHOLE: readonly Pair[] = Array.from({ length: 4 }, (_, a) => Array.from({ length: 4 }, (__, b) => [a, b] as Pair)).flat();
-function compatMembers(id: BoundaryId): readonly Pair[] { return id === 'Q' ? IDEAL_Q : id === 'K' ? COMPAT_WHOLE.filter(pair => pair[1] % 2 === 0) : COMPAT_WHOLE; }
-export function quotientClasses(id: BoundaryId) { return pairPartition(compatMembers(id)); }
-export function zeroClassIndex(id: BoundaryId): number { return pairBucketIndex([0, 0], compatMembers(id)); }
-export function quotientClassLabel(id: BoundaryId, classIndex: number): string {
-  if (id === 'W') return 'Z=1 · ONLY CLASS';
-  const representative = quotientClasses(id)[classIndex].representative;
-  if (id === 'K') return representative[1] % 2 === 0 ? 'E · ZERO CLASS' : 'O · NONZERO';
-  const parity = `${representative[0] % 2}${representative[1] % 2}`;
-  return parity === '00' ? '00 · ZERO CLASS' : `${parity} · NONZERO`;
-}
-export function quotientProduct(id: BoundaryId, leftClass: number, rightClass: number): number {
-  const classes = quotientClasses(id);
-  return pairBucketIndex(multiplyPairs(classes[leftClass].representative, classes[rightClass].representative), compatMembers(id));
-}
-export function isProper(id: BoundaryId): boolean { return compatMembers(id).length < COMPAT_WHOLE.length; }
-export function isPrimeCandidate(id: BoundaryId): boolean {
-  if (!isProper(id)) return false;
-  const outside = COMPAT_WHOLE.filter(value => !containsPair(compatMembers(id), value));
-  return outside.every(left => outside.every(right => !containsPair(compatMembers(id), multiplyPairs(left, right))));
-}

@@ -532,9 +532,9 @@ const SUBJECT_INFO: Record<string, SubjectInfo> = {
       {
         id: 'ch16',
         label: '第十六章',
-        title: 'Maximal ideal 如何讓 quotient 處處可逆？',
-        desc: '從every-outside growth detector找到identity certificate，再把maximal ideal、field quotient與prime boundary接成同一條因果鏈。',
-        meta: '4 個小節 · 約 55 分鐘',
+        title: '什麼 boundary 會讓 quotient 的每個非零元素都能回到 1？',
+        desc: '先看nonzero classes如何打開identity dock，再用同一張certificate、fiber bundling與no-intermediate criterion建立maximal ideal和field quotient的精確對應。',
+        meta: '5 個小節 · 約 65 分鐘',
       },
     ],
   },

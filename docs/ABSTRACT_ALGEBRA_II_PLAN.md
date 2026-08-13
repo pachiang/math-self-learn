@@ -12,7 +12,7 @@
 
 > Ring 讓我們同時相加與相乘；ideal 是能承受整個 ambient ring 乘法作用的差異；quotient ring 則把這些差異壓成零，而且不破壞兩種 operations。
 
-預計 **20 章**，每章約 3–6 個單一-insight screens。章數不是硬上限；若 storyboard 顯示一個畫面必須同時解釋兩個新機制，就拆章，不縮字硬塞。
+依 2026-08-13 對 Ch11–15 重寫版的重新審核，建議全課收束為 **18 章**，每章約 3–6 個單一-insight screens。章數不是完成度指標；若一個畫面必須同時解釋兩個新機制就拆節，若後段只是在補名詞則刪章，不為湊滿 20 章犧牲主線。
 
 ## 本課採用的 conventions
 
@@ -36,10 +36,14 @@ maps 的 collision differences 會吸收 ambient multipliers
 ideal
       ↓ 把 ideal 中的差異視為零
 quotient ring
-      ↓ 觀察 quotient 中還剩什麼乘法行為
-prime / maximal ideals
+      ↓ universal property 與 kernel–image factorization
+quotient correspondence / two-stage quotient
+      ↓ paired quotient views
+intersection、sum 與 CRT coordinates
+      ↓ 反看 quotient 中的乘法行為
+field ↔ maximal ideal；domain ↔ prime ideal
       ↓
-ideal arithmetic、CRT 與 quotient correspondence
+diagnostic capstone
 ```
 
 `Ideal` 不以定義卡開場。學習者會先在 kernel 的「看不見差異」中發現 absorption，再替它命名；之後 quotient ring 會回答這個條件為何恰好必要。
@@ -2811,3 +2815,441 @@ D／K沿用9.2／9.3的general reasons與witness；R由definitions直接通過�
 - 每一個互動都要先寫出「操作什麼、看見什麼、推翻哪個誤解」。若只有數值變化或裝飾動畫，就不做。
 - 公式、完整 definitions 與 proofs 收在展開層後，主流程仍必須完整且數學正確。
 - 第一章不得偷跑 ideals、domains、fields 或 examples catalogue；最後一章也不得因為接近課尾而壓縮內容。
+
+---
+
+## Ch11–18 最新架構稽核與修訂 · 2026-08-13
+
+> **本節取代上方初版 Ch10–20 排程中所有與 Ch11 之後相衝突的內容。**
+>
+> Ch11–15 已依實際課程重寫；後續 agent 不得再把初版的「Ch17 ideal arithmetic、Ch18 CRT、Ch19 correspondence、Ch20 capstone」照章號實作。新版 Ch14 已完成 correspondence 與 two-stage quotient，新版 Ch15 已在 paired-map 因果鏈中建立 intersection、sum、comaximality 與 CRT。重做同一批內容只會製造重複與概念倒退。
+
+### 重新審核的課程依賴鏈
+
+```text
+Ch10  generated ideal：若 seed 必須歸零，哪些 differences 會被迫一起消失？
+  ↓
+Ch11  quotient construction：把 whole ideal 壓成 zero class，cosets 成為新 elements
+  ↓
+Ch12  quotient universal property：哪些 maps 能下降？induced map 為何唯一？
+  ↓
+Ch13  first isomorphism mechanism：kernel fibers 壓成 effective domain，再精確對準 image
+  ↓
+Ch14  ideal correspondence：downstairs ideals ↔ upstairs ideals containing K；two-stage = direct
+  ↓
+Ch15  paired quotient maps：intersection 控制共同 blind spot；sum 控制 reachability；CRT 重建
+  ↓
+Ch16  quotient 的每個 nonzero class 能否回到 1？ ↔ maximal ideal
+  ↓
+Ch17  quotient 的 nonzero product 能否塌成 0？ ↔ prime ideal
+  ↓
+Ch18  diagnostic capstone：依問題選擇 generated ideal、quotient、kernel/image、CRT 或 behavior detector
+```
+
+這條鏈的核心不是 theorem 清單，而是同一個 reversible mental move：
+
+> 先在 quotient 觀察「還剩下什麼 behavior」，再把該 behavior 翻回 upstairs ideal 的 boundary condition。
+
+### Ch11–15 承接性結論
+
+| Chapter | 已建立的唯一主要工作 | 對下一章交出的工具 | 稽核結論 |
+|---|---|---|---|
+| Ch11 | whole coset 才是 quotient element；operations 不依賴 representative | canonical quotient world `R/I` | 保留；五節雖長，但每節認知工作分離 |
+| Ch12 | `I⊆ker f` 是 map descent gate；induced map 被 fibers 唯一強迫 | universal factorization lens | 保留；自然承接 Ch11 的 well-definedness |
+| Ch13 | collisions 正好由 kernel differences 控制；`R/ker f` 對準 image | kernel–quotient–image blueprint | 保留；是 Ch12 universal property 的具體結構化結果 |
+| Ch14 | quotient ideals 由包含 K 的 upstairs ideals 精確控制；分段 quotient 等於直接 quotient | inclusion lattice 與 intermediate-boundary 語言 | 保留；為 maximality 準備必要語言 |
+| Ch15 | 兩張 quotient views 的共同遺忘由 `I∩J` 控制，獨立 reachability 由 `I+J` 控制 | CRT coordinates 與 quotient-side diagnostics | 保留；已吸收初版 Ch17–19 的必要內容 |
+
+Ch15 不必硬把每個新章都直接「推出」下一章。它結束的是 multi-view compression 線；Ch16 開始的是 quotient behavior 線。轉場必須明說鏡頭改變：
+
+> 前面問多張 quotient views 能否拼回資訊；接下來固定一張 quotient，問它剩下的 multiplication 到底有多強。
+
+### 現有 Ch16 審核結論
+
+現有 Ch16 的數學模型、non-degenerate function-ring examples 與 `1=i+ra` certificate 都值得保留，但章內順序需要重排，不能視為已定稿。
+
+主要問題：
+
+1. **開場方向逆著最新主線。** 現有 16.1 先定義 maximal growth，再到 quotient inverse；Ch11–15 剛建立的是 quotient-first lens，應先讓學習者看見 nonzero class 的 inverse dock 是否開啟，再追問 upstairs 原因。
+2. **16.4 擠入第二個新 detector。** Prime／domain 與 maximal／field 回答不同問題：一個防止 nonzero product 塌成 zero，一個要求每個 nonzero class 回到 one。放在同章末節容易讓 `domain` 看起來只是較弱 field 的附帶名詞，而不是獨立可操作的 behavior。
+3. **finite example 會掩蓋一般邊界。** 在有限 commutative quotient 中 domain 會自動成為 field，因此同一個 16-card world 找不到 prime-but-not-maximal。這個 accidental property 必須留到獨立 prime 章，用 `ℤ` 作 controlled transfer，而不是在 maximal 章尾匆忙補洞。
+4. **實作模型存在反向耦合。** Ch16 目前從 Ch15 的「compatibility exports」取得 prime／quotient helpers。重做時應把跨章共用的 finite quotient／ideal helpers抽到中立 model；課程後章不應靠前章檔案中的臨時相容層維持。
+
+因此不是刪除 Ch16，而是保留優秀資產後重新安排 learning sequence。
+
+## 新版 Ch16 · 什麼 boundary 會讓 quotient 的每個非零元素都能回到 1？
+
+**全章唯一核心 insight：** quotient 中每個 nonzero class 都可逆，等價於 upstairs ideal 與 whole ring 之間沒有 proper intermediate boundary。
+
+**主線 scope：** commutative unital rings、proper ideals。Field（體）與 maximal ideal（極大理想）首次正式命名時標註英文。Prime、domain、zero-product detector 不進本章主流程。
+
+**承接 Ch15 的第一句：**
+
+> CRT 問多張 quotient views 能否形成可逆座標；現在只固定一張 quotient，改問它裡面的每張 nonzero card 能否把 multiplication 倒帶到 1。
+
+### 16.1 · Quotient 裡不是 zero 的 class，是否都能打開 identity dock？
+
+**本節設計句：** 學完後，學習者應能把 field behavior 看成「每一個 nonzero class 都能找到 multiplicative partner 抵達 `1+I`」，而不是把 field 背成比 ring 更高級的名詞。
+
+```text
+第一個具體問題：
+固定一張quotient world。選一個nonzero class後，能否找到另一個class，使兩者product抵達1-class？
+
+主要視覺：
+單一active quotient dock，而不是首屏並排兩張tables：SOURCE CLASS在左、可選PARTNER在中、PRODUCT DOCK在右。Zero class固定停在上方reference lane並標`EXEMPT`；它不能被選作待審nonzero source。
+
+互動：
+1. 選source class。
+2. 在看到答案前選partner或預測`NO PARTNER`。
+3. 執行一次class multiplication，觀察output是否抵達identity dock。
+4. 手動完成一列後才解鎖`AUDIT REMAINING CLASSES`。
+R/K與R/Q使用同一座dock切換，不同world不並排競爭注意力；完成兩次audit後才顯示compact comparison ledger。
+
+因果：
+選 partner → 計算 class product → 是否抵達 identity dock。不要先顯示 maximal 或 ideal lattice。
+
+Evidence：
+一列是`EXAMPLE · EXACT CLASS PRODUCT`；完整掃過active finite quotient才是`FINITE EXHAUSTION · THIS QUOTIENT`。Field的general definition在behavior可見後才命名，不把finite scan當一般theorem proof。
+
+Accidental-property audit：
+R/K 只有一個 nonzero class且它 self-inverse，會暗示 inverse 通常等於自己。完成主 audit 後固定轉移到 Z/5Z 的 2↔3，不新增自由 controls。
+
+觀念圖卡：
+Field 不是「沒有 multiplication 問題」；它是每個 nonzero element 都有路回到 1。
+```
+
+**擁擠界線：** 本節不提 generated enlargement、maximal、prime 或 domain，只建立 quotient-side behavior detector。
+
+### 16.2 · 一張 `1=i+ra` certificate 同時解釋 growth 與 inverse
+
+**本節設計句：** 學完後，學習者應能看見 `a+I` 在 quotient 可逆，恰好等價於把 outside seed `a` 加入 I 後能生成 identity。
+
+```text
+第一個具體問題：
+a 在 ambient ring 中不是 unit，它的 quotient class 為何仍可能可逆？
+
+主要視覺：
+同一張certificate置中，使用上下對齊的雙讀法：上半部是AMBIENT GROWTH，下半部是QUOTIENT INVERSE。`i`、`r`、`a`三個tokens位置在兩層完全對齊；切換讀法只改變wrap與角色標註，不讓元素飛到另一套圖。
+
+因果：
+1=i+ra，i∈I。Upstairs 讀法：identity 被 I 與 a 強迫生成。Downstairs 讀法：i wrap 成 zero，留下 (r+I)(a+I)=1+I。
+
+互動：
+對比OPEN與BLOCKED兩個固定state。主流程只用一個stepper依序：
+1. GENERATE FROM I AND a
+2. ASK WHETHER 1 ARRIVES
+3. WRAP I TO ZERO
+上下readout逐步同步；不放三顆同時可按的stage buttons，也不提供無目的sliders。
+
+Non-degenerate transfer：
+Z/5Z 中 1=(-5)+3·2，ambient 2 不是 Z-unit，但 2+5Z 的 inverse 是 3+5Z。
+
+Evidence：
+固定 examples 提供 exact certificates；details 中放雙向 GENERAL ARGUMENT。
+
+觀念圖卡：
+Growth reaches 1 與 quotient class 取得 inverse，是同一張 certificate 的兩種讀法。
+```
+
+**擁擠界線：** 本節只處理 single class／single outside seed 的雙向 bridge，不量化 every class，也不命名 maximal。
+
+### 16.3 · Every outside seed 都直達 R，才代表沒有 intermediate ideal
+
+**本節設計句：** 學完後，學習者應能用 every-outside growth criterion 判斷 maximality，並理解 maximal 是 inclusion gap，不是 cardinality 最大。
+
+```text
+第一個具體問題：
+Q 有 4 張 cards、K 有 8 張；為什麼 card 數完全不能證明 K maximal？
+
+主要視覺：
+固定ideal inclusion fork `Q⊂K,L⊂R`。Nodes大小相同、上下距離只代表inclusion而非cardinality；加入outside seed後，只高亮實際generated path。旁邊保留fixed ambient card board，顯示哪些cards是original、forced、still outside。
+
+互動：
+先跑一張focused seed。若停在intermediate ideal，立即留下decisive witness；若抵達R，UI提醒single success尚未證明maximal。之後才解鎖`AUDIT ALL OUTSIDE SEEDS`。Audit結果以seed cards分組，不再重畫整張lattice。
+
+一般機制：
+若 I⊊J⊊R，任取 a∈J\I，GROW(I;a)⊆J，故不會抵達 R。反向若某個 outside a 的 growth 仍 proper，它本身就是 intermediate ideal。
+
+Transfer：
+6Z⊂2Z⊂Z 證明 6Z 不 maximal；2Z 加任一 odd seed 直達 Z。兩者都是 infinite sets，徹底移除 card-count 錯覺。
+
+觀念圖卡：
+Maximal 不是 biggest；它表示從 I 到 R 沒有可停靠的 proper boundary。
+```
+
+**擁擠界線：** `I+(a)` 的正式 notation 放 details；ideal sum 已在 Ch15 出現，但本節不重新教 sum construction。
+
+### 16.4 · 許多 outside representatives，可能只是同一個 nonzero class
+
+**本節設計句：** 學完後，學習者應能看見projection把所有outside elements按coset分束；growth／inverse certificate只依賴class，不依賴選到哪張representative。
+
+```text
+第一個具體問題：
+K外面有8張function cards，但R/K只有1個nonzero class。Maximal detector為什麼檢查8張outside cards，field detector卻只出現1列？
+
+主要視覺：
+左側fixed ambient board把outside cards保持各自位置；中央canonical projection把它們束成quotient fibers；右側是nonzero class cards。每一束用共同outline與fiber label辨識，不只靠顏色。禁止畫成outside card與class的一對一箭頭表。
+
+互動：
+選同一fiber中的兩張representatives a、a+i，先預測它們會不會得到不同growth destination。按`COMPARE REPRESENTATIVES`後，同步顯示：
+- `I+(a)=I+(a+i)`
+- `a+I=(a+i)+I`
+- inverse verdict相同
+接著切換另一個fiber驗證mechanism，而不是逐張做8次audit。
+
+Invariant：
+I、ambient ring、quotient projection與certificate rule固定；只更換同一fiber內的handle。Zero fiber仍標`INSIDE I / ZERO CLASS`，outside fibers才對應nonzero classes。
+
+因果：
+若a'−a∈I，兩個seeds只相差already-available ideal correction，所以generated enlargement相同；它們本來也就是同一quotient class。這一頁只建立representative invariance，不顯示maximal–field theorem seal。
+
+Transfer：
+改用Z/12Z與I=(4)：outside representatives 1、5、9收成同一class，要求預測`GROW(I;1)`與`GROW(I;5)`是否可能有不同identity status。
+
+Evidence：
+目前finite fiber comparison是`EXAMPLE`；representative-invariance的algebraic reason標`GENERAL ARGUMENT`並放在主畫面的短因果列，完整等式移到details。
+
+觀念圖卡：
+Maximal detector量化representatives；field detector量化classes。Projection會把前者按fiber打包，但不會改變certificate verdict。
+```
+
+**擁擠界線：** 本節不再教canonical projection、coset或representative；那些是Ch11–12既有工具。本節也不命名新theorem，唯一工作是修正「outside cards與nonzero classes一對一」的錯覺。
+
+### 16.5 · 把同一個 single-class bridge 全稱量化，得到 maximal–field correspondence
+
+**本節設計句：** 學完後，學習者應能用一條已建立的single-class equivalence與16.4的fiber bundling，推出every-outside criterion恰好等於every-nonzero-class inverse criterion。
+
+```text
+主要視覺：
+三層窄版quantifier bridge，不再出現完整labs：
+1. EVERY OUTSIDE REPRESENTATIVE a
+2. GROUP BY NONZERO CLASS a+I
+3. SAME CERTIFICATE: 1=i+ra
+左端接`NO INTERMEDIATE IDEAL`，右端接`EVERY NONZERO CLASS UNIT`。所有箭頭雙向但逐步出現，沒有強弱階梯或上下排名。
+
+互動：
+學習者依序放入三張已知reason tiles：
+- `a outside I ⇔ a+I nonzero`
+- `same fiber ⇒ same certificate verdict`
+- `1∈GROW(I;a) ⇔ a+I has inverse`
+每次錯放只指出缺少哪個logical connection。三張完成後才把左右兩端命名為MAXIMAL IDEAL與FIELD。
+
+Invariant：
+I proper、commutative、unital scope始終可見；zero class不進inverse quantifier。畫面不再讓使用者選數值，避免把theorem synthesis退化成第三次finite scan。
+
+Evidence：
+本頁是`GENERAL ARGUMENT · SYNTHESIS OF 16.2–16.4`。前章finite instances只作read-only anchors，不能把兩個PASS ledgers當proof。
+
+正式命名：
+`M maximal ⇔ R/M is a field`。Field（體）、maximal ideal（極大理想）若前頁只暫用behavior label，於此第一次正式並列；完整雙向proof放details。
+
+Transfer：
+Z/pZ與Z/nZ的固定對比只問quotient inverse behavior與intermediate ideals；「p為prime的數論判準」不在本課證明，避免偷跑下一門divisibility課。
+
+章末未解問題：
+Field要求每個nonzero class回到1；若我們只要求nonzero×nonzero不要塌成zero，會對應哪一種ideal boundary？
+
+觀念圖卡：
+Maximal ideal 與 field quotient 不是兩條相似定義；它們由每一張 1=i+ra certificate 逐列對齊。
+```
+
+**擁擠界線：** 本節不比較prime、不證明field⇒domain、不放integer counterexample，也不重新操作inverse dock或growth lattice。這些分別屬於16.1／16.3與下一章。
+
+### Ch16 視覺與實作處置
+
+- 可重用現有`field-audit-lab`、identity certificate、growth fork與exact certificate generation；重點是拆出fiber bundling並重排文案責任，不需推翻整套數學model。
+- 現有16.3的quotient class audit重構為新版16.1的single-dock exploration；現有16.2保留為新版16.2但將三顆stage buttons收成單一stepper；現有16.1移作新版16.3並降低首屏control數。
+- 新版16.4需要專屬projection-fiber comparison，不能拿16.1 audit table換標題重用。
+- 新版16.5只做logical tile synthesis，不再把兩個finite audits並排重跑。
+- 舊`step-maximal-prime-boundary`不屬於Ch16，已從本章移除；Ch17應在補齊prime的前置insight後重新實作，不可只把舊頁換章號。
+- Ch16 model 不再 import Ch15 的 compatibility-only prime helpers。Quotient class operations與 ideal membership由Ch16自己的中立model承擔，Ch15 CRT model只保留Ch15所需概念。
+- 全章不使用 3D。需要表達的是 class rows、identity dock、certificate correspondence 與 inclusion gap，2D exact relations最清楚。
+
+### Ch16 單節 insight、擁擠度與互動稽核
+
+#### 為什麼是5節，不是4節，也不需要更多
+
+| Screen | 學完只新增哪一個判斷能力 | 唯一主要操作 | 完成後才解鎖 | 絕對不可混入 |
+|---|---|---|---|---|
+| 16.1 | 能用identity dock判斷一個quotient是否具備field behavior | 選source、預測partner、跑product | finite audit與Z/5Z correction | maximal、growth、prime、domain |
+| 16.2 | 能把`1=i+ra`同時讀成growth與class inverse certificate | 單一stepper逐層wrap certificate | exact transfer | every quantifier、maximal命名 |
+| 16.3 | 能用intermediate ideal／every-outside criterion判斷maximality | 加一張outside seed並追蹤generated destination | full outside audit與integer transfer | quotient inverse audit、prime |
+| 16.4 | 能說明many representatives如何收成one class且共享verdict | 比較同fiber兩張handles | second-fiber transfer | theorem seal、重新教coset |
+| 16.5 | 能把三條已知bridge組成maximal⇔field | 排三張logical reason tiles | theorem與章末問題 | 數值explorer、prime/domain比較 |
+
+四節版本會迫使16.4同時承擔fiber bundling與theorem synthesis；這兩者失敗時反映的迷思不同，feedback也不同，因此必須拆開。六節版本則只能把16.1的single product與finite audit拆開，但兩者是「先做一列，再確認every row」的同一問題閉環，拆開會讓第一頁沒有完成field behavior insight。因此5節是目前最低且完整的概念預算。
+
+#### 易懂性檢查
+
+1. **先看behavior，再看upstairs名稱。** 16.1先讓nonzero class嘗試回到1；學習者不需先懂maximal才有問題可追。
+2. **先處理一張certificate，再量化。** 16.2只做single `a+I`；16.3才做every outside；16.5才把兩端的every對齊。
+3. **many-to-one關係獨立顯示。** 16.4防止把8張outside cards與1個nonzero class誤畫成一對一，也防止學習者以為換representative會改變maximal／inverse verdict。
+4. **相近概念延後比較。** Prime與domain完全移到Ch17。Ch16的頁面不出現zero-product detector，即使作為「順便提醒」也不允許。
+5. **正式定理最後才出場。** `M maximal ⇔ R/M field`只在16.5顯示；前四節使用behavior labels與局部關係，避免學習者先背終點再倒填理由。
+
+#### 理想視覺的選擇理由
+
+- **16.1使用dock，不使用multiplication table。** 完整table會把注意力轉成找格子；source→partner→identity dock直接呈現「是否能undo」的因果。
+- **16.2使用同一張可wrap certificate，不使用左右兩台machines。** 左右機器容易暗示growth與inverse是碰巧同步的兩個process；共享tokens才能表達它們是同一等式的兩種讀法。
+- **16.3使用inclusion fork，不使用大小圓或進度條。** Maximal是order中的cover relation，不是集合面積最大或完成百分比。所有ideal nodes同尺寸，只有containment edges有語意。
+- **16.4使用fiber bundling，不使用一對一箭頭ledger。** Projection本來就是many-to-one；bundle是這一步不可被文字替代的視覺工作。
+- **16.5使用reason-tile bridge，不使用第三個example lab。** 最後一頁要訓練argument assembly；再玩一次finite model只會讓general theorem看起來由sample counts得出。
+- **不使用3D。** 本章關係是exact membership、fibers、inclusion與equivalence；depth會引入遮擋與「更高／更強」的假語意，沒有額外數學收益。
+
+#### 互動因果與控制預算
+
+- 每頁首屏最多一組primary controls，按鈕不超過5個；transfer controls在主流程完成前不顯示。
+- 16.1一次只允許一個active quotient與一個source class；comparison ledger只讀。
+- 16.2只有state selector、NEXT、REPLAY、RESET；stage不可由三顆按鈕任意跳躍。
+- 16.3 focused seed selectors最多3個，完整audit只有一顆按鈕；audit cards可回點inspect但不產生第二套mode。
+- 16.4一次只比較兩張same-fiber representatives，固定顯示difference-in-I certificate；不讓學習者自由配對16張cards造成無目的組合爆炸。
+- 16.5只操作三張reason tiles；不再提供ideal、class或number selectors。
+
+每個互動回答的問題必須可明說：
+
+```text
+16.1：這張nonzero class找得到回到1的partner嗎？
+16.2：identity進入growth與class取得inverse是否由同一張certificate控制？
+16.3：加入這張outside seed後，會停在proper intermediate ideal嗎？
+16.4：換成同一coset的另一張handle，certificate verdict會改變嗎？
+16.5：哪三個已知理由把兩個every statements接成equivalence？
+```
+
+若一個control無法直接服務其中一句，就刪除或移到details。
+
+#### 視覺假暗示防護
+
+- Field與maximal不可畫成右上角／更高等級；它們分居quotient behavior與ideal inclusion兩個representation，最後用equivalence bridge連接。
+- Identity dock只表示product class等於`1+I`，不可讓路徑長度、角度或速度暗示inverse大小。
+- Inclusion fork的node面積固定；cardinality只在readout中出現，不能控制node大小。
+- Outside representative bundles與nonzero classes不是一對一；所有projection arrows必須先匯入fiber sleeve再接class。
+- `1=i+ra`中的`i`消失只因`i∈I`被quotient壓成zero，不使用淡出動畫卻不保留membership label。
+- OPEN／BLOCKED、DOCKED／NO PARTNER、REACH R／STOP INTERMEDIATE都同時使用文字、邊框線型與icon，不能只靠綠紅色。
+
+#### Evidence與一般性稽核
+
+- 16.1：single product=`EXAMPLE`；全class scan=`FINITE EXHAUSTION`；field definition=`DEFINITION`。
+- 16.2：具體等式=`EXACT CERTIFICATE`；雙向等價=`GENERAL ARGUMENT`。
+- 16.3：一個intermediate stop=`WITNESS`；every-outside finite scan=`FINITE EXHAUSTION`；criterion proof=`GENERAL ARGUMENT`。
+- 16.4：兩張handles=`EXAMPLE`；same-fiber invariance=`GENERAL ARGUMENT`。
+- 16.5：只使用`GENERAL ARGUMENT · SYNTHESIS`，不顯示finite PASS meter。
+
+主例`R=(ℤ/4ℤ)^{A,B}`的accidental properties：finite、所有class很少、R/K只有一個nonzero class且self-inverse、finite domain會是field。修正方式分別是Z/5Z non-self inverse、integer ideal inclusion、Z/12Z多representative fiber；finite-domain shortcut延到Ch17明示scope。
+
+### Ch16 完成驗收
+
+不打開details時，學習者應能回答：
+
+1. Field behavior在quotient class層級究竟要求什麼？Zero class為何不列入？
+2. 為什麼ambient element不是unit，它的quotient class仍可能是unit？
+3. `1=i+ra`在upstairs與downstairs各讀成什麼？
+4. Maximal為什麼是「沒有proper intermediate ideal」，而不是「card最多」？
+5. 為什麼一個outside seed直達R還不能證明maximal，而一個intermediate stop卻足以否決？
+6. 為什麼同一coset中的不同representatives有相同growth與inverse verdict？
+7. Every outside representatives與every nonzero classes為什麼不是一對一，卻仍可互相量化？
+8. 如何只用三條已知bridge推出`M maximal ⇔ R/M field`？
+9. 哪個尚未回答的問題自然交給Ch17，而不是塞在本章尾端？
+
+若學習者仍把maximal理解成最大cardinality、把quotient inverse誤認為ambient inverse、把outside cards與nonzero classes逐張配對、或只能背theorem而說不出certificate bridge，Ch16就還不算完成。
+
+## 新版 Ch17 · 哪種 ideal 會讓 quotient 的非零乘積不憑空消失？
+
+**全章唯一核心 insight：** prime ideal 恰好讓 quotient 保留 zero-product 的可追溯性：若 product class 是 zero，至少一個 factor class原本就是zero。
+
+### 17.1 · Nonzero × nonzero 是否可能塌進 zero class？
+
+- 固定同一 quotient multiplication detector，比較一個有 zero divisors 的 quotient 與一個沒有的 quotient。
+- 只問 collision behavior，不提 inverse；zero-product witness保留兩個 nonzero input cards與 zero output。
+- Integral domain（整環）在 behavior 可見後首次命名；scope 明示 commutative unital、`1≠0`。
+- 核心圖卡：domain不承諾能回到1，只承諾兩個nonzero factors不會一起消失。
+
+### 17.2 · 把 zero-product witness 拉回 upstairs boundary
+
+- 同步顯示 `(a+P)(b+P)=0+P` 與 `ab∈P`。
+- 將「至少一個 factor class 已是zero」翻回 `a∈P or b∈P`，在因果完成後命名 prime ideal（質理想）。
+- 使用 decisive witness 推翻非prime candidate；general definition與quantifiers放在壓縮圖卡，不能用有限抽查冒充證明。
+- 核心圖卡：prime boundary能吸收product的結果，但不會把兩個outside factors一起藏成zero。
+
+### 17.3 · Prime ideal ⇔ domain quotient
+
+- 用 two-route equivalence ledger 對齊：zero class membership、product collapse、factor membership。
+- 學習者先把三張 implication tiles 排序，再 reveal `P prime ⇔ R/P is an integral domain`。
+- 一個 finite instance做 exhaustive audit，另一個 infinite transfer用`(0)⊂ℤ`作一般概念檢查；proof仍放details。
+- 不在本節比較 maximal，讓 prime/domain correspondence先獨立站穩。
+
+### 17.4 · Maximal ⇒ prime，但 converse 在一般世界失敗
+
+- 重用現有 field→domain behavior row：inverse能把`uv=0`拉回`v=0`，所以 field⇒domain。
+- 垂直翻譯為 maximal⇒prime；箭頭只單向。
+- Controlled counterexample固定`(0)⊂2ℤ⊂ℤ`：`ℤ/(0)=ℤ`是domain但不是field，因此zero ideal prime但不maximal。
+- Finite commutative domain⇒field標為`FINITE SCOPE SHORTCUT`，專門修復第16章finite function example造成的偶然重合。
+- 核心圖卡：prime防止nonzero product消失；maximal還要求每個nonzero class回到1。
+
+### Ch17 擁擠與一般性護欄
+
+- Domain與field不得以「低級／高級」階梯呈現；使用兩個不同問題的detectors，再以單向 implication連接。
+- 17.1不介紹prime；17.2不證明完整 correspondence；17.3不比較maximal；17.4只做已建立概念的強弱邊界。
+- 至少保留一個 infinite transfer，否則有限例中domain=field會讓兩個detectors視覺上無法分離。
+- Irreducible element、prime element、UFD/PID、polynomial irreducibility都留到下一門 divisibility 課。
+
+## 新版 Ch18 · 面對陌生 ring map 或 quotient，該選哪一副鏡頭？
+
+**全章唯一核心 insight：** ring quotient 問題不是靠背 theorem 名稱；先辨認「被迫歸零的 differences」與「想觀察的剩餘 behavior」，就能選出正確路徑。
+
+Ch18 是 capstone，不新增 theorem，也不再補 ideal product、radical、localization 或 polynomial factorization。建議五節，每節只訓練一次 lens selection：
+
+### 18.1 · Goal-first diagnosis map
+
+- 給四種目標：讓seed歸零、讓map下降、描述map真正保留的image、判斷quotient multiplication。
+- 學習者先選 lens，再看到需要的 input evidence；不是先看公式猜 theorem。
+- 建立一張可帶走的 route map：`seed → generated ideal`、`I→0 → R/I`、`map collisions → ker/image`、`quotient behavior → prime/maximal`。
+
+### 18.2 · Construction route：宣告一個 relation 為 zero
+
+- 用最簡單的 polynomial-looking world作 representation transfer，例如把符號 relation `x²+1=0` 當作 quotient instruction；不做 polynomial division 或 irreducibility test。
+- 問「哪些 expressions 被迫視為相同？」並選 generated ideal + quotient lens。
+- 主流程只訓練 relation → safe-collapse region → quotient elements，避免偷開下一門課。
+
+### 18.3 · Map route：一張 evaluation map 忘掉了什麼？
+
+- 給 finite function evaluation 或 integer residue map，先找 collisions，再選 kernel–quotient–image route。
+- 必須區分 target與image，不把 surjectivity當預設。
+- 由學習者組出`R → R/ker f → im f ↪ S`，不重新講 first isomorphism theorem。
+
+### 18.4 · Multi-view route：兩張 quotient outputs 能否重建？
+
+- 給一組comaximal與一組non-comaximal ideals，要求先判斷共同blind spot，再判斷product target是否reachable。
+- 正確 lens依序是intersection → sum → CRT；不能只因看到兩個moduli就直接按CRT。
+- Feedback精確指出是injectivity/kernel問題或surjectivity/reachability問題。
+
+### 18.5 · Behavior route：要domain還是field？
+
+- 給陌生 quotient 的兩種需求：「nonzero product不可消失」與「每個nonzero class必須可逆」。
+- 學習者分別選 prime detector與maximal detector，並指出所需 evidence不同。
+- 最終混合挑戰只要求選route與第一個decisive test，不要求一頁完成長計算。
+
+### Ch18 最終收束圖
+
+```text
+WHAT MUST BECOME ZERO?                 WHAT MUST SURVIVE?
+seed / relation → generated ideal      distinguishability → kernel / image
+given ideal → quotient                 paired reachability → intersection / sum / CRT
+map descent → I⊆ker f                  zero-product trace → prime / domain
+                                       inverse-to-one → maximal / field
+```
+
+最終圖卡：
+
+> Ideal 告訴你哪些 differences 可以安全忽略；quotient 告訴你忽略之後，addition 與 multiplication 還保留了什麼。
+
+## 為什麼不再維持 20 章
+
+初版 Ch17–19 的內容已被新版 Ch14–15 以更好的因果順序吸收：
+
+- ideal correspondence 與 two-stage quotient 已在 Ch14 完成；
+- intersection、sum、comaximality 與 CRT 已在 Ch15 的 paired-map pipeline 完成；
+- 若再做「sum／intersection／product 一章、CRT 一章、correspondence 一章」，前兩個 constructions會被重教，學習者反而失去目前清楚的 kernel／reachability分工。
+
+Ideal product 尚未進主線，但它不是為了湊章數就必須補上的缺口。它在 factorization、primary decomposition 或 algebraic geometry 中會有更強的動機；本課只為了 taxonomy 加入它，會破壞由 safe differences 到 quotient behavior 的單一主軸。Radical ideals、localization、Spec、ED/PID/UFD同理，留到各自有問題驅動的後續課程。
+
+因此新版終點採 18 章：Ch16 建 field/maximal，Ch17 建 domain/prime，Ch18 練整合診斷。若未來 storyboard 證明 capstone 五節過長，可以把它拆成 18–19 兩章；但不預先承諾第20章，也不靠新增名詞填滿章號。

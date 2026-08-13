@@ -1,18 +1,17 @@
 import { Component, computed, signal } from '@angular/core';
-import { Pair, pairLabel } from '../rings-ch10/rings-ch10-model';
-import { containsPair } from '../rings-ch12/rings-ch12-model';
-import { quotientClassLabel, quotientClasses } from '../rings-ch15/rings-ch15-model';
+import { Pair, pairKey, pairLabel } from '../rings-ch10/rings-ch10-model';
 import {
-  candidateMembers,
   enlargementCertificates,
   generatedEnlargement,
   growthDestination,
   IDENTITY,
   inverseCertificate,
   MaximalCandidateId,
+  quotientClassIndex,
+  quotientClassLabel,
 } from './rings-ch16-model';
 
-type CertificateState = 'blocked' | 'open';
+type CertificateState = 'open' | 'blocked';
 
 @Component({
   selector: 'app-rings-ch16-identity-inverse-certificate',
@@ -21,45 +20,49 @@ type CertificateState = 'blocked' | 'open';
     <article class="algebra-v3-lesson rings-lesson rings-ch16-lesson">
       <header class="hero">
         <p class="eyebrow">Rings & Ideals · 16.2</p>
-        <h2>同一張 identity certificate，一邊打開 whole ring，一邊打開 inverse dock</h2>
-        <p class="lede">Class inverse不要求ambient seed本身可逆。真正要找的是 1=i+ra：ideal correction i在quotient中變成zero，留下r作為a的inverse。</p>
+        <h2>同一張 1=i+ra，一邊打開 growth，一邊打開 inverse</h2>
+        <p class="lede">Quotient inverse不要求a在ambient ring本身可逆。只要identity能寫成ideal correction加上一個a的multiple，wrap時i會變成zero，留下r作為a+I的partner。</p>
       </header>
-      <span class="map-convention">COURSE SCOPE · COMMUTATIVE UNITAL RINGS · a+I UNIT ⇔ 1 IN GROW(I; a)</span>
+      <span class="map-convention">GENERAL BRIDGE · COMMUTATIVE UNITAL RINGS · a+I UNIT ⇔ 1∈I+(a)</span>
 
       <section class="prediction">
-        <div><p class="kicker">先預測</p><h3>a在ambient ring不是unit，它的class仍可能在quotient中可逆嗎？</h3></div>
-        <div class="choice-row"><button type="button" (click)="prediction.set(true)">可能，product只需相差ideal member</button><button type="button" (click)="prediction.set(false)">不可能，inverse必須完全相同</button></div>
-        @if (prediction() !== null) { <p class="feedback" [class.warning]="!prediction()">{{ prediction() ? '對：quotient只要求ra+I=1+I，也就是1−ra∈I。' : '你要求的是ambient inverse；quotient inverse允許ideal correction被wrap成zero。' }}</p> }
+        <div><p class="kicker">先預測</p><h3>Ambient element a不是unit，它的quotient class仍可能可逆嗎？</h3></div>
+        <div class="choice-row"><button type="button" (click)="prediction.set(true)">可能，product只需和1相差I-element</button><button type="button" (click)="prediction.set(false)">不可能，ambient a必須先是unit</button></div>
+        @if (prediction() !== null) { <p class="feedback" [class.warning]="!prediction()">{{ prediction() ? '對：quotient只保留class identity；ideal correction會被wrap成zero。' : '這把ambient inverse和quotient inverse混在一起了；接下來看correction如何消失。' }}</p> }
       </section>
 
       <div class="control-row">
-        <button type="button" [class.active]="state()==='blocked'" [attr.aria-pressed]="state()==='blocked'" (click)="chooseState('blocked')">BLOCKED · Q + (1,0)</button>
-        <button type="button" [class.active]="state()==='open'" [attr.aria-pressed]="state()==='open'" (click)="chooseState('open')">OPEN · K + (0,1)</button>
-        <button type="button" [disabled]="stage()!==0" (click)="advance()">BUILD GROWTH</button>
-        <button type="button" [disabled]="stage()!==1" (click)="advance()">CHECK IDENTITY</button>
-        <button type="button" [disabled]="stage()!==2" (click)="advance()">TRY INVERSE</button>
+        <button type="button" [class.active]="state()==='open'" [attr.aria-pressed]="state()==='open'" (click)="chooseState('open')">OPEN · K + a=(0,1)</button>
+        <button type="button" [class.active]="state()==='blocked'" [attr.aria-pressed]="state()==='blocked'" (click)="chooseState('blocked')">BLOCKED · Q + a=(1,0)</button>
+        <button type="button" [disabled]="stage()>=3" (click)="next()">{{ nextLabel() }}</button>
         <button type="button" (click)="replay()">REPLAY</button>
         <button type="button" (click)="reset()">RESET</button>
       </div>
 
       <section class="stage stage-grid">
-        <div class="identity-certificate-lab">
-          <section class="ambient-certificate-route">
-            <small>AMBIENT CERTIFICATE ROUTE</small>
-            <div class="certificate-node"><span>OUTSIDE SEED a</span><strong>{{ label(seed()) }}</strong></div>
-            <div class="certificate-node" [class.revealed]="stage()>=1"><span>GROW(I; a)</span><strong>{{ stage()>=1 ? destination() : '?' }}</strong></div>
-            <div class="certificate-node" [class.revealed]="stage()>=2"><span>IDENTITY 1_R</span><strong>{{ stage()>=2 ? label(identity) : '?' }}</strong><b>{{ stage()>=2 ? (identityReached() ? 'IN GROWTH' : 'STILL OUTSIDE') : 'CHECK PENDING' }}</b></div>
-            <div class="identity-equation" [class.revealed]="stage()>=2 && identityReached()"><small>EXACT CERTIFICATE</small><strong>{{ stage()>=2 ? certificateEquation() : '1 = i + r·a' }}</strong></div>
+        <div class="dual-reading-certificate">
+          <section class="certificate-reading ambient-reading">
+            <div class="reading-heading"><small>UPSTAIRS READING · AMBIENT GROWTH</small><strong>I + OUTSIDE SEED a</strong></div>
+            <div class="aligned-token ideal-token"><small>IDEAL CORRECTION i</small><strong>{{ stage()>=2 && certificate() ? label(certificate()!.idealMember) : 'i∈I' }}</strong><span>already available</span></div>
+            <span class="equation-symbol">+</span>
+            <div class="aligned-token product-token"><small>{{ stage()>=2 ? 'AMBIENT MULTIPLE r·a' : 'OUTSIDE SEED a' }}</small><strong>{{ stage()>=2 ? (certificate() ? label(certificate()!.seedMultiple) : 'NO TERM COMPLETES 1') : stage()>=1 ? label(seed()) : 'a' }}</strong><span>{{ stage()>=2 ? (certificate() ? 'the multiple used in this certificate' : 'growth has no identity certificate') : stage()>=1 ? 'seed begins growth' : 'waiting' }}</span></div>
+            <span class="equation-symbol">=</span>
+            <div class="aligned-token identity-token" [class.reached]="stage()>=2 && identityReached()" [class.blocked]="stage()>=2 && !identityReached()"><small>IDENTITY 1_R</small><strong>{{ label(identity) }}</strong><span>{{ stage()<2 ? 'membership pending' : identityReached() ? 'IN GROWTH' : 'STILL OUTSIDE' }}</span></div>
+            <div class="growth-destination"><small>GENERATED DESTINATION</small><strong>{{ stage()>=1 ? destination() : '?' }}</strong><span>{{ stage()>=1 ? generated().length+' ambient cards' : 'run generation first' }}</span></div>
           </section>
 
-          <div class="certificate-wrapper" [class.revealed]="stage()>=2"><span>ideal correction i wraps to zero class</span><b>↓</b><span>same r becomes inverse partner</span></div>
+          <div class="wrap-axis" [class.active]="stage()>=3">
+            <span>QUOTIENT WRAP</span><strong>i+I → 0+I</strong><b>↓</b><small>same tokens · new reading</small>
+          </div>
 
-          <section class="quotient-inverse-route">
-            <small>QUOTIENT INVERSE ROUTE</small>
-            <div class="certificate-node"><span>SOURCE CLASS</span><strong>{{ sourceClassLabel() }}</strong></div>
-            <div class="inverse-arrow"><strong>×</strong><small>candidate r+I</small></div>
-            <div class="certificate-node" [class.revealed]="stage()>=3"><span>INVERSE PARTNER</span><strong>{{ stage()>=3 ? inverseClassLabel() : '?' }}</strong></div>
-            <div class="inverse-dock" [class.docked]="stage()>=3 && hasInverse()" [class.blocked]="stage()>=3 && !hasInverse()"><small>IDENTITY DOCK · 1+I</small><strong>{{ stage()>=3 ? (hasInverse() ? 'DOCKED' : 'NO PARTNER') : 'TRY INVERSE' }}</strong><span>{{ stage()>=3 ? quotientEquation() : 'class product pending' }}</span></div>
+          <section class="certificate-reading quotient-reading">
+            <div class="reading-heading"><small>DOWNSTAIRS READING · QUOTIENT PRODUCT</small><strong>(r+I)(a+I)</strong></div>
+            <div class="aligned-token ideal-token wrapped"><small>IDEAL CORRECTION</small><strong>{{ stage()>=3 ? '0+I' : 'i+I' }}</strong><span>{{ stage()>=3 ? 'WRAPPED TO ZERO' : 'not wrapped yet' }}</span></div>
+            <span class="equation-symbol">+</span>
+            <div class="aligned-token product-token"><small>CLASS PRODUCT</small><strong>{{ stage()>=3 ? sourceClassLabel()+' × '+inverseClassLabel() : '(a+I)(r+I)' }}</strong><span>same r and a</span></div>
+            <span class="equation-symbol">=</span>
+            <div class="aligned-token identity-token" [class.reached]="stage()>=3 && hasInverse()" [class.blocked]="stage()>=3 && !hasInverse()"><small>IDENTITY DOCK</small><strong>1+I</strong><span>{{ stage()<3 ? 'wrap pending' : hasInverse() ? 'DOCKED' : 'NO PARTNER' }}</span></div>
+            <div class="exact-certificate"><small>EXACT CERTIFICATE</small><strong>{{ stage()>=2 ? certificateEquation() : '1=i+r·a' }}</strong><span>{{ stage()>=3 ? quotientEquation() : 'same equation awaits quotient reading' }}</span></div>
           </section>
         </div>
 
@@ -67,62 +70,59 @@ type CertificateState = 'blocked' | 'open';
           <span class="evidence-badge">{{ evidenceLabel() }}</span>
           <h3>{{ stageHeading() }}</h3>
           <p>{{ stageReading() }}</p>
-          <div class="readout">1 in GROW {{ stage()>=2 ? (identityReached() ? 'YES' : 'NO') : '?' }} · class inverse {{ stage()>=3 ? (hasInverse() ? 'YES' : 'NO') : '?' }}</div>
+          <div class="readout">1 in growth {{ stage()>=2 ? (identityReached() ? 'YES' : 'NO') : '?' }} · class inverse {{ stage()>=3 ? (hasInverse() ? 'YES' : 'NO') : '?' }}</div>
         </aside>
       </section>
 
       @if (stage() >= 3) {
         <section class="transfer-strip">
-          <div><p class="kicker">TRANSFER · Z/5Z · NON-SELF INVERSE</p><strong>1=(-5)+3·2同時給出哪兩份證書？</strong></div>
-          <div class="choice-row"><button type="button" (click)="transfer.set(true)">GROW(5Z;2)=Z 且2⁻¹=3 mod5</button><button type="button" (click)="transfer.set(false)">只證明2是ambient integer unit</button></div>
-          @if (transfer() !== null) { <p class="feedback" [class.warning]="!transfer()">{{ transfer() ? '對：−5是ideal correction；wrap後消失，留下3·2=1 mod5。' : '2不是Z中的unit；certificate證明的是quotient class的inverse。' }}</p> }
+          <div><p class="kicker">NON-DEGENERATE TRANSFER · Z/5Z</p><strong>1=(-5)+3·2同時提供哪兩份證書？</strong></div>
+          <div class="choice-row"><button type="button" (click)="transfer.set(true)">GROW(5Z;2)=Z 且(2+5Z)⁻¹=3+5Z</button><button type="button" (click)="transfer.set(false)">只證明2是integer unit</button></div>
+          @if (transfer() !== null) { <p class="feedback" [class.warning]="!transfer()">{{ transfer() ? '對：−5是ideal correction，wrap後只留下3·2=1 mod5。' : '2不是integer unit；certificate證明的是它在quotient中的class可逆。' }}</p> }
         </section>
       }
 
-      <section class="insight"><span class="insight-icon">1=i+ra</span><div><strong>Growth reaches 1 與 class取得inverse共用同一證書</strong><span>Ambient side的ideal correction i把identity帶進generated boundary；quotient side把i壓成zero，只留下ra=1。</span></div></section>
-      <div class="next-question"><strong>NEXT QUESTION · 16.3</strong><p>若這張certificate對每一個nonzero class都存在，整個quotient會成為哪種ring？</p></div>
-      <details><summary>雙向 general argument</summary><p>若(a+I)(r+I)=1+I，則1−ra∈I，故1=(1−ra)+ra屬於GROW(I;a)。反向若1=i+ra且i∈I，wrap後i+I=0+I，所以(r+I)(a+I)=1+I。</p></details>
+      <section class="insight"><span class="insight-icon">1=i+ra</span><div><strong>Growth reaches 1 與 class取得inverse是同一張certificate</strong><span>Upstairs把i當作已在ideal中的correction；downstairs把i壓成zero，讓ra直接停靠1-class。</span></div></section>
+      <div class="next-question"><strong>NEXT QUESTION · 16.3</strong><p>一張outside seed能抵達R還不夠；什麼條件保證every outside seed都無法停在intermediate ideal？</p></div>
+      <details><summary>雙向 general argument</summary><p>若(a+I)(r+I)=1+I，則1−ra∈I，故1=(1−ra)+ra∈I+(a)。反向若1=i+ra且i∈I，wrap後i+I=0+I，因此(r+I)(a+I)=1+I。</p></details>
     </article>
   `,
 })
 export class RingsCh16IdentityInverseCertificateComponent {
   readonly identity = IDENTITY;
-  readonly state = signal<CertificateState>('blocked');
+  readonly state = signal<CertificateState>('open');
   readonly stage = signal(0);
   readonly prediction = signal<boolean | null>(null);
   readonly transfer = signal<boolean | null>(null);
-  readonly idealId = computed<MaximalCandidateId>(() => this.state() === 'blocked' ? 'Q' : 'K');
-  readonly seed = computed<Pair>(() => this.state() === 'blocked' ? [1, 0] : [0, 1]);
+  readonly idealId = computed<MaximalCandidateId>(() => this.state() === 'open' ? 'K' : 'Q');
+  readonly seed = computed<Pair>(() => this.state() === 'open' ? [0, 1] : [1, 0]);
   readonly generated = computed(() => generatedEnlargement(this.idealId(), this.seed()));
   readonly destination = computed(() => growthDestination(this.idealId(), this.seed()));
-  readonly sourceClass = computed(() => quotientClasses(this.idealId()).findIndex(bucket => containsPair(bucket.members, this.seed())));
+  readonly sourceClass = computed(() => quotientClassIndex(this.idealId(), this.seed()));
   readonly inverse = computed(() => inverseCertificate(this.idealId(), this.sourceClass()));
-  readonly identityReached = computed(() => containsPair(this.generated(), IDENTITY));
+  readonly certificate = computed(() => enlargementCertificates(this.idealId(), this.seed()).find(item => pairKey(item.output) === pairKey(IDENTITY)) ?? null);
+  readonly identityReached = computed(() => this.certificate() !== null);
   label = pairLabel;
 
   chooseState(state: CertificateState): void { this.state.set(state); this.stage.set(0); this.transfer.set(null); }
-  advance(): void { this.stage.update(stage => Math.min(3, stage + 1)); }
+  next(): void { this.stage.update(stage => Math.min(3, stage + 1)); }
   replay(): void { this.stage.set(0); this.transfer.set(null); }
   hasInverse(): boolean { return this.inverse() !== null; }
   sourceClassLabel(): string { return quotientClassLabel(this.idealId(), this.sourceClass()).split(' · ')[0]; }
   inverseClassLabel(): string { return this.inverse() ? quotientClassLabel(this.idealId(), this.inverse()!.inverseClass).split(' · ')[0] : 'NONE'; }
+  nextLabel(): string { return ['GENERATE FROM I AND a', 'ASK WHETHER 1 ARRIVES', 'WRAP I TO ZERO', 'COMPLETE'][this.stage()]; }
   certificateEquation(): string {
-    const certificate = enlargementCertificates(this.idealId(), this.seed()).find(item => pairKeySafe(item.output) === pairKeySafe(IDENTITY));
-    return certificate ? `${pairLabel(IDENTITY)} = ${pairLabel(certificate.idealMember)} + ${pairLabel(certificate.coefficient)}·${pairLabel(this.seed())}` : 'NO IDENTITY CERTIFICATE';
+    const item = this.certificate();
+    return item ? `${pairLabel(IDENTITY)} = ${pairLabel(item.idealMember)} + ${pairLabel(item.coefficient)}·${pairLabel(this.seed())}` : 'NO IDENTITY CERTIFICATE';
   }
-  quotientEquation(): string { return this.inverse() ? `${this.sourceClassLabel()} × ${this.inverseClassLabel()} = 1+I` : `${this.sourceClassLabel()} × ? never reaches 1+I`; }
-  evidenceLabel(): string {
-    if (this.stage() < 2) return 'STEPWISE CONSTRUCTION';
-    return this.identityReached() ? 'EXAMPLE + EXACT CERTIFICATE' : 'FINITE INSTANCE · EXACT NONMEMBERSHIP';
-  }
-  stageHeading(): string { return ['ONE SEED · TWO READOUTS', 'GENERATED DESTINATION FOUND', 'IDENTITY STATUS FOUND', 'INVERSE STATUS MATCHES'][this.stage()]; }
+  quotientEquation(): string { return this.hasInverse() ? `${this.sourceClassLabel()} × ${this.inverseClassLabel()} = 1+I` : `${this.sourceClassLabel()} × ? never reaches 1+I`; }
+  evidenceLabel(): string { return this.stage() < 2 ? 'STEPWISE CONSTRUCTION' : this.identityReached() ? 'EXACT CERTIFICATE' : 'EXACT NONMEMBERSHIP · FINITE INSTANCE'; }
+  stageHeading(): string { return ['ONE EQUATION · TWO READINGS', 'GENERATED DESTINATION FOUND', 'IDENTITY STATUS FOUND', 'QUOTIENT READING COMPLETE'][this.stage()]; }
   stageReading(): string {
-    if (this.stage() === 0) return '先讓outside seed依ideal contract生成最小enlargement。';
-    if (this.stage() === 1) return `Growth抵達${this.destination()}；下一步只檢查identity是否包含其中。`;
-    if (this.stage() === 2) return this.identityReached() ? 'Identity已被i+ra certificate強迫加入；wrap這張certificate即可找到inverse。' : 'Growth停在proper ideal，identity仍outside；因此不可能有inverse certificate。';
-    return this.hasInverse() ? '同一張certificate在ambient side打開whole ring，在quotient side打開identity dock。' : 'Identity不在growth內，quotient class也沒有任何partner能抵達1+I。';
+    if (this.stage() === 0) return '先由I與outside seed生成最小ideal enlargement；目前不假設它會抵達identity。';
+    if (this.stage() === 1) return `Growth停在${this.destination()}；下一步只問1_R是否真的被強迫加入。`;
+    if (this.stage() === 2) return this.identityReached() ? 'Identity已有i+r·a certificate；現在把i整塊wrap成quotient zero。' : 'Identity仍在growth外，所以不存在可wrap成inverse的certificate。';
+    return this.hasInverse() ? '同一張等式在upstairs打開whole growth，在downstairs打開identity dock。' : '沒有identity certificate，quotient class也找不到任何inverse partner。';
   }
-  reset(): void { this.state.set('blocked'); this.stage.set(0); this.prediction.set(null); this.transfer.set(null); }
+  reset(): void { this.state.set('open'); this.stage.set(0); this.prediction.set(null); this.transfer.set(null); }
 }
-
-function pairKeySafe(pair: Pair): string { return `${pair[0]},${pair[1]}`; }

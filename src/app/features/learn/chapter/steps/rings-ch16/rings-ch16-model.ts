@@ -1,5 +1,6 @@
 import {
   allPairs,
+  mod,
   multiplyPairs,
   Pair,
   pairKey,
@@ -7,19 +8,14 @@ import {
   principalPairMembers,
   subtractPairs,
 } from '../rings-ch10/rings-ch10-model';
-import { addPairs, containsPair, IDEAL_K } from '../rings-ch12/rings-ch12-model';
-import {
-  IDEAL_Q,
-  isPrimeCandidate,
-  isProper,
-  quotientClassLabel,
-  quotientClasses,
-  quotientProduct,
-  zeroClassIndex,
-} from '../rings-ch15/rings-ch15-model';
 
 export type MaximalCandidateId = 'Q' | 'K';
 export type NamedIdealId = 'Q' | 'K' | 'L' | 'R';
+
+export interface PairBucket {
+  readonly representative: Pair;
+  readonly members: readonly Pair[];
+}
 
 export interface EnlargementCertificate {
   readonly output: Pair;
@@ -47,16 +43,32 @@ export interface ClassInverseAudit {
   readonly classIndex: number;
   readonly label: string;
   readonly representative: Pair;
+  readonly members: readonly Pair[];
   readonly isZero: boolean;
-  readonly growthDestination: NamedIdealId;
   readonly inverse: InverseCertificate | null;
 }
 
-export const IDEAL_L: readonly Pair[] = principalPairMembers([2, 1]);
 export const IDENTITY: Pair = [1, 1];
+export const IDEAL_Q: readonly Pair[] = principalPairMembers([2, 2]);
+export const IDEAL_K: readonly Pair[] = principalPairMembers([1, 2]);
+export const IDEAL_L: readonly Pair[] = principalPairMembers([2, 1]);
+
+export function addPairs(left: Pair, right: Pair): Pair {
+  return [mod(left[0] + right[0], 4), mod(left[1] + right[1], 4)];
+}
+
+export function containsPair(boundary: readonly Pair[], value: Pair): boolean {
+  const key = pairKey(value);
+  return boundary.some(member => pairKey(member) === key);
+}
 
 export function candidateMembers(id: MaximalCandidateId): readonly Pair[] {
   return id === 'Q' ? IDEAL_Q : IDEAL_K;
+}
+
+export function outsideSeeds(id: MaximalCandidateId): Pair[] {
+  const members = candidateMembers(id);
+  return allPairs().filter(card => !containsPair(members, card));
 }
 
 export function pairSetLabel(values: readonly Pair[]): string {
@@ -66,6 +78,45 @@ export function pairSetLabel(values: readonly Pair[]): string {
 function samePairSet(left: readonly Pair[], right: readonly Pair[]): boolean {
   const rightKeys = new Set(right.map(pairKey));
   return left.length === right.length && left.every(member => rightKeys.has(pairKey(member)));
+}
+
+export function quotientClasses(id: MaximalCandidateId): PairBucket[] {
+  const cards = allPairs();
+  const boundary = candidateMembers(id);
+  const remaining = new Set(cards.map(pairKey));
+  const buckets: PairBucket[] = [];
+  while (remaining.size > 0) {
+    const representativeKey = remaining.values().next().value as string;
+    const representative = cards.find(card => pairKey(card) === representativeKey)!;
+    const members = cards.filter(card => containsPair(boundary, subtractPairs(card, representative)));
+    buckets.push({ representative, members });
+    for (const member of members) remaining.delete(pairKey(member));
+  }
+  return buckets;
+}
+
+export function quotientClassIndex(id: MaximalCandidateId, value: Pair): number {
+  return quotientClasses(id).findIndex(bucket => containsPair(bucket.members, value));
+}
+
+export function zeroClassIndex(id: MaximalCandidateId): number {
+  return quotientClassIndex(id, [0, 0]);
+}
+
+export function identityClassIndex(id: MaximalCandidateId): number {
+  return quotientClassIndex(id, IDENTITY);
+}
+
+export function quotientClassLabel(id: MaximalCandidateId, classIndex: number): string {
+  const representative = quotientClasses(id)[classIndex].representative;
+  if (id === 'K') return representative[1] % 2 === 0 ? 'E · ZERO CLASS' : 'O · NONZERO CLASS';
+  const parity = `${representative[0] % 2}${representative[1] % 2}`;
+  return parity === '00' ? '00 · ZERO CLASS' : `${parity} · NONZERO CLASS`;
+}
+
+export function quotientProduct(id: MaximalCandidateId, leftClass: number, rightClass: number): number {
+  const classes = quotientClasses(id);
+  return quotientClassIndex(id, multiplyPairs(classes[leftClass].representative, classes[rightClass].representative));
 }
 
 export function enlargementCertificates(id: MaximalCandidateId, seed: Pair): EnlargementCertificate[] {
@@ -101,11 +152,6 @@ export function growthDestination(id: MaximalCandidateId, seed: Pair): NamedIdea
   return namedIdealForMembers(generatedEnlargement(id, seed));
 }
 
-export function outsideSeeds(id: MaximalCandidateId): Pair[] {
-  const members = candidateMembers(id);
-  return allPairs().filter(card => !containsPair(members, card));
-}
-
 export function enlargementAudit(id: MaximalCandidateId): EnlargementAuditRecord[] {
   return outsideSeeds(id).map(seed => {
     const destination = growthDestination(id, seed);
@@ -114,35 +160,27 @@ export function enlargementAudit(id: MaximalCandidateId): EnlargementAuditRecord
 }
 
 export function idealIsMaximal(id: MaximalCandidateId): boolean {
-  return isProper(id) && enlargementAudit(id).every(record => record.reachesWholeRing);
+  return enlargementAudit(id).every(record => record.reachesWholeRing);
 }
 
-export function inverseClassIndex(id: MaximalCandidateId, classIndex: number): number | null {
-  const oneClass = quotientClasses(id).findIndex(bucket => containsPair(bucket.members, IDENTITY));
+export function inverseClassIndex(id: MaximalCandidateId, sourceClass: number): number | null {
   for (let candidate = 0; candidate < quotientClasses(id).length; candidate += 1) {
-    if (quotientProduct(id, classIndex, candidate) === oneClass) return candidate;
+    if (quotientProduct(id, sourceClass, candidate) === identityClassIndex(id)) return candidate;
   }
   return null;
 }
 
-export function inverseCertificate(id: MaximalCandidateId, classIndex: number): InverseCertificate | null {
-  const inverseClass = inverseClassIndex(id, classIndex);
+export function inverseCertificate(id: MaximalCandidateId, sourceClass: number): InverseCertificate | null {
+  const inverseClass = inverseClassIndex(id, sourceClass);
   if (inverseClass === null) return null;
-  const sourceRepresentative = quotientClasses(id)[classIndex].representative;
+  const sourceRepresentative = quotientClasses(id)[sourceClass].representative;
   const inverseRepresentative = quotientClasses(id)[inverseClass].representative;
   const rawProduct = multiplyPairs(sourceRepresentative, inverseRepresentative);
   const idealCorrection = subtractPairs(IDENTITY, rawProduct);
   if (!containsPair(candidateMembers(id), idealCorrection)) {
     throw new Error('Rings Ch16 invariant failed: inverse correction is not in the ideal.');
   }
-  return {
-    sourceClass: classIndex,
-    inverseClass,
-    sourceRepresentative,
-    inverseRepresentative,
-    rawProduct,
-    idealCorrection,
-  };
+  return { sourceClass, inverseClass, sourceRepresentative, inverseRepresentative, rawProduct, idealCorrection };
 }
 
 export function classInverseAudit(id: MaximalCandidateId): ClassInverseAudit[] {
@@ -151,112 +189,58 @@ export function classInverseAudit(id: MaximalCandidateId): ClassInverseAudit[] {
     classIndex,
     label: quotientClassLabel(id, classIndex),
     representative: bucket.representative,
+    members: bucket.members,
     isZero: classIndex === zero,
-    growthDestination: classIndex === zero ? id : growthDestination(id, bucket.representative),
     inverse: inverseCertificate(id, classIndex),
   }));
 }
 
 export function quotientIsField(id: MaximalCandidateId): boolean {
-  if (!isProper(id)) return false;
-  return classInverseAudit(id).filter(record => !record.isZero).every(record => record.inverse !== null);
+  return classInverseAudit(id).filter(row => !row.isZero).every(row => row.inverse !== null);
 }
 
 function verifyIdeal(members: readonly Pair[], label: string): void {
   for (const left of members) {
     for (const right of members) {
-      if (!containsPair(members, subtractPairs(left, right))) {
-        throw new Error(`Rings Ch16 invariant failed: ${label} is not difference-stable.`);
-      }
+      if (!containsPair(members, subtractPairs(left, right))) throw new Error(`${label} is not difference-stable.`);
     }
     for (const ambient of allPairs()) {
-      if (!containsPair(members, multiplyPairs(ambient, left))) {
-        throw new Error(`Rings Ch16 invariant failed: ${label} is not absorbent.`);
-      }
+      if (!containsPair(members, multiplyPairs(ambient, left))) throw new Error(`${label} is not absorbent.`);
     }
   }
 }
 
 export function verifyRingsCh16Model(): void {
-  if (IDEAL_Q.length !== 4 || IDEAL_K.length !== 8 || IDEAL_L.length !== 8 || allPairs().length !== 16) {
+  if (IDEAL_Q.length !== 4 || IDEAL_K.length !== 8 || IDEAL_L.length !== 8) {
     throw new Error('Rings Ch16 invariant failed: named ideal sizes are incorrect.');
   }
   verifyIdeal(IDEAL_Q, 'Q');
   verifyIdeal(IDEAL_K, 'K');
   verifyIdeal(IDEAL_L, 'L');
 
-  const qExamples: readonly [Pair, NamedIdealId][] = [
-    [[1, 0], 'K'],
-    [[0, 1], 'L'],
-    [[1, 1], 'R'],
-  ];
-  for (const [seed, destination] of qExamples) {
-    if (growthDestination('Q', seed) !== destination) {
-      throw new Error('Rings Ch16 invariant failed: Q focused growth destination is incorrect.');
-    }
+  if (quotientClasses('Q').length !== 4 || quotientClasses('K').length !== 2) {
+    throw new Error('Rings Ch16 invariant failed: quotient class counts are incorrect.');
   }
-  for (const seed of [[0, 1], [2, 1], [3, 3]] as const) {
-    if (growthDestination('K', seed) !== 'R') {
-      throw new Error('Rings Ch16 invariant failed: every focused K outside seed must reach R.');
-    }
-  }
-
-  const qAudit = enlargementAudit('Q');
-  const kAudit = enlargementAudit('K');
-  if (qAudit.length !== 12 || qAudit.filter(record => record.reachesWholeRing).length !== 4
-    || qAudit.filter(record => !record.reachesWholeRing).length !== 8) {
-    throw new Error('Rings Ch16 invariant failed: Q enlargement audit must split 4 whole / 8 intermediate.');
-  }
-  if (kAudit.length !== 8 || kAudit.some(record => !record.reachesWholeRing)) {
-    throw new Error('Rings Ch16 invariant failed: all eight K outside seeds must reach R.');
+  if (quotientIsField('Q') || !quotientIsField('K')) {
+    throw new Error('Rings Ch16 invariant failed: field verdicts are incorrect.');
   }
   if (idealIsMaximal('Q') || !idealIsMaximal('K')) {
-    throw new Error('Rings Ch16 invariant failed: maximality verdicts are incorrect.');
+    throw new Error('Rings Ch16 invariant failed: maximal verdicts are incorrect.');
   }
 
   for (const id of ['Q', 'K'] as const) {
     for (const seed of outsideSeeds(id)) {
-      const classIndex = quotientClasses(id).findIndex(bucket => containsPair(bucket.members, seed));
-      const growthIsWhole = growthDestination(id, seed) === 'R';
-      const hasInverse = inverseCertificate(id, classIndex) !== null;
-      if (growthIsWhole !== hasInverse) {
-        throw new Error(`Rings Ch16 invariant failed: growth/inverse bridge fails for ${id} and ${pairKey(seed)}.`);
+      const classIndex = quotientClassIndex(id, seed);
+      const growthReachesIdentity = containsPair(generatedEnlargement(id, seed), IDENTITY);
+      if (growthReachesIdentity !== (inverseCertificate(id, classIndex) !== null)) {
+        throw new Error(`Rings Ch16 invariant failed: certificate bridge fails for ${id}/${pairKey(seed)}.`);
       }
-      for (const certificate of enlargementCertificates(id, seed)) {
-        if (pairKey(addPairs(certificate.idealMember, certificate.seedMultiple)) !== pairKey(certificate.output)
-          || pairKey(multiplyPairs(certificate.coefficient, seed)) !== pairKey(certificate.seedMultiple)) {
-          throw new Error('Rings Ch16 invariant failed: enlargement certificate is invalid.');
+      for (const handle of quotientClasses(id)[classIndex].members) {
+        if (growthDestination(id, handle) !== growthDestination(id, seed)) {
+          throw new Error('Rings Ch16 invariant failed: growth depends on quotient representative.');
         }
       }
     }
-  }
-
-  const kRows = classInverseAudit('K');
-  const qRows = classInverseAudit('Q');
-  if (kRows.length !== 2 || kRows.filter(row => !row.isZero && row.inverse !== null).length !== 1) {
-    throw new Error('Rings Ch16 invariant failed: R/K inverse audit is incorrect.');
-  }
-  if (qRows.length !== 4 || qRows.filter(row => !row.isZero && row.inverse !== null).length !== 1
-    || qRows.filter(row => !row.isZero && row.inverse === null).length !== 2) {
-    throw new Error('Rings Ch16 invariant failed: R/Q inverse audit is incorrect.');
-  }
-  if (quotientIsField('Q') || !quotientIsField('K') || idealIsMaximal('Q') !== quotientIsField('Q')
-    || idealIsMaximal('K') !== quotientIsField('K')) {
-    throw new Error('Rings Ch16 invariant failed: maximal/field correspondence is incorrect.');
-  }
-  if (!isPrimeCandidate('K') || isPrimeCandidate('Q')) {
-    throw new Error('Rings Ch16 invariant failed: maximal/prime instance relationship is incorrect.');
-  }
-
-  const openClass = quotientClasses('K').findIndex(bucket => containsPair(bucket.members, [0, 1]));
-  const openCertificate = inverseCertificate('K', openClass);
-  if (!openCertificate || pairKey(openCertificate.idealCorrection) !== '1,0'
-    || pairKey(openCertificate.inverseRepresentative) !== '0,1') {
-    throw new Error('Rings Ch16 invariant failed: focused identity certificate must be 1=(1,0)+(0,1)(0,1).');
-  }
-
-  if ((3 * 2 - 1) % 5 !== 0 || 6 % 2 !== 0 || 2 % 6 === 0) {
-    throw new Error('Rings Ch16 invariant failed: integer transfers are incorrect.');
   }
 }
 

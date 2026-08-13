@@ -1,11 +1,6 @@
 import { Component, computed, signal } from '@angular/core';
-import { pairLabel } from '../rings-ch10/rings-ch10-model';
-import {
-  classInverseAudit,
-  idealIsMaximal,
-  MaximalCandidateId,
-  quotientIsField,
-} from './rings-ch16-model';
+
+type ReasonId = 'nonzero' | 'fiber' | 'certificate';
 
 @Component({
   selector: 'app-rings-ch16-maximal-field-correspondence',
@@ -13,125 +8,102 @@ import {
   template: `
     <article class="algebra-v3-lesson rings-lesson rings-ch16-lesson">
       <header class="hero">
-        <p class="eyebrow">Rings & Ideals · 16.3</p>
-        <h2>Every outside seed 直達 R，正好等於 every nonzero class 有 inverse</h2>
-        <p class="lede">把上一節的single-class certificate逐列套用。左端growth destination與右端inverse dock不再是兩份audit，而是同一列的兩種語言。</p>
+        <p class="eyebrow">Rings & Ideals · 16.5</p>
+        <h2>兩個 every statements，由三條已知 bridge 精確接在一起</h2>
+        <p class="lede">這一頁不再掃描finite examples。把前四節已建立的三條理由依因果順序接回去，就能看見「沒有intermediate ideal」與「每個nonzero class可逆」不是相似現象，而是同一certificate被全稱量化。</p>
       </header>
-      <span class="map-convention">COURSE SCOPE · COMMUTATIVE UNITAL RINGS · PROPER IDEAL</span>
+      <span class="map-convention">GENERAL ARGUMENT · COMMUTATIVE UNITAL RINGS · M IS A PROPER IDEAL</span>
 
       <section class="prediction">
-        <div><p class="kicker">先預測</p><h3>Quotient沒有zero divisors，是否已足以保證每個nonzero class都有inverse？</h3></div>
-        <div class="choice-row"><button type="button" (click)="prediction.set(false)">一般都足夠</button><button type="button" (click)="prediction.set(true)">不夠，還要逐class開inverse dock</button></div>
-        @if (prediction() !== null) { <p class="feedback" [class.warning]="!prediction()">{{ prediction() ? '對：domain只防止nonzero product塌成zero；field還要求每個nonzero class能回到1。' : 'Finite worlds可能讓兩者重合，但那不是一般證明；本頁直接audit inverses。' }}</p> }
+        <div><p class="kicker">組裝前先定位兩端</p><h3>左端量化outside representatives，右端量化nonzero classes；中間缺少哪三種connection？</h3></div>
+        <p class="prediction-note">請依序放入：角色翻譯 → fiber invariance → single certificate。</p>
       </section>
 
-      <div class="control-row">
-        <button type="button" [class.active]="idealId()==='K'" [attr.aria-pressed]="idealId()==='K'" (click)="chooseIdeal('K')">AUDIT R/K</button>
-        <button type="button" [class.active]="idealId()==='Q'" [attr.aria-pressed]="idealId()==='Q'" (click)="chooseIdeal('Q')">AUDIT R/Q</button>
-        <button type="button" [disabled]="hasAudited()" (click)="auditCurrent()">{{ hasAudited() ? 'CLASS AUDIT COMPLETE' : 'AUDIT ALL NONZERO CLASSES' }}</button>
+      <div class="reason-tile-bank" aria-label="Reason tiles for the maximal field argument">
+        <button type="button" [disabled]="used('certificate')" (click)="place('certificate')"><small>SINGLE CERTIFICATE</small><strong>1∈M+(a) ⇔ a+M has inverse</strong></button>
+        <button type="button" [disabled]="used('nonzero')" (click)="place('nonzero')"><small>ROLE TRANSLATION</small><strong>a∉M ⇔ a+M≠0+M</strong></button>
+        <button type="button" [disabled]="used('fiber')" (click)="place('fiber')"><small>FIBER INVARIANCE</small><strong>same class ⇒ same verdict</strong></button>
+        <button type="button" class="distractor" (click)="rejectDistractor()"><small>DISTRACTOR</small><strong>more cards ⇒ more maximal</strong></button>
         <button type="button" (click)="reset()">RESET</button>
       </div>
 
+      @if (message()) { <p class="assembly-feedback" [class.warning]="messageWarning()">{{ message() }}</p> }
+
       <section class="stage stage-grid">
-        <div class="field-audit-lab">
-          <div class="field-audit-head"><span>QUOTIENT CLASS</span><span>GENERATED DESTINATION</span><span>INVERSE DOCK</span></div>
-          <div class="field-audit-rows">
-            @for (row of rows(); track row.classIndex) {
-              <button type="button" [class.zero-row]="row.isZero" [class.revealed]="hasAudited()" [class.selected]="selectedClass()===row.classIndex" [attr.aria-pressed]="selectedClass()===row.classIndex" [attr.aria-label]="rowLabel(row.classIndex)" (click)="selectedClass.set(row.classIndex)">
-                <span><small>{{ row.isZero ? 'ZERO CLASS · NOT REQUIRED' : 'NONZERO CLASS' }}</small><strong>{{ classShort(row.label) }}</strong><b>rep {{ label(row.representative) }}</b></span>
-                <span><small>GROW(I; representative)</small><strong>{{ hasAudited() ? row.growthDestination : '?' }}</strong><b>{{ hasAudited() ? (row.growthDestination==='R' ? 'WHOLE R' : 'PROPER INTERMEDIATE') : 'pending' }}</b></span>
-                <span [class.docked]="hasAudited() && row.inverse"><small>MULTIPLICATIVE PARTNER</small><strong>{{ hasAudited() ? inverseReading(row.classIndex) : '?' }}</strong><b>{{ hasAudited() ? (row.isZero ? 'NOT REQUIRED' : row.inverse ? 'DOCKED AT 1+I' : 'NO INVERSE') : 'pending' }}</b></span>
-              </button>
-            }
-          </div>
-          @if (hasAudited()) {
-            <div class="selected-class-certificate" aria-live="polite">
-              <small>SELECTED ROW · EXACT CAUSAL READOUT</small>
-              <strong>{{ selectedRowHeading() }}</strong>
-              <span>{{ selectedRowReading() }}</span>
-            </div>
-          }
-          @if (hasAudited()) {
-            <div class="field-verdict-ledger">
-              <div><small>EVERY OUTSIDE GROWTH → R?</small><strong>{{ maximal() ? 'YES' : 'NO' }}</strong><span>{{ idealId() }} {{ maximal() ? 'MAXIMAL' : 'NOT MAXIMAL' }}</span></div>
-              <div><small>EVERY NONZERO CLASS UNIT?</small><strong>{{ field() ? 'YES' : 'NO' }}</strong><span>R/{{ idealId() }} {{ field() ? 'FIELD' : 'NOT FIELD' }}</span></div>
-            </div>
-          }
-          @if (fullyAudited()) {
-            <div class="maximal-field-seal"><small>MAXIMAL IDEAL THEOREM · GENERAL ARGUMENT</small><strong>M maximal ⇔ R/M is a FIELD（體）</strong><span>field = commutative unital ring, 1≠0, every nonzero element is a unit</span></div>
+        <div class="quantifier-bridge-lab">
+          <section class="bridge-endpoint ideal-endpoint">
+            <small>UPSTAIRS EVERY</small><strong>∀ a∉M</strong><span>M+(a)=R</span><b>NO INTERMEDIATE IDEAL</b>
+          </section>
+
+          <section class="bridge-reasons">
+            <div [class.connected]="used('nonzero')"><span>1</span><small>ROLE TRANSLATION</small><strong>{{ used('nonzero') ? 'a outside M ⇔ a+M nonzero' : 'PLACE FIRST REASON' }}</strong></div>
+            <div [class.connected]="used('fiber')"><span>2</span><small>GROUP BY FIBER</small><strong>{{ used('fiber') ? 'many handles share one verdict' : 'PLACE SECOND REASON' }}</strong></div>
+            <div [class.connected]="used('certificate')"><span>3</span><small>SAME CERTIFICATE</small><strong>{{ used('certificate') ? '1=i+ra ⇔ inverse dock opens' : 'PLACE THIRD REASON' }}</strong></div>
+          </section>
+
+          <section class="bridge-endpoint field-endpoint">
+            <small>DOWNSTAIRS EVERY</small><strong>∀ x≠0 in R/M</strong><span>x has multiplicative inverse</span><b>EVERY NONZERO CLASS UNIT</b>
+          </section>
+
+          @if (complete()) {
+            <div class="general-theorem-seal"><small>MAXIMAL–FIELD CORRESPONDENCE · GENERAL ARGUMENT</small><strong>M maximal ⇔ R/M is a FIELD（體）</strong><span>不是sample count；是三條雙向bridge串成的equivalence。</span></div>
           }
         </div>
 
         <aside class="console" aria-live="polite">
-          <span class="evidence-badge">{{ hasAudited() ? 'FINITE EXHAUSTION + GENERAL BRIDGE' : 'CLASS AUDIT PENDING' }}</span>
-          <h3>{{ hasAudited() ? fieldVerdict() : 'ZERO CLASS EXEMPT · AUDIT EVERY OTHER ROW' }}</h3>
-          <p>{{ hasAudited() ? auditReading() : '每列固定一個quotient class；growth與inverse verdict由同一representative和同一ideal計算。' }}</p>
-          @if (hasAudited()) { <div class="readout">nonzero rows {{ nonzeroCount() }} · inverse docks opened {{ dockedCount() }}</div> }
+          <span class="evidence-badge">{{ complete() ? 'GENERAL ARGUMENT · SYNTHESIS' : 'ARGUMENT ASSEMBLY' }}</span>
+          <h3>{{ complete() ? 'BOTH EVERY STATEMENTS NOW MATCH' : 'PLACE REASON '+(placed().length+1)+' OF 3' }}</h3>
+          <p>{{ complete() ? 'Outside representatives先按quotient fibers打包；每一bundle的growth certificate與class inverse完全同步。' : nextHint() }}</p>
+          <div class="readout">logical bridges {{ placed().length }} / 3 · finite scans used 0</div>
         </aside>
       </section>
 
-      @if (fullyAudited()) {
+      @if (complete()) {
         <section class="transfer-strip">
-          <div><p class="kicker">TRANSFER · Z/5Z INVERSE PARTNERS</p><strong>哪組表明inverse不必等於自己？</strong></div>
-          <div class="choice-row"><button type="button" (click)="transfer.set(true)">2 ↔ 3</button><button type="button" (click)="transfer.set(false)">1 ↔ 1</button></div>
-          @if (transfer() !== null) { <p class="feedback" [class.warning]="!transfer()">{{ transfer() ? '對：2·3=1 mod5；R/K的O↔O只是兩元素field的偶然性。' : '1當然self-inverse，但無法修正「所有inverse都不換element」的錯覺。' }}</p> }
+          <div><p class="kicker">FIXED TRANSFER · Z/nZ</p><strong>若nZ與Z之間還有proper ideal dZ，quotient中會留下什麼痕跡？</strong></div>
+          <div class="choice-row"><button type="button" (click)="transfer.set(true)">某個nonzero class沒有inverse</button><button type="button" (click)="transfer.set(false)">every nonzero class仍會可逆</button></div>
+          @if (transfer() !== null) { <p class="feedback" [class.warning]="!transfer()">{{ transfer() ? '對：intermediate ideal對應一個outside seed，其class無法取得identity certificate。' : '若every nonzero class都可逆，三條bridge會反推nZ沒有proper intermediate ideal。' }}</p> }
         </section>
       }
 
-      <section class="insight"><span class="insight-icon">M↔F</span><div><strong>Maximal ideal 是讓 quotient 成為 field 的exact boundary</strong><span>沒有proper enlargement，等價於每個nonzero class都能用同一張identity certificate打開inverse dock。</span></div></section>
-      <div class="next-question"><strong>NEXT QUESTION · 16.4</strong><p>Field一定沒有zero divisors，所以maximal一定prime；反方向也永遠成立嗎？</p></div>
-      <details><summary>為什麼這不是依賴 finite-domain shortcut？</summary><p>對每個a∉M，16.2直接證明GROW(M;a)=R等價於a+M可逆。把「每個outside a」量化，就同時得到maximal criterion與field definition；不需先用finite domain⇒field。</p></details>
+      <section class="insight"><span class="insight-icon">M⇔F</span><div><strong>Maximal ideal與field quotient由每一張identity certificate逐fiber對齊</strong><span>Upstairs沒有中間boundary，正好表示downstairs每個nonzero class都能回到1；兩端不是強弱比喻，而是同一條general equivalence。</span></div></section>
+      <div class="next-question"><strong>NEXT CHAPTER · Ch17</strong><p>Field要求nonzero classes都能回到1；若只要求nonzero×nonzero不要塌成zero，會對應哪一種ideal boundary？</p></div>
+      <details><summary>完整雙向 proof</summary><p>若M maximal且a+M≠0，則a∉M，所以M+(a)是嚴格包含M的ideal，只能等於R；故1=i+ra，得到a+M可逆。反向若R/M是field，任取M⊊J，選a∈J\M；a+M非零且可逆，所以1=i+ra∈J，因而J=R。</p></details>
     </article>
   `,
 })
 export class RingsCh16MaximalFieldCorrespondenceComponent {
-  readonly idealId = signal<MaximalCandidateId>('K');
-  readonly auditedIdeals = signal<ReadonlySet<MaximalCandidateId>>(new Set());
-  readonly selectedClass = signal(1);
-  readonly prediction = signal<boolean | null>(null);
+  readonly placed = signal<readonly ReasonId[]>([]);
+  readonly message = signal('');
+  readonly messageWarning = signal(false);
   readonly transfer = signal<boolean | null>(null);
-  readonly rows = computed(() => classInverseAudit(this.idealId()));
-  readonly maximal = computed(() => idealIsMaximal(this.idealId()));
-  readonly field = computed(() => quotientIsField(this.idealId()));
-  readonly fullyAudited = computed(() => this.auditedIdeals().size === 2);
-  readonly nonzeroCount = computed(() => this.rows().filter(row => !row.isZero).length);
-  readonly dockedCount = computed(() => this.rows().filter(row => !row.isZero && row.inverse).length);
-  label = pairLabel;
+  readonly expected: readonly ReasonId[] = ['nonzero', 'fiber', 'certificate'];
+  readonly complete = computed(() => this.placed().length === this.expected.length);
 
-  chooseIdeal(id: MaximalCandidateId): void { this.idealId.set(id); this.selectedClass.set(id === 'K' ? 1 : 1); this.transfer.set(null); }
-  auditCurrent(): void {
-    this.auditedIdeals.update(values => {
-      const next = new Set(values);
-      next.add(this.idealId());
-      return next;
-    });
+  used(id: ReasonId): boolean { return this.placed().includes(id); }
+  place(id: ReasonId): void {
+    const expected = this.expected[this.placed().length];
+    if (id !== expected) {
+      this.messageWarning.set(true);
+      this.message.set(this.wrongReason(id, expected));
+      return;
+    }
+    this.placed.update(values => [...values, id]);
+    this.messageWarning.set(false);
+    this.message.set(this.placed().length === 3 ? '三條bridge已接通；現在可以壓縮成一般定理。' : '這一段成立。接著補下一個缺口。');
   }
-  hasAudited(): boolean { return this.auditedIdeals().has(this.idealId()); }
-  classShort(label: string): string { return label.split(' · ')[0]; }
-  inverseReading(classIndex: number): string {
-    const row = this.rows()[classIndex];
-    if (row.isZero) return '—';
-    return row.inverse ? this.classShort(this.rows()[row.inverse.inverseClass].label) : 'NONE';
+  rejectDistractor(): void { this.messageWarning.set(true); this.message.set('Cardinality不控制maximality；這張tile無法連接任何一個logical gap。'); }
+  wrongReason(id: ReasonId, expected: ReasonId): string {
+    if (expected === 'nonzero') return '先把upstairs角色翻成downstairs角色：outside a究竟對應哪一類quotient class？';
+    if (expected === 'fiber') return '角色已對齊，但還要先處理many representatives為何共享一個verdict。';
+    return id === 'certificate' ? '' : '最後才使用16.2的single certificate，把growth reaches 1與inverse dock接起來。';
   }
-  rowLabel(classIndex: number): string {
-    const row = this.rows()[classIndex];
-    if (!this.hasAudited()) return `${row.label}; audit pending`;
-    return `${row.label}; growth ${row.growthDestination}; ${row.isZero ? 'zero class not required' : row.inverse ? 'inverse exists' : 'no inverse'}`;
+  nextHint(): string {
+    return [
+      '先接角色：a在M外，與a+M不是zero class是同一句話。',
+      '再按fiber打包：同一class的不同handles不能產生不同certificate verdict。',
+      '最後接single certificate：1進入growth，恰好等於class取得inverse。',
+    ][this.placed().length];
   }
-  selectedRowHeading(): string {
-    const row = this.rows()[this.selectedClass()];
-    if (row.isZero) return `${this.classShort(row.label)} · ZERO CLASS IS EXEMPT`;
-    return row.inverse
-      ? `${this.classShort(row.label)} → GROW R ↔ INVERSE ${this.inverseReading(row.classIndex)}`
-      : `${this.classShort(row.label)} → GROW ${row.growthDestination} ↔ NO INVERSE`;
-  }
-  selectedRowReading(): string {
-    const row = this.rows()[this.selectedClass()];
-    if (row.isZero) return 'Field contract只要求nonzero elements可逆；zero row固定保留作角色基準，不列入audit。';
-    if (!row.inverse) return `Representative ${this.label(row.representative)} 的growth停在proper ${row.growthDestination}，identity不在其中，因此不存在inverse certificate。`;
-    return `${this.label(row.representative)} × ${this.label(row.inverse.inverseRepresentative)} = ${this.label(row.inverse.rawProduct)}；與identity相差ideal member ${this.label(row.inverse.idealCorrection)}，wrap後正好抵達1+I。`;
-  }
-  fieldVerdict(): string { return this.field() ? 'FIELD（體）· EVERY NONZERO DOCK OPENS' : 'NOT A FIELD · SOME NONZERO DOCKS STAY CLOSED'; }
-  auditReading(): string { return this.field() ? 'R/K的唯一nonzero class O直達whole growth，且O×O=1-class。' : 'R/Q的01與10 rows分別停在L與K，也都找不到inverse；只有11 row抵達R。'; }
-  reset(): void { this.idealId.set('K'); this.auditedIdeals.set(new Set()); this.selectedClass.set(1); this.prediction.set(null); this.transfer.set(null); }
+  reset(): void { this.placed.set([]); this.message.set(''); this.messageWarning.set(false); this.transfer.set(null); }
 }

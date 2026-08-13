@@ -194,10 +194,11 @@ import { RingsCh15PairedQuotientAddressComponent } from './steps/rings-ch15/step
 import { RingsCh15SharedBlindSpotComponent } from './steps/rings-ch15/step-shared-blind-spot.component';
 import { RingsCh15ProductGridReachabilityComponent } from './steps/rings-ch15/step-product-grid-reachability.component';
 import { RingsCh15CrtReconstructionComponent } from './steps/rings-ch15/step-crt-reconstruction.component';
+import { RingsCh16FieldInverseDockComponent } from './steps/rings-ch16/step-field-inverse-dock.component';
 import { RingsCh16MaximalGrowthAuditComponent } from './steps/rings-ch16/step-maximal-growth-audit.component';
 import { RingsCh16IdentityInverseCertificateComponent } from './steps/rings-ch16/step-identity-inverse-certificate.component';
+import { RingsCh16RepresentativeFiberComponent } from './steps/rings-ch16/step-representative-fiber.component';
 import { RingsCh16MaximalFieldCorrespondenceComponent } from './steps/rings-ch16/step-maximal-field-correspondence.component';
-import { RingsCh16MaximalPrimeBoundaryComponent } from './steps/rings-ch16/step-maximal-prime-boundary.component';
 
 // Linalg Ch1 steps
 import { StepWhatIsVectorComponent } from './steps/linalg-ch1/step-what-is-vector.component';
@@ -1397,12 +1398,13 @@ const RINGS_CHAPTERS: Record<string, ChapterConfig> = {
     ],
   },
   ch16: {
-    title: '第十六章：Maximal ideal 如何讓 quotient 處處可逆？',
+    title: '第十六章：什麼 boundary 會讓 quotient 的每個非零元素都能回到 1？',
     steps: [
-      { num: 1, title: 'Every outside seed 的 maximal detector' },
+      { num: 1, title: 'Nonzero class 的 identity dock' },
       { num: 2, title: 'Growth 與 inverse 的 identity certificate' },
-      { num: 3, title: 'Maximal ideal 等於 field quotient' },
-      { num: 4, title: 'Maximal 與 prime 的強弱邊界' },
+      { num: 3, title: 'No intermediate ideal 的 maximal detector' },
+      { num: 4, title: 'Many representatives 收成 one class' },
+      { num: 5, title: 'Maximal–field correspondence' },
     ],
   },
 };
@@ -2789,10 +2791,11 @@ const SUBJECT_LABELS: Record<string, string> = {
     RingsCh15SharedBlindSpotComponent,
     RingsCh15ProductGridReachabilityComponent,
     RingsCh15CrtReconstructionComponent,
-    RingsCh16MaximalGrowthAuditComponent,
+    RingsCh16FieldInverseDockComponent,
     RingsCh16IdentityInverseCertificateComponent,
+    RingsCh16MaximalGrowthAuditComponent,
+    RingsCh16RepresentativeFiberComponent,
     RingsCh16MaximalFieldCorrespondenceComponent,
-    RingsCh16MaximalPrimeBoundaryComponent,
     // Linalg Ch1
     StepWhatIsVectorComponent,
     StepVectorOpsComponent,
