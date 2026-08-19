@@ -3152,45 +3152,99 @@ Maximal ideal 與 field quotient 不是兩條相似定義；它們由每一張 1
 
 若學習者仍把maximal理解成最大cardinality、把quotient inverse誤認為ambient inverse、把outside cards與nonzero classes逐張配對、或只能背theorem而說不出certificate bridge，Ch16就還不算完成。
 
-## 新版 Ch17 · 哪種 ideal 會讓 quotient 的非零乘積不憑空消失？
+## 新版 Ch17 · 什麼 boundary 不會讓兩個 outsiders 相乘後一起消失？
 
-**全章唯一核心 insight：** prime ideal 恰好讓 quotient 保留 zero-product 的可追溯性：若 product class 是 zero，至少一個 factor class原本就是zero。
+**全章唯一核心 insight：** quotient中的nonzero zero-product witness，往upstairs拉回去正是prime boundary漏抓兩個factors的證據。
 
-### 17.1 · Nonzero × nonzero 是否可能塌進 zero class？
+### 重新審核後的先備修正
 
-- 固定同一 quotient multiplication detector，比較一個有 zero divisors 的 quotient 與一個沒有的 quotient。
-- 只問 collision behavior，不提 inverse；zero-product witness保留兩個 nonzero input cards與 zero output。
-- Integral domain（整環）在 behavior 可見後首次命名；scope 明示 commutative unital、`1≠0`。
-- 核心圖卡：domain不承諾能回到1，只承諾兩個nonzero factors不會一起消失。
+Integral domain已在Ch5.5正式建立：nonzero zero product、multiplication collision與cancellation failure是同一份witness的三種讀法。因此Ch17不可把domain當新名詞重教；新知只剩quotient translation、prime boundary與兩者的correspondence。
 
-### 17.2 · 把 zero-product witness 拉回 upstairs boundary
+主例固定ambient ring `R=ℤ`，只切換三條integer ideal boundaries：
 
-- 同步顯示 `(a+P)(b+P)=0+P` 與 `ab∈P`。
-- 將「至少一個 factor class 已是zero」翻回 `a∈P or b∈P`，在因果完成後命名 prime ideal（質理想）。
-- 使用 decisive witness 推翻非prime candidate；general definition與quantifiers放在壓縮圖卡，不能用有限抽查冒充證明。
-- 核心圖卡：prime boundary能吸收product的結果，但不會把兩個outside factors一起藏成zero。
+- `6ℤ`：`2,3∉6ℤ`但`2·3∈6ℤ`，提供non-prime witness；
+- `(0)`：prime但不maximal，讓domain與field真正分開；
+- `2ℤ`：由Ch16 maximal–field correspondence接回maximal且prime的對照。
 
-### 17.3 · Prime ideal ⇔ domain quotient
+三者都標`INTEGER IDEAL CASE`。Divisibility是membership detector，不是prime的一般定義。
 
-- 用 two-route equivalence ledger 對齊：zero class membership、product collapse、factor membership。
-- 學習者先把三張 implication tiles 排序，再 reveal `P prime ⇔ R/P is an integral domain`。
-- 一個 finite instance做 exhaustive audit，另一個 infinite transfer用`(0)⊂ℤ`作一般概念檢查；proof仍放details。
-- 不在本節比較 maximal，讓 prime/domain correspondence先獨立站穩。
+### 17.1 · 同一個 product，換boundary後何時成為zero class？
 
-### 17.4 · Maximal ⇒ prime，但 converse 在一般世界失敗
+**單一 insight：** `(a+I)(b+I)=0+I`恰好表示ambient product `ab∈I`。
 
-- 重用現有 field→domain behavior row：inverse能把`uv=0`拉回`v=0`，所以 field⇒domain。
-- 垂直翻譯為 maximal⇒prime；箭頭只單向。
-- Controlled counterexample固定`(0)⊂2ℤ⊂ℤ`：`ℤ/(0)=ℤ`是domain但不是field，因此zero ideal prime但不maximal。
-- Finite commutative domain⇒field標為`FINITE SCOPE SHORTCUT`，專門修復第16章finite function example造成的偶然重合。
-- 核心圖卡：prime防止nonzero product消失；maximal還要求每個nonzero class回到1。
+- 固定`R=ℤ`、`a=2`、`b=3`與`ab=6`，只切換`I=6ℤ`與`I=(0)`。
+- 主要視覺是upstairs membership與downstairs class product的同步trace；兩邊factors、operation與結果完全不動。
+- 學習者先預測哪個quotient會crash，再執行同一product。
+- Evidence：兩個world是`CONTROLLED EXAMPLE`；一般membership equivalence標`GENERAL ARGUMENT`並放details。
+- 不介紹prime、不做every scan、不比較inverse。
 
-### Ch17 擁擠與一般性護欄
+觀念圖卡：Quotient沒有創造zero product；它只把落進ideal的product顯示成zero class。
 
-- Domain與field不得以「低級／高級」階梯呈現；使用兩個不同問題的detectors，再以單向 implication連接。
-- 17.1不介紹prime；17.2不證明完整 correspondence；17.3不比較maximal；17.4只做已建立概念的強弱邊界。
-- 至少保留一個 infinite transfer，否則有限例中domain=field會讓兩個detectors視覺上無法分離。
-- Irreducible element、prime element、UFD/PID、polynomial irreducibility都留到下一門 divisibility 課。
+### 17.2 · Prime boundary 的 three-sensor detector
+
+**單一 insight：** prime不禁止product進boundary；它禁止`a outside`、`b outside`、`ab inside`三個sensors同時亮起。
+
+- 固定`P=6ℤ`，使用三組非退化pairs：`2·3=6`是真breach；`2·4=8`未觸發antecedent；`6·5=30`已有factor inside。
+- 互動一次只選一組pair並跑三個membership sensors，避免自由整數selector變成無目的搜尋。
+- `2·3=6`標`WITNESS`，一張即可否決6ℤ prime；其他pairs只是examples，不能肯定universal claim。
+- Transfer以Ch5的整數domain promise作general argument：`ab=0`推出`a=0 or b=0`，因此`(0)`prime。
+- Prime ideal（質理想）於因果完成後首次命名；proper與quantifiers放details。
+
+觀念圖卡：Prime boundary抓住product時，必須也抓住至少一個factor。
+
+### 17.3 · 一整包 failure witness 穿過 quotient
+
+**單一 insight：** upstairs prime breach packet與downstairs zero-product packet可雙向運送，故兩邊failure witnesses存在與否完全一致。
+
+- Upstairs依序保留`a∉P`、`b∉P`、`ab∈P`；downstairs同步翻成`a+P≠0`、`b+P≠0`、product class為zero。
+- 主要視覺為雙向witness transporter，而非再做一次reason-tile排序或finite audit。
+- 操作先逐條translate，再切換projection／choose representatives方向。
+- 三條完成後才顯示`P prime ⇔ R/P is an integral domain`。
+- Evidence只標`GENERAL ARGUMENT · BIDIRECTIONAL WITNESS TRANSPORT`；representative independence直接沿用Ch11與Ch16，不另開一節重教。
+
+觀念圖卡：Prime ideal與domain quotient擁有完全相同的failure witnesses。
+
+### 17.4 · Field inverse 為什麼阻止zero collapse？
+
+**單一 insight：** field中若`x≠0`且`xy=0`，inverse會把x倒帶掉並迫使`y=0`，因此field⇒domain。
+
+- 主要互動逐步播放`xy=0 → x⁻¹xy=x⁻¹0 → 1y=0 → y=0`。
+- 完成後才把Ch16 `M maximal ⇔ R/M field`與17.3 correspondence接成`M maximal ⇒ M prime`。
+- 本節只處理正向implication，不顯示反例、不聲稱converse。
+- Evidence為`GENERAL ARGUMENT · IMPLICATION`，不是由2ℤ或有限quotient的PASS推得。
+
+觀念圖卡：能把每個nonzero element倒帶到1，當然也不會讓nonzero product無故消失。
+
+### 17.5 · Prime 為什麼不必 maximal？
+
+**單一 insight：** 防止nonzero products消失，比要求每個nonzero element都有inverse更弱。
+
+- 固定同一quotient`ℤ/(0)≅ℤ`，並排兩份不同contracts：zero-product detector PASS；element 2的inverse dock FAIL。
+- Upstairs同步顯示`(0)⊊2ℤ⊊ℤ`，提供proper intermediate ideal witness。
+- 此counterexample標`COUNTEREXAMPLE · CONVERSE REFUTED`：`(0)`prime但不maximal。
+- `finite commutative domain⇒field`放scope correction／details，修復前面有限function examples使prime與maximal看似重合的accidental property。
+
+觀念圖卡：Prime防止nonzero products消失；maximal還要求每個nonzero class回到1。
+
+### Ch17 五節必要性與視覺護欄
+
+- 四節會把field⇒domain的正向機制與prime⇏maximal的反例塞在同頁；兩者需要不同visual model與feedback，因此拆成17.4、17.5。
+- 六節沒有必要：Integral domain已在Ch5完整建立，representative independence也已在Ch11與Ch16建立。
+- 不用ideal圓圈面積暗示cardinality；`(0)⊊2ℤ⊊ℤ`只用明確inclusion arrows。
+- Domain與field不是低級／高級階梯，而是兩份不同behavior contracts；只有真正成立的logical implication用單向箭頭。
+- `6ℤ`、`(0)`與`2ℤ`的距離、generator大小都沒有幾何語意，不用number-line spacing暗示prime或maximal。
+- 全章不需3D；membership、projection、product trace與implication以2D exact alignment最清楚。
+- Irreducible element、prime element、UFD／PID、radical、Spec與polynomial irreducibility不進本章。
+
+不打開details時，學習者應能回答：
+
+1. Product class為zero為什麼等價於ambient product落進ideal？
+2. Prime failure為什麼需要兩個factors outside與product inside三件事同時成立？
+3. 一張prime breach如何逐條變成zero-product witness？
+4. 為什麼`P prime ⇔ R/P domain`是general argument而不是finite scan？
+5. Field inverse如何排除nonzero zero product？
+6. 為什麼maximal⇒prime，而`(0)⊂ℤ`能否決反方向？
+7. Finite examples的哪項accidental property曾讓prime與maximal看似無法分離？
 
 ## 新版 Ch18 · 面對陌生 ring map 或 quotient，該選哪一副鏡頭？
 

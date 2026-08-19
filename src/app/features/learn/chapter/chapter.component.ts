@@ -199,6 +199,11 @@ import { RingsCh16MaximalGrowthAuditComponent } from './steps/rings-ch16/step-ma
 import { RingsCh16IdentityInverseCertificateComponent } from './steps/rings-ch16/step-identity-inverse-certificate.component';
 import { RingsCh16RepresentativeFiberComponent } from './steps/rings-ch16/step-representative-fiber.component';
 import { RingsCh16MaximalFieldCorrespondenceComponent } from './steps/rings-ch16/step-maximal-field-correspondence.component';
+import { RingsCh17ProductBoundaryTraceComponent } from './steps/rings-ch17/step-product-boundary-trace.component';
+import { RingsCh17PrimeBoundarySensorComponent } from './steps/rings-ch17/step-prime-boundary-sensor.component';
+import { RingsCh17PrimeDomainTransporterComponent } from './steps/rings-ch17/step-prime-domain-transporter.component';
+import { RingsCh17FieldDomainRescueComponent } from './steps/rings-ch17/step-field-domain-rescue.component';
+import { RingsCh17PrimeNotMaximalComponent } from './steps/rings-ch17/step-prime-not-maximal.component';
 
 // Linalg Ch1 steps
 import { StepWhatIsVectorComponent } from './steps/linalg-ch1/step-what-is-vector.component';
@@ -1405,6 +1410,16 @@ const RINGS_CHAPTERS: Record<string, ChapterConfig> = {
       { num: 3, title: 'No intermediate ideal 的 maximal detector' },
       { num: 4, title: 'Many representatives 收成 one class' },
       { num: 5, title: 'Maximal–field correspondence' },
+    ],
+  },
+  ch17: {
+    title: '第十七章：什麼 boundary 不會讓兩個 outsiders 相乘後一起消失？',
+    steps: [
+      { num: 1, title: 'Product class 歸零的 boundary trace' },
+      { num: 2, title: 'Prime boundary 的 three-sensor detector' },
+      { num: 3, title: 'Prime breach 與 zero-product witness' },
+      { num: 4, title: 'Field inverse 阻止 zero collapse' },
+      { num: 5, title: 'Prime 不必 maximal' },
     ],
   },
 };
@@ -2796,6 +2811,11 @@ const SUBJECT_LABELS: Record<string, string> = {
     RingsCh16MaximalGrowthAuditComponent,
     RingsCh16RepresentativeFiberComponent,
     RingsCh16MaximalFieldCorrespondenceComponent,
+    RingsCh17ProductBoundaryTraceComponent,
+    RingsCh17PrimeBoundarySensorComponent,
+    RingsCh17PrimeDomainTransporterComponent,
+    RingsCh17FieldDomainRescueComponent,
+    RingsCh17PrimeNotMaximalComponent,
     // Linalg Ch1
     StepWhatIsVectorComponent,
     StepVectorOpsComponent,

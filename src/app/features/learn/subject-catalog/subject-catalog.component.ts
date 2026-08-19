@@ -536,6 +536,13 @@ const SUBJECT_INFO: Record<string, SubjectInfo> = {
         desc: '先看nonzero classes如何打開identity dock，再用同一張certificate、fiber bundling與no-intermediate criterion建立maximal ideal和field quotient的精確對應。',
         meta: '5 個小節 · 約 65 分鐘',
       },
+      {
+        id: 'ch17',
+        label: '第十七章',
+        title: '什麼 boundary 不會讓兩個 outsiders 相乘後一起消失？',
+        desc: '固定整數ambient world，追蹤zero-product witness如何穿過quotient，建立prime ideal與domain quotient的精確對應，並分開prime與maximal。',
+        meta: '5 個小節 · 約 60 分鐘',
+      },
     ],
   },
   analysis: {
