@@ -664,6 +664,16 @@
             @case (5) { <app-rings-ch17-prime-not-maximal /> }
           }
         }
+        @case ('rings/ch18') {
+          @switch (currentStep()) {
+            @case (1) { <app-rings-ch18-goal-first-diagnosis /> }
+            @case (2) { <app-rings-ch18-relation-compiler /> }
+            @case (3) { <app-rings-ch18-map-survival-fibers /> }
+            @case (4) { <app-rings-ch18-effective-image /> }
+            @case (5) { <app-rings-ch18-paired-reconstruction-gates /> }
+            @case (6) { <app-rings-ch18-behavior-route-finale /> }
+          }
+        }
       }
     } @else {
       @switch (subject() + '/' + chapterId()) {

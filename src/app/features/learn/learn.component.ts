@@ -101,7 +101,7 @@ import { RouterLink } from '@angular/router';
           <div class="sc-body">
             <h3 class="sc-title">Rings & Ideals</h3>
             <p class="sc-desc">兩種 operations 如何共存，以及哪些差異能安全壓成零。</p>
-            <span class="sc-meta">18 章規畫 · 已完成 17 章</span>
+            <span class="sc-meta">18 章已完成 · 完整直覺主線</span>
           </div>
         </a>
 

@@ -204,6 +204,12 @@ import { RingsCh17PrimeBoundarySensorComponent } from './steps/rings-ch17/step-p
 import { RingsCh17PrimeDomainTransporterComponent } from './steps/rings-ch17/step-prime-domain-transporter.component';
 import { RingsCh17FieldDomainRescueComponent } from './steps/rings-ch17/step-field-domain-rescue.component';
 import { RingsCh17PrimeNotMaximalComponent } from './steps/rings-ch17/step-prime-not-maximal.component';
+import { RingsCh18GoalFirstDiagnosisComponent } from './steps/rings-ch18/step-goal-first-diagnosis.component';
+import { RingsCh18RelationCompilerComponent } from './steps/rings-ch18/step-relation-compiler.component';
+import { RingsCh18MapSurvivalFibersComponent } from './steps/rings-ch18/step-map-survival-fibers.component';
+import { RingsCh18EffectiveImageComponent } from './steps/rings-ch18/step-effective-image.component';
+import { RingsCh18PairedReconstructionGatesComponent } from './steps/rings-ch18/step-paired-reconstruction-gates.component';
+import { RingsCh18BehaviorRouteFinaleComponent } from './steps/rings-ch18/step-behavior-route-finale.component';
 
 // Linalg Ch1 steps
 import { StepWhatIsVectorComponent } from './steps/linalg-ch1/step-what-is-vector.component';
@@ -1420,6 +1426,17 @@ const RINGS_CHAPTERS: Record<string, ChapterConfig> = {
       { num: 3, title: 'Prime breach 與 zero-product witness' },
       { num: 4, title: 'Field inverse 阻止 zero collapse' },
       { num: 5, title: 'Prime 不必 maximal' },
+    ],
+  },
+  ch18: {
+    title: '第十八章：面對陌生問題，該讓什麼消失、保留什麼？',
+    steps: [
+      { num: 1, title: 'Question-first route diagnosis' },
+      { num: 2, title: 'Relation 編譯成 generated ideal' },
+      { num: 3, title: 'Quotient fibers 必須尊重 map fibers' },
+      { num: 4, title: 'Kernel quotient 對準 reachable image' },
+      { num: 5, title: 'Reconstruction 的兩道 gates' },
+      { num: 6, title: 'Behavior requirement 選擇 detector' },
     ],
   },
 };
@@ -2816,6 +2833,12 @@ const SUBJECT_LABELS: Record<string, string> = {
     RingsCh17PrimeDomainTransporterComponent,
     RingsCh17FieldDomainRescueComponent,
     RingsCh17PrimeNotMaximalComponent,
+    RingsCh18GoalFirstDiagnosisComponent,
+    RingsCh18RelationCompilerComponent,
+    RingsCh18MapSurvivalFibersComponent,
+    RingsCh18EffectiveImageComponent,
+    RingsCh18PairedReconstructionGatesComponent,
+    RingsCh18BehaviorRouteFinaleComponent,
     // Linalg Ch1
     StepWhatIsVectorComponent,
     StepVectorOpsComponent,

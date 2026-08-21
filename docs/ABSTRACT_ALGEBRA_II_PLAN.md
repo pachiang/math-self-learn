@@ -3246,41 +3246,47 @@ Integral domain已在Ch5.5正式建立：nonzero zero product、multiplication c
 6. 為什麼maximal⇒prime，而`(0)⊂ℤ`能否決反方向？
 7. Finite examples的哪項accidental property曾讓prime與maximal看似無法分離？
 
-## 新版 Ch18 · 面對陌生 ring map 或 quotient，該選哪一副鏡頭？
+## 新版 Ch18 · 面對陌生問題，該讓什麼消失、保留什麼？
 
-**全章唯一核心 insight：** ring quotient 問題不是靠背 theorem 名稱；先辨認「被迫歸零的 differences」與「想觀察的剩餘 behavior」，就能選出正確路徑。
+**全章核心 insight：** 先問目標是「要忘掉什麼」還是「要保住什麼」，再選 ideal、quotient、kernel、image 或 boundary detector；不由表面名詞猜 theorem。
 
-Ch18 是 capstone，不新增 theorem，也不再補 ideal product、radical、localization 或 polynomial factorization。建議五節，每節只訓練一次 lens selection：
+Ch18 是六節 capstone，不新增 theorem。每節只完成一個可轉移的診斷動作，並把 Ch9–17 的工具收成一條 problem-solving pipeline。
 
-### 18.1 · Goal-first diagnosis map
+### 18.1 · Question-first route diagnosis
 
-- 給四種目標：讓seed歸零、讓map下降、描述map真正保留的image、判斷quotient multiplication。
-- 學習者先選 lens，再看到需要的 input evidence；不是先看公式猜 theorem。
-- 建立一張可帶走的 route map：`seed → generated ideal`、`I→0 → R/I`、`map collisions → ker/image`、`quotient behavior → prime/maximal`。
+- 先讀問題要求，再從 relation、descent、effective image、paired reconstruction、domain behavior、field behavior 六條 routes 中選一條。
+- 互動的因果是「目標改變 → decisive evidence 改變」，不是記 theorem 名稱。
+- 擁擠限制：本節只選 route，不在同畫面執行計算。
 
-### 18.2 · Construction route：宣告一個 relation 為 zero
+### 18.2 · Relation 編譯成 generated ideal
 
-- 用最簡單的 polynomial-looking world作 representation transfer，例如把符號 relation `x²+1=0` 當作 quotient instruction；不做 polynomial division 或 irreducibility test。
-- 問「哪些 expressions 被迫視為相同？」並選 generated ideal + quotient lens。
-- 主流程只訓練 relation → safe-collapse region → quotient elements，避免偷開下一門課。
+- 用 integer relation `14∼20` 把「宣告相同」編譯成 difference `20−14=6`，再擴張為能安全 collapse 的 generated ideal `6ℤ`。
+- 視覺固定為 relation → difference → ideal → quotient 四階段 compiler，每次只揭示下一個必要步驟。
+- 擁擠限制：不引入 polynomial relation、presentation 或 universal property。
 
-### 18.3 · Map route：一張 evaluation map 忘掉了什麼？
+### 18.3 · Quotient fibers 必須尊重 map fibers
 
-- 給 finite function evaluation 或 integer residue map，先找 collisions，再選 kernel–quotient–image route。
-- 必須區分 target與image，不把 surjectivity當預設。
-- 由學習者組出`R → R/ker f → im f ↪ S`，不重新講 first isomorphism theorem。
+- 比較 parity map 通過 `ℤ/6ℤ` 與 `ℤ/3ℤ` 的情形：同一 quotient fiber 內的所有 representatives 必須有同一 output。
+- 互動同時送出一對 representatives，讓 descent 失敗顯示為一個 input class 被迫對應兩個 outputs。
+- 本節只建立 `I⊆ker f` 的 fiber 理由，不重教 quotient universal property。
 
-### 18.4 · Multi-view route：兩張 quotient outputs 能否重建？
+### 18.4 · Kernel quotient 對準 reachable image
 
-- 給一組comaximal與一組non-comaximal ideals，要求先判斷共同blind spot，再判斷product target是否reachable。
-- 正確 lens依序是intersection → sum → CRT；不能只因看到兩個moduli就直接按CRT。
-- Feedback精確指出是injectivity/kernel問題或surjectivity/reachability問題。
+- 對 diagonal map `Δ:ℤ/4ℤ→ℤ/4ℤ×ℤ/4ℤ` 逐一追蹤 inputs，看見 target 有 16 格，但 reachable image 只有 4 格。
+- 視覺上分開 target capacity 與 image occupancy，固定 `R/ker f ≅ im f`，不把 target 當成預設。
+- 擁擠限制：本節只修正 surjectivity 錯覺，不再證 First Isomorphism Theorem。
 
-### 18.5 · Behavior route：要domain還是field？
+### 18.5 · Reconstruction 的兩道 gates
 
-- 給陌生 quotient 的兩種需求：「nonzero product不可消失」與「每個nonzero class必須可逆」。
-- 學習者分別選 prime detector與maximal detector，並指出所需 evidence不同。
-- 最終混合挑戰只要求選route與第一個decisive test，不要求一頁完成長計算。
+- 先用 common blind spot 檢查 distinguishability，再用 product occupancy 檢查 reachability。
+- 比較 mod 4 與 mod 6（可區分但無法填滿 target）與 mod 3 與 mod 4（兩道 gates 都通過），阻止「injective 就等於可完整重建」的誤解。
+- 對應語言為 intersection 管 kernel、sum/comaximality 管 reachability；CRT 只是兩關都通過的結果名稱。
+
+### 18.6 · Behavior requirement 選擇 detector
+
+- 「nonzero product 不可消失」選 prime/domain detector；「每個 nonzero class 要能回到 1」選 maximal/field detector。
+- 用 `6ℤ`、`(0)`、`5ℤ` 對照，讓學習者看見 detector 是由 desired behavior 決定，不是由 ideal 外觀決定。
+- 最後 route map 只收束「問題 → 第一個 decisive test」，不要求一頁做完長計算。
 
 ### Ch18 最終收束圖
 
@@ -3306,4 +3312,4 @@ map descent → I⊆ker f                  zero-product trace → prime / domain
 
 Ideal product 尚未進主線，但它不是為了湊章數就必須補上的缺口。它在 factorization、primary decomposition 或 algebraic geometry 中會有更強的動機；本課只為了 taxonomy 加入它，會破壞由 safe differences 到 quotient behavior 的單一主軸。Radical ideals、localization、Spec、ED/PID/UFD同理，留到各自有問題驅動的後續課程。
 
-因此新版終點採 18 章：Ch16 建 field/maximal，Ch17 建 domain/prime，Ch18 練整合診斷。若未來 storyboard 證明 capstone 五節過長，可以把它拆成 18–19 兩章；但不預先承諾第20章，也不靠新增名詞填滿章號。
+因此新版終點採 18 章：Ch16 建 field/maximal，Ch17 建 domain/prime，Ch18 用六次單一診斷動作練整合路徑。不預先承諾第 19、20 章，也不靠新增名詞填滿章號。

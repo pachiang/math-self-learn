@@ -543,6 +543,13 @@ const SUBJECT_INFO: Record<string, SubjectInfo> = {
         desc: '固定整數ambient world，追蹤zero-product witness如何穿過quotient，建立prime ideal與domain quotient的精確對應，並分開prime與maximal。',
         meta: '5 個小節 · 約 60 分鐘',
       },
+      {
+        id: 'ch18',
+        label: '第十八章',
+        title: '面對陌生問題，該讓什麼消失、保留什麼？',
+        desc: '不再猜theorem名稱；從relation、map、image、paired views與multiplication requirements選出正確diagnostic route。',
+        meta: '6 個小節 · 約 70 分鐘',
+      },
     ],
   },
   analysis: {
