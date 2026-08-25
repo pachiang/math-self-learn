@@ -1,0 +1,35 @@
+@use '../fields-ch1/fields-ch1';
+
+.fields-lesson {
+  /* 兩欄舞台（複平面 + console） */
+  .family-grid, .split-grid, .sep-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(280px, .9fr); gap: 20px; }
+  .plane-board, .sep-board { display: grid; align-content: start; gap: 10px; justify-items: center; }
+  .plane-board .board-scope, .sep-board .board-scope { justify-self: start; }
+
+  /* ---- 複平面 root family（6.1 / 6.2 / 6.3 共用）---- */
+  .plane-svg { width: min(100%, 340px); overflow: visible; }
+  .axis { stroke: var(--border-strong); stroke-width: 1.5; }
+  .axis-tag { fill: var(--text-muted); font-size: 12px; font-weight: 800; }
+  .root-dot { stroke-width: 2.5; transition: fill .25s ease, stroke .25s ease; }
+  .root-dot.lit { fill: color-mix(in srgb, var(--field-safe) 32%, var(--bg-surface)); stroke: var(--field-safe); }
+  .root-dot.out { fill: transparent; stroke: var(--field-block); stroke-dasharray: 4 3; }
+  .root-label { font-weight: 800; fill: var(--text); }
+  .root-label.out { fill: var(--field-block); }
+
+  .factor-line { font-weight: 750; }
+
+  /* ---- 6.4 separable ---- */
+  .sep-board { justify-items: start; }
+  .root-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .root-pill { padding: 8px 14px; border: 2px solid var(--field-safe); border-radius: 999px; background: color-mix(in srgb, var(--field-safe) 10%, var(--bg-surface)); font-weight: 750; }
+  .sep-badge { padding: 8px 14px; border: 2px solid var(--field-safe); border-radius: 10px; background: color-mix(in srgb, var(--field-safe) 12%, var(--bg)); font-weight: 800; }
+  .sep-note { margin: 2px 0; color: var(--text-secondary); }
+  .stage-check { list-style: none; margin: 4px 0; padding: 0; display: grid; gap: 8px; }
+  .stage-check li { padding: 9px 12px 9px 34px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg); position: relative; font-weight: 650; }
+  .stage-check li.ok { border-color: var(--field-safe); }
+  .stage-check li.ok::before { content: '✓'; position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--field-safe); font-weight: 900; }
+
+  @media (max-width: 900px) {
+    .family-grid, .split-grid, .sep-grid { grid-template-columns: 1fr; }
+  }
+}

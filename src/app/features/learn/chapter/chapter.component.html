@@ -22,7 +22,8 @@
         chapterId() === 'ch18' ||
         chapterId() === 'ch19')) ||
     subject() === 'algebra' ||
-    subject() === 'rings'
+    subject() === 'rings' ||
+    subject() === 'fields'
   "
 >
   <nav class="course-context" aria-label="課程位置與章節導覽">
@@ -672,6 +673,57 @@
             @case (4) { <app-rings-ch18-effective-image /> }
             @case (5) { <app-rings-ch18-paired-reconstruction-gates /> }
             @case (6) { <app-rings-ch18-behavior-route-finale /> }
+          }
+        }
+      }
+    } @else if (subject() === 'fields') {
+      @switch (subject() + '/' + chapterId()) {
+        @case ('fields/ch1') {
+          @switch (currentStep()) {
+            @case (1) { <app-fields-ch1-divide-is-special /> }
+            @case (2) { <app-fields-ch1-field-definition /> }
+            @case (3) { <app-fields-ch1-two-ideals /> }
+            @case (4) { <app-fields-ch1-char-and-fp /> }
+          }
+        }
+        @case ('fields/ch2') {
+          @switch (currentStep()) {
+            @case (1) { <app-fields-ch2-build-the-world /> }
+            @case (2) { <app-fields-ch2-extension-vector-space /> }
+            @case (3) { <app-fields-ch2-dimension-varies /> }
+            @case (4) { <app-fields-ch2-finite-infinite /> }
+          }
+        }
+        @case ('fields/ch3') {
+          @switch (currentStep()) {
+            @case (1) { <app-fields-ch3-reduction-rule /> }
+            @case (2) { <app-fields-ch3-minimal-polynomial /> }
+            @case (3) { <app-fields-ch3-clock-isomorphism /> }
+            @case (4) { <app-fields-ch3-irreducible-field /> }
+            @case (5) { <app-fields-ch3-any-root-recipe /> }
+          }
+        }
+        @case ('fields/ch4') {
+          @switch (currentStep()) {
+            @case (1) { <app-fields-ch4-tower-multiplies /> }
+            @case (2) { <app-fields-ch4-relative-degree /> }
+            @case (3) { <app-fields-ch4-divides-tower /> }
+          }
+        }
+        @case ('fields/ch5') {
+          @switch (currentStep()) {
+            @case (1) { <app-fields-ch5-step-quadratic /> }
+            @case (2) { <app-fields-ch5-quadratic-tower /> }
+            @case (3) { <app-fields-ch5-three-impossible /> }
+            @case (4) { <app-fields-ch5-necessary-not-sufficient /> }
+          }
+        }
+        @case ('fields/ch6') {
+          @switch (currentStep()) {
+            @case (1) { <app-fields-ch6-root-family /> }
+            @case (2) { <app-fields-ch6-splitting-field /> }
+            @case (3) { <app-fields-ch6-normal-detector /> }
+            @case (4) { <app-fields-ch6-separable-scope /> }
           }
         }
       }

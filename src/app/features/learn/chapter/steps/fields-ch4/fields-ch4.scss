@@ -1,0 +1,49 @@
+@use '../fields-ch1/fields-ch1';
+
+.fields-lesson {
+  /* 兩欄舞台（主 + console） */
+  .grid-stage, .divide-stage { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(280px, .82fr); gap: 20px; }
+  .grid-board, .divide-board { display: grid; align-content: start; gap: 12px; }
+
+  /* ---- 4.1 / 4.2 basis grid ---- */
+  .basis-grid { display: grid; gap: 8px; align-items: stretch; }
+  .bg-corner { min-height: 40px; }
+  .bg-head { display: grid; place-items: center; padding: 8px; font-weight: 800; color: var(--field-violet); }
+  .bg-head.col { border-bottom: 2px solid var(--field-violet); }
+  .bg-head.row { border-right: 2px solid var(--field-safe); color: var(--field-safe); }
+  .bg-cell { display: grid; place-items: center; min-height: 52px; padding: 8px; border: 2px solid var(--field-safe); border-radius: 10px; background: color-mix(in srgb, var(--field-safe) 9%, var(--bg-surface)); font-weight: 800; }
+  .bg-cell.collapsed { border-color: var(--field-block); border-style: dashed; background: color-mix(in srgb, var(--field-block) 9%, var(--bg-surface)); }
+  .collapse-note { margin: 2px 0 0; color: var(--text-secondary); }
+  .collapse-note.blocked { color: var(--field-block); font-weight: 650; }
+
+  /* ---- 4.3 divisibility ---- */
+  .tower-chain { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 10px 0; }
+  .tc-node { padding: 10px 14px; border: 2px solid var(--border-strong); border-radius: 10px; background: var(--bg); font-weight: 750; }
+  .tc-node.mid { border-color: var(--field-safe); }
+  .tc-node.top { border-color: var(--field-violet); }
+  .tc-edge { position: relative; min-width: 46px; height: 2px; background: var(--border-strong); }
+  .tc-edge.dashed { background: repeating-linear-gradient(90deg, var(--border-strong) 0 5px, transparent 5px 9px); }
+  .tc-edge span { position: absolute; top: -22px; left: 50%; transform: translateX(-50%); font-size: 12px; font-weight: 800; color: var(--field-safe); }
+
+  .fact { display: grid; grid-template-columns: minmax(150px, .55fr) 1fr; gap: 12px; padding: 9px 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg); }
+  .fk { font-size: 12px; font-weight: 800; color: var(--text-muted); }
+  .fv { font-weight: 750; }
+  .fv.no-fv { color: var(--field-block); }
+  .divide-facts { display: grid; gap: 8px; }
+
+  .verdict { margin: 4px 0 0; padding: 12px 16px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg); line-height: 1.55; }
+  .verdict.is-min { border-color: var(--field-safe); background: color-mix(in srgb, var(--field-safe) 10%, var(--bg-surface)); font-weight: 650; }
+  .verdict.bad { border-color: var(--field-block); background: color-mix(in srgb, var(--field-block) 10%, var(--bg-surface)); font-weight: 650; }
+
+  button.outsider { border-style: dashed; }
+  button.outsider.active { border-color: var(--field-block); background: color-mix(in srgb, var(--field-block) 13%, var(--bg-surface)); }
+
+  .deg-strip { display: flex; gap: 8px; }
+  .deg-chip { flex: 1; display: grid; place-items: center; gap: 1px; min-height: 46px; border: 2px solid var(--field-safe); border-radius: 10px; background: color-mix(in srgb, var(--field-safe) 9%, var(--bg-surface)); font-weight: 850; }
+  .deg-chip.miss { border-color: var(--field-block); border-style: dashed; background: color-mix(in srgb, var(--field-block) 8%, var(--bg-surface)); color: var(--field-block); }
+  .deg-chip small { font-size: 9px; font-weight: 700; }
+
+  @media (max-width: 900px) {
+    .grid-stage, .divide-stage { grid-template-columns: 1fr; }
+  }
+}

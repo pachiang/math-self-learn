@@ -210,6 +210,30 @@ import { RingsCh18MapSurvivalFibersComponent } from './steps/rings-ch18/step-map
 import { RingsCh18EffectiveImageComponent } from './steps/rings-ch18/step-effective-image.component';
 import { RingsCh18PairedReconstructionGatesComponent } from './steps/rings-ch18/step-paired-reconstruction-gates.component';
 import { RingsCh18BehaviorRouteFinaleComponent } from './steps/rings-ch18/step-behavior-route-finale.component';
+import { FieldsCh1DivideIsSpecialComponent } from './steps/fields-ch1/step-divide-is-special.component';
+import { FieldsCh1FieldDefinitionComponent } from './steps/fields-ch1/step-field-definition.component';
+import { FieldsCh1TwoIdealsComponent } from './steps/fields-ch1/step-two-ideals.component';
+import { FieldsCh1CharAndFpComponent } from './steps/fields-ch1/step-char-and-fp.component';
+import { FieldsCh2BuildTheWorldComponent } from './steps/fields-ch2/step-build-the-world.component';
+import { FieldsCh2ExtensionVectorSpaceComponent } from './steps/fields-ch2/step-extension-vector-space.component';
+import { FieldsCh2DimensionVariesComponent } from './steps/fields-ch2/step-dimension-varies.component';
+import { FieldsCh2FiniteInfiniteComponent } from './steps/fields-ch2/step-finite-infinite.component';
+import { FieldsCh3ReductionRuleComponent } from './steps/fields-ch3/step-reduction-rule.component';
+import { FieldsCh3MinimalPolynomialComponent } from './steps/fields-ch3/step-minimal-polynomial.component';
+import { FieldsCh3ClockIsomorphismComponent } from './steps/fields-ch3/step-clock-isomorphism.component';
+import { FieldsCh3IrreducibleFieldComponent } from './steps/fields-ch3/step-irreducible-field.component';
+import { FieldsCh3AnyRootRecipeComponent } from './steps/fields-ch3/step-any-root-recipe.component';
+import { FieldsCh4TowerMultipliesComponent } from './steps/fields-ch4/step-tower-multiplies.component';
+import { FieldsCh4RelativeDegreeComponent } from './steps/fields-ch4/step-relative-degree.component';
+import { FieldsCh4DividesTowerComponent } from './steps/fields-ch4/step-divides-tower.component';
+import { FieldsCh5StepQuadraticComponent } from './steps/fields-ch5/step-step-quadratic.component';
+import { FieldsCh5QuadraticTowerComponent } from './steps/fields-ch5/step-quadratic-tower.component';
+import { FieldsCh5ThreeImpossibleComponent } from './steps/fields-ch5/step-three-impossible.component';
+import { FieldsCh5NecessaryNotSufficientComponent } from './steps/fields-ch5/step-necessary-not-sufficient.component';
+import { FieldsCh6RootFamilyComponent } from './steps/fields-ch6/step-root-family.component';
+import { FieldsCh6SplittingFieldComponent } from './steps/fields-ch6/step-splitting-field.component';
+import { FieldsCh6NormalDetectorComponent } from './steps/fields-ch6/step-normal-detector.component';
+import { FieldsCh6SeparableScopeComponent } from './steps/fields-ch6/step-separable-scope.component';
 
 // Linalg Ch1 steps
 import { StepWhatIsVectorComponent } from './steps/linalg-ch1/step-what-is-vector.component';
@@ -2599,9 +2623,67 @@ const BAYES_CHAPTERS: Record<string, ChapterConfig> = {
   },
 };
 
+const FIELDS_CHAPTERS: Record<string, ChapterConfig> = {
+  ch1: {
+    title: '第一章：Field 是「除法也安全」的世界',
+    steps: [
+      { num: 1, title: '能除是特別的事' },
+      { num: 2, title: 'Field ＝ 非零元全是 unit' },
+      { num: 3, title: '從 ideal 看：只有兩個 ideal' },
+      { num: 4, title: 'char 與 F_p' },
+    ],
+  },
+  ch2: {
+    title: '第二章：擴張是一個 vector space，維度就是它的大小',
+    steps: [
+      { num: 1, title: '造出裝下 √2 的世界' },
+      { num: 2, title: '擴張＝base 上的向量空間' },
+      { num: 3, title: '換根換維度' },
+      { num: 4, title: '有限 vs 無限維' },
+    ],
+  },
+  ch3: {
+    title: '第三章：加一個根 = 拿 minimal polynomial 當時鐘',
+    steps: [
+      { num: 1, title: '摺回依據哪條規則' },
+      { num: 2, title: 'minimal polynomial' },
+      { num: 3, title: 'K(α) ≅ K[x]/(m)' },
+      { num: 4, title: 'irreducible → field' },
+      { num: 5, title: '任何根都能造' },
+    ],
+  },
+  ch4: {
+    title: '第四章：塔的維度會相乘',
+    steps: [
+      { num: 1, title: '維度相乘不是相加' },
+      { num: 2, title: '相對於下一層的次數' },
+      { num: 3, title: '次數整除塔高' },
+    ],
+  },
+  ch5: {
+    title: '第五章：尺規作圖 = 二次擴張的塔',
+    steps: [
+      { num: 1, title: '一步只解到二次' },
+      { num: 2, title: '二次塔 → 維度 2ⁿ' },
+      { num: 3, title: '三大古典不可能' },
+      { num: 4, title: '2 的冪必要非充分' },
+    ],
+  },
+  ch6: {
+    title: '第六章：進來一個根，全家都得進來',
+    steps: [
+      { num: 1, title: '親戚不一定跟來' },
+      { num: 2, title: 'splitting field' },
+      { num: 3, title: 'normal：沒有半個家族' },
+      { num: 4, title: 'separable 與談對稱的舞台' },
+    ],
+  },
+};
+
 const SUBJECTS: Record<string, Record<string, ChapterConfig>> = {
   algebra: ALGEBRA_CHAPTERS,
   rings: RINGS_CHAPTERS,
+  fields: FIELDS_CHAPTERS,
   linalg: LINALG_CHAPTERS,
   analysis: ANALYSIS_CHAPTERS,
   topology: TOPOLOGY_CHAPTERS,
@@ -2617,6 +2699,7 @@ const SUBJECTS: Record<string, Record<string, ChapterConfig>> = {
 const SUBJECT_LABELS: Record<string, string> = {
   algebra: '抽象代數',
   rings: 'Rings & Ideals',
+  fields: 'Fields & Galois',
   linalg: '線性代數',
   analysis: '實分析',
   topology: '點集拓撲',
@@ -2839,6 +2922,31 @@ const SUBJECT_LABELS: Record<string, string> = {
     RingsCh18EffectiveImageComponent,
     RingsCh18PairedReconstructionGatesComponent,
     RingsCh18BehaviorRouteFinaleComponent,
+    // Fields & Galois Ch1
+    FieldsCh1DivideIsSpecialComponent,
+    FieldsCh1FieldDefinitionComponent,
+    FieldsCh1TwoIdealsComponent,
+    FieldsCh1CharAndFpComponent,
+    FieldsCh2BuildTheWorldComponent,
+    FieldsCh2ExtensionVectorSpaceComponent,
+    FieldsCh2DimensionVariesComponent,
+    FieldsCh2FiniteInfiniteComponent,
+    FieldsCh3ReductionRuleComponent,
+    FieldsCh3MinimalPolynomialComponent,
+    FieldsCh3ClockIsomorphismComponent,
+    FieldsCh3IrreducibleFieldComponent,
+    FieldsCh3AnyRootRecipeComponent,
+    FieldsCh4TowerMultipliesComponent,
+    FieldsCh4RelativeDegreeComponent,
+    FieldsCh4DividesTowerComponent,
+    FieldsCh5StepQuadraticComponent,
+    FieldsCh5QuadraticTowerComponent,
+    FieldsCh5ThreeImpossibleComponent,
+    FieldsCh5NecessaryNotSufficientComponent,
+    FieldsCh6RootFamilyComponent,
+    FieldsCh6SplittingFieldComponent,
+    FieldsCh6NormalDetectorComponent,
+    FieldsCh6SeparableScopeComponent,
     // Linalg Ch1
     StepWhatIsVectorComponent,
     StepVectorOpsComponent,

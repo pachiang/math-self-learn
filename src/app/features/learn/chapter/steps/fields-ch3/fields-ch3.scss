@@ -1,0 +1,70 @@
+@use '../fields-ch1/fields-ch1';
+
+.fields-lesson {
+  .mini { font-size: 12px; font-weight: 800; color: var(--text-muted); }
+
+  /* ---- 3.1 reduction engine ---- */
+  .reduce-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(280px, .8fr); gap: 20px; }
+  .reduce-board { display: grid; align-content: start; gap: 12px; }
+  .relation-card { display: grid; gap: 3px; padding: 12px 16px; border: 2px solid var(--field-safe); border-radius: 12px; background: color-mix(in srgb, var(--field-safe) 9%, var(--bg)); }
+  .relation-card strong { font-size: 24px; }
+  .rc-tag { font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--field-safe); }
+  .rc-note { font-size: 12px; color: var(--text-muted); }
+  .reduce-input { margin: 2px 0; font-size: 15px; }
+  .reduce-trace { display: grid; gap: 8px; margin: 4px 0; padding-left: 20px; }
+  .reduce-trace li { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: baseline; }
+  .rt-before { font-weight: 800; }
+  .rt-detail { font-size: 13px; color: var(--field-violet); }
+  .rt-after { font-weight: 800; color: var(--field-safe); }
+  .reduce-controls { display: flex; gap: 9px; margin-top: 4px; }
+
+  /* ---- 3.2 minimal polynomial ---- */
+  .minpoly-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(280px, .8fr); gap: 20px; }
+  .minpoly-board { display: grid; align-content: start; gap: 12px; }
+  .check-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .check { display: grid; gap: 4px; padding: 12px 14px; border: 2px solid var(--border-strong); border-radius: 12px; background: var(--bg); }
+  .check.ok { border-color: var(--field-safe); background: color-mix(in srgb, var(--field-safe) 8%, var(--bg)); }
+  .check.no { border-color: var(--field-block); border-style: dashed; background: color-mix(in srgb, var(--field-block) 8%, var(--bg)); }
+  .ck-label { font-size: 12px; font-weight: 800; color: var(--text-muted); }
+  .ck-val { font-weight: 700; }
+  .verdict { margin: 4px 0 0; padding: 12px 16px; border-radius: 12px; background: var(--bg); border: 1px solid var(--border); line-height: 1.55; }
+  .verdict.is-min { border-color: var(--field-safe); background: color-mix(in srgb, var(--field-safe) 10%, var(--bg-surface)); font-weight: 650; }
+
+  /* ---- 3.3 isomorphism ---- */
+  .iso-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: stretch; }
+  .iso-col { display: grid; align-content: start; gap: 8px; padding: 16px; border: 2px solid var(--border-strong); border-radius: 14px; background: var(--bg); }
+  .alpha-col { border-color: var(--field-safe); }
+  .x-col { border-color: var(--field-violet); }
+  .iso-line { font-size: 17px; font-weight: 650; }
+  .iso-line.reduce { font-size: 13px; color: var(--field-violet); }
+  .iso-result { font-size: 22px; font-weight: 850; color: var(--field-safe); }
+  .iso-eq { display: grid; place-items: center; font-size: 34px; font-weight: 900; color: var(--text-muted); }
+
+  /* ---- 3.4 irreducible → field ---- */
+  .field-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(280px, .8fr); gap: 20px; }
+  .field-board { display: grid; align-content: start; gap: 10px; }
+  .inv-line { display: flex; flex-wrap: wrap; gap: 10px; align-items: baseline; }
+  .inv-line span { color: var(--text-muted); font-size: 13px; font-weight: 700; }
+  .inv-line strong { font-size: 19px; }
+  .inv-check { margin-top: 4px; padding: 10px 14px; border-radius: 10px; font-weight: 750; }
+  .inv-check.ok { border: 2px solid var(--field-safe); background: color-mix(in srgb, var(--field-safe) 10%, var(--bg)); color: var(--field-safe); }
+  .inv-check.no { border: 2px dashed var(--field-block); background: color-mix(in srgb, var(--field-block) 10%, var(--bg)); color: var(--field-block); }
+
+  /* ---- 3.5 recipe ---- */
+  .recipe-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(280px, .85fr); gap: 20px; }
+  .recipe-board { display: grid; align-content: start; gap: 12px; }
+  .recipe-facts { display: grid; gap: 8px; }
+  .fact { display: grid; grid-template-columns: minmax(140px, .5fr) 1fr; gap: 12px; padding: 9px 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg); }
+  .fk { font-size: 12px; font-weight: 800; color: var(--text-muted); }
+  .fv { font-weight: 750; }
+  .recipe-blurb { margin: 2px 0 0; color: var(--text-secondary); }
+  .inv-table { list-style: none; margin: 6px 0; padding: 0; display: grid; gap: 6px; }
+  .inv-table li { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: center; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); font-weight: 750; }
+  .inv-arrow { font-size: 11px; color: var(--text-muted); font-weight: 800; }
+
+  @media (max-width: 900px) {
+    .reduce-grid, .minpoly-grid, .field-grid, .recipe-grid, .check-row { grid-template-columns: 1fr; }
+    .iso-grid { grid-template-columns: 1fr; }
+    .iso-eq { transform: rotate(90deg); }
+  }
+}

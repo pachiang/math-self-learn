@@ -105,6 +105,43 @@ import { RouterLink } from '@angular/router';
           </div>
         </a>
 
+        <a class="subject-card" routerLink="/learn/fields">
+          <div class="sc-icon-wrap">
+            <svg viewBox="-30 -30 60 60" class="sc-icon" role="img" aria-label="field extension 與根的對稱">
+              <line x1="-16" y1="16" x2="16" y2="16" stroke="var(--border-strong)" stroke-width="2.5" />
+              <line x1="-11" y1="-14" x2="11" y2="-14" stroke="var(--accent)" stroke-width="2.5" />
+              <line
+                x1="0"
+                y1="16"
+                x2="0"
+                y2="-14"
+                stroke="var(--border-strong)"
+                stroke-width="1.5"
+                stroke-dasharray="3 3"
+              />
+              <circle cx="-11" cy="-14" r="3.5" fill="var(--v0)" />
+              <circle cx="11" cy="-14" r="3.5" fill="var(--v1)" />
+              <path
+                d="M-11 -21 A 11 7 0 0 1 11 -21"
+                fill="none"
+                stroke="var(--v2)"
+                stroke-width="1.6"
+                marker-end="url(#fg-swap)"
+              />
+              <defs>
+                <marker id="fg-swap" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+                  <polygon points="0 0,6 2,0 4" fill="var(--v2)" />
+                </marker>
+              </defs>
+            </svg>
+          </div>
+          <div class="sc-body">
+            <h3 class="sc-title">Fields & Galois</h3>
+            <p class="sc-desc">擴張裝下缺席的根，它自帶的對稱決定方程能不能開方解出。</p>
+            <span class="sc-meta">第六章上線 · 建構中</span>
+          </div>
+        </a>
+
         <a class="subject-card" routerLink="/learn/ag">
           <div class="sc-icon-wrap">
             <svg viewBox="-30 -30 60 60" class="sc-icon">
