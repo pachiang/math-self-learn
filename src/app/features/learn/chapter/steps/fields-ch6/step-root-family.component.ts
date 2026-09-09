@@ -51,6 +51,8 @@ const CASES: FamilyCase[] = [
         </p>
       </header>
 
+      <span class="map-convention">ONE-ROOT EXTENSIONS · MEMBERSHIP ≠ REGION · CONTROLLED EXAMPLES</span>
+
       <section class="prediction">
         <div>
           <p class="kicker">先預測</p>

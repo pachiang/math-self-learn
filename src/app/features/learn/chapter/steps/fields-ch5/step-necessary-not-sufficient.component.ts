@@ -54,9 +54,9 @@ import { Component, signal } from '@angular/core';
           <h3>次數<strong>是</strong> 2 的冪 ⇏ 可作圖</h3>
           <p>反過來不成立——綠燈亮，不代表作得出來。</p>
           <div class="dir-example no">
-            反例：<code>x⁴ − x − 1</code> 的根，次數 <strong>4 = 2²</strong>，卻<strong>不可作圖</strong>。（完整理由：它的對稱不是「二次塔」，留待對稱章）
+            反例：<code>x⁴ − x − 1</code> 的實根，次數 <strong>4 = 2²</strong>，卻<strong>不可作圖</strong>。（完整證書要檢查 splitting field 的對稱，留待後面的 Galois 章）
           </div>
-          <span class="dir-mode">NECESSARY CONDITION ONLY · 非 proof</span>
+          <span class="dir-mode">WITNESS + PROOF DEBT · 證書留後章</span>
         </div>
       </section>
 

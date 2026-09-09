@@ -29,6 +29,19 @@
   .stage-check li.ok { border-color: var(--field-safe); }
   .stage-check li.ok::before { content: '✓'; position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--field-safe); font-weight: 900; }
 
+  /* ---- 6.4 normal / separable two-axis gate ---- */
+  .galois-stage { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(280px, .8fr); gap: 20px; }
+  .gate-board { display: grid; align-content: start; gap: 12px; }
+  .axis-gates { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .axis-gate { min-height: 166px; padding: 14px; border: 3px dashed var(--field-block); border-radius: 13px; background: color-mix(in srgb, var(--field-block) 7%, var(--bg)); display: grid; align-content: start; gap: 6px; }
+  .axis-gate.pass { border-style: double; border-width: 5px; border-color: var(--field-safe); background: color-mix(in srgb, var(--field-safe) 8%, var(--bg)); }
+  .axis-gate h3, .axis-gate p { margin: 0; }
+  .axis-gate p { color: var(--text-secondary); font-size: 12px; line-height: 1.45; }
+  .gate-index { color: var(--text-muted); font-size: 9px; font-weight: 900; letter-spacing: .07em; }
+  .galois-merge { padding: 12px 14px; border: 3px dashed var(--field-block); border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 800; }
+  .galois-merge.pass { border-style: double; border-width: 5px; border-color: var(--field-violet); background: color-mix(in srgb, var(--field-violet) 9%, var(--bg)); }
+  .galois-merge strong { font-size: 18px; color: var(--field-violet); }
+
   @media (max-width: 900px) {
     .family-grid, .split-grid, .sep-grid { grid-template-columns: 1fr; }
   }

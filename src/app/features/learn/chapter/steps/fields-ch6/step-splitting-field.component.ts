@@ -30,6 +30,8 @@ const STATES: BuildState[] = [
         </p>
       </header>
 
+      <span class="map-convention">ONE POLYNOMIAL · x³−2 · EXAMPLE + GENERAL RECIPE</span>
+
       <section class="prediction">
         <div>
           <p class="kicker">先預測</p>
@@ -78,7 +80,7 @@ const STATES: BuildState[] = [
           <p class="factor-line">{{ state().factor }}</p>
           <p>{{ state().caption }}</p>
           <div class="readout">目前世界 {{ state().field }} · 維度 {{ state().dim }}{{ step() >= 2 ? '（splitting field 達成）' : '' }}</div>
-          <p class="evidence-tag">證據強度：GENERAL ARGUMENT（對剩餘因式繼續加根，必終止）</p>
+          <p class="evidence-tag">證據強度：EXAMPLE（x³−2）＋ GENERAL RECIPE（有限次逐根加入）</p>
         </aside>
       </section>
 
@@ -95,6 +97,7 @@ const STATES: BuildState[] = [
         <p>
           <code>f</code> 在 <code>K</code> 上的 <strong>splitting field</strong> 是使 <code>f</code> 分解成一次因式的最小擴張。做法：抓出一個根 → 對商多項式重複，直到全裂開。
           對 <code>x³ − 2</code>：<code>ℚ → ℚ(∛2)</code>（次數 3）<code>→ ℚ(∛2, ω)</code>（再 ×2）→ <code>[ℚ(∛2,ω):ℚ] = 6</code>。它存在且在同構意義下唯一。
+          一般 recipe 會終止，因為每加入一根就至少移除一個一次因式，而 <code>deg f</code> 有限；「最小」指任何能讓 <code>f</code> 完全分解的 field 都必須含住由全部根生成的 field。
         </p>
       </details>
     </article>

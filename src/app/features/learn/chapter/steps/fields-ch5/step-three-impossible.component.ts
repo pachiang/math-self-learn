@@ -46,9 +46,11 @@ const CARDS: ImpCard[] = [
         <h2>三大古典不可能</h2>
         <p class="lede">
           兩千年沒人做出來，不是不夠聰明——是<strong>次數對不上 2 的冪</strong>。同一條判準（Ch4.3：次數必整除 2ᵐ）套三次：
-          倍立方、三等分角都卡在<strong>次數 3</strong>；化圓為方更狠，π 連代數數都不是。
+          倍立方、<strong>三等分 60°</strong>都卡在次數 3；化圓為方更狠，π 連代數數都不是。這裡的 60° 是推翻「任意角都有通用三等分法」的 decisive witness，並不是說每個角都不能三等分。
         </p>
       </header>
+
+      <span class="map-convention">STRAIGHTEDGE + COMPASS ONLY · THREE FIXED TARGETS · NECESSARY TEST</span>
 
       <section class="prediction">
         <div>
@@ -87,8 +89,8 @@ const CARDS: ImpCard[] = [
         <section class="insight">
           <span class="insight-icon">≠2ᵏ</span>
           <div>
-            <strong>三大不可能不是難，是次數對不上 2 的冪</strong>
-            <span>——倍立方、三等分角次數 3；化圓為方的 π 更是連代數數都不是。</span>
+            <strong>固定目標一旦被 degree 擋下，再聰明的尺規步驟也救不回來</strong>
+            <span>——倍立方與三等分 60° 卡在 degree 3；化圓為方則卡在 transcendence。</span>
           </div>
         </section>
       }
@@ -99,6 +101,7 @@ const CARDS: ImpCard[] = [
           倍立方要 <code>∛2</code>，minimal poly <code>x³−2</code>（次數 3）。三等分 60° 要 <code>cos20°</code>：由
           <code>cos3θ = 4cos³θ − 3cosθ</code> 與 <code>cos60° = ½</code> 得 <code>8x³ − 6x − 1 = 0</code>（無有理根、irreducible，次數 3）。
           化圓為方要 <code>√π</code>，而 <code>π</code> transcendental（Lindemann 1882），非任何多項式的根 → 不在任何有限擴張裡。每個都由「次數必整除 2ᵐ」擋下（第三個更是連塔都進不去）。
+          三等分的結論是「不存在適用任意角的尺規 construction」；某些特定角當然仍可三等分，例如 90° 可作出 30°。
         </p>
       </details>
     </article>

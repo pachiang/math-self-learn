@@ -1,7 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
 
-const POOL = ['√2', '∛2', 'π', 'e', '√3', '√5', '⁴√2', 'log₂3', 'φ', '∛5', 'π²', '√7'];
-
 @Component({
   selector: 'app-fields-ch2-finite-infinite',
   standalone: true,
@@ -28,8 +26,8 @@ const POOL = ['√2', '∛2', 'π', 'e', '√3', '√5', '⁴√2', 'log₂3', '
         @if (prediction()) {
           <p class="feedback" [class.warning]="prediction() === 'finite'">
             {{ prediction() === 'infinite'
-              ? '對。右邊按「加入一個新方向」，會發現永遠停不下來 → 無限維。'
-              : '其實是無限：√2、∛2、π、e… 彼此獨立，列不完。右邊試試看。' }}
+              ? '對。但一直按出更多 cards 不是證明；右邊的 transcendence gate 才說明為什麼永遠收不完。'
+              : '其實是無限。只要在 ℝ 裡找到一組永遠增加的獨立方向就夠；右邊用 π 的冪做出這組 family。' }}
           </p>
         }
       </section>
@@ -42,27 +40,42 @@ const POOL = ['√2', '∛2', 'π', 'e', '√3', '√5', '⁴√2', 'log₂3', '
           <div class="fin-row"><span class="fin-name">ℂ = ℝ(i)</span><span class="fin-basis">{{ '{' }} 1, i {{ '}' }}</span><span class="fin-dim">維度 2 · 完整</span></div>
         </div>
 
-        <div class="cmp-panel">
-          <p class="board-scope">INFINITE · ℝ 當作 ℚ 上的向量空間</p>
-          <div class="inf-chips" role="list" aria-live="polite">
-            @for (d of directions(); track d) {
-              <span class="chip inf" role="listitem">{{ d }}</span>
+        <div class="cmp-panel infinite-panel">
+          <p class="board-scope">INFINITE SUBEXTENSION · ℚ(π) / ℚ</p>
+          <div class="power-rail" role="list" aria-live="polite" aria-label="目前已顯示的 π 冪獨立方向">
+            @for (power of powers(); track power) {
+              <span class="power-card" role="listitem">
+                <small>DIRECTION {{ power + 1 }}</small>
+                <strong>{{ powerLabel(power) }}</strong>
+                <span>independent</span>
+              </span>
             }
-            <span class="chip ghost">…</span>
+            <span class="rail-continuation" aria-hidden="true">···</span>
           </div>
           <div class="control-row">
-            <button type="button" (click)="addOne()" [disabled]="directions().length >= pool.length">加入一個新獨立方向 →</button>
+            <button type="button" (click)="addPower()" [disabled]="maxPower() >= 8">加入下一個 π 的冪 →</button>
+            <button type="button" [class.active]="argumentVisible()" (click)="argumentVisible.set(true)">為什麼永遠不會收完？</button>
             <button type="button" (click)="reset()">重設</button>
           </div>
-          <p class="equation blocked">已列出 {{ directions().length }} 個獨立方向，還沒完——ℝ/ℚ 是無限維。π 這種 transcendental 根本落不進任何有限維塔。</p>
+          <div class="relation-gate" [class.open]="argumentVisible()" aria-live="polite">
+            <span class="gate-tag">TRANSCENDENCE GATE · GENERAL ARGUMENT</span>
+            @if (argumentVisible()) {
+              <strong>{{ candidateRelation() }}</strong>
+              <p>若最新一張能由前面的 cards 組成，就得到一條 π 滿足的非零有理係數多項式。但 π 是 transcendental，這不可能。</p>
+            } @else {
+              <strong>有限次點擊只能展示 pattern，還不能證明「永遠」。</strong>
+              <p>打開 gate，檢查為什麼下一個方向必定是新的。</p>
+            }
+          </div>
+          <p class="infinite-verdict"><strong>{{ powers().length }}</strong> 張只是目前視窗；<code>1,π,π²,…</code> 是無限 linearly independent family。因 <code>ℚ(π)⊂ℝ</code>，所以 <code>[ℝ:ℚ]</code> 也必為無限。</p>
         </div>
       </section>
 
       <section class="insight">
         <span class="insight-icon">👓×2</span>
         <div>
-          <strong>同一個擴張，兩個透鏡</strong>
-          <span>——對自己是 field（Ch1：能除）；對 base 是（有限維）vector space（Ch2：維度 [L:K]）。</span>
+          <strong>有限維要有一組有限 basis；證明無限維，只要找到一組永遠增加的獨立方向</strong>
+          <span>——π 的 transcendence 保證 <code>1,π,π²,…</code> 不可能被任何有限 relation 收起來。</span>
         </div>
       </section>
 
@@ -87,24 +100,50 @@ const POOL = ['√2', '∛2', 'π', 'e', '√3', '√5', '⁴√2', 'log₂3', '
       <details>
         <summary>符號層：finite extension 與 ℝ/ℚ 無限維</summary>
         <p>
-          <code>[L:K]</code> 有限就稱 <strong>finite extension</strong>，是本課主線。<code>ℝ/ℚ</code> 為無限維：若它有限維，則 ℝ 會是可數集合（有限多個 ℚ-基底的有限線性組合），
-          但 ℝ 不可數，矛盾。維度 <code>[L:K]</code> 不依賴選定的基底，因此是良定義的「擴張大小」。
+          <code>[L:K]</code> 有限就稱 <strong>finite extension</strong>，是本課主線。主畫面先證明 <code>ℚ(π)/ℚ</code> 無限維：若
+          <code>1,π,…,πⁿ</code> 有非平凡 ℚ-linear relation，清掉分母後 π 就會滿足非零整係數多項式，違反 transcendental。又因 <code>ℚ(π)⊂ℝ</code>，<code>ℝ/ℚ</code> 不可能有限維。
+          另一條證明是 cardinality：若 <code>ℝ/ℚ</code> 有限維，ℝ 會是有限多個 ℚ-基底的線性組合，因此可數；但 ℝ 不可數，矛盾。
         </p>
       </details>
     </article>
   `,
 })
 export class FieldsCh2FiniteInfiniteComponent {
-  readonly pool = POOL;
-  readonly directions = signal<string[]>(['√2', '∛2', 'π']);
+  readonly maxPower = signal(2);
   readonly prediction = signal<'finite' | 'infinite' | null>(null);
+  readonly argumentVisible = signal(false);
+  readonly powers = computed(() => Array.from({ length: this.maxPower() + 1 }, (_, index) => index));
+  readonly candidateRelation = computed(() => {
+    const n = this.maxPower();
+    const priorCombination = Array.from({ length: n }, (_, power) =>
+      `q${this.subscript(power)}${power === 0 ? '' : '·' + this.powerLabel(power)}`,
+    ).join(' + ');
+    return `${this.powerLabel(n)} = ${priorCombination} ?`;
+  });
 
-  addOne(): void {
-    const next = this.pool[this.directions().length];
-    if (next) this.directions.set([...this.directions(), next]);
+  addPower(): void {
+    this.maxPower.update((value) => Math.min(8, value + 1));
   }
+
+  powerLabel(power: number): string {
+    if (power === 0) return '1';
+    if (power === 1) return 'π';
+    return `π${this.superscript(power)}`;
+  }
+
+  private superscript(value: number): string {
+    const digits = '⁰¹²³⁴⁵⁶⁷⁸⁹';
+    return String(value).split('').map((digit) => digits[Number(digit)]).join('');
+  }
+
+  private subscript(value: number): string {
+    const digits = '₀₁₂₃₄₅₆₇₈₉';
+    return String(value).split('').map((digit) => digits[Number(digit)]).join('');
+  }
+
   reset(): void {
-    this.directions.set(['√2', '∛2', 'π']);
+    this.maxPower.set(2);
     this.prediction.set(null);
+    this.argumentVisible.set(false);
   }
 }

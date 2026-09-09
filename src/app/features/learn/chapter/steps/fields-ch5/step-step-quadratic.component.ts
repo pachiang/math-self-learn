@@ -21,14 +21,14 @@ const CASES: StepCase[] = [
     name: '線 ∩ 圓',
     degree: 2,
     algebra: '直線代入圓 → 一條二次方程',
-    note: '把直線代進圓方程，得到一條二次方程 → degree ≤ 2，最多開一個平方根。',
+    note: '把直線代進圓方程，得到一條二次方程 → 相對 degree 是 1 或 2；只有真的帶入新平方根時才是 2。',
   },
   {
     id: 'cc',
     name: '圓 ∩ 圓',
     degree: 2,
     algebra: '兩圓相減消去 x²+y² → 直線 → 再與圓求交',
-    note: '兩圓相減會消掉 x²+y²，剩一條直線（radical axis），再與圓求交 → 一樣 degree ≤ 2。',
+    note: '兩圓相減會消掉 x²+y²，剩一條直線（radical axis），再與圓求交 → 相對 degree 一樣只可能是 1 或 2。',
   },
 ];
 
@@ -101,10 +101,12 @@ const CASES: StepCase[] = [
 
         <aside class="console" aria-live="polite">
           <p class="kicker">右：代數</p>
-          <h3>{{ step().name }} → degree {{ step().degree }}</h3>
+          <h3>{{ step().name }} → equation degree {{ step().degree }}</h3>
           <p class="algebra-line">{{ step().algebra }}</p>
           <p>{{ step().note }}</p>
-          <div class="degree-badge" [class.deg1]="step().degree === 1">[Kᵢ : Kᵢ₋₁] = {{ step().degree }}</div>
+          <div class="degree-badge" [class.deg1]="step().degree === 1">
+            {{ step().degree === 1 ? '[Kᵢ : Kᵢ₋₁] = 1' : '[Kᵢ : Kᵢ₋₁] ∈ {1, 2}' }}
+          </div>
           <p class="evidence-tag">證據強度：GENERAL ARGUMENT（線＝一次、圓＝二次）</p>
         </aside>
       </section>
@@ -121,7 +123,8 @@ const CASES: StepCase[] = [
         <summary>符號層：三種交點的方程</summary>
         <p>
           在目前座標 field 上，直線是 <code>ax + by = c</code>（一次），圓是 <code>(x−p)² + (y−q)² = r²</code>（二次）。線∩線解一次系統；
-          線∩圓把線代入圓得二次；圓∩圓相減消去 <code>x²+y²</code> 化為線∩圓。所以每步 <code>[Kᵢ:Kᵢ₋₁] ∈ {{ '{' }}1, 2{{ '}' }}</code>。
+          線∩圓把線代入圓得至多二次；圓∩圓相減消去 <code>x²+y²</code> 化為線∩圓。所以每步
+          <code>[Kᵢ:Kᵢ₋₁] ∈ {{ '{' }}1, 2{{ '}' }}</code>。二次方程不代表擴張必為 degree 2：若交點座標早已在 <code>Kᵢ₋₁</code>，這一步仍只乘 1。
         </p>
       </details>
     </article>

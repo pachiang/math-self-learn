@@ -2638,14 +2638,14 @@ const FIELDS_CHAPTERS: Record<string, ChapterConfig> = {
     steps: [
       { num: 1, title: '造出裝下 √2 的世界' },
       { num: 2, title: '擴張＝base 上的向量空間' },
-      { num: 3, title: '換根換維度' },
+      { num: 3, title: 'relation 改變方向數' },
       { num: 4, title: '有限 vs 無限維' },
     ],
   },
   ch3: {
-    title: '第三章：加一個根 = 拿 minimal polynomial 當時鐘',
+    title: '第三章：加一個根 = 對 minimal polynomial 做 quotient',
     steps: [
-      { num: 1, title: '摺回依據哪條規則' },
+      { num: 1, title: '高次冪如何 reduce' },
       { num: 2, title: 'minimal polynomial' },
       { num: 3, title: 'K(α) ≅ K[x]/(m)' },
       { num: 4, title: 'irreducible → field' },
@@ -2657,7 +2657,7 @@ const FIELDS_CHAPTERS: Record<string, ChapterConfig> = {
     steps: [
       { num: 1, title: '維度相乘不是相加' },
       { num: 2, title: '相對於下一層的次數' },
-      { num: 3, title: '次數整除塔高' },
+      { num: 3, title: '整除是必要 filter' },
     ],
   },
   ch5: {
@@ -2670,12 +2670,12 @@ const FIELDS_CHAPTERS: Record<string, ChapterConfig> = {
     ],
   },
   ch6: {
-    title: '第六章：進來一個根，全家都得進來',
+    title: '第六章：從一個根到完整根系',
     steps: [
       { num: 1, title: '親戚不一定跟來' },
       { num: 2, title: 'splitting field' },
       { num: 3, title: 'normal：沒有半個家族' },
-      { num: 4, title: 'separable 與談對稱的舞台' },
+      { num: 4, title: 'normal + separable = Galois' },
     ],
   },
 };

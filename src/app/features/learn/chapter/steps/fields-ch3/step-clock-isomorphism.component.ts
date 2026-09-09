@@ -10,7 +10,7 @@ const M = [-2, 0, 1]; // x² − 2
     <article class="algebra-v3-lesson fields-lesson">
       <header class="hero">
         <p class="eyebrow">Fields & Galois · 3.3</p>
-        <h2>加一個根 = 拿 minimal polynomial 當時鐘</h2>
+        <h2>加一個根 = 對 minimal polynomial 做 quotient</h2>
         <p class="lede">
           在 <code>ℚ(√2)</code> 裡用 <code>α² = 2</code> 算，和把式子當多項式、再 <strong>mod (x² − 2)</strong> 算，是<strong>同一件事</strong>。
           兩欄逐字相同——<code>α</code> 只是 <code>x mod (x²−2)</code> 的名字。這就是 <code>K(α) ≅ K[x]/(m)</code>。
@@ -30,7 +30,7 @@ const M = [-2, 0, 1]; // x² − 2
           <p class="feedback" [class.warning]="prediction() === 'diff'">
             {{ prediction() === 'same'
               ? '對。調下面的係數，兩欄永遠給同一組數字——這就是「同構」。'
-              : '其實一樣：α² 摺回 2，正是 x² ≡ 2 (mod x²−2)。調係數自己比對兩欄。' }}
+              : '其實一樣：用 α² = 2 做 reduction，正是 x² ≡ 2 (mod x²−2)。調係數自己比對兩欄。' }}
           </p>
         }
       </section>
@@ -55,7 +55,7 @@ const M = [-2, 0, 1]; // x² − 2
           <p class="board-scope is-field">在 ℚ(√2) 裡 · 用 α² = 2</p>
           <div class="iso-line">{{ inputStr('α') }}</div>
           <div class="iso-line">= {{ productStr('α') }}</div>
-          <div class="iso-line reduce">用 α² = 2 摺回</div>
+          <div class="iso-line reduce">用 α² = 2 做 reduction</div>
           <div class="iso-result">= {{ resultStr('α') }}</div>
         </div>
         <div class="iso-eq" aria-hidden="true">≅</div>

@@ -9,6 +9,7 @@ interface ExtCase {
   inFlags: boolean[];
   normal: boolean;
   note: string;
+  certificate: string;
 }
 
 const CASES: ExtCase[] = [
@@ -20,6 +21,7 @@ const CASES: ExtCase[] = [
     inFlags: [true, false, false],
     normal: false,
     note: 'x³ − 2 有一個根 ∛2 在裡面，卻不完全分解——缺 2 顆複根。半個家族 → NOT normal。',
+    certificate: 'WITNESS · 一個 K-irreducible 有根卻不分解，足以判 NOT normal',
   },
   {
     id: 'q_sqrt2',
@@ -28,7 +30,8 @@ const CASES: ExtCase[] = [
     roots: ROOTS_X2_2,
     inFlags: [true, true],
     normal: true,
-    note: 'x² − 2 兩根 ±√2 都在 → 全家都在。（其實每個 degree-2 擴張都 normal）',
+    note: 'ℚ(√2) 正是 x² − 2 的 splitting field；有限 splitting field 的一般定理保證它 normal。',
+    certificate: 'GENERAL CERTIFICATE · finite splitting field ⇒ normal',
   },
   {
     id: 'q_cbrt2_omega',
@@ -37,7 +40,8 @@ const CASES: ExtCase[] = [
     roots: ROOTS_X3_2,
     inFlags: [true, true, true],
     normal: true,
-    note: 'x³ − 2 完全分解，三根全在 → normal。它正是 x³ − 2 的 splitting field。',
+    note: 'ℚ(∛2, ω) 正是 x³ − 2 的 splitting field；不是只靠眼前這一族抽查便宣稱 normal。',
+    certificate: 'GENERAL CERTIFICATE · finite splitting field ⇒ normal',
   },
 ];
 
@@ -54,6 +58,8 @@ const CASES: ExtCase[] = [
           <strong>整個家族</strong>都在——沒有「半個家族」。
         </p>
       </header>
+
+      <span class="map-convention">FINITE EXTENSIONS L/K · ALL K-IRREDUCIBLES · NOT A ONE-FAMILY SCAN</span>
 
       <section class="prediction">
         <div>
@@ -105,9 +111,9 @@ const CASES: ExtCase[] = [
           <h3>{{ case().field }} · {{ case().normal ? 'NORMAL' : 'NOT normal' }}</h3>
           <p>{{ case().note }}</p>
           <div class="readout" [class.warn-readout]="!case().normal">
-            {{ case().normal ? '每個家族全亮或全暗，沒有半亮。' : '缺 ' + missing() + ' 顆 → 半亮 → 半個家族。' }}
+            {{ case().normal ? '這一族全亮；splitting-field 證書把結論提升到整個 extension。' : '缺 ' + missing() + ' 顆 → 這一個 witness 已足以推翻 normal。' }}
           </div>
-          <p class="evidence-tag">{{ case().normal ? 'EXAMPLE' : 'WITNESS：一個有根卻不分解的多項式' }}</p>
+          <p class="evidence-tag">{{ case().certificate }}</p>
         </aside>
       </section>
 
@@ -115,7 +121,7 @@ const CASES: ExtCase[] = [
         <span class="insight-icon">👪</span>
         <div>
           <strong>normal ＝ 沒有半個家族</strong>
-          <span>——只要一個親戚進來，全家都在。等價地：normal ⇔ 它是某個多項式的 splitting field。</span>
+          <span>——這是對所有 K-irreducible families 的要求；finite case 中，「是某個 polynomial 的 splitting field」提供一般證書。</span>
         </div>
       </section>
 

@@ -29,6 +29,16 @@ const WORLDS: RedWorld[] = [
       { label: 'α⁵ + α³', coeffs: [0, 0, 0, 1, 0, 1] },
     ],
   },
+  {
+    id: 'mixed',
+    rootNote: 'α³ − α − 1 = 0',
+    m: [-1, -1, 0, 1], // x³ − x − 1
+    inputs: [
+      { label: 'α³', coeffs: [0, 0, 0, 1] },
+      { label: 'α⁴', coeffs: [0, 0, 0, 0, 1] },
+      { label: 'α⁵ + α³', coeffs: [0, 0, 0, 1, 0, 1] },
+    ],
+  },
 ];
 
 @Component({
@@ -38,16 +48,18 @@ const WORLDS: RedWorld[] = [
     <article class="algebra-v3-lesson fields-lesson">
       <header class="hero">
         <p class="eyebrow">Fields & Galois · 3.1</p>
-        <h2>「摺回」到底依據哪一條規則？</h2>
+        <h2>高次冪不是繞回，而是重新分配到低次 directions</h2>
         <p class="lede">
-          上一章一直看到 <code>√2·√2 = 2</code>、<code>(∛2)³ = 2</code> 摺回。其實背後只有<strong>一條方程</strong>：α 滿足的
-          <code>α² = 2</code>（或 <code>α³ = 2</code>）。把它當成還原規則，反覆套用，任何高次都能壓回低次——就像整數「算完取餘數」。
+          上一章的 <code>α²=2</code>、<code>α³=2</code> 都剛好落回單一方向，但那是 radical examples 的偶然外觀。
+          一般 relation 可能像 <code>α³=α+1</code>，同時流入多個低次 directions。共同機制是<strong>反覆 reduce 到固定的低次 register</strong>，不是週期旋轉。
         </p>
       </header>
 
+      <span class="map-convention">REDUCTION REGISTER · NOT A CYCLE · DEFAULT α³ = α + 1</span>
+
       <section class="prediction">
         <div>
-          <p class="kicker">先預測</p>
+          <p class="kicker">先用熟悉的 case 預測</p>
           <h3>在 α = √2 的世界裡，α³ 會被摺成什麼？</h3>
         </div>
         <div class="choice-row">
@@ -78,7 +90,7 @@ const WORLDS: RedWorld[] = [
       <section class="stage reduce-grid">
         <div class="reduce-board">
           <div class="relation-card">
-            <span class="rc-tag">唯一還原規則</span>
+            <span class="rc-tag">目前採用的 reduction rule</span>
             <strong>{{ relation() }}</strong>
             <span class="rc-note">{{ world().rootNote }}</span>
           </div>
@@ -102,12 +114,21 @@ const WORLDS: RedWorld[] = [
           <p class="kicker">還原結果</p>
           @if (done()) {
             <h3>{{ trace().resultStr }}</h3>
-            <p>次數已 &lt; {{ degM() }}，回到「{{ basisRange() }}」的元素——摺回完成。</p>
+            <p>次數已 &lt; {{ degM() }}，回到「{{ basisRange() }}」的元素——reduction 完成。</p>
           } @else {
             <h3>還在還原中…</h3>
             <p>每一步都只用同一條方程 {{ relation() }}。</p>
           }
           <div class="readout">共需 {{ trace().steps.length }} 步；每一步都是「取餘數 mod ({{ modLabel() }})」。</div>
+          <div class="basis-register" [style.grid-template-columns]="'repeat(' + degM() + ', minmax(0, 1fr))'" aria-label="reduction 後的低次 coefficients">
+            @for (slot of basisSlots(); track slot.label) {
+              <div class="basis-slot" [class.active]="done() && slot.coeff !== 0">
+                <span>{{ slot.label }}</span>
+                <strong>{{ done() ? slot.coeff : '?' }}</strong>
+              </div>
+            }
+          </div>
+          <p class="register-note">{{ done() ? '餘式同時佔用哪些 directions，由 coefficients 直接看出。' : '完成 reduction 後才揭示各低次 direction 的 coefficient。' }}</p>
           <p class="evidence-tag">證據強度：GENERAL ARGUMENT（reduction 一定停在次數 &lt; {{ degM() }}）</p>
         </aside>
       </section>
@@ -115,16 +136,16 @@ const WORLDS: RedWorld[] = [
       <section class="insight">
         <span class="insight-icon">mod</span>
         <div>
-          <strong>摺回不是巧合——是把「根滿足的那條方程」當還原規則，重複套用</strong>
-          <span>——和 ℤ/n「算完取餘數 mod n」同一件事，只是 modulus 換成一條方程。</span>
+          <strong>Relation 是 reduction rule，不是旋轉週期</strong>
+          <span>——它把超出 register 的高次冪重新分配到 <code>1,α,…,αⁿ⁻¹</code>；下一節才判定哪條 relation 能證明這些 directions 真正獨立。</span>
         </div>
       </section>
 
       <details>
         <summary>為什麼一定停得下來</summary>
         <p>
-          每套用一次規則，就把一個「次數 ≥ {{ degM() }}」的項換成更低次數的組合，最高次數嚴格下降；有限步後一定落到次數 &lt;
-          {{ degM() }}。這就是「除以 m 取餘數」的過程——下一節會指認出這條 m 是誰。
+          每套用一次規則，就把一個「次數 ≥ {{ degM() }}」的項換成更低次數的 linear combination，最高次數嚴格下降；有限步後一定落到次數 &lt;
+          {{ degM() }}。這就是 polynomial division 的 remainder process——下一節會指認出哪一條最低次 relation 才是 minimal polynomial。
         </p>
       </details>
     </article>
@@ -132,8 +153,8 @@ const WORLDS: RedWorld[] = [
 })
 export class FieldsCh3ReductionRuleComponent {
   readonly worlds = WORLDS;
-  readonly world = signal<RedWorld>(WORLDS[0]);
-  readonly inputIndex = signal(0);
+  readonly world = signal<RedWorld>(WORLDS[2]);
+  readonly inputIndex = signal(1);
   readonly stepShown = signal(0);
   readonly prediction = signal<'a2' | 'four' | 'stuck' | null>(null);
 
@@ -149,6 +170,13 @@ export class FieldsCh3ReductionRuleComponent {
   readonly basisRange = computed(() => {
     const n = this.degM();
     return n === 2 ? '1, α' : '1, α, α²';
+  });
+  readonly basisSlots = computed(() => {
+    const result = this.trace().result;
+    return Array.from({ length: this.degM() }, (_, i) => ({
+      label: i === 0 ? '1' : i === 1 ? 'α' : `α${['⁰', '¹', '²', '³'][i] ?? '^' + i}`,
+      coeff: result[i] ?? 0,
+    }));
   });
 
   pickWorld(w: RedWorld): void {

@@ -26,7 +26,7 @@ const CONSTRUCTIONS: Construction[] = [
         <p class="eyebrow">Fields & Galois · 3.5</p>
         <h2>一個配方，任何根都能造</h2>
         <p class="lede">
-          這個配方對<strong>任何 base、任何 irreducible 方程</strong>都成立：給我一條 irreducible <code>m(x)</code>，我就交給你一個含它的根的 field，
+          這個配方對<strong>任何 base field、任何 irreducible 方程</strong>都成立：給我一條 irreducible <code>m(x)</code>，我就交給你一個含它的根的 field，
           不需要 radical 形式、不限 characteristic。基底永遠是 <code>{{ '{' }}1, α, …, αⁿ⁻¹{{ '}' }}</code>，維度 = deg m。
         </p>
       </header>
@@ -109,6 +109,10 @@ const CONSTRUCTIONS: Construction[] = [
         <p>
           對任何 field <code>K</code> 與 irreducible <code>m ∈ K[x]</code>，<code>K[x]/(m)</code> 是一個 field，含有 <code>m</code> 的一個根
           <code>α = x mod m</code>，且 <code>[K[x]/(m) : K] = deg m</code>，basis 為 <code>{{ '{' }}1, α, …, αⁿ⁻¹{{ '}' }}</code>。這對 char 0 與 char p 一致成立。
+        </p>
+        <p>
+          這三個按鈕的 irreducibility 不是假設：<code>x²−2</code> 在 ℚ 上沒有有理根；三次式 <code>x³−x−1</code> 的可能有理根只有 ±1，代入都不為零；
+          <code>x²+x+1</code> 在 F₂ 的 0、1 也都不為零。對二次或三次式，沒有 base-field root 就代表 irreducible。
         </p>
       </details>
     </article>

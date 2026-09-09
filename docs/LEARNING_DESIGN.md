@@ -229,6 +229,46 @@ Transfer 不是章末再舉一題。它必須說清楚「這次改了什麼、�
 
 UI 應明示目前提供的是 `EXAMPLE`、`WITNESS`、`FINITE EXHAUSTION`、`SIMULATION` 或 `GENERAL ARGUMENT`，避免所有綠色 PASS 看起來具有相同證明力。
 
+#### 正確但低解析度：可以延後證明，不能改變真假
+
+直覺先行不等於先說一個之後要撤回的版本。主流程可以省略技術條件、暫緩證明，或只處理一個有代表性的 scope；但在畫面明示的 scope 內，敘述必須為真。之後的正式化應該是提高解析度，而不是拆掉原本的 mental model。
+
+可接受的教學壓縮：
+
+- 先用「field 是每個非零元素都能安全做除法的世界」，把 `commutative`、`1≠0` 與完整公理放在 scope label／展開層。
+- 先在 `αⁿ=c` 的 radical cases 看見冪次摺回，再於下一章指出一般控制物件是 minimal polynomial。
+- 先用一個 exact witness 推翻 universal claim，把完整分類留後面。
+
+不可接受的簡化：
+
+- 把尚未證明、甚至未知的關係當成事實，只因物件「看起來不同」。
+- 用有限次操作、抽樣或動畫成功紀錄，宣稱已證明無限或 universal conclusion。
+- 省略一個會改變答案的條件，卻沒有在主畫面標出目前 scope。
+- 讓後續章必須告訴學習者「前面的模型其實是錯的」，而不是「前面的模型現在被補得更精確」。
+
+規畫每個簡化或泛化時，必須回答：
+
+1. 這句話在目前明示的 scope 中是否為真？
+2. 畫面提供的 evidence 是否真的足以支持這個強度的結論？
+3. 後續正式化只會補條件與理由，還是必須推翻這句話？
+4. 被省略的條件是否會在接下來幾節改變預測結果？
+
+若第 3 題的答案是「必須推翻」，應改寫成 scoped observation、conjecture 或尚待解釋的 pattern，而不是把它做成觀念圖卡。
+
+#### Productive generalization：讓例子長出結構
+
+Accidental-property audit 不是禁止從例子泛化。好的泛化會抽出真正不變的 mechanism，讓學習者能預測新例；壞的泛化則只延伸例子的外觀。
+
+建議使用這個節奏：
+
+```text
+concrete instance → 猜一般規律 → 顯示 scope／缺口
+                  → 換 surface 或 ambient world 驗證
+                  → 命名一般機制
+```
+
+互動可以讓 pattern 可見，但不能替代缺少的 argument。例如不斷新增 cards 只能展示「目前尚未停止」；若要宣稱方向永遠新增，主流程還需要一個 general argument，或明確把結論降成 conjecture／simulation。
+
 #### 章節的一般性最低要求
 
 一個核心 insight 在離開規畫階段前，至少要通過：
@@ -334,6 +374,8 @@ UI 應明示目前提供的是 `EXAMPLE`、`WITNESS`、`FINITE EXHAUSTION`、`SI
 操作時保持不變的東西：
 預測 → 回饋 → 壓縮：
 目前 evidence 屬於 example／witness／finite exhaustion／simulation／general argument 的哪一種：
+本節採用的是 exact general statement，還是有 scope 的低解析度版本：
+省略了哪一筆 proof debt；後續只會補精度，還是可能改變結論：
 特例 detector 與 course convention 如何持續標示 scope：
 正式內容放在哪個展開層：
 最後如何檢查能否遷移：
@@ -356,6 +398,7 @@ UI 應明示目前提供的是 `EXAMPLE`、`WITNESS`、`FINITE EXHAUSTION`、`SI
 - 至少一個 non-degenerate state 讓本節要區分的角色在畫面或數值上真正分離。
 - 視覺沒有用無數學語意的角度、距離、面積或動線暗示不存在的一般規律。
 - Example、witness、finite exhaustion、simulation 與 general argument 的 evidence 強度沒有被混淆。
+- 主流程即使採低解析度說法，在明示 scope 內仍為真；後續正式化只需補精度，不必推翻核心圖卡。
 - 在主要桌面環境中可用滑鼠與鍵盤完成核心學習，低動態偏好不會遺失關鍵資訊。
 - 數學正確，build/type check 通過。
 

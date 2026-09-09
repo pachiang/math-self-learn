@@ -20,9 +20,12 @@
   .tower-chain { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 10px 0; }
   .tc-node { padding: 10px 14px; border: 2px solid var(--border-strong); border-radius: 10px; background: var(--bg); font-weight: 750; }
   .tc-node.mid { border-color: var(--field-safe); }
+  .tc-node.mid.outside { border-color: var(--field-block); border-style: dashed; }
   .tc-node.top { border-color: var(--field-violet); }
   .tc-edge { position: relative; min-width: 46px; height: 2px; background: var(--border-strong); }
   .tc-edge.dashed { background: repeating-linear-gradient(90deg, var(--border-strong) 0 5px, transparent 5px 9px); }
+  .tc-edge.dashed.broken { height: 0; border-top: 3px dashed var(--field-block); background: none; }
+  .tc-edge.dashed.broken span { color: var(--field-block); }
   .tc-edge span { position: absolute; top: -22px; left: 50%; transform: translateX(-50%); font-size: 12px; font-weight: 800; color: var(--field-safe); }
 
   .fact { display: grid; grid-template-columns: minmax(150px, .55fr) 1fr; gap: 12px; padding: 9px 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg); }
@@ -34,6 +37,13 @@
   .verdict { margin: 4px 0 0; padding: 12px 16px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg); line-height: 1.55; }
   .verdict.is-min { border-color: var(--field-safe); background: color-mix(in srgb, var(--field-safe) 10%, var(--bg-surface)); font-weight: 650; }
   .verdict.bad { border-color: var(--field-block); background: color-mix(in srgb, var(--field-block) 10%, var(--bg-surface)); font-weight: 650; }
+  .verdict.caution { border-color: var(--field-violet); border-style: dashed; background: color-mix(in srgb, var(--field-violet) 9%, var(--bg-surface)); font-weight: 650; }
+
+  .filter-rules { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+  .filter-rule { min-height: 76px; padding: 10px; border: 2px solid var(--border-strong); border-radius: 10px; display: grid; align-content: center; gap: 3px; }
+  .filter-rule.blocked { border-color: var(--field-block); border-style: dashed; }
+  .filter-rule.pending { border-color: var(--field-violet); }
+  .filter-rule span { color: var(--text-secondary); font-size: 11px; }
 
   button.outsider { border-style: dashed; }
   button.outsider.active { border-color: var(--field-block); background: color-mix(in srgb, var(--field-block) 13%, var(--bg-surface)); }

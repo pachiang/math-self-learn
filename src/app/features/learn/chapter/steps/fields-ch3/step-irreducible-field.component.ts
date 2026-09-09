@@ -10,7 +10,7 @@ const M_RED = [-1, 0, 1]; // x² − 1 = (x−1)(x+1)，可約
     <article class="algebra-v3-lesson fields-lesson">
       <header class="hero">
         <p class="eyebrow">Fields & Galois · 3.4</p>
-        <h2>為什麼這個時鐘世界是 field？</h2>
+        <h2>為什麼這個 quotient 世界是 field？</h2>
         <p class="lede">
           Ch1 說「ℤ/n 是 field ⇔ n 是質數」。多項式版一模一樣：<code>K[x]/(m)</code> 是 field ⇔ <strong>m 不可分解（irreducible）</strong>。
           irreducible 就是多項式界的「質數」；可約的 <code>m</code> 會冒出 zero divisor，除法就壞了。
@@ -90,7 +90,7 @@ const M_RED = [-1, 0, 1]; // x² − 1 = (x−1)(x+1)，可約
       <section class="insight">
         <span class="insight-icon">irr↔p</span>
         <div>
-          <strong>時鐘世界是不是 field，看 modulus 是不是 irreducible</strong>
+          <strong>Quotient 世界是不是 field，看 modulus 是不是 irreducible</strong>
           <span>——就像 ℤ/n 看 n 是不是質數。irreducible ＝ 多項式版的質數。</span>
         </div>
       </section>

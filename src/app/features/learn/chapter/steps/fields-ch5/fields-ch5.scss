@@ -23,12 +23,17 @@
   .step-chip.lin { border-color: var(--text-muted); border-style: dashed; }
   .step-empty { color: var(--text-muted); }
   .tower-col { display: grid; justify-items: center; gap: 0; }
-  .tower-node { width: 100%; max-width: 220px; padding: 10px 12px; border: 2px solid var(--border-strong); border-radius: 10px; background: var(--bg); font-weight: 750; text-align: center; }
+  .tower-node { width: 100%; max-width: 220px; padding: 10px 12px; border: 2px solid var(--border-strong); border-radius: 10px; background: var(--bg); display: grid; gap: 6px; font-weight: 750; text-align: center; }
   .tower-node.top { border-color: var(--field-violet); background: color-mix(in srgb, var(--field-violet) 10%, var(--bg-surface)); }
   .tower-node.base { border-color: var(--field-safe); }
   .tower-edge { position: relative; width: 2px; height: 30px; background: var(--field-safe); }
   .tower-edge.x1 { background: repeating-linear-gradient(180deg, var(--text-muted) 0 5px, transparent 5px 9px); }
   .tower-edge span { position: absolute; left: 8px; top: 50%; transform: translateY(-50%); font-size: 12px; font-weight: 850; color: var(--field-safe); white-space: nowrap; }
+  .target-pocket { padding: 5px 7px; border: 2px dashed var(--field-violet); border-radius: 7px; background: var(--bg); font-size: 10px; font-weight: 800; }
+  .field-role-readout { padding: 8px 10px; border-left: 4px solid var(--field-safe); background: color-mix(in srgb, var(--field-safe) 8%, var(--bg)); display: grid; gap: 2px; }
+  .field-role-readout.target { border-left-color: var(--field-violet); background: color-mix(in srgb, var(--field-violet) 8%, var(--bg)); }
+  .field-role-readout strong { font-size: 9px; letter-spacing: .06em; }
+  .field-role-readout span { font-size: 12px; font-weight: 700; }
 
   /* ---- 5.3 impossibility cards ---- */
   .imp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 6px; }

@@ -14,12 +14,14 @@ import {
     <article class="algebra-v3-lesson fields-lesson">
       <header class="hero">
         <p class="eyebrow">Fields & Galois · 2.3</p>
-        <h2>維度不是二：換一個根，就換一個維度</h2>
+        <h2>維度不是二：最低次 relation 不同，方向數可能不同</h2>
         <p class="lede">
-          √2 只需要兩個方向，是因為 <code>(√2)² = 2</code> 摺回。但 <code>∛2</code> 呢？它的平方 <code>∛4</code> 是<strong>新</strong>方向，
-          要到<strong>立方</strong> <code>(∛2)³ = 2</code> 才摺回——所以需要三個方向。維度＝摺回前的獨立方向數。
+          先只比較兩個受控的 radical cases：<code>α²=2</code> 與 <code>α³=2</code>。√2 需要 <code>1,√2</code> 兩個方向；
+          ∛2 的平方 <code>∛4</code> 仍是新方向，所以需要三個。這頁要看見的是<strong>維度會隨代數關係改變</strong>，不是先猜一條「根號次數」公式。
         </p>
       </header>
+
+      <span class="map-convention">CONTROLLED RADICAL CASES · αⁿ=2 · OBSERVATION + EXPLICIT PROOF DEBT</span>
 
       <section class="prediction">
         <div>
@@ -34,8 +36,8 @@ import {
         @if (prediction()) {
           <p class="feedback" [class.warning]="prediction() !== 'three'">
             {{ prediction() === 'three'
-              ? '對。1、∛2、∛4 三個方向，到 (∛2)³ 才摺回 → 維度 3。逐冪推推看。'
-              : '推進下面的冪：∛2 的平方是新方向 ∛4，立方才摺回 2 → 需要 3 個方向。' }}
+              ? '對。在這個case中，1、∛2、∛4是三個方向，而(∛2)³=2回到舊方向。下面會同時標出「看到什麼」與「還欠什麼證明」。'
+              : '這個case需要3個：∛4不是1與∛2的rational combination，到(∛2)³=2才出現關係。這個獨立性的理由會在下面明確記帳。' }}
           </p>
         }
       </section>
@@ -66,34 +68,46 @@ import {
             <span class="pr-note">
               {{ folded()
                 ? 'α^' + world().n + ' = ' + world().c + ' 摺回 1 的方向——沒有開出新方向。'
-                : (k() === 0 ? '從 1 開始。' : '第 ' + k() + ' 個新的獨立方向。') }}
+                : (k() === 0 ? '從 1 開始。' : '目前case的第 ' + (k() + 1) + ' 張direction card。') }}
             </span>
+          </div>
+          <div class="evidence-split">
+            <div class="evidence-cell observed">
+              <span>VISIBLE RELATION</span>
+              <strong>α{{ supers[world().n] }} = {{ world().c }}</strong>
+              <p>第 {{ world().n }} 次冪已能用舊方向表示，所以不需再開一槽。</p>
+            </div>
+            <div class="evidence-cell debt">
+              <span>PROOF DEBT</span>
+              <strong>為什麼之前沒有更早的 relation？</strong>
+              <p>下一章用 minimal polynomial 的 irreducibility 保證這些 cards 真的獨立。</p>
+            </div>
           </div>
         </div>
 
         <aside class="console" aria-live="polite">
           <p class="kicker">維度</p>
           <h3>[ℚ({{ world().rootLabel }}) : ℚ] = {{ world().n }}</h3>
-          <p>摺回發生在第 {{ world().n }} 次冪；在那之前每個冪都是新的獨立方向。</p>
+          <p>在目前 <code>α{{ supers[world().n] }}=2</code> case中，需要 {{ world().n }} 張direction cards。這是受控實例，不是所有elements的根號公式。</p>
           <div class="readout">基底 {{ '{' }} {{ world().basisLabels.join('、 ') }} {{ '}' }} · 共 {{ world().n }} 個方向</div>
-          <p class="evidence-tag">證據強度：FINITE EXHAUSTION（逐冪展示到摺回為止）</p>
+          <p class="evidence-tag">證據強度：EXAMPLE + PROOF DEBT（逐冪動畫不獨自證明independence）</p>
         </aside>
       </section>
 
       <section class="insight">
         <span class="insight-icon">dim</span>
         <div>
-          <strong>維度隨根改變——√2 給兩個方向，∛2 給三個</strong>
-          <span>——高次冪摺回，所以永遠只需要有限個方向。摺回發生在「根的次數」那一冪。</span>
+          <strong>不是每個擴張都是二維；方向數由 α 滿足的最低次 exact polynomial relation 控制</strong>
+          <span>——在這兩個 radical cases 中，分別是 <code>α²=2</code> 與 <code>α³=2</code>；下一章才替一般控制物命名。</span>
         </div>
       </section>
 
       <details>
-        <summary>埋下的伏筆：維度 = 根的次數</summary>
+        <summary>補上獨立性證書：真正控制物是 minimal polynomial</summary>
         <p>
-          你看到的規律是「維度＝讓 α 摺回的那個次數」。那個次數正是 α 的 <strong>minimal polynomial</strong> 的次數：√2 滿足
-          <code>x² − 2</code>（次數 2），∛2 滿足 <code>x³ − 2</code>（次數 3）。為什麼恰好在那一冪摺回、怎麼把「摺回」寫成一條規則——
-          留給 Ch3 用「拿這條方程當時鐘」回答；本節只先看見數字不同。
+          在 ℚ 上，<code>x²−2</code> 與 <code>x³−2</code> 都 irreducible，所以√2、∛2不會滿足更低次的rational-coefficient relation。
+          因此 <code>{{ '{' }}1,√2{{ '}' }}</code> 與 <code>{{ '{' }}1,∛2,∛4{{ '}' }}</code> 真的分別獨立。一般地，若 α 是 algebraic，
+          最低次的 monic polynomial relation 稱為 <strong>minimal polynomial</strong>；它的degree才是 <code>[K(α):K]</code>。Ch3 會把這份證書放進主流程。
         </p>
       </details>
     </article>
