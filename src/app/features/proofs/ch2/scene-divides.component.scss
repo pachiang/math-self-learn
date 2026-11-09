@@ -1,0 +1,21 @@
+.tight { gap: 14px; }
+
+.bets { display: grid; gap: 10px; }
+.bet-row {
+  display: grid;
+  grid-template-columns: 96px auto 1fr;
+  align-items: center;
+  gap: 14px;
+}
+.bet-n { font-size: 22px; font-weight: 700; text-align: right; }
+.verdict { font-size: 13px; color: var(--pf-blue); &.miss { color: var(--pf-red); } }
+
+.sort { display: grid; gap: 14px; }
+.sort-row {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  align-items: center;
+  gap: 8px 14px;
+  .pf-feedback { grid-column: 2; font-size: 15px; }
+}
+.sort-expr { font-size: 22px; font-weight: 700; text-align: right; }

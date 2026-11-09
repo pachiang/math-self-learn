@@ -26,7 +26,7 @@ import { PROOFS_PARTS, PROOFS_PROGRESS_PREFIX, ProofsChapter } from './proofs-co
           </blockquote>
           <p class="pf-note">為沒有紙筆的學習而設計：畫面替你記住已知和目標，你用打字給出證人和反例。</p>
           <div class="pf-row">
-            <a class="pf-btn primary" routerLink="/learn/proofs/ch1/1">{{ startLabel() }}</a>
+            <a class="pf-btn primary" [routerLink]="startLink()">{{ startLabel() }}</a>
           </div>
         </section>
 
@@ -79,8 +79,21 @@ export class ProofsCourseComponent {
     ).length;
   }
 
+  /** The first open chapter that is not finished yet (or the last open one). */
+  private nextChapter(): ProofsChapter {
+    const open = PROOFS_PARTS.flatMap((p) => p.chapters).filter((c) => c.scenes);
+    return open.find((c) => this.doneCount(c) < c.scenes!.length) ?? open[open.length - 1];
+  }
+
+  startLink(): (string | number)[] {
+    const c = this.nextChapter();
+    const scene = c.scenes!.find((s) => !this.progress.isCompleted(PROOFS_PROGRESS_PREFIX + c.id, String(s.num)));
+    return ['/learn/proofs', c.id, scene?.num ?? 1];
+  }
+
   startLabel(): string {
-    const first = PROOFS_PARTS[0].chapters[0];
-    return this.doneCount(first) > 0 ? '繼續第 1 章' : '從第 1 章開始';
+    const c = this.nextChapter();
+    if (this.doneCount(c) > 0) return `繼續第 ${c.num} 章`;
+    return c.num === 1 ? '從第 1 章開始' : `開始第 ${c.num} 章`;
   }
 }

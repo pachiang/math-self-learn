@@ -1,0 +1,11 @@
+.tight { gap: 14px; }
+
+.bets { display: grid; gap: 10px; }
+.bet-row {
+  display: grid;
+  grid-template-columns: 56px auto 1fr;
+  align-items: center;
+  gap: 14px;
+}
+.bet-n { font-size: 26px; font-weight: 700; text-align: right; }
+.bet-q { font-size: 16px; color: var(--pf-ink-2); }

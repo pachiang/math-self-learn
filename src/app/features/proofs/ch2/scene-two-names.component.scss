@@ -1,0 +1,33 @@
+.tight { gap: 12px; }
+.ex .pf-input { width: 90px; }
+.plus { font: 600 26px var(--pf-mono); }
+
+.reason {
+  margin: 0;
+  font: 600 16px/1.6 var(--pf-mono);
+  small { display: block; font: 600 12px var(--pf-sans); letter-spacing: 0.08em; color: var(--pf-blue); }
+}
+
+.grid-fig {
+  margin: 0;
+  display: grid;
+  gap: 12px;
+  justify-items: start;
+  figcaption { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; font-size: 15px; font-weight: 600; }
+}
+.grid {
+  display: grid;
+  grid-template-columns: 56px repeat(7, 34px);
+  gap: 4px;
+  align-items: center;
+  .corner { font-size: 11px; color: var(--pf-ink-3); }
+  .head { font-size: 13px; text-align: center; color: var(--pf-ink-2); }
+}
+.cell {
+  height: 34px;
+  border-radius: 6px;
+  border: 1.5px dashed var(--pf-rule-strong);
+  transition: background 0.2s;
+  &.on { border-style: solid; border-color: var(--pf-blue); background: var(--pf-blue-soft); }
+  &.mine { outline: 3px solid var(--pf-amber); outline-offset: 1px; }
+}

@@ -183,7 +183,7 @@ const VERDICT_LABEL: Record<Verdict, string> = { proved: '證明', refuted: '推
             <p>例子能證明「存在」、能推翻「所有」；<br />要證明無限多個「所有」，只能靠論證。</p>
           </div>
           <p class="pf-note">
-            下一章：如果證明要靠論證，論證又只能用定義當武器，那就得先讀懂一個定義到底說了什麼。<a routerLink="/learn/proofs">第 2 章「定義是開關，也是工具」</a>規畫中。
+            下一章：如果證明要靠論證，論證又只能用定義當武器，那就得先讀懂一個定義到底說了什麼。<a routerLink="/learn/proofs/ch2/1">前往第 2 章「定義是開關，也是工具」→</a>
           </p>
         </section>
       } @else {

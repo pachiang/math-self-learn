@@ -1,0 +1,27 @@
+.tight { gap: 12px; }
+
+.frac-eqn { align-items: center; }
+.frac {
+  display: inline-grid;
+  gap: 8px;
+  justify-items: center;
+  .pf-input:first-child { border-bottom: 3px solid var(--pf-ink); }
+  .pf-input + .pf-input { border-bottom: 2px dashed var(--pf-rule-strong); }
+}
+
+.tcard { display: grid; gap: 14px; }
+.tcard + .tcard { padding-top: 16px; border-top: 1px dashed var(--pf-rule-strong); }
+.reason {
+  margin: 0;
+  font: 600 16px/1.6 var(--pf-mono);
+  small { display: block; font: 600 12px var(--pf-sans); letter-spacing: 0.08em; color: var(--pf-blue); }
+}
+
+.why {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+  .pf-btn { text-align: left; border-radius: 12px; }
+}
+
+.summary td { font-size: 15px; }

@@ -8,6 +8,11 @@ import { SceneSixthPointComponent } from './ch1/scene-sixth-point.component';
 import { SceneFortiethComponent } from './ch1/scene-fortieth.component';
 import { SceneEveryNComponent } from './ch1/scene-every-n.component';
 import { SceneVerdictComponent } from './ch1/scene-verdict.component';
+import { SceneEvenComponent } from './ch2/scene-even.component';
+import { SceneDividesComponent } from './ch2/scene-divides.component';
+import { SceneObtainComponent } from './ch2/scene-obtain.component';
+import { SceneTwoNamesComponent } from './ch2/scene-two-names.component';
+import { SceneRationalComponent } from './ch2/scene-rational.component';
 
 @Component({
   selector: 'app-proofs-chapter',
@@ -18,9 +23,14 @@ import { SceneVerdictComponent } from './ch1/scene-verdict.component';
     SceneFortiethComponent,
     SceneEveryNComponent,
     SceneVerdictComponent,
+    SceneEvenComponent,
+    SceneDividesComponent,
+    SceneObtainComponent,
+    SceneTwoNamesComponent,
+    SceneRationalComponent,
   ],
   encapsulation: ViewEncapsulation.None,
-  styleUrl: './proofs-shell.scss',
+  styleUrls: ['./proofs-shell.scss', './proofs-kit.scss'],
   template: `
     <div class="pf-root proofs-lesson">
       <header class="pf-bar">
@@ -54,6 +64,11 @@ import { SceneVerdictComponent } from './ch1/scene-verdict.component';
             @case ('ch1/2') { <app-pf-fortieth /> }
             @case ('ch1/3') { <app-pf-every-n /> }
             @case ('ch1/4') { <app-pf-verdict /> }
+            @case ('ch2/1') { <app-pf-even /> }
+            @case ('ch2/2') { <app-pf-divides /> }
+            @case ('ch2/3') { <app-pf-obtain /> }
+            @case ('ch2/4') { <app-pf-two-names /> }
+            @case ('ch2/5') { <app-pf-rational /> }
           }
         } @else {
           <section class="pf-col" style="max-width: 640px">

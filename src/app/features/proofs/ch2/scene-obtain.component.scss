@@ -1,0 +1,45 @@
+// One column, top to bottom, at every width: no "look to the right".
+.pf-scene.solo { grid-template-columns: minmax(0, 760px); }
+
+.tight { gap: 14px; }
+
+.goal {
+  margin-top: 14px;
+  padding: 12px 12px 12px 18px;
+  border-width: 1.5px;
+  border-color: var(--pf-ink);
+  > span:first-child { font-size: 21px; }
+  small {
+    display: block;
+    margin-bottom: 2px;
+    font: 600 12px var(--pf-sans);
+    letter-spacing: 0.14em;
+    color: var(--pf-ink-3);
+  }
+}
+
+.rows {
+  font-size: 17px;
+  th, td { padding-right: 24px; vertical-align: middle; }
+  th:not(:last-child) { text-align: right; }
+  .slot { white-space: nowrap; font: 600 17px var(--pf-mono); }
+  .pf-input { width: 64px; font-size: 18px; padding: 2px; }
+}
+
+.reason {
+  margin: 0;
+  font: 600 18px/1.6 var(--pf-mono);
+  small { display: block; font: 600 12px var(--pf-sans); letter-spacing: 0.08em; color: var(--pf-blue); }
+}
+
+.two-dir {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 8px;
+  p { margin: 0; font: 500 15px/1.7 var(--pf-sans); }
+}
+
+@media (max-width: 640px) {
+  .two-dir { grid-template-columns: minmax(0, 1fr); gap: 26px; }
+}
