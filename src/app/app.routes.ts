@@ -63,6 +63,30 @@ export const routes: Routes = [
         redirectTo: 'algebra/:chapterId/1',
       },
       {
+        path: 'proofs',
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('./features/proofs/proofs-course.component').then(
+                (m) => m.ProofsCourseComponent,
+              ),
+          },
+          {
+            path: ':chapterId',
+            redirectTo: ':chapterId/1',
+            pathMatch: 'full',
+          },
+          {
+            path: ':chapterId/:step',
+            loadComponent: () =>
+              import('./features/proofs/proofs-chapter.component').then(
+                (m) => m.ProofsChapterComponent,
+              ),
+          },
+        ],
+      },
+      {
         path: ':subject',
         children: [
           {

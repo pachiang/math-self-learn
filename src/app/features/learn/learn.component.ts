@@ -11,6 +11,25 @@ import { RouterLink } from '@angular/router';
       <p class="page-desc">透過互動動畫，從零開始理解大學數學</p>
 
       <section class="group">
+        <h2 class="group-title">基礎</h2>
+
+        <a class="subject-card" routerLink="/learn/proofs">
+          <div class="sc-icon-wrap">
+            <svg viewBox="-30 -30 60 60" class="sc-icon" role="img" aria-label="一個被推翻的陳述與一個被證明的陳述">
+              <rect x="-24" y="-15" width="22" height="22" fill="none" stroke="#c03a22" stroke-width="2.5" transform="rotate(-7 -13 -4)" />
+              <circle cx="12" cy="4" r="12" fill="none" stroke="#26457c" stroke-width="2.5" />
+              <path d="M6 4 l4 4 l8 -9" fill="none" stroke="#26457c" stroke-width="2.5" stroke-linecap="round" />
+            </svg>
+          </div>
+          <div class="sc-body">
+            <h3 class="sc-title">證明與數學思維</h3>
+            <p class="sc-desc">讀懂陳述、搭出骨架、找到想法、自己驗收。為沒有紙筆的學習設計。</p>
+            <span class="sc-meta">第 1 章已開放 · 26 章規畫中 · 所有證明型課程的先修</span>
+          </div>
+        </a>
+      </section>
+
+      <section class="group">
         <h2 class="group-title">代數</h2>
 
         <a class="subject-card" routerLink="/learn/linalg">

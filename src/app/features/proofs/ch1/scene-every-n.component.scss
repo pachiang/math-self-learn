@@ -1,0 +1,88 @@
+.tight { gap: 14px; }
+
+.sums {
+  justify-self: start;
+  border-collapse: collapse;
+  font-size: 18px;
+  td { padding: 4px 10px 4px 0; color: var(--pf-ink-2); }
+  td:nth-child(3) { font-weight: 700; color: var(--pf-ink); text-align: right; }
+  td:last-child { color: var(--pf-ink-3); }
+}
+
+.two, .reasons {
+  margin: 0;
+  padding-left: 1.4em;
+  display: grid;
+  gap: 8px;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--pf-ink-2);
+}
+
+.answers {
+  display: grid;
+  gap: 12px;
+  label { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; font-size: 17px; }
+  .pf-input.small { width: 76px; font-size: 22px; }
+}
+
+.stage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  padding: 36px;
+  min-height: 720px;
+  align-items: start;
+  position: sticky;
+  top: 24px;
+  transition: opacity 0.3s;
+  &.idle { opacity: 0.45; }
+}
+
+.view {
+  margin: 0;
+  display: grid;
+  gap: 14px;
+  justify-items: center;
+  figcaption { font-size: 15px; color: var(--pf-ink-3); b { color: var(--pf-ink); font-size: 18px; } }
+  svg { width: 100%; max-width: 380px; aspect-ratio: 1; }
+}
+.eq { margin: 0; font-size: 17px; text-align: center; b { font-size: 21px; color: var(--pf-amber); } }
+.center { text-align: center; justify-content: center; }
+
+.c-odd { fill: color-mix(in srgb, var(--pf-graphite) 36%, var(--pf-card)); }
+.c-even { fill: color-mix(in srgb, var(--pf-graphite) 16%, var(--pf-card)); }
+.c-pending {
+  fill: var(--pf-amber-soft);
+  stroke: var(--pf-amber);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+  &.corner { fill: color-mix(in srgb, var(--pf-amber) 32%, transparent); }
+}
+.diag { fill: var(--pf-ink); font: 700 12px var(--pf-mono); text-anchor: middle; dominant-baseline: central; }
+.arm { fill: var(--pf-amber); font: 600 13px var(--pf-sans); text-anchor: middle; &.start { text-anchor: start; } }
+
+.ladder {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  max-width: 380px;
+  span {
+    min-width: 30px;
+    padding: 4px 6px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .used { background: color-mix(in srgb, var(--pf-graphite) 22%, var(--pf-card)); }
+  .next { border: 1.5px dashed var(--pf-amber); color: var(--pf-amber); }
+}
+
+.t-square { fill: color-mix(in srgb, var(--pf-graphite) 22%, var(--pf-card)); stroke: var(--pf-ink); stroke-width: 1.5; }
+.t-l { fill: var(--pf-amber); stroke: var(--pf-ink); stroke-width: 1.5; }
+.t-l.corner { fill: color-mix(in srgb, var(--pf-amber) 60%, var(--pf-card)); }
+.t-big { fill: var(--pf-ink); font: 700 26px var(--pf-mono); text-anchor: middle; dominant-baseline: central; }
+.t-small { fill: var(--pf-ink); font: 600 14px var(--pf-mono); text-anchor: middle; dominant-baseline: central; }
+.t-dim { stroke: var(--pf-ink-3); stroke-width: 1; }
