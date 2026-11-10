@@ -2,6 +2,7 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LearnProgressService } from '../../../core/services/learn-progress.service';
 import { Q, add, div, eq, evalExpr, fmtQ, isInt, parseExpr, q, readNumber, sgn } from './ch2-expr';
+import { FiveStepsComponent } from './five-steps.component';
 
 type Tone = 'good' | 'bad' | 'you';
 
@@ -52,7 +53,7 @@ const WHY = [
 @Component({
   selector: 'app-pf-rational',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, FiveStepsComponent],
   styleUrl: './scene-rational.component.scss',
   template: `
     <section class="pf-scene">
@@ -106,6 +107,7 @@ const WHY = [
             <small>本章帶走這一句</small>
             <p>定義有兩個方向：<br />要證它，你得造出定義要的東西；<br />已知它，你就拿到那些東西。</p>
           </div>
+          <app-pf-five-steps />
           <p class="pf-note">
             下一章：定義讀懂了，接著讀句子之間的連接。「若…則」到底承諾了什麼？<a routerLink="/learn/proofs">第 3 章「若…則」是一個承諾</a>規畫中。
           </p>
