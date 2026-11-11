@@ -1,0 +1,40 @@
+.moves {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.mv {
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  min-width: 128px;
+  padding: 10px 16px 12px;
+  border-radius: 10px;
+  background: var(--pf-card);
+  color: var(--pf-ink);
+}
+.who { font: 600 12px var(--pf-sans); letter-spacing: 0.06em; color: var(--pf-ink-3); }
+.what { font: 700 19px var(--pf-serif); }
+.sym { margin-right: 4px; font: 700 21px var(--pf-serif); }
+.val { font: 600 15px var(--pf-mono); color: var(--pf-ink-2); }
+
+// Opponent: dashed, like an arbitrary object on the proof board.
+.opp { border: 2px dashed var(--pf-ink-2); }
+// Prover: solid amber, "your choice".
+.you { border: 2px solid var(--pf-amber); .who { color: var(--pf-amber); } }
+.check {
+  border: 1px solid var(--pf-rule-strong);
+  background: transparent;
+  &.win { border-color: var(--pf-blue); .val { color: var(--pf-blue); } }
+  &.lose { border-color: var(--pf-red); .val { color: var(--pf-red); } }
+}
+.arrow {
+  display: grid;
+  place-items: center;
+  font: 600 20px var(--pf-sans);
+  color: var(--pf-ink-3);
+}

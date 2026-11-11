@@ -1,0 +1,15 @@
+.tight { gap: 14px; }
+.pair { display: grid; gap: 14px; }
+.pair .pf-slip { padding-right: 26px; }
+.bet { margin-top: 12px; }
+.round { display: grid; gap: 10px; }
+.y-eq { font: 600 25px var(--pf-mono); }
+.ex-tag {
+  margin-left: 10px;
+  padding: 1px 8px;
+  border: 1.5px solid var(--pf-graphite);
+  border-radius: 4px;
+  color: var(--pf-graphite);
+  font: 700 12px var(--pf-sans);
+  letter-spacing: 0.08em;
+}

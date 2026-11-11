@@ -1,0 +1,17 @@
+:host { display: grid; gap: 14px; justify-items: start; }
+
+.rg-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 12px;
+}
+.rg-eq { font: 600 25px var(--pf-mono); }
+.pf-input.wide { width: 200px; font-size: 24px; }
+
+.rg-rows {
+  tr.lose td { color: var(--pf-red); font-weight: 600; }
+  td:last-child { font-family: var(--pf-mono); }
+}
+
+.rg-reason { justify-self: stretch; max-width: 40em; }

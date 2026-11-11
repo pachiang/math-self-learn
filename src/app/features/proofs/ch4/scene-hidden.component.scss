@@ -1,0 +1,21 @@
+.tight { gap: 14px; }
+.item + .item { padding-top: 22px; border-top: 1px solid var(--pf-rule); }
+
+.full {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  padding: 16px 20px;
+  border: 1px solid var(--pf-rule-strong);
+  border-radius: 8px;
+  background: var(--pf-card);
+  font: 700 19px/1.6 var(--pf-serif);
+}
+.slot {
+  display: inline-flex;
+  gap: 4px;
+  padding: 3px;
+  border: 1.5px dashed var(--pf-rule-strong);
+  border-radius: 999px;
+}

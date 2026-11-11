@@ -154,8 +154,11 @@
   &.primary { background: var(--pf-ink); color: var(--pf-paper); }
   &.primary:hover { background: var(--pf-ink-2); }
   &.ghost { border-color: var(--pf-rule-strong); color: var(--pf-ink-2); }
-  &.picked { background: var(--pf-amber-soft); border-color: var(--pf-amber); }
+  &.picked { background: var(--pf-amber-soft); border-color: var(--pf-amber); font-weight: 700; }
+  // Not by color alone: a picked button also carries a check mark.
+  &.picked::before { content: '✓ '; }
   &:disabled { opacity: 0.4; cursor: default; }
+  &.picked:disabled { opacity: 0.85; }
 }
 .pf-btn:focus-visible,
 .pf-input:focus-visible,

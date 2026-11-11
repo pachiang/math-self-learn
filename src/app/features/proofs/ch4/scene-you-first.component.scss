@@ -1,0 +1,14 @@
+.tight { gap: 14px; }
+.y-eq { font: 600 25px var(--pf-mono); }
+.sym { font: 700 1.2em var(--pf-serif); }
+
+.compare { display: grid; gap: 18px; }
+.row {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 14px;
+  > div { display: grid; gap: 10px; }
+  small { font-size: 14px; line-height: 1.6; color: var(--pf-ink-2); }
+}
+.tag { font: 700 22px var(--pf-serif); }
+.formula { margin: 0; font: 700 22px var(--pf-serif); letter-spacing: 0.02em; }

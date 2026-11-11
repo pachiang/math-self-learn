@@ -152,7 +152,7 @@ const SUMMARY = [
               <p>「若 P 則 Q」只怕一格：<br />P 成立、Q 不成立。<br />換個說法、檢查、證明，都盯著那一格。</p>
             </div>
             <p class="pf-note">
-              下一章：這一章的句子都只談一個 n。那「對每個 n」「存在一個 n」又該怎麼讀？<a routerLink="/learn/proofs">第 4 章「量詞是一場對手遊戲」</a>還在規畫中。
+              下一章：這一章的句子都只談一個 n。那「對每個 n」「存在一個 n」又該怎麼讀？<a routerLink="/learn/proofs/ch4/1">前往第 4 章「量詞是一場對手遊戲」→</a>
             </p>
           </div>
         }

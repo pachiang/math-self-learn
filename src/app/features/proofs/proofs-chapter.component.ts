@@ -19,6 +19,11 @@ import { SceneWasonComponent } from './ch3/scene-wason.component';
 import { SceneVacuousComponent } from './ch3/scene-vacuous.component';
 import { SceneConverseComponent } from './ch3/scene-converse.component';
 import { SceneIffComponent } from './ch3/scene-iff.component';
+import { SceneOpponentComponent } from './ch4/scene-opponent.component';
+import { SceneYouFirstComponent } from './ch4/scene-you-first.component';
+import { SceneWorldComponent } from './ch4/scene-world.component';
+import { SceneHiddenComponent } from './ch4/scene-hidden.component';
+import { SceneSwapComponent } from './ch4/scene-swap.component';
 
 @Component({
   selector: 'app-proofs-chapter',
@@ -40,6 +45,11 @@ import { SceneIffComponent } from './ch3/scene-iff.component';
     SceneVacuousComponent,
     SceneConverseComponent,
     SceneIffComponent,
+    SceneOpponentComponent,
+    SceneYouFirstComponent,
+    SceneWorldComponent,
+    SceneHiddenComponent,
+    SceneSwapComponent,
   ],
   encapsulation: ViewEncapsulation.None,
   styleUrls: ['./proofs-shell.scss', './proofs-kit.scss'],
@@ -87,6 +97,11 @@ import { SceneIffComponent } from './ch3/scene-iff.component';
             @case ('ch3/4') { <app-pf-vacuous /> }
             @case ('ch3/5') { <app-pf-converse /> }
             @case ('ch3/6') { <app-pf-iff /> }
+            @case ('ch4/1') { <app-pf-opponent /> }
+            @case ('ch4/2') { <app-pf-you-first /> }
+            @case ('ch4/3') { <app-pf-world /> }
+            @case ('ch4/4') { <app-pf-hidden /> }
+            @case ('ch4/5') { <app-pf-swap /> }
           }
         } @else {
           <section class="pf-col" style="max-width: 640px">
