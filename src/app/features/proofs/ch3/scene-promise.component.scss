@@ -1,0 +1,35 @@
+.tight { gap: 14px; }
+
+.sits {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 12px;
+}
+.sit {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  padding: 14px 16px;
+  border: 1.5px solid var(--pf-rule-strong);
+  border-radius: 12px;
+  background: var(--pf-card);
+  color: var(--pf-ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  .tag {
+    justify-self: start;
+    padding: 0 8px;
+    border: 1px solid var(--pf-rule-strong);
+    border-radius: 6px;
+    font: 700 14px var(--pf-serif);
+  }
+  .txt { font: 600 16px/1.55 var(--pf-sans); }
+  .verdict { font: 700 15px var(--pf-serif); color: var(--pf-blue); }
+  small { font-size: 13px; line-height: 1.6; color: var(--pf-ink-2); }
+  &:hover:not(:disabled) { border-color: var(--pf-ink); }
+  &:focus-visible { outline: 3px solid var(--pf-amber); outline-offset: 3px; }
+  &.picked { border-color: var(--pf-amber); box-shadow: inset 0 0 0 2px var(--pf-amber); }
+  &.broke { background: var(--pf-red-soft); .verdict { color: var(--pf-red); } }
+  &:disabled { cursor: default; }
+}

@@ -1,6 +1,10 @@
 // Shared pieces from Part I on: definition slips, equation slots, the given/goal board.
 // Unencapsulated like the shell; every selector is prefixed .pf-.
 
+// One reading column; the model sits right after the text that points at it.
+.pf-scene.solo { grid-template-columns: minmax(0, 980px); }
+.pf-scene.solo .pf-lede, .pf-scene.solo .pf-p { max-width: 46em; }
+
 .pf-stage {
   display: grid;
   gap: 22px;

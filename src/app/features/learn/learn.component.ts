@@ -24,7 +24,7 @@ import { RouterLink } from '@angular/router';
           <div class="sc-body">
             <h3 class="sc-title">證明與數學思維</h3>
             <p class="sc-desc">讀懂陳述、搭出骨架、找到想法、自己驗收。為沒有紙筆的學習設計。</p>
-            <span class="sc-meta">第 1–2 章已開放 · 共 26 章 · 所有證明型課程的先修</span>
+            <span class="sc-meta">第 1–3 章已開放 · 共 26 章 · 所有證明型課程的先修</span>
           </div>
         </a>
       </section>

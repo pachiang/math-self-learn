@@ -1,0 +1,120 @@
+:host { display: block; }
+
+.g4 { display: grid; gap: 12px; margin: 0; justify-items: start; }
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 22px;
+  font: 600 16px/1.5 var(--pf-sans);
+  color: var(--pf-ink);
+  > span { display: inline-flex; align-items: baseline; gap: 8px; }
+}
+.chip {
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  border: 1.5px solid var(--pf-ink);
+  border-radius: 5px;
+  font: 800 13px var(--pf-mono);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: auto repeat(2, minmax(132px, 188px));
+  grid-auto-rows: auto;
+  gap: 8px;
+  align-items: stretch;
+}
+.colh, .rowh {
+  font: 600 13px var(--pf-sans);
+  letter-spacing: 0.04em;
+  color: var(--pf-ink-3);
+}
+.colh { text-align: center; padding-bottom: 2px; }
+.rowh { align-self: center; padding-right: 6px; text-align: right; white-space: nowrap; }
+
+.cell {
+  position: relative;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 6px;
+  min-height: 96px;
+  padding: 10px 8px;
+  box-sizing: border-box;
+  border: 1.5px solid var(--pf-rule-strong);
+  border-radius: 10px;
+  background: var(--pf-card);
+  color: var(--pf-ink);
+  font: inherit;
+  text-align: center;
+  transition: background 0.2s, border-color 0.2s, outline-color 0.2s;
+}
+button.cell { cursor: pointer; &:hover { border-color: var(--pf-ink); } }
+
+.mark { font: 700 16px var(--pf-serif); }
+.note { font: 500 12px var(--pf-sans); color: var(--pf-ink-3); }
+.toks { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; }
+.tok {
+  padding: 1px 8px;
+  border: 1px solid var(--pf-rule-strong);
+  border-radius: 6px;
+  background: var(--pf-paper);
+  font: 600 15px var(--pf-mono);
+}
+
+.m-true, .m-kept {
+  background: var(--pf-blue-soft);
+  border-color: var(--pf-blue);
+  .mark { color: var(--pf-blue); }
+}
+.m-true .mark::before { content: '● '; }
+.m-idle {
+  background: var(--pf-blue-soft);
+  border: 1.5px dashed var(--pf-blue);
+  .mark { color: var(--pf-blue); }
+}
+.m-false .mark { color: var(--pf-ink-3); font-weight: 500; }
+.m-breach {
+  background: var(--pf-red-soft);
+  border: 3px solid var(--pf-red);
+  .mark {
+    padding: 1px 8px;
+    border: 2px solid var(--pf-red);
+    color: var(--pf-red);
+    letter-spacing: 0.1em;
+    transform: rotate(-4deg);
+  }
+}
+.m-impossible {
+  background-image: repeating-linear-gradient(135deg, var(--pf-rule-strong) 0 1.5px, transparent 1.5px 9px);
+  .mark { padding: 0 6px; background: var(--pf-card); color: var(--pf-ink-2); }
+}
+// Picked: amber outline plus a text tag, so it never reads the same as keyboard focus.
+.cell.picked { position: relative; outline: 3px solid var(--pf-amber); outline-offset: 2px; }
+.cell.m-none.picked { background: var(--pf-amber-soft); border-color: var(--pf-amber); }
+.pick-tag {
+  position: absolute;
+  top: 5px;
+  left: 7px;
+  font: 700 11px var(--pf-sans);
+  color: var(--pf-amber);
+}
+button.cell:focus-visible { outline: 3px dashed var(--pf-ink); outline-offset: 4px; }
+
+// Mini: summary thumbnails, fill + glyph only.
+.mini {
+  gap: 0;
+  .grid { grid-template-columns: auto repeat(2, 34px); gap: 4px; }
+  .colh, .rowh { font-size: 11px; letter-spacing: 0; }
+  .cell { min-height: 34px; padding: 0; border-radius: 6px; }
+  .dot { font-size: 13px; line-height: 1; }
+  .m-true .dot, .m-kept .dot, .m-idle .dot { color: var(--pf-blue); }
+  .m-breach { border-width: 2px; .dot { color: var(--pf-red); } }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cell { transition: none; }
+}

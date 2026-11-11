@@ -13,6 +13,12 @@ import { SceneDividesComponent } from './ch2/scene-divides.component';
 import { SceneObtainComponent } from './ch2/scene-obtain.component';
 import { SceneTwoNamesComponent } from './ch2/scene-two-names.component';
 import { SceneRationalComponent } from './ch2/scene-rational.component';
+import { SceneConnectivesComponent } from './ch3/scene-connectives.component';
+import { ScenePromiseComponent } from './ch3/scene-promise.component';
+import { SceneWasonComponent } from './ch3/scene-wason.component';
+import { SceneVacuousComponent } from './ch3/scene-vacuous.component';
+import { SceneConverseComponent } from './ch3/scene-converse.component';
+import { SceneIffComponent } from './ch3/scene-iff.component';
 
 @Component({
   selector: 'app-proofs-chapter',
@@ -28,6 +34,12 @@ import { SceneRationalComponent } from './ch2/scene-rational.component';
     SceneObtainComponent,
     SceneTwoNamesComponent,
     SceneRationalComponent,
+    SceneConnectivesComponent,
+    ScenePromiseComponent,
+    SceneWasonComponent,
+    SceneVacuousComponent,
+    SceneConverseComponent,
+    SceneIffComponent,
   ],
   encapsulation: ViewEncapsulation.None,
   styleUrls: ['./proofs-shell.scss', './proofs-kit.scss'],
@@ -69,6 +81,12 @@ import { SceneRationalComponent } from './ch2/scene-rational.component';
             @case ('ch2/3') { <app-pf-obtain /> }
             @case ('ch2/4') { <app-pf-two-names /> }
             @case ('ch2/5') { <app-pf-rational /> }
+            @case ('ch3/1') { <app-pf-connectives /> }
+            @case ('ch3/2') { <app-pf-promise /> }
+            @case ('ch3/3') { <app-pf-wason /> }
+            @case ('ch3/4') { <app-pf-vacuous /> }
+            @case ('ch3/5') { <app-pf-converse /> }
+            @case ('ch3/6') { <app-pf-iff /> }
           }
         } @else {
           <section class="pf-col" style="max-width: 640px">

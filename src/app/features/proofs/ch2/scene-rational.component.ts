@@ -109,7 +109,7 @@ const WHY = [
           </div>
           <app-pf-five-steps />
           <p class="pf-note">
-            下一章：定義讀懂了，接著讀句子之間的連接。「若…則」到底承諾了什麼？<a routerLink="/learn/proofs">第 3 章「若…則」是一個承諾</a>規畫中。
+            下一章：定義讀懂了，接著讀句子之間的連接。「若…則」到底承諾了什麼？<a routerLink="/learn/proofs/ch3/1">前往第 3 章「若…則」是一個承諾 →</a>
           </p>
         }
       </div>
