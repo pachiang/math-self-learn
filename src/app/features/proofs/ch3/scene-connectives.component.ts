@@ -1,6 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { LearnProgressService } from '../../../core/services/learn-progress.service';
-import { CELLS, Cell, CellView, Grid4Component, HOLDS, cellDesc } from './grid4.component';
+import { CELLS, Cell, CellView, Grid4Component, HOLDS } from './grid4.component';
 
 type Phase = 'or' | 'and' | 'not' | 'done';
 type Tone = 'good' | 'bad' | 'you';
@@ -37,7 +37,7 @@ const XOR_VIEW: Partial<Record<Cell, CellView>> = { TT: { mark: 'false' }, TF: {
       <div class="pf-col">
         <p class="pf-kicker">1 / 6 · 且、或、非</p>
         <h1 class="pf-title">12 算不算？</h1>
-        <p class="pf-lede">數學句子常用「且」「或」「非」把兩句話接成一句。先看兩句關於整數 n 的話：</p>
+        <p class="pf-lede">數學裡常用「且」「或」「非」，把兩句短話接成一句長的。我們先拿兩句關於整數 n 的話來試：</p>
 
         <div class="defs">
           <div class="pf-def"><small>P</small><p>n 是偶數</p></div>
@@ -46,8 +46,8 @@ const XOR_VIEW: Partial<Record<Cell, CellView>> = { TT: { mark: 'false' }, TF: {
 
         <!-- 1 · predict the inclusive or -->
         <div class="pf-col tight">
-          <p class="pf-q">「n 是偶數，或 n &gt; 10」：下面哪些數讓這句話成立？</p>
-          <p class="pf-note">點選你認為成立的數，可以複選。</p>
+          <p class="pf-q">「n 是偶數，或 n &gt; 10」——把下面的數代進去，哪些會讓這句話成立？</p>
+          <p class="pf-note">點你覺得會成立的數，可以選好幾個。</p>
           <div class="nums">
             @for (n of nums; track n) {
               <button
@@ -78,7 +78,7 @@ const XOR_VIEW: Partial<Record<Cell, CellView>> = { TT: { mark: 'false' }, TF: {
         @if (orDone()) {
           <div class="pf-col tight pf-rise">
             <p class="pf-p">
-              每個數都讓 P、Q 各自成立或不成立，所以會落進下面四格中的一格。這張<b>四格圖</b>整章都會用：<b>上排是 P 成立，左欄是 Q 成立</b>。標「● 成立」的藍色格，是句子成立的格。
+              拿任何一個數，問它兩個問題：是偶數嗎？大於 10 嗎？每個問題都有「是」和「不是」兩種答案，合起來剛好四種，所以每個數都會落進下面四格的其中一格。這張<b>四格圖</b>整章都會用到：<b>上面那排是 P（偶數），左邊那欄是 Q（大於 10）</b>，之後換了句子，位置也不變。藍色、標著「● 成立」的格子，代表句子在那裡成立。
             </p>
             <div class="slip">
               <small>現在的句子</small>
@@ -88,14 +88,14 @@ const XOR_VIEW: Partial<Record<Cell, CellView>> = { TT: { mark: 'false' }, TF: {
 
             @switch (phase()) {
               @case ('or') {
-                <p class="pf-p">「或」在三格成立。只有兩邊都不成立的那一格（7）不成立。</p>
+                <p class="pf-p">「或」在三格都成立。只有 7 那一格不成立，因為 7 對兩個問題都答「不是」。</p>
                 <div class="pf-row"><button type="button" class="pf-btn primary" (click)="go('and')">下一句：且</button></div>
               }
               @case ('done') {}
               @default {
                 @if (!solved()) {
                   <p class="pf-q">「{{ cur().text }}」在哪幾格成立？</p>
-                  <p class="pf-note">直接點四格圖裡的格子選取（可以複選），再按檢查。</p>
+                  <p class="pf-note">直接點四格圖裡的格子，可以選好幾格，選好再按「檢查」。</p>
                   <div class="pf-row"><button type="button" class="pf-btn primary" (click)="checkPick()">檢查</button></div>
                 }
                 @if (pickMsg(); as m) {
@@ -115,7 +115,7 @@ const XOR_VIEW: Partial<Record<Cell, CellView>> = { TT: { mark: 'false' }, TF: {
         <!-- 3 · compression -->
         @if (phase() === 'done') {
           <div class="pf-col tight pf-rise">
-            <p class="pf-p">三句話，三種圈法。數學替這三種圈法取了短名字和符號：</p>
+            <p class="pf-p">三句話，就是在四格裡三種不同的圈法。數學替它們取了簡短的名字和符號：</p>
             <div class="minis">
               @for (s of sentences; track s.id) {
                 <div class="mini-card">
@@ -130,14 +130,14 @@ const XOR_VIEW: Partial<Record<Cell, CellView>> = { TT: { mark: 'false' }, TF: {
             </div>
             <div class="pf-takeaway reveal">
               <small>帶走這一句</small>
-              <p>用且、或、非接起來的句子，<br />就是在四格裡圈出它成立的格。<br />「或」圈三格：兩個都成立也算。</p>
+              <p>用且、或、非接起來的句子，<br />就是在四格裡圈出它成立的那幾格。<br />「或」圈三格：兩邊都成立，也算數。</p>
             </div>
             <details class="pf-why">
               <summary>日常的「或」不是常常只能選一個嗎？</summary>
               <div>
-                <p>「套餐附湯或飲料」通常不能兩樣都拿。這種二選一叫互斥或（exclusive or），在四格圖上只圈「恰好一個成立」的兩格：</p>
+                <p>套餐寫「附湯或飲料」，通常只能挑一樣。這種二選一叫做互斥或（exclusive or），在四格圖上只圈「剛好一邊成立」的兩格：</p>
                 <app-pf-grid4 [mini]="true" p="P" q="Q" [view]="xorView" label="互斥或成立的格" />
-                <p>數學裡的「或」一律是包含的。要表達二選一，會明說「恰好一個成立」。</p>
+                <p>數學裡說「或」，一律包含兩邊都成立的情況。真的要二選一，會另外講明「恰好一個成立」。</p>
               </div>
             </details>
           </div>
@@ -200,15 +200,15 @@ export class SceneConnectivesComponent {
   commitOr(): void {
     const picks = this.orPicks();
     const notes: string[] = [];
-    if (!picks.has(12)) notes.push('12 是偶數，也大於 10：兩邊都成立。數學的「或」只要至少一邊成立就算，兩邊都成立也算。');
-    if (!picks.has(4)) notes.push('4 是偶數，第一邊成立就夠了。');
-    if (!picks.has(15)) notes.push('15 大於 10，第二邊成立就夠了。');
-    if (picks.has(7)) notes.push('7 不是偶數，也不大於 10，兩邊都不成立。');
+    if (!picks.has(12)) notes.push('12 是偶數，也大於 10，兩邊都成立。數學的「或」只要至少一邊成立就算數，兩邊都成立當然也算。');
+    if (!picks.has(4)) notes.push('4 是偶數，光這一邊就夠了。');
+    if (!picks.has(15)) notes.push('15 大於 10，光這一邊就夠了。');
+    if (picks.has(7)) notes.push('7 不是偶數，也沒有大於 10，兩邊都落空。');
     this.orDone.set(true);
     this.orMsg.set(
       notes.length === 0
-        ? { tone: 'good', text: '全對。特別注意 12：它兩邊都成立，也算「或」成立。' }
-        : { tone: 'you', text: `成立的是 4、12、15。${notes.join(' ')}` },
+        ? { tone: 'good', text: '全對。尤其是 12：兩邊都成立，「或」一樣成立。' }
+        : { tone: 'you', text: `會讓句子成立的是 4、12、15。${notes.join(' ')}` },
     );
   }
 
@@ -234,7 +234,7 @@ export class SceneConnectivesComponent {
     const s = this.cur();
     const picks = this.picks();
     if (picks.size === 0) {
-      this.pickMsg.set({ tone: 'bad', text: '先點選格子。' });
+      this.pickMsg.set({ tone: 'bad', text: '先點選至少一格，再按檢查。' });
       return;
     }
     const wrong = CELLS.filter((c) => picks.has(c) !== s.holds(c));
@@ -242,7 +242,7 @@ export class SceneConnectivesComponent {
       this.solved.set(true);
       this.pickMsg.set({
         tone: 'good',
-        text: s.id === 'and' ? '對。「且」要兩邊都成立，只有 12 那一格。' : '對。「n 不是偶數」只管 P：上排是偶數，所以是下半排兩格。15 大於 10 也不影響。',
+        text: s.id === 'and' ? '對。「且」要兩邊都成立，所以只剩 12 那一格。' : '對。「n 不是偶數」只看 n 是不是偶數，跟大不大於 10 無關。上排是偶數，所以答案是下排那兩格。',
       });
       return;
     }
@@ -252,11 +252,11 @@ export class SceneConnectivesComponent {
   }
 
   private explain(s: Sentence, c: Cell, missing: boolean): string {
-    const at = `${TOK[c]} 那一格（${cellDesc(c)}）`;
+    const at = `${TOK[c]} 那一格`;
     if (s.id === 'and') {
-      return missing ? `${at}：P、Q 都成立，「且」成立。` : `${at}：「且」要 P、Q 兩邊都成立，這格有一邊不成立。`;
+      return missing ? `還漏了${at}：12 是偶數，也大於 10，「且」在這裡成立。` : `${at}不算：「且」要兩邊都成立，${TOK[c]} 有一邊落空。`;
     }
-    if (missing) return `${at}：${TOK[c]} 不是偶數，所以「n 不是偶數」成立。它大不大於 10 無所謂，這句話只管 P。`;
-    return `${at}：${TOK[c]} 是偶數，所以「n 不是偶數」不成立。`;
+    if (missing) return `還漏了${at}：${TOK[c]} 不是偶數，所以「n 不是偶數」在這裡成立。大不大於 10 都不影響。`;
+    return `${at}不算：${TOK[c]} 是偶數，「n 不是偶數」在這裡不成立。`;
   }
 }

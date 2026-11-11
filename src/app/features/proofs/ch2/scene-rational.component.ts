@@ -39,7 +39,7 @@ const WHY = [
     id: 'nz',
     label: '因為 q ≠ 0，乘上一個不是 0 的整數，還是不會變成 0',
     ok: true,
-    text: '對。定義給你的是「q ≠ 0」，你造的新分母也得滿足「不是 0」，這一步就是用那個條件換來的。拿到的條件，造的時候派上用場。',
+    text: '對。定義給了你「q ≠ 0」，而你造的新分母也必須不是 0，這一步正是靠那個條件換來的。拿到的條件，在造東西時派上了用場。',
   },
   { id: 'pos', label: '因為 q 是正數', ok: false, text: '定義只說 q ≠ 0，沒說 q 是正的。2 / −3 也符合定義。' },
   {
@@ -145,7 +145,7 @@ const WHY = [
               <h3>已知</h3>
               <div class="pf-stmt"><span>r 是有理數</span></div>
               <div class="pf-obj got pf-rise">
-                <span class="pf-tag">從「r 是有理數」</span>
+                <span class="pf-tag">已知「r 是有理數」</span>
                 <div><b>p</b>、<b>q</b>　整數</div>
                 <div><b>q ≠ 0</b></div>
                 <div>r = p / q</div>
@@ -179,7 +179,7 @@ const WHY = [
                     </form>
                   } @else {
                     <div class="pf-obj made">
-                      <span class="pf-tag">給「{{ g.stmt }}」</span>
+                      <span class="pf-tag">要證「{{ g.stmt }}」</span>
                       <div>□₁ = {{ doneGoals()[g.id]!.num }}，□₂ = {{ doneGoals()[g.id]!.den }}</div>
                     </div>
                     <p class="reason">

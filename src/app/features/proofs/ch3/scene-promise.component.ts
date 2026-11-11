@@ -1,6 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { LearnProgressService } from '../../../core/services/learn-progress.service';
-import { CELLS, Cell, CellView, Grid4Component, cellDesc } from './grid4.component';
+import { CELLS, Cell, CellView, Grid4Component } from './grid4.component';
 
 type Tone = 'good' | 'bad' | 'you';
 
@@ -13,17 +13,17 @@ interface Situation {
 }
 
 const SITS: Situation[] = [
-  { id: '甲', cell: 'TT', text: '考了 100 分，吃到冰淇淋', verdict: '守約', why: '說到做到。' },
-  { id: '乙', cell: 'TF', text: '考了 100 分，沒吃到冰淇淋', verdict: '食言', why: '考了 100 分卻沒有冰淇淋：這就是食言。' },
-  { id: '丙', cell: 'FT', text: '沒考 100 分，還是吃到冰淇淋', verdict: '沒食言', why: '爸爸只說了考 100 分會怎樣，沒說沒考 100 分就不准吃。多請一次不算食言。' },
-  { id: '丁', cell: 'FF', text: '沒考 100 分，也沒吃到冰淇淋', verdict: '沒食言', why: '沒考 100 分，承諾根本沒被觸發。爸爸沒有說錯話。' },
+  { id: '甲', cell: 'TT', text: '考了 100 分，吃到冰淇淋', verdict: '守約', why: '考到了，也請了，說到做到。' },
+  { id: '乙', cell: 'TF', text: '考了 100 分，沒吃到冰淇淋', verdict: '食言', why: '你考到了，冰淇淋卻沒有來。這就是食言。' },
+  { id: '丙', cell: 'FT', text: '沒考 100 分，還是吃到冰淇淋', verdict: '沒食言', why: '爸爸只說考到會請，沒說考不到就不請。多請你一次，不算說話不算話。' },
+  { id: '丁', cell: 'FF', text: '沒考 100 分，也沒吃到冰淇淋', verdict: '沒食言', why: '你沒考到，這個承諾根本沒派上用場。爸爸沒有說錯話。' },
 ];
 
 /** Numbers for the math sentence, in the order the learner places them. None can reach TF. */
 const PLACE = [
-  { n: 8, cell: 'TT' as Cell, why: '8 = 4 × 2，是 4 的倍數；8 也是偶數。' },
-  { n: 6, cell: 'FT' as Cell, why: '6 是偶數，但不是 4 的倍數：6 = 4 × 1.5，1.5 不是整數。' },
-  { n: 3, cell: 'FF' as Cell, why: '3 不是 4 的倍數，也不是偶數。' },
+  { n: 8, cell: 'TT' as Cell, why: '8 = 4 × 2，是 4 的倍數，也是偶數。' },
+  { n: 6, cell: 'FT' as Cell, why: '6 是偶數，但不是 4 的倍數（6 ÷ 4 = 1.5，不是整數）。' },
+  { n: 3, cell: 'FF' as Cell, why: '3 既不是 4 的倍數，也不是偶數。' },
 ];
 
 const IMPLIES_NOTE: Record<Cell, string> = { TT: '算真', TF: '算假', FT: '算真', FF: '算真' };
@@ -47,8 +47,8 @@ const IMPLIES_MARK: Record<Cell, CellView['mark']> = { TT: 'kept', TF: 'breach',
 
         <!-- 1 · predict -->
         <div class="pf-col tight">
-          <p class="pf-q">考完試，可能發生下面四種情況。哪幾種算爸爸食言？</p>
-          <p class="pf-note">點選你認為食言的情況，可以複選，也可以都不選。</p>
+          <p class="pf-q">考完試，結果一定是下面四種情況之一。哪幾種算爸爸食言？</p>
+          <p class="pf-note">點你覺得算食言的情況，可以選好幾個，也可以一個都不選。</p>
           <div class="sits">
             @for (s of sits; track s.id) {
               <button
@@ -79,15 +79,18 @@ const IMPLIES_MARK: Record<Cell, CellView['mark']> = { TT: 'kept', TF: 'breach',
         <!-- 2 · the grid, and a name for it -->
         @if (committed()) {
           <div class="pf-col tight pf-rise">
-            <p class="pf-p">把四種情況放進四格圖。P 是「考 100 分」，Q 是「吃到冰淇淋」：</p>
+            <p class="pf-p">把這四種情況放進四格圖。這次上排是「考了 100 分」，左欄是「吃到冰淇淋」：</p>
             <app-pf-grid4 p="考 100 分" q="吃到冰淇淋" [view]="storyView" />
             <p class="pf-p">
-              只有一格違約。這種句子叫<b>「若 P 則 Q」</b>（if P then Q），寫成 <span class="pf-num">P ⇒ Q</span>，讀作 P implies Q。上排是承諾被觸發的時候；下排 P 不成立，承諾<b>沒被觸發</b>，不管 Q 怎樣都不算違約。
+              四格裡只有一格算違約。上排是你考到 100 分的時候，承諾這時才<b>被觸發</b>，爸爸必須兌現；下排是你沒考到，承諾<b>沒被觸發</b>，爸爸請不請都不算違約。
             </p>
-            <p class="pf-p">數學把「若 P 則 Q」算成：違約格是假，其他三格都是真。可是沒觸發為什麼算「真」，不算「不知道」？</p>
+            <p class="pf-p">
+              數學把這種句子叫做<b>「若 P 則 Q」</b>（if P then Q），寫成 <span class="pf-num">P ⇒ Q</span>，讀作 P implies Q。數學的規定是：只有違約那一格，這句話是假的；其他三格都算真的。
+            </p>
+            <p class="pf-p">可是，沒觸發的兩格為什麼算「真」，而不是「不知道」？</p>
             <div class="pf-row">
               @if (!whyOpen()) {
-                <button type="button" class="pf-btn primary" (click)="whyOpen.set(true)">看一句數學</button>
+                <button type="button" class="pf-btn primary" (click)="whyOpen.set(true)">用一句數學來看</button>
               }
             </div>
           </div>
@@ -101,8 +104,8 @@ const IMPLIES_MARK: Record<Cell, CellView['mark']> = { TT: 'kept', TF: 'breach',
               <p>若 n 是 4 的倍數，則 n 是偶數。</p>
             </div>
             @if (placeIdx() < place.length) {
-              <p class="pf-q">把 {{ place[placeIdx()].n }} 放進四格圖：它落在哪一格？</p>
-              <p class="pf-note">點格子。P 是「n 是 4 的倍數」，Q 是「n 是偶數」。</p>
+              <p class="pf-q">{{ place[placeIdx()].n }} 應該放在四格圖的哪一格？</p>
+              <p class="pf-note">直接點格子。上排是「n 是 4 的倍數」，左欄是「n 是偶數」。</p>
             }
             <app-pf-grid4 p="n 是 4 的倍數" q="n 是偶數" [view]="mathView()" [pickable]="placeIdx() < place.length" (pick)="placeAt($event)" />
             @if (placeMsg(); as m) {
@@ -110,28 +113,28 @@ const IMPLIES_MARK: Record<Cell, CellView['mark']> = { TT: 'kept', TF: 'breach',
             }
 
             @if (placeIdx() >= place.length) {
-              <p class="pf-q">違約格（4 的倍數，卻不是偶數）是空的。會不會有某個數落進去？</p>
+              <p class="pf-q">違約格（是 4 的倍數，卻不是偶數）目前空著。會不會有哪個數其實該放進去？</p>
               <div class="pf-row">
                 <button type="button" class="pf-btn" [class.picked]="never() === 'maybe'" [disabled]="never() === 'no'" (click)="never.set('maybe')">會，只是還沒試到</button>
                 <button type="button" class="pf-btn" [class.picked]="never() === 'no'" [disabled]="never() === 'no'" (click)="pickNever()">不會，永遠空著</button>
               </div>
               @if (never() === 'maybe') {
-                <p class="pf-feedback you" role="status">試再多數都只是例子（第 1 章）。這次不用試，用第 2 章的工具就能看出來：再選一次。</p>
+                <p class="pf-feedback you" role="status">再多試幾個數，也只是例子而已，第 1 章看過這件事。這次其實不必試，用第 2 章的工具就看得出答案。再選一次看看。</p>
               }
               @if (never() === 'no') {
                 <div class="pf-obj got pf-rise">
-                  <span class="pf-tag">從「n 是 4 的倍數」</span>
+                  <span class="pf-tag">已知「n 是 4 的倍數」</span>
                   <div>n = 4k，k 是整數</div>
                   <div>n = 2 × (2k)，2k 是整數，所以 n 是偶數</div>
-                  <small>第 2 章的理由：違約格永遠空著，不是因為沒試到。</small>
+                  <small>這是第 2 章的推理：違約格永遠空著，不是因為還沒試到。</small>
                 </div>
                 <p class="pf-p pf-rise">
-                  所以這句話對每個 n 都不會出錯。可是 6 和 3 落在<b>沒觸發</b>的格。如果沒觸發算「假」，這句大家都同意的話在 n = 6 就變成假的了。
-                  數學要「若 P 則 Q」表達的正是「從不違約」，所以<b>沒觸發算真</b>。
+                  所以不管 n 是多少，這句話都不會出錯。可是 6 和 3 落在<b>沒觸發</b>的格子裡。要是沒觸發算「假」，這句人人同意的話碰到 n = 6 就變成假的了，這說不過去。
+                  「若 P 則 Q」想說的就是「不會違約」，所以數學規定：<b>沒觸發算真</b>。
                 </p>
                 <div class="pf-takeaway reveal">
                   <small>帶走這一句</small>
-                  <p>「若 P 則 Q」只承諾一件事：<br />P 成立時，Q 也成立。<br />只有「P 成立、Q 不成立」那一格算違約。</p>
+                  <p>「若 P 則 Q」只保證一件事：<br />P 成立的時候，Q 也成立。<br />只有「P 成立、Q 不成立」那一格算違約。</p>
                 </div>
               }
             }
@@ -185,13 +188,13 @@ export class ScenePromiseComponent {
     const p = this.picks();
     this.committed.set(true);
     if (p.size === 1 && p.has('乙')) {
-      this.commitMsg.set({ tone: 'good', text: '只有乙。很多人會把丙或丁也算進去，你沒有。' });
+      this.commitMsg.set({ tone: 'good', text: '只有乙。很多人會把丙或丁也算成食言，你沒有。' });
       return;
     }
     const extra = [...p].filter((id) => id !== '乙');
     const parts: string[] = [];
-    if (!p.has('乙')) parts.push('乙才是食言：考了 100 分卻沒有冰淇淋。');
-    if (extra.length) parts.push(`${extra.join('、')}不算食言：每張卡下面寫了理由。`);
+    if (!p.has('乙')) parts.push('你漏了乙：考到 100 分卻沒有冰淇淋，這才是食言。');
+    if (extra.length) parts.push(`${extra.join('、')}不算食言，理由寫在每張卡片下面。`);
     this.commitMsg.set({ tone: 'you', text: `只有乙算食言。${parts.join('')}` });
   }
 
@@ -199,7 +202,7 @@ export class ScenePromiseComponent {
     const item = PLACE[this.placeIdx()];
     if (!item) return;
     if (c !== item.cell) {
-      this.placeMsg.set({ tone: 'bad', text: `${item.n} 不在「${cellDesc(c)}」那一格。${item.why}` });
+      this.placeMsg.set({ tone: 'bad', text: `${item.n} 不在這一格。${item.why}` });
       return;
     }
     this.placeMsg.set({ tone: 'good', text: item.why });

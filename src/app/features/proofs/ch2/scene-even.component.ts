@@ -84,7 +84,7 @@ const FOUND_HINT: Record<string, string> = {
             這句話是一個<b>開關</b>：找得到這樣的整數 k，「n 是偶數」就成立；一個都找不到，就不成立。它不問 n
             看起來像不像偶數，只問一件事：<b>k 找不找得到</b>。
           </p>
-          <p class="pf-note">在右邊替每個數找 k。圓點是 2 × k 在 k 取整數時能到的值。</p>
+          <p class="pf-note">在右邊替每個數找 k。數線上的圓點，標出 k 是整數時 2 × k 會落在哪裡。</p>
 
           @if (oddOpen()) {
             <div class="pf-def pf-rise">
@@ -107,7 +107,7 @@ const FOUND_HINT: Record<string, string> = {
             </table>
             @if (bets()['zero'] !== 'yes') {
               <p class="pf-feedback you">
-                你原本對 0 沒把握。很多人覺得 0「什麼都不是」；但定義只問找不找得到整數 k。k = 0 找得到，所以 0 是偶數，沒有例外。
+                你原本對 0 沒把握。很多人覺得 0「什麼都不是」，但定義只問一件事：找不找得到整數 k。k = 0 就行，所以 0 是偶數，沒有例外。
               </p>
             }
             <details class="pf-why">
@@ -273,7 +273,7 @@ export class SceneEvenComponent {
       this.finish(it, { on: false });
       this.msg.set({
         tone: 'good',
-        text: `${shown} = ${it.n} 沒錯，但 ${fmtQ(k)} 不是整數。而且能讓 2 × k = ${it.n} 的 k 只有 ${fmtQ(k)} 這一個，所以沒有任何整數 k 做得到：「${it.n} 是偶數」不成立。這是一個對每個 k 都成立的理由，不是試出來的。`,
+        text: `${shown} = ${it.n} 沒錯，但 ${fmtQ(k)} 不是整數。而且能讓 2 × k = ${it.n} 的 k 只有 ${fmtQ(k)} 這一個，所以沒有任何整數 k 做得到，「${it.n} 是偶數」不成立。這個理由涵蓋了每一個 k，不是試出來的。`,
       });
     }
   }

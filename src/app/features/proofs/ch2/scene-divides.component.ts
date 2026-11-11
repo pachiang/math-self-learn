@@ -72,7 +72,7 @@ const SORT: SortItem[] = [
     ok: '一句話，而且成立：0 = 0 × k 有整數解，例如 k = 5。',
     wrong: {
       number: '0 ∣ 0 是一句話，不是一個數。它問「0 能不能寫成 0 × 某個整數」：可以，所以成立。',
-      undefined: '這正是用乘法定義整除的好處：0 = 0 × 5，找得到整數 k，所以 0 ∣ 0 成立，即使 0 / 0 沒有定義。',
+      undefined: '這正是用乘法定義整除的好處：0 = 0 × 5，找得到整數 k，所以 0 ∣ 0 成立，就算 0 / 0 沒有定義也一樣。',
     },
   },
   {
@@ -163,8 +163,8 @@ const SORT: SortItem[] = [
 
           @if (sortDone()) {
             <p class="pf-feedback good pf-rise">
-              所以 a ∣ b 和 b / a 是兩種東西：一個回答「是不是」，一個給你「一個數」。a ≠ 0 時，a ∣ b 成立，恰好就是 b / a
-              是整數；a = 0 時，只剩乘法的版本講得通。
+              所以 a ∣ b 和 b / a 是兩種東西：一個回答「是不是」，一個給你「一個數」。a ≠ 0 時，a ∣ b 成立，剛好等於說 b / a
+              是整數；a = 0 時，只有乘法的版本還講得通。
             </p>
             <details class="pf-why">
               <summary>有些教材要求 a ≠ 0</summary>
@@ -311,7 +311,7 @@ export class SceneDividesComponent {
       this.finish(p, false);
       this.msg.set({
         tone: 'good',
-        text: `${shown} = ${p.b} 沒錯，但 ${fmtQ(k)} 不是整數。而且能讓 ${p.a} × k = ${p.b} 的 k 只有 ${fmtQ(k)} 這一個，所以沒有整數 k 做得到：${p.a} ∣ ${p.b} 不成立。`,
+        text: `${shown} = ${p.b} 沒錯，但 ${fmtQ(k)} 不是整數。而且能讓 ${p.a} × k = ${p.b} 的 k 只有 ${fmtQ(k)} 這一個，所以沒有整數 k 做得到，${p.a} ∣ ${p.b} 不成立。`,
       });
     }
   }

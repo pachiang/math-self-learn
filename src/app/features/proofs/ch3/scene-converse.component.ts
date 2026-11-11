@@ -1,6 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { LearnProgressService } from '../../../core/services/learn-progress.service';
-import { CELLS, Cell, CellView, Grid4Component, cellDesc } from './grid4.component';
+import { CELLS, Cell, CellView, Grid4Component } from './grid4.component';
 
 type Tone = 'good' | 'bad' | 'you';
 
@@ -40,7 +40,7 @@ const PARTS: Record<'A' | 'B', (c: Cell) => [boolean, boolean]> = {
         <h1 class="pf-title">反過來說，還是同一句嗎？</h1>
 
         <div class="pf-slip">
-          <small>原句（第 2 幕證過，它成立）</small>
+          <small>原句（第 2 幕已經證明它成立）</small>
           <p>若 n 是 4 的倍數，則 n 是偶數。</p>
           <span class="pf-seal proved">證明</span>
         </div>
@@ -66,7 +66,7 @@ const PARTS: Record<'A' | 'B', (c: Cell) => [boolean, boolean]> = {
             }
           </div>
           @if (guess() !== null) {
-            <p class="pf-feedback you" role="status">先記住你的答案。我們不靠感覺，用四格圖找每一句的違約格。</p>
+            <p class="pf-feedback you" role="status">先記住你的答案。接下來不靠感覺，改用四格圖替每一句找出它的違約格。</p>
           }
         </div>
 
@@ -74,12 +74,12 @@ const PARTS: Record<'A' | 'B', (c: Cell) => [boolean, boolean]> = {
         @if (guess() !== null) {
           <div class="pf-col tight pf-rise">
             <p class="pf-p">
-              四格圖和第 2 幕一樣：P 是「n 是 4 的倍數」，Q 是「n 是偶數」。原句的違約格在 P 成立、Q 不成立那一格，裡面沒有數。
-              每一句的違約格都是：<b>「若」後面成立，「則」後面不成立</b>。
+              四格圖和第 2 幕一樣：上排是「n 是 4 的倍數」，左欄是「n 是偶數」。原句的違約格是「4 的倍數，卻不是偶數」那一格，裡面一個數都沒有。
+              每一句找違約格的方法都一樣：找<b>「若」後面成立、「則」後面卻不成立</b>的那一格。
             </p>
             @if (cur(); as r) {
               <p class="pf-q">{{ r.id }}：{{ r.text }}<br />它在哪一格違約？</p>
-              <p class="pf-note">「若」後面是「{{ r.ifPart }}」，「則」後面是「{{ r.thenPart }}」。點四格圖裡的一格。</p>
+              <p class="pf-note">這句的「若」後面是「{{ r.ifPart }}」，「則」後面是「{{ r.thenPart }}」。在四格圖上點出它違約的那一格。</p>
             }
             <app-pf-grid4 p="n 是 4 的倍數" q="n 是偶數" [view]="view()" [pickable]="!!cur()" (pick)="pick($event)" />
             @if (msg(); as m) {
@@ -92,7 +92,7 @@ const PARTS: Record<'A' | 'B', (c: Cell) => [boolean, boolean]> = {
         @if (named()) {
           <div class="pf-col tight pf-rise">
             <p class="pf-p">
-              A 的違約格裡有 6：6 是偶數，卻不是 4 的倍數。所以 A 不成立。B 的違約格和原句是<b>同一格</b>，而且是空的，所以 B 成立。
+              A 的違約格裡有 6：6 是偶數，卻不是 4 的倍數，所以 A 不成立。B 的違約格和原句是<b>同一格</b>，而那一格是空的，所以 B 成立。
               {{ guessNote() }}
             </p>
             <div class="verdicts">
@@ -100,7 +100,7 @@ const PARTS: Record<'A' | 'B', (c: Cell) => [boolean, boolean]> = {
                 <span class="pf-seal refuted mini">推翻</span>
                 <div>
                   <b>A 是另一句話</b>
-                  <p>違約格搬到另一格。這次要推翻它，只需要一個反例：n = 6。</p>
+                  <p>違約格搬到了別的格子。要推翻它，一個反例就夠：n = 6。</p>
                 </div>
               </div>
               <div class="vcard">
@@ -108,7 +108,7 @@ const PARTS: Record<'A' | 'B', (c: Cell) => [boolean, boolean]> = {
                 <div>
                   <b>B 和原句是同一句話</b>
                   <p>
-                    不只這一題：對任何 P、Q，「若非 Q 則非 P」的「若」成立就是 Q 不成立、「則」不成立就是 P 成立，違約格永遠是 P 成立、Q 不成立那一格。
+                    不只這一題如此。換成任何 P、Q，「若非 Q 則非 P」要違約，得「非 Q」成立、「非 P」不成立，也就是 Q 不成立、P 成立。那正是原句的違約格。
                   </p>
                 </div>
               </div>
@@ -116,22 +116,22 @@ const PARTS: Record<'A' | 'B', (c: Cell) => [boolean, boolean]> = {
             <div class="exhaust">
               <small>這次的「所有」是證明，不是例子</small>
               <p>
-                第 1 章說，例子證明不了「對所有 n」，因為 n 有無限多個。這裡的「所有」是 P、Q 真假的所有組合，只有四種，四格都看過了。
-                完整列舉（finite exhaustion）有限的世界，就是證明。
+                第 1 章說過，例子證明不了「對所有 n 都成立」，因為 n 有無限多個，永遠試不完。這裡要檢查的卻是 P、Q 真假的所有組合，總共只有四種，四格我們全看過了。
+                像這樣把有限的情況一個不漏地檢查完，叫做完整列舉（finite exhaustion），它就是證明。
               </p>
             </div>
             <p class="pf-p">
-              A 這種把「若」和「則」對調的句子叫<b>逆命題</b>（converse）；B 這種對調再兩邊都加「不」的句子叫<b>逆否命題</b>（contrapositive）。
+              像 A 這樣把「若」和「則」後面的話對調，叫做<b>逆命題</b>（converse）；像 B 這樣對調之後，兩邊再各加一個「不」，叫做<b>逆否命題</b>（contrapositive）。
             </p>
             <div class="pf-takeaway reveal">
               <small>帶走這一句</small>
-              <p>換句話說時，看違約格有沒有搬家：<br />逆否沒搬，是同一句話；<br />逆命題搬了，是另一句話。</p>
+              <p>換個說法時，看違約格有沒有搬家：<br />逆否命題沒搬，是同一句話；<br />逆命題搬了，是另一句話。</p>
             </div>
             <details class="pf-why">
               <summary>高中學的「否命題」呢？</summary>
               <div>
-                <p>否命題（inverse）是兩邊都加「不」、但不對調：「若 n 不是 4 的倍數，則 n 不是偶數」。</p>
-                <p>它的「若」成立是 P 不成立，「則」不成立是 Q 成立：違約格是 P 不成立、Q 成立，和逆命題同一格。所以否命題和逆命題是同一句話，和原句不同（6 同樣推翻它）。</p>
+                <p>否命題（inverse）是兩邊各加一個「不」，但不對調：「若 n 不是 4 的倍數，則 n 不是偶數」。</p>
+                <p>它要違約，得「不是 4 的倍數」成立、「不是偶數」不成立，也就是：不是 4 的倍數，卻是偶數。這和逆命題的違約格是同一格，所以否命題和逆命題其實是同一句話，跟原句不同。6 一樣能推翻它。</p>
               </div>
             </details>
           </div>
@@ -177,10 +177,10 @@ export class SceneConverseComponent {
 
   readonly guessNote = computed(() => {
     const g = this.guess();
-    if (g === 'B') return '你一開始就選了只有 B，對。';
-    if (g === 'both') return '你一開始選了 A、B 都是：A 聽起來很像原句，但違約格不同。';
-    if (g === 'A') return '你一開始選了 A：A 只是把兩半對調，聽起來最像，但違約格不同。';
-    return '你一開始選了都不是：B 雖然多了兩個「不」，違約格卻和原句一樣。';
+    if (g === 'B') return '你一開始就選了「只有 B」，選對了。';
+    if (g === 'both') return '你一開始選「A、B 都是」。A 聽起來很像原句，違約格卻不一樣。';
+    if (g === 'A') return '你一開始選了 A。A 只是把前後對調，聽起來最像，違約格卻不一樣。';
+    return '你一開始選「都不是」。B 雖然多了兩個「不」，違約格卻跟原句一模一樣。';
   });
 
   pick(c: Cell): void {
@@ -192,18 +192,18 @@ export class SceneConverseComponent {
         tone: 'good',
         text:
           r.id === 'A'
-            ? '對：n 是偶數（Q 成立），卻不是 4 的倍數（P 不成立）。A 的違約格不在原句那一格。'
-            : '對：n 不是偶數（Q 不成立），卻是 4 的倍數（P 成立）。B 的違約格就是原句那一格。',
+            ? '對。是偶數，卻不是 4 的倍數，A 就在這一格違約。這不是原句的違約格。'
+            : '對。不是偶數，卻是 4 的倍數，B 就在這一格違約，跟原句是同一格。',
       });
       if (this.named()) this.progress.markCompleted('proofs-ch3', '5');
       return;
     }
     const [ifOk, thenOk] = PARTS[r.id](c);
     const why = !ifOk
-      ? `「${r.ifPart}」不成立：承諾沒被觸發。`
+      ? `這裡「${r.ifPart}」不成立，承諾沒被觸發。`
       : thenOk
-        ? `「${r.ifPart}」成立，「${r.thenPart}」也成立：守約。`
+        ? `這裡「${r.ifPart}」和「${r.thenPart}」都成立，承諾守住了。`
         : '';
-    this.msg.set({ tone: 'bad', text: `「${cellDesc(c)}」那一格：${why}要找的是「若」成立、「則」不成立的格。` });
+    this.msg.set({ tone: 'bad', text: `不是這一格。${why}要找的是「若」後面成立、「則」後面卻不成立的那一格。` });
   }
 }

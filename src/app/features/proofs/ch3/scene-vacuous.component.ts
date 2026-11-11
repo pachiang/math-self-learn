@@ -49,10 +49,10 @@ const SAMPLE = [-3, 0, 2, 5, 100];
 
         @if (broDone()) {
           <div class="pf-col tight pf-rise">
-            <p class="pf-p">在四格圖上看：上排是「考了 120 分」，根本不可能發生，所以整排畫上斜線。違約格也在上排。</p>
+            <p class="pf-p">放到四格圖上看：上排是「考了 120 分」，這根本不可能發生，所以整排畫上斜線。注意，違約格也在這一排。</p>
             <app-pf-grid4 p="考 120 分" q="拿到手機" [view]="broView" />
             <p class="pf-p">
-              違約格不可能發生，這個承諾就永遠不會被打破，所以它是<b>真的</b>，不管哥哥送不送手機。前提不可能成立，句子因此自動成立，這叫<b>空洞為真</b>（vacuous truth）。
+              要抓到哥哥食言，你得先考到 120 分，但這件事永遠不會發生。所以不管他最後送不送手機，你都抓不到他食言，這句話就算是<b>真的</b>。像這樣前提永遠不會發生、所以自動成立的句子，叫做<b>空洞為真</b>（vacuous truth）。
             </p>
           </div>
 
@@ -64,10 +64,10 @@ const SAMPLE = [-3, 0, 2, 5, 100];
               <p>若 n 既是偶數、又是奇數，則 {{ concl().text }}。</p>
             </div>
             <app-pf-grid4 p="n 既是偶數又是奇數" [q]="concl().text" [view]="mathView()" />
-            <p class="pf-note">格子裡放了幾個整數當例子：它們全都落在下排，因為沒有整數既是偶數又是奇數。</p>
+            <p class="pf-note">格子裡放了幾個整數當例子。它們全都在下排，因為沒有哪個整數能同時是偶數和奇數。</p>
 
             @if (!absurdAsked()) {
-              <p class="pf-p">換掉「則」後面的話，看四格圖怎麼變：</p>
+              <p class="pf-p">把「則」後面換成別的話，看看四格圖會怎麼變：</p>
               <div class="pf-row">
                 @for (c of conclusions; track c.id) {
                   <button type="button" class="pf-btn small" [class.picked]="conclId() === c.id" (click)="setConcl(c.id)">則 {{ c.text }}</button>
@@ -80,7 +80,7 @@ const SAMPLE = [-3, 0, 2, 5, 100];
                   <button type="button" class="pf-btn" (click)="answerAbsurd(false)">不成立，1 = 2 是錯的</button>
                 </div>
               } @else {
-                <p class="pf-note">試試最後一個：則 1 = 2。</p>
+                <p class="pf-note">最後試試看：則 1 = 2。</p>
               }
             } @else {
               @if (absurdMsg(); as m) {
@@ -89,13 +89,13 @@ const SAMPLE = [-3, 0, 2, 5, 100];
               <details class="pf-why">
                 <summary>為什麼沒有整數既是偶數、又是奇數？</summary>
                 <div>
-                  <p>用第 2 章的工具。假設 n 是偶數，拿到整數 k，n = 2k；n 也是奇數，拿到整數 m，n = 2m + 1。</p>
-                  <p>兩式相減：2k − 2m = 1，也就是 1 = 2 × (k − m)。k − m 是整數，所以 1 會是偶數。但 1 = 2 × 0.5，0.5 不是整數：1 不是偶數。所以這樣的 n 不存在，上排永遠不可能。</p>
+                  <p>用第 2 章的工具。假設 n 是偶數，就拿到一個整數 k，讓 n = 2k；n 又是奇數，再拿到一個整數 m，讓 n = 2m + 1。</p>
+                  <p>兩式相減得到 2k − 2m = 1，也就是 k − m = 0.5。可是兩個整數相減一定是整數，不可能是 0.5。矛盾，所以這樣的 n 根本不存在，上排永遠不會發生。</p>
                 </div>
               </details>
               <div class="pf-takeaway reveal">
                 <small>帶走這一句</small>
-                <p>前提不可能成立，違約格就永遠空著：<br />這種承諾自動成立，<br />不管「則」後面接什麼。</p>
+                <p>前提不可能發生，違約格就永遠空著。<br />這種承諾自動成立，<br />「則」後面接什麼都一樣。</p>
               </div>
             }
           </div>
@@ -148,15 +148,15 @@ export class SceneVacuousComponent {
     this.bro.set(id);
     if (id === 'no') {
       this.broDone.set(true);
-      this.broMsg.set({ tone: 'good', text: '對。食言只有一種情況：考了 120 分，卻沒拿到手機。可是根本考不到 120 分。' });
+      this.broMsg.set({ tone: 'good', text: '對。哥哥要食言，只有一種情況：你考了 120 分，他卻沒給手機。可是你根本考不到 120 分。' });
       return;
     }
     this.broMsg.set({
       tone: 'you',
       text:
         id === 'yes'
-          ? '想想看什麼情況算食言：考了 120 分卻沒拿到手機。考得到 120 分嗎？再選一次。'
-          : '「若…則」只在一格違約：考了 120 分卻沒拿到手機。那一格會發生嗎？再選一次。',
+          ? '想想看，怎樣才算食言？你考了 120 分，他卻沒給手機。可是 120 分考得到嗎？再選一次。'
+          : '這種承諾只有一種情況算食言：你考了 120 分，他卻沒給手機。這種情況會發生嗎？再選一次。',
     });
   }
 
@@ -168,10 +168,10 @@ export class SceneVacuousComponent {
     this.absurdAsked.set(true);
     this.absurdMsg.set(
       holds
-        ? { tone: 'good', text: '對。要違約，得先有一個 n 既是偶數又是奇數，再讓 1 = 2 不成立。前半永遠做不到，所以這句話不會違約：它成立。' }
+        ? { tone: 'good', text: '對。要讓它違約，得先找到一個既是偶數又是奇數的 n。第一步就永遠做不到，所以這句話不會違約，它成立。' }
         : {
             tone: 'you',
-            text: '1 = 2 確實是錯的，但這句話沒有說 1 = 2；它說「若 n 既偶又奇，則 1 = 2」。要違約，得先找到既偶又奇的 n，永遠找不到。所以句子成立：前提不可能時，「則」後面接什麼都一樣。',
+            text: '1 = 2 確實是錯的，可是這句話沒有說 1 = 2，它說的是「若 n 既是偶數、又是奇數，則 1 = 2」。要讓它違約，得先找到這樣的 n，而這永遠找不到。所以句子成立：前提不可能發生時，「則」後面接什麼都一樣。',
           },
     );
     this.progress.markCompleted('proofs-ch3', '4');

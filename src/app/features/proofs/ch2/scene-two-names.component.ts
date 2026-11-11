@@ -67,7 +67,7 @@ const WORLDS: [number, number][] = [
           }
           @if (naming() === 'diff') {
             <p class="pf-feedback good">
-              對。兩次用定義，各拿到一個整數。它們可能不同，所以要不同的名字：b = 2m + 1。每一格組合，都有自己的 k 和 m。
+              對。用了兩次定義，就各拿到一個整數。它們可能不一樣，所以要用不同的名字：b = 2m + 1。每一組 a、b，都有自己的 k 和 m。
             </p>
           }
         }
@@ -79,7 +79,7 @@ const WORLDS: [number, number][] = [
         @if (built()) {
           <p class="pf-feedback good pf-rise">
             你的例子 {{ example()!.a }} + {{ example()!.b }}：k = {{ exK() }}，m = {{ exM() }}，□ = {{ exBox() }}，2 × {{ exBox() }} =
-            {{ example()!.a + example()!.b }}。和定義的要求一致。但讓陳述成立的不是這個例子，是右邊那一行展開。
+            {{ example()!.a + example()!.b }}，符合定義。不過讓陳述成立的不是這個例子，而是右邊那一行展開。
           </p>
           <details class="pf-why">
             <summary>為什麼挑 1 + 1 不夠好？</summary>
@@ -107,7 +107,7 @@ const WORLDS: [number, number][] = [
             </div>
             @if (expandedA()) {
               <div class="pf-obj got pf-rise">
-                <span class="pf-tag">從「a 是奇數」</span>
+                <span class="pf-tag">已知「a 是奇數」</span>
                 <div><b>k</b>　整數</div>
                 <div>a = 2k + 1</div>
               </div>
@@ -120,7 +120,7 @@ const WORLDS: [number, number][] = [
             </div>
             @if (expandedB()) {
               <div class="pf-obj got pf-rise" [class.warn]="naming() === 'same'">
-                <span class="pf-tag">從「b 是奇數」</span>
+                <span class="pf-tag">已知「b 是奇數」</span>
                 @if (naming() === 'diff') {
                   <div><b>m</b>　整數</div>
                   <div>b = 2m + 1</div>
@@ -161,7 +161,7 @@ const WORLDS: [number, number][] = [
             }
             @if (built(); as ans) {
               <div class="pf-obj made">
-                <span class="pf-tag">給「a + b 是偶數」</span>
+                <span class="pf-tag">要證「a + b 是偶數」</span>
                 <div>□ = {{ ans }}</div>
               </div>
               <p class="reason">

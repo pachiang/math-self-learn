@@ -86,7 +86,7 @@ const pretty = (s: string) =>
           <div class="pf-col tight pf-rise">
             <p class="pf-p">真正的 x 是哪一個，你不知道，所以 k 是多少你也不知道。但有兩件事一定對，把它們記在一個框裡：</p>
             <div class="pf-obj got">
-              <span class="pf-tag">從「x 是偶數」</span>
+              <span class="pf-tag">已知「x 是偶數」</span>
               <div>k 是整數</div>
               <div>x = 2k</div>
               <small>k 是多少不是你選的：x 是多少，k 就是它的一半。</small>
@@ -151,7 +151,7 @@ const pretty = (s: string) =>
               </form>
             } @else {
               <div class="pf-obj made">
-                <span class="pf-tag">給「x + 6 是偶數」</span>
+                <span class="pf-tag">要證「x + 6 是偶數」</span>
                 <div>□ = {{ pretty(ans1()!) }}</div>
                 <small>{{ usedX1() ? '這樣寫也對；寫成 k 的式子，比較一眼看得出它是整數。' : 'k 是整數，所以這個 □ 也是整數。' }}</small>
               </div>
@@ -207,7 +207,7 @@ const pretty = (s: string) =>
                 </form>
               } @else {
                 <div class="pf-obj made pf-rise">
-                  <span class="pf-tag">給「4 ∣ x²」</span>
+                  <span class="pf-tag">要證「4 ∣ x²」</span>
                   <div>□ = {{ pretty(ans2()!) }}</div>
                   <small>{{ usedX2() ? '這樣寫也對；寫成 k 的式子，比較一眼看得出它是整數。' : 'k 是整數，所以這個 □ 也是整數。' }}</small>
                 </div>

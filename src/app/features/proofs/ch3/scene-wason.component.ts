@@ -14,10 +14,10 @@ interface Card {
 }
 
 const CARDS: Card[] = [
-  { face: 'A', back: '8', could: ['TT', 'TF'], flip: true, why: '母音：規則被觸發。背面是偶數就守約，是奇數就違約。要翻。' },
-  { face: 'K', back: '5', could: ['FT', 'FF'], flip: false, why: '不是母音：規則沒被觸發，背面是什麼都不會違約。不用翻。' },
-  { face: '4', back: 'U', could: ['TT', 'FT'], flip: false, why: '已經是偶數：背面是母音就守約，是子音就沒觸發。怎樣都不會違約。不用翻。' },
-  { face: '7', back: 'E', could: ['TF', 'FF'], flip: true, why: '不是偶數：背面若是母音，就是違約。要翻。' },
+  { face: 'A', back: '8', could: ['TT', 'TF'], flip: true, why: '是母音，規則管得到它：背面是偶數就守約，是奇數就違約。要翻。' },
+  { face: 'K', back: '5', could: ['FT', 'FF'], flip: false, why: '不是母音，規則管不到它，背面寫什麼都不會違約。不用翻。' },
+  { face: '4', back: 'U', could: ['TT', 'FT'], flip: false, why: '已經是偶數了。背面是母音，規則有守住；是子音，規則管不到。怎樣都不會違約，不用翻。' },
+  { face: '7', back: 'E', could: ['TF', 'FF'], flip: true, why: '不是偶數。萬一背面是母音，規則就被打破了。要翻。' },
 ];
 
 const LIFE = [
@@ -70,7 +70,7 @@ const LIFE = [
 
         @if (!committed()) {
           <p class="pf-q">要確定規則有沒有被打破，<b>最少</b>要翻哪幾張？</p>
-          <p class="pf-note">點選要翻的卡，再按「就翻這幾張」。</p>
+          <p class="pf-note">點你要翻的卡，選好再按「就翻這幾張」。</p>
           <div class="pf-row"><button type="button" class="pf-btn primary" (click)="commit()">就翻這幾張</button></div>
         }
 
@@ -80,7 +80,7 @@ const LIFE = [
               <p class="pf-feedback" [class.good]="m.tone === 'good'" [class.you]="m.tone === 'you'" role="status">{{ m.text }}</p>
             }
             <p class="pf-p">
-              用四格圖看：P 是「一面是母音」，Q 是「另一面是偶數」。每張卡背面有兩種可能，所以它<b>可能</b>落在兩格裡的一格；格子裡的「A?」表示 A 可能在這一格。只有可能落進違約格的卡，才需要翻。
+              放到四格圖上看：上排是「一面是母音」，左欄是「另一面是偶數」。你還不知道背面是什麼，所以每張卡都有兩格<b>可能</b>去；格子裡寫「A?」，意思是 A 翻開後可能落在這裡。只有可能掉進違約格的卡，才值得翻。
             </p>
             <app-pf-grid4 p="一面是母音" q="另一面是偶數" [view]="couldView" />
             <ul class="why">
@@ -92,7 +92,7 @@ const LIFE = [
               <div class="pf-row"><button type="button" class="pf-btn primary" (click)="flip()">把四張都翻開</button></div>
             } @else {
               <p class="pf-feedback bad pf-rise" role="status">
-                7 的背面是 E：一面是母音，另一面卻不是偶數。規則被打破了，抓到它的是 7，不是 4。{{ picks().has('7') ? '你翻了 7，抓到了。' : '你沒翻 7，就會錯過這張。' }}
+                7 的背面是 E。E 是母音，另一面的 7 卻不是偶數，規則被打破了。抓到它的是 7，不是 4。{{ picks().has('7') ? '你有翻 7，抓到了。' : '如果不翻 7，就會放過這張。' }}
               </p>
             }
           </div>
@@ -106,7 +106,7 @@ const LIFE = [
               <small>規則</small>
               <p>如果在喝酒，就必須滿 18 歲。</p>
             </div>
-            <p class="pf-p">每張卡一面寫這個人在喝什麼，另一面寫年齡。要確定有沒有人違規，最少要翻哪幾張？</p>
+            <p class="pf-p">每張卡代表一位客人，一面寫在喝什麼，另一面寫年齡。要確定沒有人違規，最少要翻哪幾張？</p>
             <div class="cards">
               @for (c of life; track c.face) {
                 <button
@@ -129,7 +129,7 @@ const LIFE = [
                 <p class="pf-feedback" [class.good]="m.tone === 'good'" [class.you]="m.tone === 'you'" role="status">{{ m.text }}</p>
               }
               <table class="pf-table pair">
-                <tr><th>四格裡的位置</th><th>字母卡</th><th>酒吧</th><th></th></tr>
+                <tr><th>在四格圖的哪裡</th><th>字母卡</th><th>酒吧</th><th></th></tr>
                 @for (c of life; track c.face) {
                   <tr [class.must]="c.flip">
                     <td>{{ c.role }}</td>
@@ -140,18 +140,18 @@ const LIFE = [
                 }
               </table>
               <p class="pf-p">
-                兩題結構一模一樣：要翻的都是「P 成立」和「Q 不成立」的那兩張。酒吧版本比較容易，是因為你自然會去找違規的人；字母版本也該這樣找。
+                兩題的結構一模一樣：該翻的都是「P 成立」和「Q 不成立」那兩張。酒吧版本比較好答，因為你本來就會去抓可能違規的人；字母題也該這樣抓。
               </p>
               <div class="pf-takeaway reveal">
                 <small>帶走這一句</small>
-                <p>檢查「若 P 則 Q」，<br />只看可能落進違約格的：<br />P 成立的，和 Q 不成立的。</p>
+                <p>檢查「若 P 則 Q」，<br />只要查可能掉進違約格的：<br />P 成立的，和 Q 不成立的。</p>
               </div>
               <details class="pf-why">
                 <summary>為什麼大多數人會翻 4？</summary>
                 <div>
                   <p>這是心理學家 Wason 在 1966 年設計的選卡任務（Wason selection task）。在原始實驗裡，大多數人選 A 和 4，選對 A 和 7 的人很少。</p>
-                  <p>翻 4 是在找「支持規則的例子」：背面是母音，看起來像證實了規則。但第 1 章說過，例子再多也證明不了規則；能推翻規則的只有違約的那一張。這種偏好叫確認偏誤（confirmation bias）。</p>
-                  <p>喝酒年齡的版本由 Griggs 與 Cox 在 1982 年提出，答對的人多很多，雖然邏輯結構完全相同。</p>
+                  <p>翻 4，是想找一個「支持規則的例子」：如果背面是母音，好像就證實了規則。可是第 1 章說過，例子再多也證明不了規則，能推翻規則的只有違約的那一張。這種只找支持證據的傾向，叫做確認偏誤（confirmation bias）。</p>
+                  <p>喝酒年齡的版本是 Griggs 和 Cox 在 1982 年提出的。邏輯結構完全一樣，答對的人卻多了很多。</p>
                 </div>
               </details>
             }
@@ -198,11 +198,11 @@ export class SceneWasonComponent {
     const p = this.picks();
     this.committed.set(true);
     if (same(p, ['A', '7'])) {
-      this.commitMsg.set({ tone: 'good', text: 'A 和 7，對。這題大多數人會答錯。' });
+      this.commitMsg.set({ tone: 'good', text: '對，是 A 和 7。這題大部分人都會答錯。' });
     } else if (same(p, ['A', '4'])) {
-      this.commitMsg.set({ tone: 'you', text: '這是最常見的答案：A 和 4。A 對了，但 4 翻了也抓不到違約，該翻的是 7。' });
+      this.commitMsg.set({ tone: 'you', text: '你選了 A 和 4，這是最常見的答案。A 選對了，可是 4 翻開也抓不到違規；該翻的是 7。' });
     } else {
-      this.commitMsg.set({ tone: 'you', text: `你選了${p.size ? [...p].join('、') : '不翻'}。該翻的是 A 和 7，理由在四格圖下面。` });
+      this.commitMsg.set({ tone: 'you', text: `${p.size ? '你選了 ' + [...p].join('、') + '。' : '你一張都沒選。'}該翻的是 A 和 7，理由寫在四格圖下面。` });
     }
   }
 
@@ -215,8 +215,8 @@ export class SceneWasonComponent {
     this.lifeDone.set(true);
     this.lifeMsg.set(
       same(p, ['喝啤酒', '16 歲'])
-        ? { tone: 'good', text: '喝啤酒的人要查年齡，16 歲的人要查在喝什麼。這次是不是容易很多？' }
-        : { tone: 'you', text: '該翻的是「喝啤酒」和「16 歲」：喝啤酒的人可能未滿 18，16 歲的人可能在喝酒。' },
+        ? { tone: 'good', text: '對。喝啤酒的要查年齡，16 歲的要查在喝什麼。這次是不是容易多了？' }
+        : { tone: 'you', text: '該翻的是「喝啤酒」和「16 歲」：喝啤酒的人可能還沒滿 18 歲，16 歲的人可能正在喝酒。' },
     );
     this.progress.markCompleted('proofs-ch3', '3');
   }

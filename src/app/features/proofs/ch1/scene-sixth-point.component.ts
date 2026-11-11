@@ -113,7 +113,7 @@ type Phase = 'bet' | 'place' | 'count' | 'done';
           @case ('done') {
             <p class="pf-feedback" [class.bad]="bet() !== 31" [class.good]="bet() === 31" role="status">
               @if (bet() === 31) {
-                你寫的就是 31。你也許聽過這題，也許只是沒有相信加倍。不管是哪一種，光看前五個例子，都無法確定第六個。
+                你寫的就是 31。你也許聽過這題，也許只是不太相信它會一直加倍。不管是哪一種，光看前五個例子，都無法確定第六個。
               } @else {
                 你寫下 <b class="pf-num">{{ bet() }}</b>，實際是 <b class="pf-num">31</b>。前五個例子都很聽話，第六個沒有。
               }
