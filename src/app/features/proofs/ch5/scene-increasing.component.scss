@@ -1,0 +1,35 @@
+.tight { gap: 14px; }
+
+.plot-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  gap: 28px;
+}
+.plot {
+  width: 560px;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--pf-rule);
+  border-radius: 12px;
+  background: var(--pf-card);
+}
+.grid { stroke: var(--pf-rule); stroke-width: 1; }
+.axis { stroke: var(--pf-ink-2); stroke-width: 1.5; }
+.tick { font: 500 14px var(--pf-mono); fill: var(--pf-ink-3); }
+.fname { font: italic 700 20px var(--pf-serif); fill: var(--pf-ink); }
+.lab { font: 700 16px var(--pf-mono); fill: var(--pf-ink); }
+.curve { fill: none; stroke: var(--pf-ink); stroke-width: 3; stroke-linejoin: round; }
+.drop { stroke-width: 1.5; stroke-dasharray: 4 4; }
+.pt.a { circle { fill: var(--pf-blue); } .drop { stroke: var(--pf-blue); } }
+.pt.b { rect { fill: var(--pf-amber); } .drop { stroke: var(--pf-amber); } }
+
+.ctrl { display: grid; gap: 16px; min-width: 260px; }
+.sl {
+  display: grid;
+  gap: 6px;
+  font: 600 16px var(--pf-sans);
+  input { width: 260px; accent-color: var(--pf-ink); }
+  input:focus-visible { outline: 3px solid var(--pf-amber); outline-offset: 3px; }
+}
+.vals td { font-size: 16px; }

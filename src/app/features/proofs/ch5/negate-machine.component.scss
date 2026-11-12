@@ -1,0 +1,60 @@
+:host { display: grid; gap: 16px; justify-items: start; }
+
+.nm-lines {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 16px 20px;
+  list-style: none;
+  border: 1px solid var(--pf-rule-strong);
+  border-radius: 10px;
+  background: var(--pf-card);
+  justify-self: stretch;
+}
+.nm-line {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  align-items: center;
+  opacity: 0.62;
+  &.cur, &:last-child { opacity: 1; }
+}
+.nm-eq { font: 700 20px var(--pf-serif); color: var(--pf-ink-3); }
+.nm-chips { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+
+.nm-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  font: 700 18px/1.4 var(--pf-serif);
+  color: var(--pf-ink);
+  > b { font: 700 17px var(--pf-serif); color: var(--pf-ink-3); }
+  // Quantifier chips: same dashed/solid language as the move strip.
+  &.forall { border: 2px dashed var(--pf-ink-2); }
+  &.exists { border: 2px solid var(--pf-amber); }
+  &.body { border: 1px solid var(--pf-rule-strong); background: var(--pf-paper-2); }
+  // 並非: a red block with its own word, not only a colour.
+  &.neg {
+    border: 2px solid var(--pf-red);
+    background: var(--pf-red-soft);
+    color: var(--pf-red);
+    > b { color: var(--pf-red); }
+  }
+  &.fresh { box-shadow: 0 3px 0 -1px var(--pf-amber); }
+}
+.nm-fresh {
+  font: 700 11px var(--pf-sans);
+  letter-spacing: 0.04em;
+  color: var(--pf-amber);
+}
+
+.nm-ask { font-size: 21px; }
+.nm-opts { display: grid; gap: 10px; justify-items: start; }
+
+.nm-games {
+  display: grid;
+  gap: 14px;
+  > div { display: grid; gap: 6px; }
+  small { font-size: 12px; letter-spacing: 0.14em; color: var(--pf-ink-3); }
+}

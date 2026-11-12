@@ -1,0 +1,64 @@
+.tight { gap: 14px; }
+
+.cands { display: grid; gap: 10px; }
+.cand {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 16px 10px 12px;
+  border: 1px solid var(--pf-rule-strong);
+  border-radius: 10px;
+  background: var(--pf-card);
+  &.out { border-style: dashed; .ctext { text-decoration: line-through; text-decoration-color: var(--pf-red); color: var(--pf-ink-3); } .cstate { color: var(--pf-red); } }
+  &.kept { border: 2px solid var(--pf-blue); .cstate { color: var(--pf-blue); } }
+}
+.ctext { font: 700 19px/1.5 var(--pf-serif); }
+.cstate { font: 600 14px var(--pf-sans); color: var(--pf-ink-2); text-align: right; }
+.here { color: var(--pf-ink-2); }
+
+.klass {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  gap: 32px;
+}
+.cls {
+  th { text-align: center; padding: 6px 8px; }
+  th[scope='row'] { font: 700 18px var(--pf-serif); color: var(--pf-ink); letter-spacing: 0; padding-right: 14px; }
+  td { padding: 4px; border-bottom: 0; }
+}
+.cell {
+  width: 112px;
+  height: 52px;
+  border: 1.5px solid var(--pf-rule-strong);
+  border-radius: 8px;
+  background: var(--pf-card);
+  color: var(--pf-ink-2);
+  font: 600 15px var(--pf-sans);
+  cursor: pointer;
+  &:hover:not(:disabled) { border-color: var(--pf-ink); }
+  &.fail { border: 2px solid var(--pf-red); background: var(--pf-red-soft); color: var(--pf-red); font-weight: 700; }
+  &:disabled { cursor: default; }
+  &:focus-visible { outline: 3px solid var(--pf-amber); outline-offset: 2px; }
+}
+.status {
+  display: grid;
+  gap: 6px;
+  min-width: 220px;
+  padding-top: 8px;
+  small { font-size: 12px; letter-spacing: 0.14em; color: var(--pf-ink-3); }
+  p { margin: 0; font: 600 18px var(--pf-serif); }
+  .pf-note { font: 400 14px/1.6 var(--pf-sans); }
+}
+
+.ex-tag {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 1px 8px;
+  border: 1.5px solid var(--pf-graphite);
+  border-radius: 4px;
+  color: var(--pf-graphite);
+  font: 700 12px var(--pf-sans);
+  letter-spacing: 0.06em;
+}

@@ -24,6 +24,11 @@ import { SceneYouFirstComponent } from './ch4/scene-you-first.component';
 import { SceneWorldComponent } from './ch4/scene-world.component';
 import { SceneHiddenComponent } from './ch4/scene-hidden.component';
 import { SceneSwapComponent } from './ch4/scene-swap.component';
+import { SceneNotEveryComponent } from './ch5/scene-not-every.component';
+import { SceneSwapRolesComponent } from './ch5/scene-swap-roles.component';
+import { SceneExactComponent } from './ch5/scene-exact.component';
+import { SceneBreakComponent } from './ch5/scene-break.component';
+import { SceneIncreasingComponent } from './ch5/scene-increasing.component';
 
 @Component({
   selector: 'app-proofs-chapter',
@@ -50,6 +55,11 @@ import { SceneSwapComponent } from './ch4/scene-swap.component';
     SceneWorldComponent,
     SceneHiddenComponent,
     SceneSwapComponent,
+    SceneNotEveryComponent,
+    SceneSwapRolesComponent,
+    SceneExactComponent,
+    SceneBreakComponent,
+    SceneIncreasingComponent,
   ],
   encapsulation: ViewEncapsulation.None,
   styleUrls: ['./proofs-shell.scss', './proofs-kit.scss'],
@@ -102,6 +112,11 @@ import { SceneSwapComponent } from './ch4/scene-swap.component';
             @case ('ch4/3') { <app-pf-world /> }
             @case ('ch4/4') { <app-pf-hidden /> }
             @case ('ch4/5') { <app-pf-swap /> }
+            @case ('ch5/1') { <app-pf-not-every /> }
+            @case ('ch5/2') { <app-pf-swap-roles /> }
+            @case ('ch5/3') { <app-pf-exact /> }
+            @case ('ch5/4') { <app-pf-break /> }
+            @case ('ch5/5') { <app-pf-increasing /> }
           }
         } @else {
           <section class="pf-col" style="max-width: 640px">

@@ -65,7 +65,13 @@ export const PROOFS_PARTS: ProofsPart[] = [
         { num: 4, title: '藏起來的量詞' },
         { num: 5, title: '換你當對手' },
       ]),
-      ch(5, '否定就是交換角色', '「不是所有」不等於「所有都不」。'),
+      ch(5, '否定就是交換角色', '「不是所有」不等於「所有都不」。', [
+        { num: 1, title: '不是每個' },
+        { num: 2, title: '換人出招' },
+        { num: 3, title: '翻得剛好' },
+        { num: 4, title: '打破承諾' },
+        { num: 5, title: '遞增函數' },
+      ]),
     ],
   },
   {
