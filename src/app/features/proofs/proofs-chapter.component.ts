@@ -29,6 +29,12 @@ import { SceneSwapRolesComponent } from './ch5/scene-swap-roles.component';
 import { SceneExactComponent } from './ch5/scene-exact.component';
 import { SceneBreakComponent } from './ch5/scene-break.component';
 import { SceneIncreasingComponent } from './ch5/scene-increasing.component';
+import { SceneMidProofComponent } from './ch6/scene-mid-proof.component';
+import { SceneFirstMoveComponent } from './ch6/scene-first-move.component';
+import { SceneGivensComponent } from './ch6/scene-givens.component';
+import { SceneWhoDecidesComponent } from './ch6/scene-who-decides.component';
+import { SceneMeetComponent } from './ch6/scene-meet.component';
+import { SceneTransferComponent } from './ch6/scene-transfer.component';
 
 @Component({
   selector: 'app-proofs-chapter',
@@ -60,6 +66,12 @@ import { SceneIncreasingComponent } from './ch5/scene-increasing.component';
     SceneExactComponent,
     SceneBreakComponent,
     SceneIncreasingComponent,
+    SceneMidProofComponent,
+    SceneFirstMoveComponent,
+    SceneGivensComponent,
+    SceneWhoDecidesComponent,
+    SceneMeetComponent,
+    SceneTransferComponent,
   ],
   encapsulation: ViewEncapsulation.None,
   styleUrls: ['./proofs-shell.scss', './proofs-kit.scss'],
@@ -117,6 +129,12 @@ import { SceneIncreasingComponent } from './ch5/scene-increasing.component';
             @case ('ch5/3') { <app-pf-exact /> }
             @case ('ch5/4') { <app-pf-break /> }
             @case ('ch5/5') { <app-pf-increasing /> }
+            @case ('ch6/1') { <app-pf-mid-proof /> }
+            @case ('ch6/2') { <app-pf-first-move /> }
+            @case ('ch6/3') { <app-pf-givens /> }
+            @case ('ch6/4') { <app-pf-who-decides /> }
+            @case ('ch6/5') { <app-pf-meet /> }
+            @case ('ch6/6') { <app-pf-transfer /> }
           }
         } @else {
           <section class="pf-col" style="max-width: 640px">

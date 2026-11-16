@@ -1,0 +1,196 @@
+:host { display: block; }
+
+.pb { display: grid; gap: 18px 28px; align-items: start; }
+.pb.has-side { grid-template-columns: minmax(0, 1fr) 400px; }
+.pb-main { display: grid; gap: 18px; min-width: 0; }
+.pb-side { display: grid; gap: 16px; position: sticky; top: 16px; }
+
+.pb-board {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  border: 1.5px solid var(--pf-ink);
+  border-radius: 14px;
+  background: var(--pf-card);
+  min-height: 180px;
+}
+.pb-col {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  padding: 16px 20px 22px;
+  h3 { margin: 0; font: 600 12px var(--pf-sans); letter-spacing: 0.2em; color: var(--pf-ink-3); }
+  &.goal { border-left: 1.5px solid var(--pf-ink); }
+}
+.pb-empty { margin: 0; font-size: 15px; color: var(--pf-ink-3); }
+.pb-text { font: 700 18px/1.55 var(--pf-serif); }
+
+// Letters on the board. Shape and words mark the identity, colour only helps.
+.pb-objs { display: flex; flex-wrap: wrap; gap: 14px 12px; margin: 0; padding: 4px 0 0; list-style: none; }
+.pb-obj {
+  display: grid;
+  justify-items: start;
+  gap: 2px;
+  padding: 6px 12px 7px;
+  background: var(--pf-card);
+  b { font: 700 21px var(--pf-mono); }
+  small { font: 600 12px var(--pf-sans); letter-spacing: 0.02em; color: var(--pf-ink-3); white-space: nowrap; }
+  &.arb { border: 2px dashed var(--pf-ink-2); border-radius: 8px; }
+  &.got { border: 2px solid var(--pf-graphite); border-left-width: 7px; border-radius: 4px 10px 10px 4px; small { color: var(--pf-graphite); } }
+  &.chosen { border: 2.5px solid var(--pf-amber); border-radius: 2px; small { color: var(--pf-amber); } }
+}
+
+.pb-hyps { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.pb-hyp {
+  display: grid;
+  grid-template-columns: 34px auto minmax(0, 1fr);
+  column-gap: 10px;
+  align-items: baseline;
+  padding: 4px 8px;
+  border-radius: 6px;
+  .pb-text { grid-column: 2 / -1; }
+  // A used given shrinks to one faded line: what it said, and what it became.
+  &.used { opacity: 0.5; padding: 1px 8px; .pb-text { grid-column: 2; font-size: 14px; font-weight: 600; } }
+  &.fresh { background: var(--pf-amber-soft); }
+}
+.pb-id { font: 700 13px var(--pf-mono); color: var(--pf-ink-3); }
+.pb-used { font: 500 12px var(--pf-sans); color: var(--pf-ink-3); }
+
+.pb-goal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1.5px solid var(--pf-rule-strong);
+  border-radius: 8px;
+  .pb-text { font-size: 20px; }
+  &.fresh { background: var(--pf-amber-soft); }
+  &.done { border-color: var(--pf-blue); background: var(--pf-blue-soft); }
+}
+.pb-shape { font: 600 12px var(--pf-sans); color: var(--pf-ink-3); white-space: nowrap; }
+.pb-check { display: block; margin-top: 4px; font: 600 14px var(--pf-mono); color: var(--pf-ink-2); }
+.pb-past {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0 0 0 14px;
+  list-style: none;
+  border-left: 2px solid var(--pf-rule);
+  li { opacity: 0.5; .pb-text { font-size: 14px; font-weight: 600; } }
+  li::before { content: '原本 · '; font: 500 11px var(--pf-sans); color: var(--pf-ink-3); }
+}
+
+// 6.5: the two rows that meet in the middle.
+.pb-bridge {
+  display: grid;
+  gap: 8px;
+  padding: 14px 18px;
+  border: 1px dashed var(--pf-rule-strong);
+  border-radius: 10px;
+}
+.pb-brow {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  min-height: 40px;
+  small { font: 600 12px var(--pf-sans); letter-spacing: 0.06em; color: var(--pf-ink-3); }
+  .pf-num { font-size: 21px; font-weight: 600; }
+  &.back .pf-num { color: var(--pf-ink); }
+  &.mid { border-top: 1.5px solid var(--pf-ink); padding-top: 10px; small { color: var(--pf-amber); } }
+}
+
+.pb-deck { display: grid; gap: 12px; }
+.pb-row { display: grid; gap: 8px; }
+.pb-sidelabel { font: 600 12px var(--pf-sans); letter-spacing: 0.1em; color: var(--pf-ink-3); }
+.pb-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.pb-card {
+  appearance: none;
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  padding: 10px 12px 12px;
+  border: 1.5px solid var(--pf-rule-strong);
+  border-radius: 10px;
+  background: var(--pf-card);
+  color: var(--pf-ink);
+  text-align: left;
+  cursor: pointer;
+  b { font: 700 17px var(--pf-serif); }
+  small { font: 500 12.5px/1.5 var(--pf-sans); color: var(--pf-ink-2); }
+  &:hover { border-color: var(--pf-ink); }
+  &.on { border-color: var(--pf-amber); border-width: 2.5px; padding: 9px 11px 11px; }
+  &:focus-visible { outline: 3px solid var(--pf-amber); outline-offset: 2px; }
+}
+.pb-card-top { display: flex; align-items: center; justify-content: space-between; > span:first-child { display: flex; align-items: center; gap: 6px; } }
+.pb-card .pb-on { font: 700 11px var(--pf-sans); color: var(--pf-amber); }
+kbd {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--pf-rule-strong);
+  border-radius: 4px;
+  font: 600 11px var(--pf-mono);
+  color: var(--pf-ink-3);
+}
+.pb-card-shape {
+  padding: 1px 8px;
+  border-radius: 5px;
+  font: 700 12px var(--pf-serif);
+  border: 1px solid var(--pf-rule-strong);
+  // Same frame language as the letters and the move strip: dashed = opponent, solid amber = yours.
+  &.intro { border: 1.5px dashed var(--pf-ink-2); }
+  &.witness { border: 1.5px solid var(--pf-amber); }
+  &.obtain { border: 1.5px solid var(--pf-graphite); border-left-width: 4px; }
+}
+
+.pb-ask {
+  display: grid;
+  gap: 8px;
+  padding: 14px 18px;
+  border-left: 3px solid var(--pf-amber);
+  background: var(--pf-amber-soft);
+  border-radius: 0 8px 8px 0;
+  .pf-q.small { font-size: 18px; }
+  .pf-input { width: 64px; font-size: 22px; }
+  .pf-input.wide { width: 220px; }
+}
+
+.pb-logbox { display: grid; gap: 8px; }
+.pb-loghead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  small { font: 600 12px var(--pf-sans); letter-spacing: 0.16em; color: var(--pf-ink-3); }
+}
+.pb-log {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 8px 12px;
+  list-style: none;
+  border: 1px solid var(--pf-rule);
+  border-radius: 10px;
+  li {
+    display: grid;
+    grid-template-columns: 26px minmax(0, 1fr) auto;
+    gap: 10px;
+    align-items: baseline;
+    padding: 4px 0;
+    border-bottom: 1px solid var(--pf-rule);
+    &:last-child { border-bottom: 0; }
+    &.prefix { opacity: 0.6; }
+  }
+  .pb-text { font: 500 15px/1.6 var(--pf-sans); }
+}
+.pb-n { font-size: 13px; color: var(--pf-ink-3); }
+.pb-tag {
+  padding: 1px 8px;
+  border: 1px solid var(--pf-rule-strong);
+  border-radius: 999px;
+  font: 600 12px var(--pf-sans);
+  color: var(--pf-ink-3);
+  white-space: nowrap;
+  &.idea { border-color: var(--pf-amber); background: var(--pf-amber); color: var(--pf-paper); }
+}

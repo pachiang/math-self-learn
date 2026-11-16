@@ -187,7 +187,7 @@ const sy = (y: number) => Y0 - ((Y0 - Y1) * y) / 4;
               </div>
             </details>
             <p class="pf-note">
-              第 25 章的 ε–N 定義有三層量詞，否定它用的是同一台機器。下一章正式引入證明狀態板：<a routerLink="/learn/proofs">第 6 章「目標的形狀決定第一步」</a>還在規畫中。
+              第 25 章的 ε–N 定義有三層量詞，否定它用的是同一台機器。下一章正式引入證明狀態板：<a routerLink="/learn/proofs/ch6/1">前往第 6 章「目標的形狀決定第一步」→</a>
             </p>
           </div>
         }
