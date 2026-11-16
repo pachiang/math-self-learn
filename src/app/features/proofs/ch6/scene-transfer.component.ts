@@ -69,7 +69,7 @@ import { ProofBoardComponent } from '../board/proof-board.component';
               </div>
             </details>
             <p class="pf-note">
-              下一章：中段不一定只有一行代數。第 7 章把已知與目標都展開成定義，再搭一座橋，證人會依賴好幾個拿到的字母。<a routerLink="/learn/proofs">第 7 章「中段：從定義走到定義」</a>還在規畫中。
+              下一章：中段不一定只有一行代數。第 7 章把已知與目標都展開成定義，再搭一座橋，證人會依賴好幾個拿到的字母。<a routerLink="/learn/proofs/ch7/1">前往第 7 章「中段：從定義走到定義」</a>
             </p>
           </div>
         }

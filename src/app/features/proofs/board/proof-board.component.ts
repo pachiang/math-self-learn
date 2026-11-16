@@ -4,23 +4,33 @@ import {
   BoardStart,
   BoardState,
   CARDS,
+  CH6_CARDS,
   CardId,
+  Def,
   GivenCard,
   GoalCard,
   Move,
   Obj,
   applyMove,
   bridgeOf,
+  defsFor,
   givensFor,
+  lemmaPairs,
+  Stmt,
   replay,
   shapeName,
   stmtText,
 } from './board-model';
-import { fmtExpr } from './poly';
+import { ExprNode } from '../ch2/ch2-expr';
+import { exprVars, fmtExpr, substExpr } from './poly';
 
-const ALL_CARDS: CardId[] = ['intro', 'assume', 'unfoldGoal', 'witness', 'check', 'split', 'unfold', 'obtain'];
+const ALL_CARDS: CardId[] = ['intro', 'assume', 'unfoldGoal', 'witness', 'check', 'exact', 'split', 'unfold', 'obtain', 'lemma'];
 
-type Pending = { card: 'witness' } | { card: 'obtain'; h: string | null } | { card: 'pick'; of: GivenCard; hs: string[] };
+type Pending =
+  | { card: 'witness' }
+  | { card: 'obtain'; h: string | null }
+  | { card: 'pick'; of: GivenCard; hs: string[] }
+  | { card: 'pairs'; pairs: { h1: string; h2: string; out: Stmt }[] };
 
 /**
  * The proof state board: givens on the left (letters with identity marks, then H1, H2, …),
@@ -106,18 +116,42 @@ type Pending = { card: 'witness' } | { card: 'obtain'; h: string | null } | { ca
                 <button type="button" class="pf-btn small" (click)="showBack.set(true)">往回看目標</button>
               }
             </div>
-            <div class="pb-brow fwd" [class.shown]="showFwd()">
-              <small>往前 · 已知能給的</small>
-              @if (showFwd()) {
-                <span class="pf-num">{{ b.left }} = {{ b.fwd ?? b.left }}</span>
-              } @else {
-                <button type="button" class="pf-btn small" (click)="showFwd.set(true)">往前推已知</button>
-              }
-            </div>
-            @if (showBack() && showFwd()) {
+            @if (manual()) {
+              <div class="pb-brow fwd shown">
+                <small>往前 · 一次代入一條已知</small>
+                <div class="pb-chain">
+                  <span class="pf-num">{{ chainText() }}</span>
+                  @if (!frozen()) {
+                  <div class="pf-row" role="group" aria-label="代入哪一條已知">
+                    @for (d of chainDefs(); track d.h + d.v) {
+                      <button type="button" class="pf-btn small" (click)="subst(d)">
+                        用 {{ d.h }} 換掉 {{ d.v }}（{{ d.v }} = {{ fmt(d.node) }}{{ d.solved ? '，從 ' + d.h + ' 移項' : '' }}）
+                      </button>
+                    }
+                    @if (chain().length > 1) {
+                      <button type="button" class="pf-btn ghost small" (click)="chain.update((c) => c.slice(0, -1))">退回一格</button>
+                    }
+                  </div>
+                  }
+                  @if (!chainDefs().length && !frozen()) {
+                    <small class="pb-chain-end">{{ chain().length > 1 ? '式子裡的字母都沒有已知可以再代入了。' : '式子裡的字母，已知裡都沒有可以代入的等式。' }}</small>
+                  }
+                </div>
+              </div>
+            } @else {
+              <div class="pb-brow fwd" [class.shown]="showFwd()">
+                <small>往前 · 已知能給的</small>
+                @if (showFwd()) {
+                  <span class="pf-num">{{ b.left }} = {{ b.fwd ?? b.left }}</span>
+                } @else {
+                  <button type="button" class="pf-btn small" (click)="showFwd.set(true)">往前推已知</button>
+                }
+              </div>
+            }
+            @if (showBack() && (manual() ? chain().length > 1 : showFwd())) {
               <div class="pb-brow mid pf-rise">
                 <small>中間 · 兩邊碰頭</small>
-                <span class="pf-num">{{ b.fwd ?? b.left }} = {{ b.back }}</span>
+                <span class="pf-num">{{ manual() ? chainLast() : (b.fwd ?? b.left) }} = {{ b.back }}</span>
               </div>
             }
           </div>
@@ -167,12 +201,19 @@ type Pending = { card: 'witness' } | { card: 'obtain'; h: string | null } | { ca
                   </div>
                 </div>
               }
-              <p class="pf-note">第 6 章開放的卡。之後的章節還會加卡（引用定理、逆否、歸納……）。焦點在板上時，可以按數字鍵出卡。</p>
+              <p class="pf-note">{{ deckNote() }}焦點在板上時，可以按數字鍵出卡。</p>
             </div>
 
             @if (pending(); as p) {
               <div class="pb-ask pf-rise">
-                @if (p.card === 'pick') {
+                @if (p.card === 'pairs') {
+                  <p class="pf-q small">「引用定理」要用在哪兩條已知？</p>
+                  <div class="pf-row">
+                    @for (x of p.pairs; track x.h1 + x.h2) {
+                      <button type="button" class="pf-btn small" (click)="commitLemma(x.h1, x.h2)">{{ x.h1 }}、{{ x.h2 }} ⇒ {{ text(x.out) }}</button>
+                    }
+                  </div>
+                } @else if (p.card === 'pick') {
                   <p class="pf-q small">「{{ info(p.of).name }}」要用在哪一條已知？</p>
                   <div class="pf-row">
                     @for (h of p.hs; track h) {
@@ -230,9 +271,11 @@ export class ProofBoardComponent {
   readonly start = input.required<BoardStart>();
   /** Moves already made before the learner takes over (shown in the log, not undoable). */
   readonly prefix = input<Move[]>([]);
-  readonly deck = input<CardId[]>(ALL_CARDS);
+  readonly deck = input<CardId[]>(CH6_CARDS);
+  readonly deckNote = input('第 6 章開放的卡。之後的章節還會加卡（引用定理、逆否、歸納……）。');
   readonly frozen = input(false);
-  readonly bridge = input(false);
+  /** true: the board expands the givens for you (ch6); 'manual': you substitute one given at a time (ch7). */
+  readonly bridge = input<boolean | 'manual'>(false);
   readonly showLog = input(true);
   readonly tags = input(true);
   readonly showShape = input(false);
@@ -259,6 +302,28 @@ export class ProofBoardComponent {
   readonly prefixCount = computed(() => replay(this.start(), this.prefix()).log.length);
   readonly pastRev = computed(() => [...this.st().past].reverse());
   readonly bridgeRows = computed(() => bridgeOf(this.st()));
+  readonly manual = computed(() => this.bridge() === 'manual');
+  /** The manual forward chain, starting from the goal's left side. Scratch work, not moves. */
+  readonly chain = signal<{ e: ExprNode; h?: string }[]>([]);
+  private readonly chainStart = computed(() => {
+    const g = this.st().goal;
+    return g && g.t === 'exists' && g.body.t === 'eq' ? g.body.l : null;
+  });
+  readonly chainText = computed(() => this.chain().map((x) => fmtExpr(x.e)).join(' = '));
+  readonly chainLast = computed(() => {
+    const c = this.chain();
+    return c.length ? fmtExpr(c[c.length - 1].e) : '';
+  });
+  /** Substitutions still on offer: a given used once in the chain is not offered again. */
+  readonly chainDefs = computed<Def[]>(() => {
+    const c = this.chain();
+    if (!c.length) return [];
+    const used = new Set(c.map((x) => x.h));
+    return exprVars(c[c.length - 1].e).flatMap((v) =>
+      defsFor(this.st(), v).filter((d) => !used.has(d.h) && !exprVars(d.node).includes(v)),
+    );
+  });
+  fmt = fmtExpr;
   readonly letters = computed(() => this.st().objs.map((o) => o.name).join('、') || '（還沒有）');
   readonly witnessVar = computed(() => {
     const g = this.st().goal;
@@ -295,6 +360,20 @@ export class ProofBoardComponent {
 
   constructor() {
     // A new start or prefix (e.g. 6.1 stepping) resets the learner's own moves.
+    // The scratch chain survives a refused witness (the goal is briefly an equation, then reverts)
+    // but restarts when the goal's left side or the givens it may use change.
+    let chainKey = '';
+    effect(() => {
+      const l = this.chainStart();
+      const hyps = this.st().hyps.map((h) => h.id + stmtText(h.s)).join('|');
+      untracked(() => {
+        if (!l) return;
+        const key = fmtExpr(l) + '#' + hyps;
+        if (key === chainKey) return;
+        chainKey = key;
+        this.chain.set([{ e: l }]);
+      });
+    });
     effect(() => {
       this.start();
       this.prefix();
@@ -310,7 +389,11 @@ export class ProofBoardComponent {
     return CARDS[c];
   }
   keyOf(c: CardId): string {
-    return String(this.order().indexOf(c) + 1);
+    return String((this.order().indexOf(c) + 1) % 10);
+  }
+
+  subst(d: Def): void {
+    this.chain.update((c) => [...c, { e: substExpr(c[c.length - 1].e, d.v, d.node), h: d.h }]);
   }
   text = stmtText;
   shape = shapeName;
@@ -331,9 +414,9 @@ export class ProofBoardComponent {
   onKey(ev: KeyboardEvent): void {
     const t = ev.target as HTMLElement;
     if (t.tagName === 'INPUT' || ev.metaKey || ev.ctrlKey || ev.altKey) return;
-    const n = Number(ev.key);
-    if (!Number.isInteger(n) || n < 1 || n > this.order().length) return;
-    if (this.frozen() || !this.st().goal) return;
+    if (!/^[0-9]$/.test(ev.key)) return;
+    const n = ev.key === '0' ? 10 : Number(ev.key);
+    if (n > this.order().length || this.frozen() || !this.st().goal) return;
     ev.preventDefault();
     this.play(this.order()[n - 1]);
   }
@@ -356,6 +439,21 @@ export class ProofBoardComponent {
         return;
       }
       this.commit({ card: c as Exclude<GoalCard, 'witness'> });
+      return;
+    }
+    if (c === 'lemma') {
+      const pairs = lemmaPairs(st);
+      if (!pairs.length) {
+        this.fail('已知裡找不到一對「x ∣ y、y ∣ z」：第一條的右邊要和第二條的左邊一樣，而且結論還不在板上。');
+        this.refused.emit({ card: c, code: 'none' });
+        return;
+      }
+      if (pairs.length === 1) {
+        this.commitLemma(pairs[0].h1, pairs[0].h2);
+        return;
+      }
+      this.msg.set(null);
+      this.pending.set({ card: 'pairs', pairs });
       return;
     }
     const hs = givensFor(st, c as GivenCard);
@@ -381,6 +479,10 @@ export class ProofBoardComponent {
       return;
     }
     this.commit(c === 'split' ? { card: 'split', h } : { card: 'unfold', h });
+  }
+
+  commitLemma(h1: string, h2: string): void {
+    this.commit({ card: 'lemma', h1, h2 });
   }
 
   submitName(h: string): void {

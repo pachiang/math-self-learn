@@ -1,5 +1,5 @@
 import { ExprNode, parseExpr } from '../ch2/ch2-expr';
-import { Poly, exprVars, fmtExpr, fmtPoly, peq, psubst, substExpr, toPoly } from './poly';
+import { Poly, exprVars, fmtExpr, fmtPoly, padd, peq, polyToExpr, psubst, pvar, substExpr, toPoly } from './poly';
 
 /**
  * The proof state board as data: statements are a small AST, every card is a pure
@@ -18,8 +18,8 @@ export type Stmt =
   | { t: 'pred'; p: Pred; args: ExprNode[] }
   | { t: 'eq'; l: ExprNode; r: ExprNode };
 
-export type GoalCard = 'intro' | 'assume' | 'unfoldGoal' | 'witness' | 'check';
-export type GivenCard = 'split' | 'unfold' | 'obtain';
+export type GoalCard = 'intro' | 'assume' | 'unfoldGoal' | 'witness' | 'check' | 'exact';
+export type GivenCard = 'split' | 'unfold' | 'obtain' | 'lemma';
 export type CardId = GoalCard | GivenCard;
 
 export type Move =
@@ -28,9 +28,11 @@ export type Move =
   | { card: 'unfoldGoal' }
   | { card: 'witness'; src: string }
   | { card: 'check' }
+  | { card: 'exact' }
   | { card: 'split'; h: string }
   | { card: 'unfold'; h: string }
-  | { card: 'obtain'; h: string; name: string };
+  | { card: 'obtain'; h: string; name: string }
+  | { card: 'lemma'; h1: string; h2: string };
 
 /** arb: introduced by 「令任意」, the opponent's; got: taken out of an 「存在」 given; chosen: your witness. */
 export interface Obj {
@@ -107,7 +109,12 @@ export function stmtText(s: Stmt, nested = false): string {
     case 'imp':
       return `若 ${stmtText(s.a, true)}，則 ${stmtText(s.b, true)}`;
     case 'and':
-      return nested ? `${stmtText(s.a, true)}而且 ${stmtText(s.b, true)}` : `${stmtText(s.a, true)}，而且 ${stmtText(s.b, true)}`;
+    {
+      const a = stmtText(s.a, true);
+      if (!nested) return `${a}，而且 ${stmtText(s.b, true)}`;
+      // Keep a space between a formula and 而且: 「a ∣ b 而且 b ∣ c」, but 「a 是偶數而且 …」.
+      return `${a}${/[a-z0-9)²³]$/.test(a) ? ' ' : ''}而且 ${stmtText(s.b, true)}`;
+    }
     case 'pred': {
       const [x, y] = s.args.map(fmtExpr);
       if (s.p === 'divides') return `${x} ∣ ${y}`;
@@ -156,7 +163,13 @@ export const CARDS: Record<CardId, CardInfo> = {
   split: { id: 'split', side: 'given', name: '拆開而且', shape: '而且', chip: 'P，而且 Q', line: '拆成兩條已知' },
   unfold: { id: 'unfold', side: 'given', name: '展開已知', shape: '定義詞', chip: '定義詞', line: '把已知換成定義說的話' },
   obtain: { id: 'obtain', side: 'given', name: '取出命名', shape: '存在', chip: '存在 k', line: '拿出那個整數，替它取名字' },
+  exact: { id: 'exact', side: 'goal', name: '對上已知', shape: '已知裡有', chip: '目標 ＝ 已知', line: '目標和某條已知一模一樣：完成' },
+  lemma: { id: 'lemma', side: 'given', name: '引用定理', shape: 'x ∣ y、y ∣ z', chip: '7.2 證過', line: '已知 x ∣ y、y ∣ z：得到 x ∣ z' },
 };
+
+/** The cards chapter 6 unlocks; later chapters add to this list. */
+export const CH6_CARDS: CardId[] = ['intro', 'assume', 'unfoldGoal', 'witness', 'check', 'split', 'unfold', 'obtain'];
+export const CH7_CARDS: CardId[] = [...CH6_CARDS, 'exact', 'lemma'];
 
 const fitsShape = (card: CardId, s: Stmt): boolean => {
   switch (card) {
@@ -174,6 +187,9 @@ const fitsShape = (card: CardId, s: Stmt): boolean => {
       return s.t === 'eq';
     case 'split':
       return s.t === 'and';
+    case 'exact':
+    case 'lemma':
+      return false;
   }
 };
 
@@ -227,13 +243,70 @@ function substStmt(s: Stmt, v: string, by: ExprNode): Stmt {
   }
 }
 
-/** Letter-for-letter definitions the board can substitute: givens of the form x = (…) with x a single letter. */
+/** Solve the equation l = r for the letter v when v appears only as ±v (degree 1, alone); null otherwise. */
+function solveFor(l: ExprNode, r: ExprNode, v: string): Poly | null {
+  const pl = toPoly(l);
+  const pr = toPoly(r);
+  if (!pl.ok || !pr.ok) return null;
+  const P = padd(pl.p, pr.p, -1);
+  const lin = `${v}1`;
+  const c = P.get(lin);
+  if (c !== 1 && c !== -1) return null;
+  for (const k of P.keys()) if (k !== lin && k.split('.').some((part) => part[0] === v)) return null;
+  const rest = padd(P, pvar(v), -c);
+  return c === 1 ? padd(new Map(), rest, -1) : rest;
+}
+
+export interface Def {
+  v: string;
+  h: string;
+  node: ExprNode;
+  /** True when the board had to solve the given for v (b + c = ak → b = ak − c). */
+  solved: boolean;
+}
+
+/** Every way the givens let you replace the letter v. */
+export function defsFor(st: BoardState, v: string): Def[] {
+  const out: Def[] = [];
+  for (const h of st.hyps) {
+    if (h.s.t !== 'eq') continue;
+    if (h.s.l.t === 'var' && h.s.l.name === v) {
+      out.push({ v, h: h.id, node: h.s.r, solved: false });
+      continue;
+    }
+    if (h.s.l.t === 'var') continue;
+    const p = solveFor(h.s.l, h.s.r, v);
+    if (p) out.push({ v, h: h.id, node: polyToExpr(p), solved: true });
+  }
+  return out;
+}
+
+/**
+ * Definitions the board substitutes when checking: givens x = (…) first, then other
+ * equations solved for a letter that is not yet defined (one letter per equation).
+ */
 function definitions(st: BoardState): Record<string, Poly> {
   const defs: Record<string, Poly> = {};
+  const rest: Extract<Stmt, { t: 'eq' }>[] = [];
   for (const h of st.hyps) {
-    if (h.s.t !== 'eq' || h.s.l.t !== 'var') continue;
+    if (h.s.t !== 'eq') continue;
+    if (h.s.l.t !== 'var') {
+      rest.push(h.s);
+      continue;
+    }
     const p = toPoly(h.s.r);
     if (p.ok) defs[h.s.l.name] = p.p;
+  }
+  for (const e of rest) {
+    const vars = [...new Set([...exprVars(e.l), ...exprVars(e.r)])];
+    for (const v of vars) {
+      if (v in defs) continue;
+      const p = solveFor(e.l, e.r, v);
+      if (p) {
+        defs[v] = p;
+        break;
+      }
+    }
   }
   return defs;
 }
@@ -291,9 +364,39 @@ export function wrongGoalCard(goal: Stmt, card: GoalCard): string {
   return `目標最外面一層是「${outer}」。「${c.name}」只能用在最外層是「${c.shape}」的目標上。${inner}`;
 }
 
+/** Pairs of givens that match the proved lemma x ∣ y, y ∣ z ⇒ x ∣ z (and whose conclusion is not on the board yet). */
+export function lemmaPairs(st: BoardState): { h1: string; h2: string; out: Stmt }[] {
+  const divs = st.hyps.filter((h) => h.s.t === 'pred' && h.s.p === 'divides');
+  const have = new Set(st.hyps.map((h) => stmtText(h.s)));
+  const out: { h1: string; h2: string; out: Stmt }[] = [];
+  for (const x of divs)
+    for (const y of divs) {
+      if (x === y) continue;
+      const [a, b] = (x.s as Extract<Stmt, { t: 'pred' }>).args;
+      const [b2, c] = (y.s as Extract<Stmt, { t: 'pred' }>).args;
+      if (fmtExpr(b) !== fmtExpr(b2)) continue;
+      const s: Stmt = { t: 'pred', p: 'divides', args: [a, c] };
+      if (!have.has(stmtText(s))) out.push({ h1: x.id, h2: y.id, out: s });
+    }
+  return out;
+}
+
 export function applyMove(st: BoardState, mv: Move): MoveResult {
   const c = CARDS[mv.card];
   if (!st.goal) return { ok: false, code: 'done', msg: '目標已經清空了，證明完成。' };
+
+  if (mv.card === 'exact') {
+    const g = stmtText(st.goal);
+    const h = st.hyps.find((x) => stmtText(x.s) === g);
+    if (!h) return { ok: false, code: 'none', msg: '已知裡沒有和目標一模一樣的句子。' };
+    return { ok: true, state: log(newGoal(st, null), 'exact', `目標就是 ${h.id}，完成`) };
+  }
+  if (mv.card === 'lemma') {
+    const pair = lemmaPairs(st).find((p) => p.h1 === mv.h1 && p.h2 === mv.h2);
+    if (!pair) return { ok: false, code: 'none', msg: '已知裡找不到一對「x ∣ y、y ∣ z」：第一條的右邊要和第二條的左邊一樣。' };
+    const [s1, id] = withHyp(st, pair.out);
+    return { ok: true, state: log(s1, 'lemma', `引用定理：${mv.h1}、${mv.h2} ⇒ ${id}：${stmtText(pair.out)}`) };
+  }
 
   if (c.side === 'goal') {
     const goal = st.goal;
@@ -356,10 +459,12 @@ export function applyMove(st: BoardState, mv: Move): MoveResult {
         const lt = fmtPoly(l);
         const rt = fmtPoly(r);
         if (!peq(l, r)) {
+          const w = st.objs.find((o) => o.kind === 'chosen' && o.def && !exprVars(o.def).length);
+          const fixed = w ? `${w.name} = ${fmtExpr(w.def!)} 是一個固定的數，最多只對特定幾組對手的出招成立；證人要用拿到的字母寫，才能跟著對手變。` : '';
           return {
             ok: false,
             code: 'neq',
-            msg: `代入已知之後，左邊 ${fmtExpr(g.l)} 展開是 ${lt}，右邊 ${fmtExpr(g.r)} 展開是 ${rt}。兩邊不一樣，所以這個證人不行。`,
+            msg: `代入已知之後，左邊 ${fmtExpr(g.l)} 展開是 ${lt}，右邊 ${fmtExpr(g.r)} 展開是 ${rt}。兩邊不一樣，所以這個證人不行。${fixed}`,
           };
         }
         const done: BoardState = { ...newGoal(st, null), checked: { lSrc: fmtExpr(g.l), rSrc: fmtExpr(g.r), both: lt } };
@@ -489,3 +594,44 @@ export function bridgeOf(st: BoardState): Bridge | null {
     fwd: forwardText(st, g.body.l),
   };
 }
+
+/** 對每個整數 a、b、c，若 a ∣ b 而且 b ∣ c，則 a ∣ c。 */
+export const DIV_TRANS: BoardStart = { goal: forall(['a', 'b', 'c'], imp(and(divides('a', 'b'), divides('b', 'c')), divides('a', 'c'))) };
+export const DIV_TRANS_OPENING: Move[] = [
+  { card: 'intro' },
+  { card: 'assume' },
+  { card: 'split', h: 'H1' },
+  { card: 'unfold', h: 'H2' },
+  { card: 'obtain', h: 'H4', name: 'k' },
+  { card: 'unfold', h: 'H3' },
+  { card: 'obtain', h: 'H6', name: 'l' },
+  { card: 'unfoldGoal' },
+];
+
+/** The false claim of 7.3: 若 a ∣ b + c，則 a ∣ b。 */
+export const DIV_SUM_FALSE: BoardStart = { goal: forall(['a', 'b', 'c'], imp(divides('a', 'b + c'), divides('a', 'b'))) };
+/** Its repair in 7.4: 若 a ∣ b + c 而且 a ∣ c，則 a ∣ b。 */
+export const DIV_SUM_FIXED: BoardStart = {
+  goal: forall(['a', 'b', 'c'], imp(and(divides('a', 'b + c'), divides('a', 'c')), divides('a', 'b'))),
+};
+
+/** 7.5: 若 a ∣ b、b ∣ c、c ∣ d，則 a ∣ d。 */
+export const DIV_CHAIN: BoardStart = {
+  goal: forall(['a', 'b', 'c', 'd'], imp(and(and(divides('a', 'b'), divides('b', 'c')), divides('c', 'd')), divides('a', 'd'))),
+};
+/** The same proof without the lemma: every letter taken out by hand. */
+export const DIV_CHAIN_BY_HAND: Move[] = [
+  { card: 'intro' },
+  { card: 'assume' },
+  { card: 'split', h: 'H1' },
+  { card: 'split', h: 'H2' },
+  { card: 'unfold', h: 'H4' },
+  { card: 'obtain', h: 'H6', name: 'k' },
+  { card: 'unfold', h: 'H5' },
+  { card: 'obtain', h: 'H8', name: 'l' },
+  { card: 'unfold', h: 'H3' },
+  { card: 'obtain', h: 'H10', name: 'j' },
+  { card: 'unfoldGoal' },
+  { card: 'witness', src: 'klj' },
+  { card: 'check' },
+];

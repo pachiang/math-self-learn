@@ -80,7 +80,9 @@
   li::before { content: '原本 · '; font: 500 11px var(--pf-sans); color: var(--pf-ink-3); }
 }
 
-// 6.5: the two rows that meet in the middle.
+// 6.5: the two rows that meet in the middle; 7.2: the manual chain.
+.pb-chain { display: grid; gap: 8px; justify-items: start; .pf-num { font-size: 21px; font-weight: 600; } }
+.pb-chain-end { font: 500 13px var(--pf-sans); color: var(--pf-ink-3); letter-spacing: 0; }
 .pb-bridge {
   display: grid;
   gap: 8px;
@@ -92,6 +94,7 @@
   display: grid;
   grid-template-columns: 150px minmax(0, 1fr);
   align-items: center;
+  &.fwd { align-items: start; > small { padding-top: 6px; } }
   gap: 12px;
   min-height: 40px;
   small { font: 600 12px var(--pf-sans); letter-spacing: 0.06em; color: var(--pf-ink-3); }

@@ -162,6 +162,8 @@
 }
 .pf-btn:focus-visible,
 .pf-input:focus-visible,
+.pf-root :is(.pf-p, .pf-note, .pf-lede) a { color: var(--pf-blue); text-underline-offset: 3px; }
+
 .pf-root a:focus-visible,
 .pf-focus:focus-visible {
   outline: 3px solid var(--pf-amber);

@@ -1,0 +1,74 @@
+// Chapter 7 scenes. Shared wide-scene rules come from ../ch6/ch6.scss.
+// Boards sit inside .c6-block here; give them the full scene width like in chapter 6.
+.pf-scene.solo.wide .c6-block > app-pf-board:not(.c6-sync) { max-width: none; }
+
+// The statement under discussion.
+.c7-claim {
+  justify-self: start;
+  padding: 12px 20px 14px;
+  border: 1px solid var(--pf-rule-strong);
+  border-radius: 8px;
+  background: var(--pf-card);
+  > small { display: block; font-size: 12px; letter-spacing: 0.12em; color: var(--pf-ink-3); }
+  > p { margin: 4px 0 0; font: 700 21px/1.6 var(--pf-serif); }
+}
+.c7-added {
+  padding: 0 4px;
+  background: var(--pf-amber-soft);
+  box-shadow: inset 0 -2px 0 var(--pf-amber);
+}
+
+// Number blanks: 12 = 3 × □, a counterexample, a guess.
+.c7-blanks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px 28px;
+  .pf-eqn { font-size: 22px; }
+  .pf-input { width: 88px; font: 600 22px var(--pf-mono); }
+}
+.c7-blank {
+  display: grid;
+  gap: 4px;
+  > small { font-size: 13px; color: var(--pf-ink-3); }
+}
+
+// 7.1 · the two ends of the bridge with the gap between.
+.c7-ends {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 18px;
+  max-width: 760px;
+  > div {
+    padding: 14px 18px;
+    border: 1px solid var(--pf-rule-strong);
+    border-radius: 8px;
+    background: var(--pf-card);
+  }
+  > div:last-child { border-style: dashed; }
+  small { display: block; margin-bottom: 4px; font-size: 12px; color: var(--pf-ink-3); }
+  .pf-num { margin: 0; font-size: 20px; line-height: 1.6; }
+}
+.c7-gap { font: 700 30px var(--pf-serif); color: var(--pf-amber); }
+
+// 7.3 · prediction and the missing piece.
+.c7-predict { display: flex; gap: 12px; }
+.c7-giveup { justify-self: start; }
+.c7-missing {
+  justify-self: start;
+  padding: 10px 18px;
+  border: 2px dashed var(--pf-amber);
+  border-radius: 8px;
+  > small { display: block; font-size: 12px; letter-spacing: 0.12em; color: var(--pf-ink-3); }
+  > p { margin: 2px 0 0; font: 700 19px var(--pf-serif); }
+}
+.c7-verdict { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+
+// 7.2 · 7.4 · 7.5 tables.
+.c7-dep, .c7-compare { max-width: 900px; }
+.c7-dep td.pf-num, .c7-compare td.pf-num { font-size: 17px; }
+.c7-compare .pf-seal { vertical-align: middle; margin-right: 6px; }
+.c7-compare { min-width: 620px; }
+.c7-compare th, .c7-compare td { text-align: left; padding-right: 32px; }
+.c7-compare td:first-child { color: var(--pf-ink-3); }

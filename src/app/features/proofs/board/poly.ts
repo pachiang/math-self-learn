@@ -150,12 +150,11 @@ function show(n: ExprNode, ctx: number): string {
       }
       if (n.op === '/') return wrap(`${show(n.a, 1)} / ${show(n.b, 2)}`, 1);
       // Juxtapose a leading number with a letter, power or bracket: 2m, 2k², 2(k + l); otherwise ×.
+      // Juxtapose when the right factor starts with a letter or a bracket: 2m, akl, 2(k + l), a(k − l); otherwise ×.
       const a = show(n.a, 1);
       const b = show(n.b, 2);
-      const leadNum = n.a.t === 'num' && n.a.v.n >= 0 && n.a.v.d === 1;
-      const bLetter = (n.b.t === 'var' && n.b.name !== '□') || n.b.t === 'pow' || b.startsWith('(');
-      const letters = n.a.t === 'var' && n.b.t === 'var';
-      if ((leadNum && bLetter) || letters) return wrap(a + b, 1);
+      const aOk = !a.includes('/') && !a.startsWith('(−');
+      if (aOk && /^[a-z(]/.test(b)) return wrap(a + b, 1);
       return wrap(`${a} × ${b}`, 1);
     }
   }
@@ -189,4 +188,31 @@ export function exprVars(n: ExprNode): string[] {
   };
   walk(n);
   return [...out].sort();
+}
+
+/** A polynomial back as an expression tree, in fmtPoly's order (for showing a solved given such as b = ak − c). */
+export function polyToExpr(p: Poly): ExprNode {
+  const deg = (k: string) => Object.values(monoOf(k)).reduce((s, e) => s + e, 0);
+  const keys = [...p.keys()].sort((x, y) => deg(y) - deg(x) || (x < y ? -1 : x > y ? 1 : 0));
+  if (!keys.length) return { t: 'num', v: { n: 0, d: 1 } };
+  const term = (k: string, c: number): ExprNode => {
+    const m = monoOf(k);
+    const factors: ExprNode[] = Object.keys(m)
+      .sort()
+      .map((v) => (m[v] > 1 ? { t: 'pow', a: { t: 'var', name: v }, e: m[v] } : { t: 'var', name: v }));
+    if (!factors.length) return { t: 'num', v: { n: c, d: 1 } };
+    let node = factors.reduce((acc, f) => ({ t: 'bin', op: '*', a: acc, b: f }) as ExprNode);
+    if (c !== 1) node = { t: 'bin', op: '*', a: { t: 'num', v: { n: c, d: 1 } }, b: node };
+    return node;
+  };
+  let out: ExprNode | null = null;
+  for (const k of keys) {
+    const c = p.get(k)!;
+    if (!out) {
+      out = c < 0 ? { t: 'neg', a: term(k, -c) } : term(k, c);
+    } else {
+      out = { t: 'bin', op: c < 0 ? '-' : '+', a: out, b: term(k, Math.abs(c)) };
+    }
+  }
+  return out!;
 }

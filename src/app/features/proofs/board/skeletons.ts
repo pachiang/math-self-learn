@@ -1,0 +1,23 @@
+import { SkeletonCard } from './skeleton-review.component';
+
+/** Made at the end of chapter 6, reviewed at the start of chapter 7. */
+export const CH6_SKELETON: SkeletonCard = {
+  title: '偶數加偶數是偶數',
+  from: '第 6 章',
+  beats: ['令 a、b 為任意整數，假設它們是偶數', '拿到 k、l：a = 2k，b = 2l', '選 m = k + l，代入化簡'],
+  decoys: [
+    { text: '拿到 k：a = 2k，b = 2k', why: '這是 6.4 那位同學的寫法：同一個 k 等於偷偷假設 a = b。兩次拿到，就要兩個名字。' },
+    { text: '選 m = (a + b) / 2', why: '6.5 看過：(a + b) / 2 是不是整數，正是要證的事，不能拿來當證人。' },
+  ],
+};
+
+/** Made at the end of chapter 7, reviewed at the start of chapter 8. */
+export const CH7_SKELETON: SkeletonCard = {
+  title: '整除會傳遞：a ∣ b、b ∣ c ⇒ a ∣ c',
+  from: '第 7 章',
+  beats: ['展開兩條已知，拿到 k、l：b = ak，c = bl', '從 c 往前代入：c = bl = akl', '選 m = kl，代入化簡'],
+  decoys: [
+    { text: '選 m = 20', why: '20 只對 a = 3、b = 12、c = 60 那一組成立。證人要用拿到的字母寫。' },
+    { text: '拿到 k：b = ak，c = bk', why: '兩次拿到用了同一個名字，等於假設兩個商一樣大。' },
+  ],
+};

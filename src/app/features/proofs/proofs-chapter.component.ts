@@ -35,6 +35,11 @@ import { SceneGivensComponent } from './ch6/scene-givens.component';
 import { SceneWhoDecidesComponent } from './ch6/scene-who-decides.component';
 import { SceneMeetComponent } from './ch6/scene-meet.component';
 import { SceneTransferComponent } from './ch6/scene-transfer.component';
+import { SceneBothEndsComponent } from './ch7/scene-both-ends.component';
+import { SceneWitnessFormulaComponent } from './ch7/scene-witness-formula.component';
+import { SceneGapComponent } from './ch7/scene-gap.component';
+import { SceneRepairComponent } from './ch7/scene-repair.component';
+import { SceneNewCardComponent } from './ch7/scene-new-card.component';
 
 @Component({
   selector: 'app-proofs-chapter',
@@ -72,6 +77,11 @@ import { SceneTransferComponent } from './ch6/scene-transfer.component';
     SceneWhoDecidesComponent,
     SceneMeetComponent,
     SceneTransferComponent,
+    SceneBothEndsComponent,
+    SceneWitnessFormulaComponent,
+    SceneGapComponent,
+    SceneRepairComponent,
+    SceneNewCardComponent,
   ],
   encapsulation: ViewEncapsulation.None,
   styleUrls: ['./proofs-shell.scss', './proofs-kit.scss'],
@@ -135,6 +145,11 @@ import { SceneTransferComponent } from './ch6/scene-transfer.component';
             @case ('ch6/4') { <app-pf-who-decides /> }
             @case ('ch6/5') { <app-pf-meet /> }
             @case ('ch6/6') { <app-pf-transfer /> }
+            @case ('ch7/1') { <app-pf-both-ends /> }
+            @case ('ch7/2') { <app-pf-witness-formula /> }
+            @case ('ch7/3') { <app-pf-gap /> }
+            @case ('ch7/4') { <app-pf-repair /> }
+            @case ('ch7/5') { <app-pf-new-card /> }
           }
         } @else {
           <section class="pf-col" style="max-width: 640px">
