@@ -1,0 +1,29 @@
+// 9.5 · which split is useful: the factor table and the judgment drill. Wide-scene rules come from ../ch6/ch6.scss.
+.pf-scene.solo.wide .c6-block > app-pf-case-line:not(.c6-sync) { max-width: 1060px; }
+
+.c9-factors {
+  max-width: 980px;
+  th, td { padding: 8px 12px; text-align: left; vertical-align: top; }
+  th[scope='row'] { white-space: nowrap; font-weight: 600; }
+  td { font: 700 17px var(--pf-serif); }
+  td small { display: block; margin-top: 2px; font: 700 14px var(--pf-sans); color: var(--pf-blue); }
+  td.three { background: var(--pf-blue-soft); box-shadow: inset 0 0 0 2px var(--pf-blue); }
+  td.where { font: 600 14px var(--pf-sans); color: var(--pf-ink-3); }
+  tr.cur th[scope='row'] { box-shadow: inset 3px 0 0 var(--pf-amber); background: var(--pf-amber-soft); }
+}
+.c9-useless { justify-self: start; }
+
+.c9-drill { display: grid; gap: 14px; max-width: 980px; }
+.c9-item {
+  display: grid;
+  gap: 8px;
+  padding: 14px 18px;
+  border: 1px solid var(--pf-rule-strong);
+  border-radius: 10px;
+  background: var(--pf-card);
+  > p { margin: 0; font-size: 16px; line-height: 1.7; }
+  .c9-ask { font-weight: 700; }
+  .pf-row { align-items: center; }
+  label { font: 700 16px var(--pf-serif); }
+  .pf-input { width: 120px; }
+}

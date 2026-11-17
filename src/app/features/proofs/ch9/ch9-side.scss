@@ -1,0 +1,49 @@
+// 9.3 · choosing a side before the opponent moves, and the or-table. Wide-scene rules come from ../ch6/ch6.scss.
+.c9-duel {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 12px 28px;
+  align-items: center;
+  max-width: 980px;
+  > .pf-feedback { grid-column: 1 / -1; }
+}
+.c9-opp {
+  display: grid;
+  justify-items: center;
+  padding: 12px 20px;
+  border: 2px dashed var(--pf-ink-2);
+  border-radius: 10px;
+  small { font-size: 12px; letter-spacing: 0.12em; color: var(--pf-ink-3); }
+  b { font-size: 28px; }
+}
+.c9-sides {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  li {
+    display: grid;
+    grid-template-columns: 130px auto 1fr;
+    gap: 12px;
+    align-items: baseline;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    b { font: 700 17px var(--pf-serif); }
+    small { font-size: 12px; color: var(--pf-amber); font-weight: 700; }
+    &.mine { box-shadow: inset 3px 0 0 var(--pf-amber); background: var(--pf-amber-soft); }
+    &.no b { color: var(--pf-red); }
+  }
+}
+
+.c9-or {
+  max-width: 980px;
+  th, td { text-align: center; padding: 6px 8px; }
+  th[scope='row'] { text-align: left; white-space: nowrap; }
+  td { width: 44px; font: 800 17px var(--pf-sans); color: var(--pf-blue); }
+  td.yes { background: var(--pf-blue-soft); }
+  td.verdict { width: auto; font: 700 14px var(--pf-sans); color: var(--pf-red); background: none; }
+  tr.sum th, tr.sum td { border-top: 2px solid var(--pf-ink); }
+  tr.sum td.verdict { color: var(--pf-blue); }
+}

@@ -207,3 +207,29 @@ kbd {
   &.clash { border: 1.5px solid var(--pf-red); color: var(--pf-red); }
   &.flip { border: 1.5px solid var(--pf-ink-2); text-decoration: line-through; text-decoration-thickness: 1.5px; }
 }
+
+// Chapter 9: one tab per case above the board; the log says which case each step was in.
+.pb-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.pb-tabi {
+  display: grid;
+  gap: 1px;
+  min-width: 150px;
+  padding: 7px 14px 8px;
+  border: 1.5px dashed var(--pf-rule-strong);
+  border-radius: 8px;
+  background: var(--pf-paper-2);
+  small { font: 600 11px var(--pf-sans); letter-spacing: 0.1em; color: var(--pf-ink-3); }
+  .pb-text { font-size: 15px; }
+  em { font: 600 12px var(--pf-sans); font-style: normal; color: var(--pf-ink-3); }
+  &.active { border: 2.5px solid var(--pf-amber); background: var(--pf-card); em { color: var(--pf-amber); } }
+  &.done { border-style: solid; border-color: var(--pf-blue); em { color: var(--pf-blue); } }
+  &.split { opacity: 0.6; }
+}
+.pb-incase { margin-left: 10px; font-size: 12px; letter-spacing: 0.08em; color: var(--pf-amber); }
+.pb-ltab { margin-right: 8px; padding: 0 6px; border: 1px solid var(--pf-rule-strong); border-radius: 4px; font: 600 11px var(--pf-sans); color: var(--pf-ink-3); }
+.pb-log li.case .pb-text { font-weight: 700; color: var(--pf-blue); }
+.pb-card-shape {
+  // Two stacked frames: the board is copied once per case.
+  &.cases, &.rem { border: 1.5px solid var(--pf-ink-2); box-shadow: 3px -3px 0 -1px var(--pf-card), 3px -3px 0 0 var(--pf-ink-3); }
+  &.exclude { border: 1.5px solid var(--pf-ink-2); border-left-style: dashed; }
+}

@@ -1,0 +1,31 @@
+// 9.1 · trying x, and the split you build yourself. Shared wide-scene rules come from ../ch6/ch6.scss.
+.pf-scene.solo.wide .c6-block > app-pf-case-line:not(.c6-sync) { max-width: 1060px; }
+.pf-q.small { font-size: 20px; }
+
+.c9-tries {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  li {
+    display: inline-flex;
+    gap: 10px;
+    align-items: baseline;
+    padding: 5px 12px;
+    border: 1px solid var(--pf-rule-strong);
+    border-radius: 8px;
+    background: var(--pf-card);
+    font-size: 14px;
+    &.bad { border: 2px solid var(--pf-red); color: var(--pf-red); font-weight: 700; }
+  }
+  .pf-num { font-weight: 700; }
+}
+
+.c9-conds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  .pf-btn { font: 700 16px var(--pf-serif); border-radius: 8px; }
+}

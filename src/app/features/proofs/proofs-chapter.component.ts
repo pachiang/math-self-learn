@@ -46,6 +46,11 @@ import { SceneContraComponent } from './ch8/scene-contra.component';
 import { SceneRootTwoComponent } from './ch8/scene-root-two.component';
 import { ScenePrimesComponent } from './ch8/scene-primes.component';
 import { SceneWhichComponent } from './ch8/scene-which.component';
+import { SceneCoverComponent } from './ch9/scene-cover.component';
+import { SceneSplitComponent } from './ch9/scene-split.component';
+import { ScenePickSideComponent } from './ch9/scene-pick-side.component';
+import { SceneWlogComponent } from './ch9/scene-wlog.component';
+import { SceneUsefulCutComponent } from './ch9/scene-useful-cut.component';
 
 @Component({
   selector: 'app-proofs-chapter',
@@ -94,6 +99,11 @@ import { SceneWhichComponent } from './ch8/scene-which.component';
     SceneRootTwoComponent,
     ScenePrimesComponent,
     SceneWhichComponent,
+    SceneCoverComponent,
+    SceneSplitComponent,
+    ScenePickSideComponent,
+    SceneWlogComponent,
+    SceneUsefulCutComponent,
   ],
   encapsulation: ViewEncapsulation.None,
   styleUrls: ['./proofs-shell.scss', './proofs-kit.scss'],
@@ -168,6 +178,11 @@ import { SceneWhichComponent } from './ch8/scene-which.component';
             @case ('ch8/4') { <app-pf-root-two /> }
             @case ('ch8/5') { <app-pf-primes /> }
             @case ('ch8/6') { <app-pf-which /> }
+            @case ('ch9/1') { <app-pf-cover /> }
+            @case ('ch9/2') { <app-pf-split /> }
+            @case ('ch9/3') { <app-pf-pick-side /> }
+            @case ('ch9/4') { <app-pf-wlog /> }
+            @case ('ch9/5') { <app-pf-useful-cut /> }
           }
         } @else {
           <section class="pf-col" style="max-width: 640px">

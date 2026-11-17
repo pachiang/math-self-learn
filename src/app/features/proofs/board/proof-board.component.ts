@@ -4,6 +4,7 @@ import {
   BoardStart,
   BoardState,
   CARDS,
+  CaseTab,
   CH6_CARDS,
   CardId,
   Def,
@@ -33,7 +34,10 @@ const ALL_CARDS: CardId[] = [
   'exact',
   'contrapos',
   'contra',
+  'exclude',
   'split',
+  'cases',
+  'rem',
   'unfold',
   'obtain',
   'lemma',
@@ -45,13 +49,32 @@ type Pending =
   | { card: 'witness' }
   | { card: 'obtain'; h: string | null }
   | { card: 'pick'; of: GivenCard; hs: string[] }
-  | { card: 'uses'; uses: LemmaUse[] };
+  | { card: 'uses'; uses: LemmaUse[] }
+  | { card: 'rem'; opts: { v: string; d: number }[] }
+  | { card: 'exclude' };
 
 /**
  * The proof state board: givens on the left (letters with identity marks, then H1, H2, …),
  * the single goal on the right, move cards below, and a move log tagged 形狀決定／需要想法.
  * State is `start` folded through `prefix` and then the learner's own moves.
  */
+/**
+ * A signal that reads as `init` again as soon as `base()` changes identity. The board keeps the
+ * learner's moves, the open card and the last message this way, so a new start or prefix clears
+ * them at once. An effect would clear them one change detection late, after the next click.
+ */
+function scoped<T>(base: () => object, init: T) {
+  const raw = signal<{ at: object | null; v: T }>({ at: null, v: init });
+  const read = computed(() => {
+    const r = raw();
+    return r.at === base() ? r.v : init;
+  });
+  return Object.assign(() => read(), {
+    set: (v: T) => raw.set({ at: base(), v }),
+    update: (f: (v: T) => T) => raw.set({ at: base(), v: f(read()) }),
+  });
+}
+
 @Component({
   selector: 'app-pf-board',
   standalone: true,
@@ -60,9 +83,20 @@ type Pending =
   template: `
     <div class="pb" [class.has-side]="hasSide()" (keydown)="onKey($event)">
       <div class="pb-main">
+        @if (st().tabs.length) {
+          <ol class="pb-tabs" aria-label="分出來的情況">
+            @for (t of st().tabs; track t.id) {
+              <li [class]="'pb-tabi ' + t.status" [attr.aria-current]="t.status === 'active' ? 'step' : null">
+                <small>情況 {{ t.id }}</small>
+                <span class="pb-text">{{ t.label }}</span>
+                <em>{{ tabStatus(t) }}</em>
+              </li>
+            }
+          </ol>
+        }
         <div class="pb-board" [attr.aria-label]="label()" role="group">
           <section class="pb-col">
-            <h3>已知</h3>
+            <h3>已知@if (st().tab ?? lastTab(); as t) {<small class="pb-incase">情況 {{ t }}</small>}</h3>
             @if (st().objs.length) {
               <ul class="pb-objs" aria-label="板上的字母">
                 @for (o of st().objs; track o.name) {
@@ -92,7 +126,7 @@ type Pending =
           </section>
 
           <section class="pb-col goal">
-            <h3>目標</h3>
+            <h3>目標@if (st().tab) {<small class="pb-incase">情況 {{ st().tab }}</small>}</h3>
             @if (st().goal; as g) {
               <div class="pb-goal" [class.fresh]="goalFresh()">
                 <span class="pb-text">{{ text(g) }}</span>
@@ -103,11 +137,14 @@ type Pending =
             } @else {
               <div class="pb-goal done">
                 <span>
-                  <span class="pb-text">目標清空，證明完成。</span>
-                  @if (st().checked; as c) {
+                  <span class="pb-text">{{ st().tabs.length ? '每一種情況都證完，證明完成。' : '目標清空，證明完成。' }}</span>
+                  @for (t of leafTabs(); track t.id) {
+                    <small class="pb-check pb-note">情況 {{ t.id }}（{{ t.label }}）：{{ shortClosing(t) }}</small>
+                  }
+                  @if (!st().tabs.length && st().checked; as c) {
                     <small class="pb-check">左邊 {{ c.lSrc }} → {{ c.both }}　右邊 {{ c.rSrc }} → {{ c.both }}</small>
                   }
-                  @if (st().note; as n) {
+                  @if (!st().tabs.length && st().note; as n) {
                     <small class="pb-check pb-note">{{ n }}</small>
                   }
                 </span>
@@ -188,10 +225,10 @@ type Pending =
             </div>
             <ol class="pb-log">
               @for (e of st().log; track $index) {
-                <li [class.prefix]="$index < prefixCount()">
+                <li [class.prefix]="$index < prefixCount()" [class.case]="e.kind === 'case'">
                   <span class="pb-n pf-num">{{ $index + 1 }}</span>
-                  <span class="pb-text">{{ e.text }}</span>
-                  @if (tags()) {
+                  <span class="pb-text">@if (e.tab) {<small class="pb-ltab">情況 {{ e.tab }}</small>}{{ e.text }}</span>
+                  @if (tags() && e.kind !== 'case') {
                     <span class="pb-tag" [class.idea]="e.tag === 'idea'">{{ e.tag === 'idea' ? '★ 需要想法' : '形狀決定' }}</span>
                   }
                 </li>
@@ -229,6 +266,20 @@ type Pending =
                   <div class="pf-row">
                     @for (x of p.uses; track x.lemma.id + x.hs.join()) {
                       <button type="button" class="pf-btn small" (click)="commitLemma(x)">{{ x.hs.join('、') }} ⇒ {{ text(x.out) }}</button>
+                    }
+                  </div>
+                } @else if (p.card === 'rem') {
+                  <p class="pf-q small">按哪個整數、除以幾來分？</p>
+                  <div class="pf-row">
+                    @for (o of p.opts; track o.v + o.d) {
+                      <button type="button" class="pf-btn small" (click)="commitRem(o.v, o.d)">{{ o.v }} 除以 {{ o.d }}（{{ o.d === 2 ? '偶數、奇數兩種' : '餘 0、1、2 三種' }}）</button>
+                    }
+                  </div>
+                } @else if (p.card === 'exclude') {
+                  <p class="pf-q small">要排除哪一邊？</p>
+                  <div class="pf-row">
+                    @for (o of excludeOpts(); track o.side) {
+                      <button type="button" class="pf-btn small" (click)="commitExclude(o.side)">假設「{{ o.drop }}」不成立，改證「{{ o.keep }}」</button>
                     }
                   </div>
                 } @else if (p.card === 'pick') {
@@ -299,18 +350,22 @@ export class ProofBoardComponent {
   readonly showShape = input(false);
   readonly label = input('證明狀態板');
   readonly idBase = input('pf-board');
+  /** Divisors the 「按餘數分」 card offers (chapter 9). */
+  readonly remDivisors = input<number[]>([2]);
 
   readonly changed = output<BoardState>();
   readonly solved = output<BoardState>();
   /** Fires whenever a move is refused (wrong shape, name clash, failed check…), so a scene can react. */
   readonly refused = output<{ card: CardId; code: string }>();
 
-  readonly moves = signal<Move[]>([]);
-  readonly pending = signal<Pending | null>(null);
+  /** Changes identity whenever the start or the prefix changes (e.g. 6.1 stepping, 9.5 starting over). */
+  private readonly base = computed(() => ({ start: this.start(), prefix: this.prefix() }));
+  readonly moves = scoped<Move[]>(() => this.base(), []);
+  readonly pending = scoped<Pending | null>(() => this.base(), null);
   readonly activeCard = signal<CardId | null>(null);
   readonly nameDraft = signal('');
   readonly witDraft = signal('');
-  readonly msg = signal<string | null>(null);
+  readonly msg = scoped<string | null>(() => this.base(), null);
   readonly msgBad = signal(false);
   readonly showBack = signal(false);
   readonly showFwd = signal(false);
@@ -379,7 +434,6 @@ export class ProofBoardComponent {
   private readonly order = computed(() => this.sides().flatMap((s) => s.cards));
 
   constructor() {
-    // A new start or prefix (e.g. 6.1 stepping) resets the learner's own moves.
     // The scratch chain survives a refused witness (the goal is briefly an equation, then reverts)
     // but restarts when the goal's left side or the givens it may use change.
     let chainKey = '';
@@ -394,19 +448,33 @@ export class ProofBoardComponent {
         this.chain.set([{ e: l }]);
       });
     });
-    effect(() => {
-      this.start();
-      this.prefix();
-      untracked(() => {
-        this.moves.set([]);
-        this.pending.set(null);
-        this.msg.set(null);
-      });
-    });
+  }
+
+  /** Once every case is done, the givens on the board are the last case's. */
+  readonly lastTab = computed(() => (this.st().tab || !this.st().tabs.length ? null : this.leafTabs().at(-1)?.id ?? null));
+  /** Cases that were not split further, for the summary once everything is done. */
+  readonly leafTabs = computed(() => this.st().tabs.filter((t) => t.status === 'done' && !this.st().tabs.some((u) => u.id.startsWith(t.id + '.'))));
+  readonly excludeOpts = computed(() => {
+    const g = this.st().goal;
+    if (!g || g.t !== 'or') return [];
+    const [a, b] = [stmtText(g.a), stmtText(g.b)];
+    return [
+      { side: 'left' as const, drop: a, keep: b },
+      { side: 'right' as const, drop: b, keep: a },
+    ];
+  });
+  tabStatus(t: CaseTab): string {
+    return t.status === 'active' ? '進行中' : t.status === 'waiting' ? '等著' : t.status === 'split' ? '再分成幾種' : '✓ 證完';
+  }
+  shortClosing(t: CaseTab): string {
+    return (t.closing ?? '').replace(/^代入化簡：/, '').replace(/，目標完成$/, '');
   }
 
   info(c: CardId) {
     const L = this.st().lemmas;
+    if (c === 'rem' && this.remDivisors().length > 1) {
+      return { ...CARDS.rem, chip: `n ÷ ${this.remDivisors().join('、')}`, line: `除以 ${this.remDivisors().join(' 或 ')}，每種餘數各證一次` };
+    }
     // A single proved theorem draws its own premise and source on the card.
     if (c === 'lemma' && L.length === 1) return { ...CARDS.lemma, chip: L[0].chip, line: L[0].line };
     return CARDS[c];
@@ -470,7 +538,28 @@ export class ProofBoardComponent {
         this.focusSoon('wit');
         return;
       }
-      this.commit({ card: c as Exclude<GoalCard, 'witness'> });
+      if (c === 'exclude' && st.goal?.t === 'or') {
+        this.msg.set(null);
+        this.pending.set({ card: 'exclude' });
+        return;
+      }
+      this.commit({ card: c as Exclude<GoalCard, 'witness' | 'exclude'> });
+      return;
+    }
+    if (c === 'rem') {
+      const vs = st.objs.filter((o) => o.kind !== 'chosen').map((o) => o.name);
+      if (!vs.length) {
+        this.fail('板上還沒有整數可以分。先令任意，對手給了整數，才能看它除以幾餘多少。');
+        this.refused.emit({ card: c, code: 'none' });
+        return;
+      }
+      const opts = vs.flatMap((v) => this.remDivisors().map((d) => ({ v, d })));
+      if (opts.length === 1) {
+        this.commitRem(opts[0].v, opts[0].d);
+        return;
+      }
+      this.msg.set(null);
+      this.pending.set({ card: 'rem', opts });
       return;
     }
     if (c === 'lemma') {
@@ -539,7 +628,15 @@ export class ProofBoardComponent {
       this.commit({ card: 'flip', h });
       return;
     }
-    this.commit(c === 'split' ? { card: 'split', h } : { card: 'unfold', h });
+    this.commit(c === 'split' ? { card: 'split', h } : c === 'cases' ? { card: 'cases', h } : { card: 'unfold', h });
+  }
+
+  commitRem(v: string, d: number): void {
+    this.commit({ card: 'rem', v, d });
+  }
+
+  commitExclude(side: 'left' | 'right'): void {
+    this.commit({ card: 'exclude', side });
   }
 
   commitLemma(u: LemmaUse): void {
@@ -582,10 +679,19 @@ export class ProofBoardComponent {
     this.pending.set(null);
     this.activeCard.set(null);
     this.msgBad.set(false);
-    this.msg.set(this.okNote(mv));
+    this.msg.set(this.caseNote(st) ?? this.okNote(mv));
     if (mv.card === 'witness') this.witDraft.set('');
     this.changed.emit(this.st());
     if (!this.st().goal) this.solved.emit(this.st());
+  }
+
+  /** When the move just closed a case: say so, and which case comes next. */
+  private caseNote(before: BoardState): string | null {
+    const now = this.st();
+    if (!before.tab || now.tab === before.tab) return null;
+    if (!now.tab) return `情況 ${before.tab} 也證完了。每一種情況都證完，整個目標才算完成。`;
+    const t = now.tabs.find((x) => x.id === now.tab);
+    return `情況 ${before.tab} 證完了。板子換到情況 ${now.tab}：${t?.label ?? ''}。這一種情況要從頭證一次，前一種情況拿到的字母和已知都不能帶過來。`;
   }
 
   private okNote(mv: Move): string | null {
@@ -608,6 +714,12 @@ export class ProofBoardComponent {
         return '「不是偶數」沒辦法展開，「是奇數」可以：換成正面說法，定義就用得上了。';
       case 'clash':
         return '已知裡出現了不可能同時成立的事，所以一開始的假設不可能成立，原本的目標就證完了。';
+      case 'cases':
+        return '「或」只說其中一邊成立，沒說是哪一邊，所以兩邊各證一次。先證情況 1，證完會自動換下一種。';
+      case 'rem':
+        return `每個整數除以 ${mv.d} 都只有這幾種餘數，所以這幾種情況蓋滿了所有整數。每一種情況都多了一條關於 ${mv.v} 的已知。`;
+      case 'exclude':
+        return '如果被排除的那一邊成立，「或」本來就成立了；剩下它不成立的時候，才需要證另一邊。';
       default:
         return null;
     }

@@ -43,6 +43,15 @@ import {
   replay,
   startBoard,
   stmtText,
+  SQ_PLUS_N,
+  SQ_PLUS_N_MOVES,
+  CONSEC_EVEN,
+  CONSEC_EVEN_MOVES,
+  PROD_EVEN,
+  PROD_EVEN_MOVES,
+  TRIPLE,
+  TRIPLE_MOVES,
+  or,
 } from './board-model';
 import { fmtExpr, fmtPoly, toPoly } from './poly';
 
@@ -265,6 +274,88 @@ st = replay(noSolution(2), NO_SOLUTION_MOVES.slice(0, 3));
 ok(!step(st, { card: 'clash' }).ok, '4a + 6b = 2 has no clash');
 st = replay(noSolution(-3), NO_SOLUTION_MOVES.slice(0, 1));
 eqS(stmtText(st.hyps[0].s), '存在整數 a、b，使 4a + 6b = −3', 'contra drops the double negation');
+
+// ── chapter 9: cases ──
+eqS(stmtText(CONSEC_EVEN.goal), '對每個整數 n，n 是偶數或 n + 1 是偶數', 'or nested text');
+st = replay(CONSEC_EVEN, [{ card: 'intro' }]);
+eqS(stmtText(st.goal!), 'n 是偶數，或 n + 1 是偶數', 'or top-level text');
+eqS(stmtText(PROD_EVEN.goal), '對每個整數 a、b，若 a 是偶數或 b 是偶數，則 ab 是偶數', 'or inside if');
+r = step(st, { card: 'unfoldGoal' });
+ok(!r.ok && r.code === 'shape' && r.msg.includes('不能先挑一邊'), 'unfold an or-goal is refused: ' + (!r.ok && r.msg));
+r = step(startBoard(CONSEC_EVEN), { card: 'exclude', side: 'left' });
+ok(!r.ok && r.code === 'shape' && r.msg.includes('先令任意'), 'exclude under forall says intro first');
+r = step(startBoard(SQ_PLUS_N), { card: 'rem', v: 'n', d: 2 });
+ok(!r.ok && r.code === 'none', 'rem before intro is refused');
+
+// 9.2: two cases, the second resumes from its own copy with the same id
+st = replay(SQ_PLUS_N, SQ_PLUS_N_MOVES.slice(0, 2));
+eqS(st.tabs.map((t) => `${t.id}:${t.label}:${t.status}`).join('|'), '1:n 是偶數:active|2:n 是奇數:waiting', 'rem tabs');
+eqS(stmtText(st.hyps[0].s), 'n 是偶數', 'case 1 given is H1');
+r = step(replay(SQ_PLUS_N, SQ_PLUS_N_MOVES.slice(0, 2)), { card: 'witness', src: 'n' });
+ok(!r.ok && r.code === 'shape', 'goal in a case is still even, not exists');
+st = replay(SQ_PLUS_N, SQ_PLUS_N_MOVES.slice(0, 7));
+eqS(st.tab, '2', 'after case 1 closes, case 2 is active');
+eqS(stmtText(st.goal!), 'n² + n 是偶數', 'case 2 starts from the original goal');
+eqS(st.hyps.map((h) => `${h.id} ${stmtText(h.s)}`).join(), 'H1 n 是奇數', 'case 2 has only its own given');
+eqS(st.objs.map((o) => o.name).join(), 'n', 'case 2 does not inherit k');
+ok(st.log[st.log.length - 1].kind === 'case' && st.log[st.log.length - 1].text.includes('換情況 2'), 'switch line in the log');
+eqS(st.tabs[0].status, 'done', 'case 1 tab done');
+ok(!!st.tabs[0].closing && st.tabs[0].closing.includes('4k² + 2k'), 'case 1 closing kept: ' + st.tabs[0].closing);
+const sq = replay(SQ_PLUS_N, SQ_PLUS_N_MOVES);
+eqS(sq.goal, null, 'n² + n closes after both cases');
+eqS(sq.tabs.every((t) => t.status === 'done'), true, 'every tab done');
+eqS(sq.log.filter((e) => e.tab === '1').length, 5, 'five steps inside case 1');
+eqS(sq.past.map((p) => stmtText(p)).join(' | '), '對每個整數 n，n² + n 是偶數 | n² + n 是偶數', 'done shows the goal stack from before the split');
+r = step(sq, { card: 'intro' });
+ok(!r.ok && r.code === 'done', 'nothing left after the last case');
+
+// 9.3: exclude either side
+eqS(replay(CONSEC_EVEN, CONSEC_EVEN_MOVES).goal, null, 'exclude left closes');
+const right = replay(CONSEC_EVEN, [
+  { card: 'intro' },
+  { card: 'exclude', side: 'right' },
+  { card: 'flip', h: 'H1' },
+  { card: 'unfold', h: 'H2' },
+  { card: 'obtain', h: 'H3', name: 'k' },
+  { card: 'unfoldGoal' },
+  { card: 'witness', src: 'k' },
+  { card: 'check' },
+]);
+eqS(right.goal, null, 'exclude right closes (n = 2k from n + 1 = 2k + 1)');
+st = replay(CONSEC_EVEN, CONSEC_EVEN_MOVES.slice(0, 2));
+eqS(stmtText(st.hyps[0].s), 'n 不是偶數', 'excluded side becomes a not-given');
+// or-goal inside a case closes with exact
+st = replay(CONSEC_EVEN, [{ card: 'intro' }, { card: 'rem', v: 'n', d: 2 }, { card: 'exact' }]);
+eqS(st.tab, '2', 'exact on one side of an or closes case 1');
+ok(st.log.some((e) => e.text.includes('「或」成立')), 'exact or log');
+
+// 9.4: same ids in both cases, letters swapped
+const pe = replay(PROD_EVEN, PROD_EVEN_MOVES);
+eqS(pe.goal, null, 'ab even closes');
+const c1 = pe.log.filter((e) => e.tab === '1').map((e) => e.text);
+const c2 = pe.log.filter((e) => e.tab === '2').map((e) => e.text);
+eqS(c1.length, c2.length, 'cases have the same length');
+ok(c1[1].includes('a = 2k') && c2[1].includes('b = 2k'), 'case logs swap a and b: ' + c1[1] + ' / ' + c2[1]);
+st = replay(PROD_EVEN, PROD_EVEN_MOVES.slice(0, 2));
+ok(!step(st, { card: 'witness', src: 'a' }).ok, 'witness before splitting the or is early or shape');
+r = step(replay(PROD_EVEN, PROD_EVEN_MOVES.slice(0, 1)), { card: 'cases', h: 'H1' });
+ok(!r.ok && r.code === 'none', 'cases needs an or-given');
+
+// 9.5: three cases close; the split by 2 covers but gives no witness
+const tr = replay(TRIPLE, TRIPLE_MOVES);
+eqS(tr.goal, null, 'n(n + 1)(n + 2) closes in three cases');
+eqS(tr.tabs.map((t) => t.label).join('|'), 'n 除以 3 餘 0|n 除以 3 餘 1|n 除以 3 餘 2', 'mod 3 labels');
+st = replay(TRIPLE, [{ card: 'intro' }, { card: 'rem', v: 'n', d: 3 }]);
+eqS(stmtText(st.hyps[0].s), '存在整數 k，使 n = 3k', 'mod 3 case 1 given');
+st = replay(TRIPLE, [{ card: 'intro' }, { card: 'rem', v: 'n', d: 2 }, { card: 'unfold', h: 'H1' }, { card: 'obtain', h: 'H2', name: 'k' }, { card: 'unfoldGoal' }]);
+r = step(st, { card: 'witness', src: '2k' });
+ok(r.ok && !step(r.state, { card: 'check' }).ok, 'split by 2: a guessed witness fails the check');
+// nested split: case 1 splits again, its cases come before case 2
+st = replay(TRIPLE, [{ card: 'intro' }, { card: 'rem', v: 'n', d: 2 }, { card: 'rem', v: 'n', d: 3 }]);
+eqS(st.tabs.map((t) => `${t.id}:${t.status}`).join(), '1:split,1.1:active,1.2:waiting,1.3:waiting,2:waiting', 'nested tabs');
+eqS(st.waiting.map((w) => w.tab).join(), '1.2,1.3,2', 'nested waiting order');
+eqS(st.hyps.map((h) => stmtText(h.s)).join(' / '), 'n 是偶數 / 存在整數 k，使 n = 3k', 'nested case keeps the outer given');
+eqS(stmtText(or(even('a'), odd('b'))), 'a 是偶數，或 b 是奇數', 'or helper');
 
 if (fails) throw new Error(`board-model selftest: ${fails} failed`);
 console.log('board-model selftest: all passed');

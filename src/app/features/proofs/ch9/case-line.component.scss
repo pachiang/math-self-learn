@@ -1,0 +1,52 @@
+:host { display: block; }
+
+.cl { margin: 0; display: grid; gap: 8px; max-width: 1060px; }
+svg { width: 100%; height: auto; overflow: visible; }
+
+.cl-label { font: 700 16px var(--pf-serif); fill: var(--pf-ink-2); &.active { fill: var(--pf-ink); } &.sum { font: 600 14px var(--pf-sans); fill: var(--pf-ink-3); } }
+.cl-ok { font: 700 13px var(--pf-sans); fill: var(--pf-blue); &.wait { fill: var(--pf-ink-3); font-weight: 500; } }
+.cl-mark { fill: var(--pf-amber-soft); stroke: var(--pf-amber); stroke-width: 1.5; stroke-dasharray: 4 3; }
+.cl-rule { stroke: var(--pf-rule-strong); }
+.cl-off { fill: var(--pf-rule-strong); }
+
+// One tone per case; an unproved case in proof mode is drawn as an outline only.
+.cl-dot {
+  stroke-width: 2.5;
+  &.t0 { fill: var(--pf-blue); stroke: var(--pf-blue); }
+  &.t1 { fill: var(--pf-amber); stroke: var(--pf-amber); }
+  &.t2 { fill: var(--pf-graphite); stroke: var(--pf-graphite); }
+  &.open { fill: var(--pf-card); }
+}
+
+.cl-once { fill: var(--pf-ink); }
+.cl-twice { fill: none; stroke: var(--pf-ink); stroke-width: 2; }
+.cl-gap { fill: var(--pf-red-soft); stroke: var(--pf-red); stroke-width: 2.5; stroke-dasharray: 4 3; }
+.cl-gapx { font: 800 13px var(--pf-sans); fill: var(--pf-red); text-anchor: middle; }
+.cl-proved { fill: var(--pf-blue); }
+.cl-tick { font: 800 12px var(--pf-sans); fill: var(--pf-card); text-anchor: middle; }
+.cl-wait { fill: none; stroke: var(--pf-rule-strong); stroke-width: 2; stroke-dasharray: 3 3; }
+.cl-num { font: 600 13px var(--pf-mono); fill: var(--pf-ink-3); text-anchor: middle; &.zero { fill: var(--pf-ink); font-weight: 800; } }
+
+.cl-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  font-size: 13px;
+  color: var(--pf-ink-3);
+  span { display: inline-flex; align-items: center; gap: 6px; }
+  i {
+    display: inline-grid;
+    place-items: center;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    font: 800 10px var(--pf-sans);
+    font-style: normal;
+    &.once { width: 9px; height: 9px; background: var(--pf-ink); }
+    &.twice { box-sizing: border-box; border: 2px solid var(--pf-ink); }
+    &.gap { box-sizing: border-box; border: 2px dashed var(--pf-red); color: var(--pf-red); }
+    &.proved { background: var(--pf-blue); color: var(--pf-card); }
+    &.wait { box-sizing: border-box; border: 2px dashed var(--pf-rule-strong); }
+  }
+  .far { margin-left: auto; }
+}

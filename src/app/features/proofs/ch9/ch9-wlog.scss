@@ -1,0 +1,60 @@
+// 9.4 · two cases side by side, the swap test, the parity grids. Wide-scene rules come from ../ch6/ch6.scss.
+.pf-q.small { font-size: 20px; }
+
+.c9-logs { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; max-width: 1200px; }
+.c9-log {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+  padding: 14px 18px;
+  border: 1px solid var(--pf-rule-strong);
+  border-radius: 10px;
+  background: var(--pf-card);
+  > small { font: 600 12px var(--pf-sans); letter-spacing: 0.12em; color: var(--pf-ink-3); }
+  ol { margin: 0; padding-left: 1.5em; display: grid; gap: 4px; font: 500 15px/1.7 var(--pf-sans); }
+}
+.c9-ab { padding: 0 3px; border-radius: 3px; background: var(--pf-amber-soft); box-shadow: inset 0 -2px 0 var(--pf-amber); font-family: var(--pf-mono); }
+
+.c9-swap {
+  display: grid;
+  gap: 12px;
+  padding: 16px 20px;
+  border: 1px solid var(--pf-rule-strong);
+  border-radius: 12px;
+  background: var(--pf-card);
+}
+.c9-sent { margin: 0; font: 700 22px/1.8 var(--pf-serif); }
+.c9-var {
+  display: inline-block;
+  min-width: 1.3em;
+  padding: 0 4px;
+  border: 1.5px dashed var(--pf-ink-2);
+  border-radius: 6px;
+  font-family: var(--pf-mono);
+  text-align: center;
+  transition: transform 0.35s ease, background 0.2s;
+  &.sw { transform: rotateY(360deg); background: var(--pf-amber-soft); border-style: solid; border-color: var(--pf-amber); }
+}
+
+.c9-grids { display: grid; grid-template-columns: repeat(2, max-content); gap: 36px; }
+.c9-gfig { margin: 0; display: grid; gap: 8px; figcaption { font-size: 14px; color: var(--pf-ink-2); } }
+.c9-grid {
+  display: grid;
+  grid-template-columns: 90px 200px 200px;
+  grid-template-rows: 30px 96px 96px;
+  > .hd { display: grid; place-items: center; font: 600 13px var(--pf-sans); color: var(--pf-ink-3); }
+  > .cell {
+    display: grid;
+    align-content: center;
+    gap: 4px;
+    padding: 10px 14px;
+    border: 1px solid var(--pf-rule-strong);
+    background: var(--pf-card);
+    .v { font: 700 18px var(--pf-serif); color: var(--pf-blue); }
+    small { font-size: 12px; line-height: 1.5; color: var(--pf-ink-3); }
+    &.wlog { background: var(--pf-blue-soft); }
+    &.miss { border: 2px dashed var(--pf-amber); }
+    &.bad { border: 2.5px solid var(--pf-red); .v, small { color: var(--pf-red); } }
+    &.off { background: repeating-linear-gradient(-45deg, var(--pf-paper-2) 0 6px, transparent 6px 12px); .v { color: var(--pf-ink-3); } }
+  }
+}

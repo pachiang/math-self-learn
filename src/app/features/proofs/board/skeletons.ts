@@ -32,3 +32,14 @@ export const CH8_SKELETON: SkeletonCard = {
     { text: '假設 √2 = p/q，p、q 是任意整數', why: '少了「不都是偶數」，最後就沒有東西可以打架：p、q 都是偶數本來就可能。先約到最簡。' },
   ],
 };
+
+/** Made at the end of chapter 9, reviewed at the start of chapter 10 (and again in chapter 12). */
+export const CH9_SKELETON: SkeletonCard = {
+  title: 'n² + n 是偶數（分情況）',
+  from: '第 9 章',
+  beats: ['n 除以 2 只會餘 0 或 1：分成偶數、奇數兩種情況', '偶數：n = 2k，n² + n = 2(2k² + k)', '奇數：n = 2k + 1，n² + n = 2(2k² + 3k + 1)'],
+  decoys: [
+    { text: '檢查 n = 1、2、3，n² + n 都是偶數', why: '那是三個例子。每一種情況都要對它蓋到的每個整數成立，不能只查幾個。' },
+    { text: '不失一般性，設 n 是偶數', why: '偶數和奇數不是對調名字就互換的兩種情況：9.4 看過，奇數那一種要另外證。' },
+  ],
+};

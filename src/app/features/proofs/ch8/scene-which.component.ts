@@ -157,7 +157,7 @@ const NAMES: Record<Method, string> = { direct: '直接證', contrapos: '逆否'
               </ol>
             </div>
             <p class="pf-note">
-              下一章：已知是「或」的時候要分頭處理，而且情況必須蓋滿整個世界。<a routerLink="/learn/proofs">第 9 章「分情況與 WLOG」</a>還在規畫中。
+              下一章：已知是「或」的時候，<a routerLink="/learn/proofs/ch9/1">第 9 章「分情況與 WLOG」</a>教你分頭處理，而且情況必須蓋滿整個世界。
             </p>
           </div>
         }

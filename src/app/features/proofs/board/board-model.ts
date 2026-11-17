@@ -15,15 +15,17 @@ export type Stmt =
   | { t: 'exists'; v: string; body: Stmt }
   | { t: 'imp'; a: Stmt; b: Stmt }
   | { t: 'and'; a: Stmt; b: Stmt }
+  /** Inclusive or (chapter 3's convention). */
+  | { t: 'or'; a: Stmt; b: Stmt }
   | { t: 'pred'; p: Pred; args: ExprNode[] }
   | { t: 'eq'; l: ExprNode; r: ExprNode }
   | { t: 'not'; a: Stmt }
   /** The goal of a proof by contradiction: two givens that cannot both hold. */
   | { t: 'bot' };
 
-export type GoalCard = 'intro' | 'assume' | 'unfoldGoal' | 'witness' | 'check' | 'exact' | 'contrapos' | 'contra';
-/** flip works on a given or on the goal; it sits with the given cards and asks which. */
-export type GivenCard = 'split' | 'unfold' | 'obtain' | 'lemma' | 'clash' | 'flip';
+export type GoalCard = 'intro' | 'assume' | 'unfoldGoal' | 'witness' | 'check' | 'exact' | 'contrapos' | 'contra' | 'exclude';
+/** flip works on a given or on the goal; it sits with the given cards and asks which. rem works on a letter. */
+export type GivenCard = 'split' | 'cases' | 'rem' | 'unfold' | 'obtain' | 'lemma' | 'clash' | 'flip';
 export type CardId = GoalCard | GivenCard;
 
 export type Move =
@@ -41,7 +43,12 @@ export type Move =
   | { card: 'contra' }
   | { card: 'clash' }
   /** h is a given's id, or 'goal'. */
-  | { card: 'flip'; h: string };
+  | { card: 'flip'; h: string }
+  | { card: 'cases'; h: string }
+  /** Split on the remainder of the letter v divided by d (2 or 3). */
+  | { card: 'rem'; v: string; d: number }
+  /** Prove 「A，或 B」 by assuming one side fails: left drops A, right drops B. */
+  | { card: 'exclude'; side: 'left' | 'right' };
 
 /** arb: introduced by 「令任意」, the opponent's; got: taken out of an 「存在」 given; chosen: your witness. */
 export interface Obj {
@@ -63,6 +70,31 @@ export interface LogEntry {
   text: string;
   /** shape: the statement's form dictated this step. idea: you had to think of something. */
   tag: 'shape' | 'idea';
+  /** The case this step was made in (「1」「2」「1.2」); unset outside any split. */
+  tab?: string;
+  /** A structural line: a case finished and the board moved on. */
+  kind?: 'case';
+}
+
+/** One case of a split, as drawn on the board's tabs. */
+export interface CaseTab {
+  id: string;
+  label: string;
+  /** The case's own given. */
+  s: Stmt;
+  status: 'active' | 'waiting' | 'done' | 'split';
+  /** How the case was closed, kept for the summary once the board moves on. */
+  closing?: string;
+}
+
+/** A case waiting its turn: its own copy of the board. */
+interface Waiting {
+  tab: string;
+  objs: Obj[];
+  hyps: Hyp[];
+  goal: Stmt;
+  past: Stmt[];
+  nextH: number;
 }
 
 /**
@@ -92,6 +124,13 @@ export interface BoardState {
   checked?: { lSrc: string; rSrc: string; both: string };
   /** Why the last move closed the goal, when it was not a check (e.g. the contradiction found). */
   note?: string;
+  /** Cases of every split so far, in order; empty when nothing was split. */
+  tabs: CaseTab[];
+  /** The goal stack when the first split happened; shown again once every case is done. */
+  rootPast?: Stmt[];
+  /** The case being worked on, or null outside any split. */
+  tab: string | null;
+  waiting: Waiting[];
 }
 
 export interface BoardStart {
@@ -125,6 +164,7 @@ export const forall = (vs: string[], body: Stmt): Stmt => ({ t: 'forall', vs, bo
 export const exists = (v: string, body: Stmt): Stmt => ({ t: 'exists', v, body });
 export const imp = (a: Stmt, b: Stmt): Stmt => ({ t: 'imp', a, b });
 export const and = (a: Stmt, b: Stmt): Stmt => ({ t: 'and', a, b });
+export const or = (a: Stmt, b: Stmt): Stmt => ({ t: 'or', a, b });
 export const not = (a: Stmt): Stmt => ({ t: 'not', a });
 /** Negate, cancelling a double negation: 不是「不存在…」 is 「存在…」. */
 export const neg = (s: Stmt): Stmt => (s.t === 'not' ? s.a : { t: 'not', a: s });
@@ -170,6 +210,11 @@ export function stmtText(s: Stmt, nested = false): string {
       if (!nested) return `${a}，而且 ${stmtText(s.b, true)}`;
       // Keep a space between a formula and 而且: 「a ∣ b 而且 b ∣ c」, but 「a 是偶數而且 …」.
       return `${a}${/[a-z0-9)²³]$/.test(a) ? ' ' : ''}而且 ${stmtText(s.b, true)}`;
+    }
+    case 'or': {
+      const a = stmtText(s.a, true);
+      if (!nested) return `${a}，或 ${stmtText(s.b, true)}`;
+      return `${a}${/[a-z0-9)²³]$/.test(a) ? ' ' : ''}或 ${stmtText(s.b, true)}`;
     }
     case 'pred': {
       const [x, y] = s.args.map(fmtExpr);
@@ -221,6 +266,8 @@ export function shapeName(s: Stmt): string {
       return '若…則';
     case 'and':
       return '而且';
+    case 'or':
+      return '或';
     case 'pred':
       return s.p === 'divides' ? '整除' : s.p === 'even' ? '是偶數' : '是奇數';
     case 'eq':
@@ -258,6 +305,9 @@ export const CARDS: Record<CardId, CardInfo> = {
   contra: { id: 'contra', side: 'goal', name: '反證', shape: '任何目標', chip: '目標 G', line: '假設 G 不成立，放進已知；改找矛盾' },
   clash: { id: 'clash', side: 'given', name: '指出矛盾', shape: '矛盾', chip: '又偶又奇', line: '兩條已知不能同時成立：完成' },
   flip: { id: 'flip', side: 'both', name: '換正面', shape: '不是偶數／不是奇數', chip: '不是偶數', line: '整數不是偶數，就是奇數' },
+  cases: { id: 'cases', side: 'given', name: '分情況', shape: '或', chip: 'P，或 Q', line: '兩種情況各證一次' },
+  rem: { id: 'rem', side: 'given', name: '按餘數分', shape: '整數', chip: 'n ÷ 2', line: 'n 除以 2 的每種餘數各證一次' },
+  exclude: { id: 'exclude', side: 'goal', name: '排除一邊', shape: '或', chip: 'A，或 B', line: '假設 A 不成立，改證 B' },
 };
 
 /** The cards chapter 6 unlocks; later chapters add to this list. */
@@ -280,6 +330,9 @@ const fitsShape = (card: CardId, s: Stmt): boolean => {
       return s.t === 'eq';
     case 'split':
       return s.t === 'and';
+    case 'cases':
+    case 'exclude':
+      return s.t === 'or';
     case 'contrapos':
       return s.t === 'imp';
     case 'contra':
@@ -289,6 +342,7 @@ const fitsShape = (card: CardId, s: Stmt): boolean => {
     case 'exact':
     case 'lemma':
     case 'clash':
+    case 'rem':
       return false;
   }
 };
@@ -335,6 +389,7 @@ function substStmt(s: Stmt, v: string, by: ExprNode): Stmt {
       return s.v === v ? s : { ...s, body: substStmt(s.body, v, by) };
     case 'imp':
     case 'and':
+    case 'or':
       return { ...s, a: substStmt(s.a, v, by), b: substStmt(s.b, v, by) };
     case 'pred':
       return { ...s, args: s.args.map((a) => substExpr(a, v, by)) };
@@ -443,7 +498,7 @@ const markUsed = (st: BoardState, id: string, used: string): BoardState => ({
 
 const log = (st: BoardState, card: CardId, text: string, tag: LogEntry['tag'] = 'shape'): BoardState => ({
   ...st,
-  log: [...st.log, { card, text, tag }],
+  log: [...st.log, st.tab ? { card, text, tag, tab: st.tab } : { card, text, tag }],
 });
 
 const newGoal = (st: BoardState, goal: Stmt | null): BoardState => ({
@@ -461,6 +516,9 @@ export function startBoard(start: BoardStart): BoardState {
     past: [],
     nextH: 1,
     log: [],
+    tabs: [],
+    tab: null,
+    waiting: [],
   };
   for (const h of start.hyps ?? []) st = withHyp(st, h)[0];
   return st;
@@ -476,9 +534,13 @@ export function wrongGoalCard(goal: Stmt, card: GoalCard): string {
         ? '「不是偶數」沒有定義可以展開：定義只說偶數長什麼樣子，沒說「不是偶數」長什麼樣子。先用「換正面」把它換成正面的說法。'
         : card === 'contrapos' && goal.t === 'forall'
           ? '「若…則」包在「對每個」裡面，先令任意。'
-          : goal.t === 'not' && goal.a.t === 'exists'
-            ? '「不存在」沒有證人可以提，也沒有定義可以展開；要一組一組排除，又有無限多組。這種目標要翻過來處理。'
-            : '';
+          : card === 'exclude' && goal.t === 'forall'
+            ? '「或」包在「對每個」裡面，先令任意。'
+            : goal.t === 'not' && goal.a.t === 'exists'
+              ? '「不存在」沒有證人可以提，也沒有定義可以展開；要一組一組排除，又有無限多組。這種目標要翻過來處理。'
+              : goal.t === 'or'
+                ? '「或」沒有定義可以展開，也不能先挑一邊證：哪一邊成立，要看對手給的數。這種目標有自己的卡。'
+                : '';
   return `目標最外面一層是「${outer}」。「${c.name}」只能用在最外層是「${c.shape}」的目標上。${inner}`;
 }
 
@@ -523,6 +585,7 @@ function matchStmt(p: Stmt, s: Stmt, b: Bind): boolean {
     case 'not':
       return matchStmt(p.a, (s as typeof p).a, b);
     case 'and':
+    case 'or':
     case 'imp': {
       const q = s as typeof p;
       return matchStmt(p.a, q.a, b) && matchStmt(p.b, q.b, b);
@@ -639,15 +702,134 @@ export function findClash(st: BoardState): { hs: string[]; text: string } | null
   return null;
 }
 
+// ── cases ───────────────────────────────────────────────────────────
+
+/**
+ * Split the current case into one case per given. Each case gets its own copy of the
+ * board with its given under the same id, so the cases read side by side; the first
+ * one becomes active and the rest wait their turn (depth first).
+ */
+function splitInto(st: BoardState, cases: { s: Stmt; label: string }[]): BoardState {
+  const parent = st.tab;
+  const ids = cases.map((_, i) => (parent ? `${parent}.${i + 1}` : String(i + 1)));
+  const snaps: Waiting[] = cases.map((c, i) => {
+    const [b] = withHyp(st, c.s);
+    return { tab: ids[i], objs: b.objs, hyps: b.hyps, goal: b.goal!, past: b.past, nextH: b.nextH };
+  });
+  const kids: CaseTab[] = cases.map((c, i) => ({ id: ids[i], label: c.label, s: c.s, status: i === 0 ? 'active' : 'waiting' }));
+  let tabs: CaseTab[];
+  if (parent) {
+    const at = st.tabs.findIndex((t) => t.id === parent);
+    tabs = [...st.tabs.slice(0, at), { ...st.tabs[at], status: 'split' }, ...kids, ...st.tabs.slice(at + 1)];
+  } else {
+    tabs = kids;
+  }
+  const [first, ...rest] = snaps;
+  return {
+    ...st,
+    objs: first.objs,
+    hyps: first.hyps,
+    goal: first.goal,
+    past: first.past,
+    nextH: first.nextH,
+    tab: first.tab,
+    tabs,
+    waiting: [...rest, ...st.waiting],
+    rootPast: parent ? st.rootPast : st.goal ? [...st.past, st.goal] : st.past,
+  };
+}
+
+/** Mark a case done, and every split above it whose cases are all done. */
+function finishTab(tabs: CaseTab[], id: string, closing: string): CaseTab[] {
+  let out = tabs.map((t) => (t.id === id ? { ...t, status: 'done' as const, closing } : t));
+  let cur = id;
+  while (cur.includes('.')) {
+    const up = cur.slice(0, cur.lastIndexOf('.'));
+    const kids = out.filter((t) => t.id.startsWith(up + '.') && !t.id.slice(up.length + 1).includes('.'));
+    if (!kids.every((t) => t.status === 'done')) break;
+    out = out.map((t) => (t.id === up ? { ...t, status: 'done' as const } : t));
+    cur = up;
+  }
+  return out;
+}
+
+/** After a move that closed the active case: record it, then move to the next waiting case. */
+function afterClose(st: BoardState): BoardState {
+  if (!st.tab) return st;
+  const last = st.log[st.log.length - 1];
+  const closing = st.note ?? last?.text ?? '';
+  const tabs = finishTab(st.tabs, st.tab, closing);
+  const done = st.tab;
+  const [next, ...rest] = st.waiting;
+  if (!next) {
+    const s1: BoardState = { ...st, tabs, tab: null, past: st.rootPast ?? st.past };
+    return { ...s1, log: [...s1.log, { card: last.card, text: `情況 ${done} 證完。每一種情況都證完了，整個目標完成`, tag: 'shape', kind: 'case' }] };
+  }
+  const label = tabs.find((t) => t.id === next.tab)?.label ?? '';
+  return {
+    ...st,
+    objs: next.objs,
+    hyps: next.hyps,
+    goal: next.goal,
+    past: next.past,
+    nextH: next.nextH,
+    checked: undefined,
+    note: undefined,
+    tab: next.tab,
+    tabs: tabs.map((t) => (t.id === next.tab ? { ...t, status: 'active' as const } : t)),
+    waiting: rest,
+    log: [...st.log, { card: last.card, text: `情況 ${done} 證完，換情況 ${next.tab}：${label}`, tag: 'shape', kind: 'case' }],
+  };
+}
+
+/** Remainder cases for the letter v divided by d. */
+export function remCases(v: string, d: number): { s: Stmt; label: string }[] {
+  if (d === 2) {
+    return [
+      { s: even(v), label: `${v} 是偶數` },
+      { s: odd(v), label: `${v} 是奇數` },
+    ];
+  }
+  return Array.from({ length: d }, (_, r) => ({
+    s: exists('k', eqn(v, r ? `${d}k + ${r}` : `${d}k`)),
+    label: `${v} 除以 ${d} 餘 ${r}`,
+  }));
+}
+
 export function applyMove(st: BoardState, mv: Move): MoveResult {
+  const r = applyRaw(st, mv);
+  if (!r.ok || r.state.goal || !r.state.tab) return r;
+  return { ok: true, state: afterClose(r.state) };
+}
+
+function applyRaw(st: BoardState, mv: Move): MoveResult {
   const c = CARDS[mv.card];
   if (!st.goal) return { ok: false, code: 'done', msg: '目標已經清空了，證明完成。' };
 
   if (mv.card === 'exact') {
     const g = stmtText(st.goal);
     const h = st.hyps.find((x) => stmtText(x.s) === g);
-    if (!h) return { ok: false, code: 'none', msg: '已知裡沒有和目標一模一樣的句子。' };
-    return { ok: true, state: log(newGoal(st, null), 'exact', `目標就是 ${h.id}，完成`) };
+    if (h) return { ok: true, state: log(newGoal(st, null), 'exact', `目標就是 ${h.id}，完成`) };
+    if (st.goal.t === 'or') {
+      const sides = [st.goal.a, st.goal.b].map((s) => stmtText(s));
+      const hit = st.hyps.find((x) => sides.includes(stmtText(x.s)));
+      if (hit) {
+        return { ok: true, state: log(newGoal(st, null), 'exact', `目標的一邊「${stmtText(hit.s)}」就是 ${hit.id}，「或」成立，完成`) };
+      }
+    }
+    return { ok: false, code: 'none', msg: '已知裡沒有和目標一模一樣的句子。' };
+  }
+  if (mv.card === 'rem') {
+    const o = st.objs.find((x) => x.name === mv.v);
+    if (!o) {
+      return { ok: false, code: 'none', msg: st.objs.length ? `板上沒有叫 ${mv.v} 的整數。` : '板上還沒有整數可以分。先令任意，對手給了整數，才能看它除以幾餘多少。' };
+    }
+    if (mv.d !== 2 && mv.d !== 3) return { ok: false, code: 'none', msg: '這一章只按除以 2 或除以 3 的餘數分。' };
+    const cases = remCases(mv.v, mv.d);
+    const rems = mv.d === 2 ? '0 或 1' : '0、1、2';
+    const kinds = mv.d === 2 ? '偶數、奇數兩種情況' : '三種情況';
+    const s1 = log(st, 'rem', `按餘數分：${mv.v} 除以 ${mv.d} 只會餘 ${rems}，分成${kinds}，蓋滿所有整數`);
+    return { ok: true, state: splitInto(s1, cases) };
   }
   if (mv.card === 'lemma') {
     const use = lemmaUses(st).find((u) => u.hs.join() === mv.hs.join() && (!mv.lemma || u.lemma.id === mv.lemma));
@@ -702,6 +884,15 @@ export function applyMove(st: BoardState, mv: Move): MoveResult {
     if (!fitsShape(mv.card, goal)) return { ok: false, code: 'shape', msg: wrongGoalCard(goal, mv.card as GoalCard) };
 
     switch (mv.card) {
+      case 'exclude': {
+        const g = goal as Extract<Stmt, { t: 'or' }>;
+        const [drop, keep] = mv.side === 'left' ? [g.a, g.b] : [g.b, g.a];
+        const [s1, id] = withHyp(st, neg(drop));
+        return {
+          ok: true,
+          state: log(newGoal(s1, keep), 'exclude', `排除一邊：假設「${stmtText(drop)}」不成立，記成 ${id}；改證「${stmtText(keep)}」`),
+        };
+      }
       case 'contrapos': {
         const g = goal as Extract<Stmt, { t: 'imp' }>;
         const next: Stmt = { t: 'imp', a: neg(g.b), b: neg(g.a) };
@@ -722,7 +913,8 @@ export function applyMove(st: BoardState, mv: Move): MoveResult {
       case 'assume': {
         const g = goal as Extract<Stmt, { t: 'imp' }>;
         const [s1, id] = withHyp(st, g.a);
-        return { ok: true, state: log(newGoal(s1, g.b), 'assume', `假設 ${stmtText(g.a)}，記成 ${id}`) };
+        // 「假設 a 是偶數或 b 是偶數，記成 H1」: a comma before 或 would read as two sentences.
+        return { ok: true, state: log(newGoal(s1, g.b), 'assume', `假設 ${stmtText(g.a, g.a.t === 'or')}，記成 ${id}`) };
       }
       case 'unfoldGoal': {
         const g = goal as Extract<Stmt, { t: 'pred' }>;
@@ -790,6 +982,12 @@ export function applyMove(st: BoardState, mv: Move): MoveResult {
     return { ok: false, code: 'none', msg: `已知裡沒有還沒用過、形狀是「${c.shape}」的句子。` };
   }
   switch (mv.card) {
+    case 'cases': {
+      const s = h.s as Extract<Stmt, { t: 'or' }>;
+      const cases = [s.a, s.b].map((x) => ({ s: x, label: stmtText(x) }));
+      const s1 = log(markUsed(st, h.id, '已分成兩種情況'), 'cases', `分情況：${h.id} 說「${stmtText(s)}」，兩邊各成一種情況`);
+      return { ok: true, state: splitInto(s1, cases) };
+    }
     case 'split': {
       const s = h.s as Extract<Stmt, { t: 'and' }>;
       const [s1, a] = withHyp(st, s.a);
@@ -831,6 +1029,7 @@ function goalLetters(s: Stmt): string[] {
       return [s.v, ...goalLetters(s.body)];
     case 'imp':
     case 'and':
+    case 'or':
       return [...goalLetters(s.a), ...goalLetters(s.b)];
     case 'pred':
       return s.args.flatMap(exprVars);
@@ -994,4 +1193,73 @@ export const NO_SOLUTION_MOVES: Move[] = [
   { card: 'obtain', h: 'H1', name: 'a' },
   { card: 'obtain', h: 'H2', name: 'b' },
   { card: 'clash' },
+];
+
+// ── chapter 9 ───────────────────────────────────────────────────────
+
+/** 9.2: 對每個整數 n，n² + n 是偶數. */
+export const SQ_PLUS_N: BoardStart = { goal: forall(['n'], even('n^2 + n')) };
+export const SQ_PLUS_N_MOVES: Move[] = [
+  { card: 'intro' },
+  { card: 'rem', v: 'n', d: 2 },
+  { card: 'unfold', h: 'H1' },
+  { card: 'obtain', h: 'H2', name: 'k' },
+  { card: 'unfoldGoal' },
+  { card: 'witness', src: '2k^2 + k' },
+  { card: 'check' },
+  { card: 'unfold', h: 'H1' },
+  { card: 'obtain', h: 'H2', name: 'k' },
+  { card: 'unfoldGoal' },
+  { card: 'witness', src: '2k^2 + 3k + 1' },
+  { card: 'check' },
+];
+
+/** 9.3: 對每個整數 n，n 是偶數，或 n + 1 是偶數. */
+export const CONSEC_EVEN: BoardStart = { goal: forall(['n'], or(even('n'), even('n + 1'))) };
+export const CONSEC_EVEN_MOVES: Move[] = [
+  { card: 'intro' },
+  { card: 'exclude', side: 'left' },
+  { card: 'flip', h: 'H1' },
+  { card: 'unfold', h: 'H2' },
+  { card: 'obtain', h: 'H3', name: 'k' },
+  { card: 'unfoldGoal' },
+  { card: 'witness', src: 'k + 1' },
+  { card: 'check' },
+];
+
+/** 9.4: 若 a 是偶數或 b 是偶數，則 ab 是偶數; and the false look-alike with a(b + 1). */
+export const PROD_EVEN: BoardStart = { goal: forall(['a', 'b'], imp(or(even('a'), even('b')), even('ab'))) };
+export const PROD_EVEN_MOVES: Move[] = [
+  { card: 'intro' },
+  { card: 'assume' },
+  { card: 'cases', h: 'H1' },
+  { card: 'unfold', h: 'H2' },
+  { card: 'obtain', h: 'H3', name: 'k' },
+  { card: 'unfoldGoal' },
+  { card: 'witness', src: 'kb' },
+  { card: 'check' },
+  { card: 'unfold', h: 'H2' },
+  { card: 'obtain', h: 'H3', name: 'k' },
+  { card: 'unfoldGoal' },
+  { card: 'witness', src: 'ak' },
+  { card: 'check' },
+];
+
+/** 9.5: 對每個整數 n，3 ∣ n(n + 1)(n + 2). */
+export const TRIPLE: BoardStart = { goal: forall(['n'], divides('3', 'n(n + 1)(n + 2)')) };
+export const TRIPLE_MOVES: Move[] = [
+  { card: 'intro' },
+  { card: 'rem', v: 'n', d: 3 },
+  { card: 'obtain', h: 'H1', name: 'k' },
+  { card: 'unfoldGoal' },
+  { card: 'witness', src: 'k(3k + 1)(3k + 2)' },
+  { card: 'check' },
+  { card: 'obtain', h: 'H1', name: 'k' },
+  { card: 'unfoldGoal' },
+  { card: 'witness', src: '(3k + 1)(3k + 2)(k + 1)' },
+  { card: 'check' },
+  { card: 'obtain', h: 'H1', name: 'k' },
+  { card: 'unfoldGoal' },
+  { card: 'witness', src: '(3k + 2)(k + 1)(3k + 4)' },
+  { card: 'check' },
 ];
