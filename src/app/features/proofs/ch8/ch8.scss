@@ -1,0 +1,17 @@
+// Chapter 8 scenes. Shared wide-scene rules come from ../ch6/ch6.scss, claim boxes and blanks from ../ch7/ch7.scss.
+
+.c8-tag {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 1px 8px;
+  border: 1.5px solid var(--pf-graphite);
+  border-radius: 4px;
+  color: var(--pf-graphite);
+  font: 700 12px var(--pf-sans);
+  letter-spacing: 0.08em;
+  vertical-align: middle;
+  &.finite { border-style: dashed; }
+}
+
+
+.c8-demo-label { font: 600 12px var(--pf-sans); letter-spacing: 0.14em; color: var(--pf-ink-3); }

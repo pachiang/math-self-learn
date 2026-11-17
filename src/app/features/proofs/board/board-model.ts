@@ -16,10 +16,14 @@ export type Stmt =
   | { t: 'imp'; a: Stmt; b: Stmt }
   | { t: 'and'; a: Stmt; b: Stmt }
   | { t: 'pred'; p: Pred; args: ExprNode[] }
-  | { t: 'eq'; l: ExprNode; r: ExprNode };
+  | { t: 'eq'; l: ExprNode; r: ExprNode }
+  | { t: 'not'; a: Stmt }
+  /** The goal of a proof by contradiction: two givens that cannot both hold. */
+  | { t: 'bot' };
 
-export type GoalCard = 'intro' | 'assume' | 'unfoldGoal' | 'witness' | 'check' | 'exact';
-export type GivenCard = 'split' | 'unfold' | 'obtain' | 'lemma';
+export type GoalCard = 'intro' | 'assume' | 'unfoldGoal' | 'witness' | 'check' | 'exact' | 'contrapos' | 'contra';
+/** flip works on a given or on the goal; it sits with the given cards and asks which. */
+export type GivenCard = 'split' | 'unfold' | 'obtain' | 'lemma' | 'clash' | 'flip';
 export type CardId = GoalCard | GivenCard;
 
 export type Move =
@@ -32,7 +36,12 @@ export type Move =
   | { card: 'split'; h: string }
   | { card: 'unfold'; h: string }
   | { card: 'obtain'; h: string; name: string }
-  | { card: 'lemma'; h1: string; h2: string };
+  | { card: 'lemma'; hs: string[]; lemma?: string }
+  | { card: 'contrapos' }
+  | { card: 'contra' }
+  | { card: 'clash' }
+  /** h is a given's id, or 'goal'. */
+  | { card: 'flip'; h: string };
 
 /** arb: introduced by 「令任意」, the opponent's; got: taken out of an 「存在」 given; chosen: your witness. */
 export interface Obj {
@@ -56,7 +65,22 @@ export interface LogEntry {
   tag: 'shape' | 'idea';
 }
 
+/**
+ * A proved theorem used as one card. Pattern letters x, y, z stand for any expression:
+ * hyps are matched against givens in order, concl is what you get.
+ */
+export interface Lemma {
+  id: string;
+  name: string;
+  /** Where it was proved, drawn on the card: 「7.2 證過」. */
+  chip: string;
+  line: string;
+  hyps: Stmt[];
+  concl: Stmt;
+}
+
 export interface BoardState {
+  lemmas: Lemma[];
   objs: Obj[];
   hyps: Hyp[];
   goal: Stmt | null;
@@ -66,12 +90,16 @@ export interface BoardState {
   log: LogEntry[];
   /** Expansion shown by the last 「代入化簡」. */
   checked?: { lSrc: string; rSrc: string; both: string };
+  /** Why the last move closed the goal, when it was not a check (e.g. the contradiction found). */
+  note?: string;
 }
 
 export interface BoardStart {
   goal: Stmt;
   objs?: Obj[];
   hyps?: Stmt[];
+  /** Proved theorems the 「引用定理」 card may use; defaults to chapter 7's transitivity. */
+  lemmas?: Lemma[];
 }
 
 export type MoveResult =
@@ -97,6 +125,28 @@ export const forall = (vs: string[], body: Stmt): Stmt => ({ t: 'forall', vs, bo
 export const exists = (v: string, body: Stmt): Stmt => ({ t: 'exists', v, body });
 export const imp = (a: Stmt, b: Stmt): Stmt => ({ t: 'imp', a, b });
 export const and = (a: Stmt, b: Stmt): Stmt => ({ t: 'and', a, b });
+export const not = (a: Stmt): Stmt => ({ t: 'not', a });
+/** Negate, cancelling a double negation: 不是「不存在…」 is 「存在…」. */
+export const neg = (s: Stmt): Stmt => (s.t === 'not' ? s.a : { t: 'not', a: s });
+
+/** Chapter 7.2: x ∣ y, y ∣ z ⇒ x ∣ z. */
+export const DIV_TRANS_LEMMA: Lemma = {
+  id: 'div-trans',
+  name: '整除會傳遞',
+  chip: '7.2 證過',
+  line: '已知 x ∣ y、y ∣ z：得到 x ∣ z',
+  hyps: [divides('x', 'y'), divides('y', 'z')],
+  concl: divides('x', 'z'),
+};
+/** Chapter 6.6: x odd ⇒ x² odd. */
+export const ODD_SQ_LEMMA: Lemma = {
+  id: 'odd-sq',
+  name: '奇數的平方是奇數',
+  chip: '6.6 證過',
+  line: '已知 x 是奇數：得到 x² 是奇數',
+  hyps: [odd('x')],
+  concl: odd('x^2'),
+};
 
 // ── reading statements ──────────────────────────────────────────────
 
@@ -104,8 +154,14 @@ export function stmtText(s: Stmt, nested = false): string {
   switch (s.t) {
     case 'forall':
       return `對每個整數 ${s.vs.join('、')}，${stmtText(s.body, true)}`;
-    case 'exists':
-      return `存在整數 ${s.v}，使 ${stmtText(s.body, true)}`;
+    case 'exists': {
+      const [vs, body] = existsChain(s);
+      return `存在整數 ${vs.join('、')}，使 ${stmtText(body, true)}`;
+    }
+    case 'not':
+      return notText(s.a);
+    case 'bot':
+      return '矛盾（找出兩條互相衝突的已知）';
     case 'imp':
       return `若 ${stmtText(s.a, true)}，則 ${stmtText(s.b, true)}`;
     case 'and':
@@ -125,6 +181,35 @@ export function stmtText(s: Stmt, nested = false): string {
   }
 }
 
+/** 存在 a，使 存在 b，使 … reads as 存在整數 a、b，使 …. */
+function existsChain(s: Extract<Stmt, { t: 'exists' }>): [string[], Stmt] {
+  const vs = [s.v];
+  let body = s.body;
+  while (body.t === 'exists') {
+    vs.push(body.v);
+    body = body.body;
+  }
+  return [vs, body];
+}
+
+function notText(a: Stmt): string {
+  switch (a.t) {
+    case 'pred': {
+      const [x, y] = a.args.map(fmtExpr);
+      if (a.p === 'divides') return `${x} ∤ ${y}`;
+      return `${x} 不是${a.p === 'even' ? '偶數' : '奇數'}`;
+    }
+    case 'exists': {
+      const [vs, body] = existsChain(a);
+      return `不存在整數 ${vs.join('、')}，使 ${stmtText(body, true)}`;
+    }
+    case 'eq':
+      return `${fmtExpr(a.l)} ≠ ${fmtExpr(a.r)}`;
+    default:
+      return `並非「${stmtText(a)}」`;
+  }
+}
+
 /** What a learner should see as the outermost layer. */
 export function shapeName(s: Stmt): string {
   switch (s.t) {
@@ -140,12 +225,16 @@ export function shapeName(s: Stmt): string {
       return s.p === 'divides' ? '整除' : s.p === 'even' ? '是偶數' : '是奇數';
     case 'eq':
       return '等式';
+    case 'not':
+      return s.a.t === 'exists' ? '不存在' : '不是';
+    case 'bot':
+      return '矛盾';
   }
 }
 
 export interface CardInfo {
   id: CardId;
-  side: 'goal' | 'given';
+  side: 'goal' | 'given' | 'both';
   name: string;
   /** The shape it applies to, as named in feedback. */
   shape: string;
@@ -165,6 +254,10 @@ export const CARDS: Record<CardId, CardInfo> = {
   obtain: { id: 'obtain', side: 'given', name: '取出命名', shape: '存在', chip: '存在 k', line: '拿出那個整數，替它取名字' },
   exact: { id: 'exact', side: 'goal', name: '對上已知', shape: '已知裡有', chip: '目標 ＝ 已知', line: '目標和某條已知一模一樣：完成' },
   lemma: { id: 'lemma', side: 'given', name: '引用定理', shape: 'x ∣ y、y ∣ z', chip: '7.2 證過', line: '已知 x ∣ y、y ∣ z：得到 x ∣ z' },
+  contrapos: { id: 'contrapos', side: 'goal', name: '逆否', shape: '若…則', chip: '若 P，則 Q', line: '改證「若非 Q，則非 P」' },
+  contra: { id: 'contra', side: 'goal', name: '反證', shape: '任何目標', chip: '目標 G', line: '假設 G 不成立，放進已知；改找矛盾' },
+  clash: { id: 'clash', side: 'given', name: '指出矛盾', shape: '矛盾', chip: '又偶又奇', line: '兩條已知不能同時成立：完成' },
+  flip: { id: 'flip', side: 'both', name: '換正面', shape: '不是偶數／不是奇數', chip: '不是偶數', line: '整數不是偶數，就是奇數' },
 };
 
 /** The cards chapter 6 unlocks; later chapters add to this list. */
@@ -187,8 +280,15 @@ const fitsShape = (card: CardId, s: Stmt): boolean => {
       return s.t === 'eq';
     case 'split':
       return s.t === 'and';
+    case 'contrapos':
+      return s.t === 'imp';
+    case 'contra':
+      return s.t !== 'bot';
+    case 'flip':
+      return s.t === 'not' && s.a.t === 'pred' && s.a.p !== 'divides';
     case 'exact':
     case 'lemma':
+    case 'clash':
       return false;
   }
 };
@@ -240,6 +340,10 @@ function substStmt(s: Stmt, v: string, by: ExprNode): Stmt {
       return { ...s, args: s.args.map((a) => substExpr(a, v, by)) };
     case 'eq':
       return { ...s, l: substExpr(s.l, v, by), r: substExpr(s.r, v, by) };
+    case 'not':
+      return { ...s, a: substStmt(s.a, v, by) };
+    case 'bot':
+      return s;
   }
 }
 
@@ -349,7 +453,15 @@ const newGoal = (st: BoardState, goal: Stmt | null): BoardState => ({
 });
 
 export function startBoard(start: BoardStart): BoardState {
-  let st: BoardState = { objs: start.objs ?? [], hyps: [], goal: start.goal, past: [], nextH: 1, log: [] };
+  let st: BoardState = {
+    lemmas: start.lemmas ?? [DIV_TRANS_LEMMA],
+    objs: start.objs ?? [],
+    hyps: [],
+    goal: start.goal,
+    past: [],
+    nextH: 1,
+    log: [],
+  };
   for (const h of start.hyps ?? []) st = withHyp(st, h)[0];
   return st;
 }
@@ -360,25 +472,171 @@ export function wrongGoalCard(goal: Stmt, card: GoalCard): string {
   const inner =
     card === 'unfoldGoal' && (goal.t === 'forall' || goal.t === 'imp')
       ? '目標裡雖然有定義詞，但它包在裡面。先處理最外面一層。'
-      : '';
+      : card === 'unfoldGoal' && fitsShape('flip', goal)
+        ? '「不是偶數」沒有定義可以展開：定義只說偶數長什麼樣子，沒說「不是偶數」長什麼樣子。先用「換正面」把它換成正面的說法。'
+        : card === 'contrapos' && goal.t === 'forall'
+          ? '「若…則」包在「對每個」裡面，先令任意。'
+          : goal.t === 'not' && goal.a.t === 'exists'
+            ? '「不存在」沒有證人可以提，也沒有定義可以展開；要一組一組排除，又有無限多組。這種目標要翻過來處理。'
+            : '';
   return `目標最外面一層是「${outer}」。「${c.name}」只能用在最外層是「${c.shape}」的目標上。${inner}`;
 }
 
-/** Pairs of givens that match the proved lemma x ∣ y, y ∣ z ⇒ x ∣ z (and whose conclusion is not on the board yet). */
-export function lemmaPairs(st: BoardState): { h1: string; h2: string; out: Stmt }[] {
-  const divs = st.hyps.filter((h) => h.s.t === 'pred' && h.s.p === 'divides');
-  const have = new Set(st.hyps.map((h) => stmtText(h.s)));
-  const out: { h1: string; h2: string; out: Stmt }[] = [];
-  for (const x of divs)
-    for (const y of divs) {
-      if (x === y) continue;
-      const [a, b] = (x.s as Extract<Stmt, { t: 'pred' }>).args;
-      const [b2, c] = (y.s as Extract<Stmt, { t: 'pred' }>).args;
-      if (fmtExpr(b) !== fmtExpr(b2)) continue;
-      const s: Stmt = { t: 'pred', p: 'divides', args: [a, c] };
-      if (!have.has(stmtText(s))) out.push({ h1: x.id, h2: y.id, out: s });
+const PATTERN = new Set(['x', 'y', 'z']);
+type Bind = Map<string, ExprNode>;
+
+function matchExpr(p: ExprNode, e: ExprNode, b: Bind): boolean {
+  if (p.t === 'var' && PATTERN.has(p.name)) {
+    const had = b.get(p.name);
+    if (had) return fmtExpr(had) === fmtExpr(e);
+    b.set(p.name, e);
+    return true;
+  }
+  if (p.t !== e.t) return false;
+  switch (p.t) {
+    case 'num':
+      return p.v.n === (e as typeof p).v.n && p.v.d === (e as typeof p).v.d;
+    case 'var':
+      return p.name === (e as typeof p).name;
+    case 'neg':
+      return matchExpr(p.a, (e as typeof p).a, b);
+    case 'pow':
+      return p.e === (e as typeof p).e && matchExpr(p.a, (e as typeof p).a, b);
+    case 'bin': {
+      const f = e as typeof p;
+      return p.op === f.op && matchExpr(p.a, f.a, b) && matchExpr(p.b, f.b, b);
     }
+  }
+}
+
+function matchStmt(p: Stmt, s: Stmt, b: Bind): boolean {
+  if (p.t !== s.t) return false;
+  switch (p.t) {
+    case 'pred': {
+      const q = s as typeof p;
+      return p.p === q.p && p.args.length === q.args.length && p.args.every((a, i) => matchExpr(a, q.args[i], b));
+    }
+    case 'eq': {
+      const q = s as typeof p;
+      return matchExpr(p.l, q.l, b) && matchExpr(p.r, q.r, b);
+    }
+    case 'not':
+      return matchStmt(p.a, (s as typeof p).a, b);
+    case 'and':
+    case 'imp': {
+      const q = s as typeof p;
+      return matchStmt(p.a, q.a, b) && matchStmt(p.b, q.b, b);
+    }
+    default:
+      return false;
+  }
+}
+
+/** Put the bound expressions into the conclusion (renaming first, so x → y → … cannot chain). */
+function instantiate(s: Stmt, b: Bind): Stmt {
+  let out = s;
+  for (const v of b.keys()) out = substStmt(out, v, { t: 'var', name: `#${v}` });
+  for (const [v, e] of b) out = substStmt(out, `#${v}`, e);
   return out;
+}
+
+export interface LemmaUse {
+  lemma: Lemma;
+  hs: string[];
+  out: Stmt;
+}
+
+/** Every way the givens match a proved theorem's premises, whose conclusion is not on the board yet. */
+export function lemmaUses(st: BoardState): LemmaUse[] {
+  const have = new Set(st.hyps.map((h) => stmtText(h.s)));
+  const out: LemmaUse[] = [];
+  const seen = new Set<string>();
+  for (const L of st.lemmas) {
+    const go = (i: number, hs: string[], b: Bind) => {
+      if (i === L.hyps.length) {
+        const s = instantiate(L.concl, b);
+        const key = stmtText(s);
+        if (!have.has(key) && !seen.has(key + hs.join())) {
+          seen.add(key + hs.join());
+          out.push({ lemma: L, hs, out: s });
+        }
+        return;
+      }
+      for (const h of st.hyps) {
+        if (hs.includes(h.id)) continue;
+        const nb: Bind = new Map(b);
+        if (matchStmt(L.hyps[i], h.s, nb)) go(i + 1, [...hs, h.id], nb);
+      }
+    };
+    go(0, [], new Map());
+  }
+  return out;
+}
+
+/** Chapter 7's view: pairs for the transitivity lemma. */
+export function lemmaPairs(st: BoardState): { h1: string; h2: string; out: Stmt }[] {
+  return lemmaUses(st)
+    .filter((u) => u.lemma.id === 'div-trans')
+    .map((u) => ({ h1: u.hs[0], h2: u.hs[1], out: u.out }));
+}
+
+const swapParity = (s: Stmt): Stmt => {
+  const p = (s as { a: Extract<Stmt, { t: 'pred' }> }).a;
+  return { t: 'pred', p: p.p === 'even' ? 'odd' : 'even', args: p.args };
+};
+
+/** Even: every coefficient even. Odd: every non-constant coefficient even, the constant odd. */
+function parityOf(p: Poly): 'even' | 'odd' | null {
+  for (const [k, c] of p) if (k !== '' && c % 2 !== 0) return null;
+  return Math.abs(p.get('') ?? 0) % 2 === 0 ? 'even' : 'odd';
+}
+
+/** 4a + 6b → 2(2a + 3b); 4l² + 4l + 1 → 2(2l² + 2l) + 1; 2k → 2k. */
+function parityForm(p: Poly): string {
+  const c0 = p.get('') ?? 0;
+  const rest = new Map([...p].filter(([k]) => k !== ''));
+  if (!rest.size) return fmtPoly(p);
+  const half = padd(new Map(), rest, 0.5);
+  const hs = fmtPoly(half);
+  const one = half.size === 1 && [...half.values()][0] === 1;
+  const body = one ? `2${hs}` : `2(${hs})`;
+  return c0 === 0 ? body : `${body} ${c0 > 0 ? '+' : '−'} ${Math.abs(c0)}`;
+}
+
+/** Two givens that cannot both hold: P and 不是 P; X even and X odd; an equation whose two sides have opposite parity. */
+export function findClash(st: BoardState): { hs: string[]; text: string } | null {
+  const hs = st.hyps;
+  for (const a of hs)
+    for (const b of hs) {
+      if (a === b) continue;
+      if (b.s.t === 'not' && stmtText(b.s.a) === stmtText(a.s)) {
+        return { hs: [a.id, b.id], text: `${a.id} 說「${stmtText(a.s)}」，${b.id} 說「${stmtText(b.s)}」，兩條不能同時成立。` };
+      }
+      if (a.s.t === 'pred' && b.s.t === 'pred' && a.s.p === 'even' && b.s.p === 'odd' && fmtExpr(a.s.args[0]) === fmtExpr(b.s.args[0])) {
+        const x = fmtExpr(a.s.args[0]);
+        return { hs: [a.id, b.id], text: `${a.id} 說 ${x} 是偶數，${b.id} 說 ${x} 是奇數；一個整數不會又是偶數又是奇數。` };
+      }
+    }
+  const defs = definitions(st);
+  for (const h of hs) {
+    if (h.s.t !== 'eq') continue;
+    const l = expand(h.s.l, defs);
+    const r = expand(h.s.r, defs);
+    if (!l || !r) continue;
+    const pl = parityOf(l);
+    const pr = parityOf(r);
+    if (!pl || !pr || pl === pr) continue;
+    const side = (src: ExprNode, p: Poly) => {
+      const parts = [fmtExpr(src), fmtPoly(p), parityForm(p)];
+      return parts.filter((x, i) => parts.indexOf(x) === i).join(' = ');
+    };
+    const word = (x: 'even' | 'odd') => (x === 'even' ? '偶數' : '奇數');
+    return {
+      hs: [h.id],
+      text: `${h.id}「${stmtText(h.s)}」：左邊 ${side(h.s.l, l)} 是${word(pl)}，右邊 ${side(h.s.r, r)} 是${word(pr)}；一個整數不會又是偶數又是奇數。`,
+    };
+  }
+  return null;
 }
 
 export function applyMove(st: BoardState, mv: Move): MoveResult {
@@ -392,10 +650,51 @@ export function applyMove(st: BoardState, mv: Move): MoveResult {
     return { ok: true, state: log(newGoal(st, null), 'exact', `目標就是 ${h.id}，完成`) };
   }
   if (mv.card === 'lemma') {
-    const pair = lemmaPairs(st).find((p) => p.h1 === mv.h1 && p.h2 === mv.h2);
-    if (!pair) return { ok: false, code: 'none', msg: '已知裡找不到一對「x ∣ y、y ∣ z」：第一條的右邊要和第二條的左邊一樣。' };
-    const [s1, id] = withHyp(st, pair.out);
-    return { ok: true, state: log(s1, 'lemma', `引用定理：${mv.h1}、${mv.h2} ⇒ ${id}：${stmtText(pair.out)}`) };
+    const use = lemmaUses(st).find((u) => u.hs.join() === mv.hs.join() && (!mv.lemma || u.lemma.id === mv.lemma));
+    if (!use) {
+      const msg =
+        st.lemmas.length === 1 && st.lemmas[0].id === 'div-trans'
+          ? '已知裡找不到一對「x ∣ y、y ∣ z」：第一條的右邊要和第二條的左邊一樣。'
+          : '已知裡找不到符合證過的定理前提的句子。';
+      return { ok: false, code: 'none', msg };
+    }
+    const [s1, id] = withHyp(st, use.out);
+    const tail = st.lemmas.length > 1 || use.lemma.id !== 'div-trans' ? `（${use.lemma.chip}）` : '';
+    return { ok: true, state: log(s1, 'lemma', `引用定理：${mv.hs.join('、')} ⇒ ${id}：${stmtText(use.out)}${tail}`) };
+  }
+  if (mv.card === 'clash') {
+    if (st.goal.t !== 'bot') {
+      return { ok: false, code: 'shape', msg: '「指出矛盾」只在目標是「找出矛盾」時才用得上。想走這條路，先出「反證」。' };
+    }
+    const c = findClash(st);
+    if (!c) {
+      return {
+        ok: false,
+        code: 'none',
+        msg: '已知裡還找不到兩條互相衝突的句子。「存在」要先取出、定義詞要先展開，衝突常常要等等式出現才看得到。',
+      };
+    }
+    return { ok: true, state: log({ ...newGoal(st, null), note: c.text }, 'clash', `指出矛盾：${c.text}`) };
+  }
+  if (mv.card === 'flip') {
+    if (mv.h === 'goal') {
+      if (!fitsShape('flip', st.goal)) return { ok: false, code: 'shape', msg: '目標不是「不是偶數」或「不是奇數」的形狀。' };
+      const next = swapParity(st.goal);
+      return {
+        ok: true,
+        state: log(newGoal(st, next), 'flip', `換正面：目標「${stmtText(st.goal)}」就是「${stmtText(next)}」`),
+      };
+    }
+    const h = st.hyps.find((x) => x.id === mv.h);
+    if (!h || h.used || !fitsShape('flip', h.s)) {
+      return { ok: false, code: 'none', msg: '已知裡沒有還沒用過的「不是偶數」或「不是奇數」。' };
+    }
+    const next = swapParity(h.s);
+    const [s1, id] = withHyp(st, next);
+    return {
+      ok: true,
+      state: log(markUsed(s1, h.id, `已換成 → ${id}`), 'flip', `換正面：${h.id}「${stmtText(h.s)}」就是「${stmtText(next)}」，記成 ${id}`),
+    };
   }
 
   if (c.side === 'goal') {
@@ -403,6 +702,18 @@ export function applyMove(st: BoardState, mv: Move): MoveResult {
     if (!fitsShape(mv.card, goal)) return { ok: false, code: 'shape', msg: wrongGoalCard(goal, mv.card as GoalCard) };
 
     switch (mv.card) {
+      case 'contrapos': {
+        const g = goal as Extract<Stmt, { t: 'imp' }>;
+        const next: Stmt = { t: 'imp', a: neg(g.b), b: neg(g.a) };
+        return { ok: true, state: log(newGoal(st, next), 'contrapos', `逆否：改證「${stmtText(next)}」`, 'idea') };
+      }
+      case 'contra': {
+        const [s1, id] = withHyp(st, neg(goal));
+        return {
+          ok: true,
+          state: log(newGoal(s1, { t: 'bot' }), 'contra', `反證：假設目標不成立，記成 ${id}：${stmtText(neg(goal))}；改找矛盾`, 'idea'),
+        };
+      }
       case 'intro': {
         const g = goal as Extract<Stmt, { t: 'forall' }>;
         const objs = [...st.objs, ...g.vs.map((v): Obj => ({ name: v, kind: 'arb' }))];
@@ -420,7 +731,7 @@ export function applyMove(st: BoardState, mv: Move): MoveResult {
       }
       case 'witness': {
         const g = goal as Extract<Stmt, { t: 'exists' }>;
-        const pending = st.hyps.find((h) => !h.used && h.s.t !== 'eq');
+        const pending = st.hyps.find((h) => !h.used && h.s.t !== 'eq' && (h.s.t !== 'not' || fitsShape('flip', h.s)));
         if (pending) {
           return {
             ok: false,
@@ -525,6 +836,10 @@ function goalLetters(s: Stmt): string[] {
       return s.args.flatMap(exprVars);
     case 'eq':
       return [...exprVars(s.l), ...exprVars(s.r)];
+    case 'not':
+      return goalLetters(s.a);
+    case 'bot':
+      return [];
   }
 }
 
@@ -634,4 +949,49 @@ export const DIV_CHAIN_BY_HAND: Move[] = [
   { card: 'unfoldGoal' },
   { card: 'witness', src: 'klj' },
   { card: 'check' },
+];
+
+// ── chapter 8 ───────────────────────────────────────────────────────
+
+/** 對每個整數 n，若 n² 是偶數，則 n 是偶數。 */
+export const EVEN_SQ: BoardStart = { goal: forall(['n'], imp(even('n^2'), even('n'))) };
+/** 8.1: the direct attempt, up to the bridge that cannot be crossed. */
+export const EVEN_SQ_DIRECT: Move[] = [
+  { card: 'intro' },
+  { card: 'assume' },
+  { card: 'unfold', h: 'H1' },
+  { card: 'obtain', h: 'H2', name: 'k' },
+  { card: 'unfoldGoal' },
+];
+/** 8.2: the same theorem through the contrapositive. */
+export const EVEN_SQ_CONTRAPOS: Move[] = [
+  { card: 'intro' },
+  { card: 'contrapos' },
+  { card: 'assume' },
+  { card: 'flip', h: 'H1' },
+  { card: 'flip', h: 'goal' },
+  { card: 'unfold', h: 'H2' },
+  { card: 'obtain', h: 'H3', name: 'k' },
+  { card: 'unfoldGoal' },
+  { card: 'witness', src: '2k^2 + 2k' },
+  { card: 'check' },
+];
+/** 8.6: the same theorem by contradiction, citing 6.6. */
+export const EVEN_SQ_BY_CONTRA: BoardStart = { ...EVEN_SQ, lemmas: [ODD_SQ_LEMMA] };
+export const EVEN_SQ_CONTRA: Move[] = [
+  { card: 'intro' },
+  { card: 'assume' },
+  { card: 'contra' },
+  { card: 'flip', h: 'H2' },
+  { card: 'lemma', hs: ['H3'] },
+  { card: 'clash' },
+];
+
+/** 8.3: 不存在整數 a、b，使 4a + 6b = c. */
+export const noSolution = (c: number): BoardStart => ({ goal: not(exists('a', exists('b', eqn('4a + 6b', String(c))))) });
+export const NO_SOLUTION_MOVES: Move[] = [
+  { card: 'contra' },
+  { card: 'obtain', h: 'H1', name: 'a' },
+  { card: 'obtain', h: 'H2', name: 'b' },
+  { card: 'clash' },
 ];

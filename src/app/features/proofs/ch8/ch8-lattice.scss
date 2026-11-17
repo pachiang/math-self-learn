@@ -1,0 +1,26 @@
+// 8.3 · the lattice of 4a + 6b.
+.c8-lattice {
+  display: grid;
+  grid-template-columns: 34px repeat(11, 46px);
+  grid-auto-rows: 34px;
+  font: 600 13px var(--pf-mono);
+  > .ax { display: grid; place-items: center; color: var(--pf-ink-3); font-size: 12px; }
+  > .v {
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--pf-rule);
+    color: var(--pf-ink-2);
+    background: var(--pf-card);
+    &.cur { outline: 2.5px solid var(--pf-ink); outline-offset: -2px; color: var(--pf-ink); font-weight: 800; }
+    &.hit { border: 2.5px solid var(--pf-amber); background: var(--pf-amber-soft); color: var(--pf-ink); font-weight: 800; }
+  }
+}
+.c8-lat-wrap { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 28px; align-items: start; max-width: 1200px; }
+.c8-lat-side { display: grid; gap: 14px; align-content: start; }
+.c8-stepper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  .pf-num { min-width: 3.2em; text-align: center; font-size: 22px; font-weight: 800; }
+}
+.c8-count { font: 700 19px var(--pf-serif); }

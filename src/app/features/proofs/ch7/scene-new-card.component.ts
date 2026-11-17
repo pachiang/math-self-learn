@@ -99,7 +99,7 @@ const BY_HAND = replay(DIV_CHAIN, DIV_CHAIN_BY_HAND);
               </ol>
             </div>
             <p class="pf-note">
-              下一章：目標不一定能直接展開。第 8 章「逆否與反證」把否定的目標換成可以用的已知。<a routerLink="/learn/proofs">第 8 章</a>還在規畫中。
+              下一章：目標不一定能直接展開。<a routerLink="/learn/proofs/ch8/1">第 8 章「逆否與反證」</a>把否定的目標換成可以用的已知。
             </p>
           </div>
         }

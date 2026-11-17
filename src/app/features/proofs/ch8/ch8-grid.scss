@@ -1,0 +1,48 @@
+// 8.2 · the four-cell promise grid.
+.c8-grid-wrap { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 28px; align-items: start; max-width: 1100px; }
+.c8-grid {
+  display: grid;
+  grid-template-columns: 110px 190px 190px;
+  grid-template-rows: 34px 120px 120px;
+  font-size: 14px;
+  > .hd { display: grid; place-items: center; font: 600 13px var(--pf-sans); color: var(--pf-ink-3); }
+  > .cell {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 4px;
+    padding: 10px;
+    border: 1px solid var(--pf-rule-strong);
+    background: var(--pf-card);
+    &.bad {
+      border: 2.5px solid var(--pf-red);
+      background: repeating-linear-gradient(-45deg, var(--pf-red-soft) 0 6px, transparent 6px 12px);
+    }
+    > .tag {
+      position: absolute;
+      right: 6px;
+      bottom: 4px;
+      font: 700 12px var(--pf-sans);
+      color: var(--pf-red);
+    }
+    > .empty { font-size: 13px; color: var(--pf-ink-3); }
+  }
+}
+.c8-n {
+  display: inline-grid;
+  place-items: center;
+  min-width: 26px;
+  height: 22px;
+  padding: 0 3px;
+  border: 1px solid var(--pf-rule-strong);
+  border-radius: 4px;
+  font: 600 12px var(--pf-mono);
+}
+.c8-stmts { display: grid; gap: 8px; justify-items: start; }
+.c8-stmt {
+  font: 700 17px var(--pf-serif);
+  text-align: left;
+  border-radius: 10px;
+  small { display: block; font: 500 12px var(--pf-sans); color: var(--pf-ink-3); }
+}

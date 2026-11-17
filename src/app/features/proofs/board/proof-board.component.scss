@@ -197,3 +197,13 @@ kbd {
   white-space: nowrap;
   &.idea { border-color: var(--pf-amber); background: var(--pf-amber); color: var(--pf-paper); }
 }
+
+// Chapter 8: a contradiction closes the goal with a sentence, not an expansion.
+.pb-note { font: 600 14px/1.6 var(--pf-sans); white-space: normal; }
+.pb-card-shape {
+  // A turned-around promise and a negated goal: the frame says what the card flips.
+  &.contrapos { border: 1.5px solid var(--pf-ink-2); border-style: solid dashed; }
+  &.contra { border: 1.5px dashed var(--pf-red); color: var(--pf-red); }
+  &.clash { border: 1.5px solid var(--pf-red); color: var(--pf-red); }
+  &.flip { border: 1.5px solid var(--pf-ink-2); text-decoration: line-through; text-decoration-thickness: 1.5px; }
+}

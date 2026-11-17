@@ -21,3 +21,14 @@ export const CH7_SKELETON: SkeletonCard = {
     { text: '拿到 k：b = ak，c = bk', why: '兩次拿到用了同一個名字，等於假設兩個商一樣大。' },
   ],
 };
+
+/** Made at the end of chapter 8, reviewed at the start of chapter 9. */
+export const CH8_SKELETON: SkeletonCard = {
+  title: '√2 是無理數（反證）',
+  from: '第 8 章',
+  beats: ['假設 √2 = p/q，而且 p、q 不都是偶數', 'p² = 2q²，用 8.2 的卡：p 是偶數', '代入 p = 2r：q² = 2r²，q 也是偶數，和「不都是偶數」矛盾'],
+  decoys: [
+    { text: 'p² = 2q²，所以 p = 2q', why: '(2q)² 是 4q²，不是 2q²。從 p² 是偶數只能拿到「p 是偶數」，要靠 8.2 的卡。' },
+    { text: '假設 √2 = p/q，p、q 是任意整數', why: '少了「不都是偶數」，最後就沒有東西可以打架：p、q 都是偶數本來就可能。先約到最簡。' },
+  ],
+};

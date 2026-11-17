@@ -15,8 +15,8 @@ import {
   bridgeOf,
   defsFor,
   givensFor,
-  lemmaPairs,
-  Stmt,
+  lemmaUses,
+  LemmaUse,
   replay,
   shapeName,
   stmtText,
@@ -24,13 +24,28 @@ import {
 import { ExprNode } from '../ch2/ch2-expr';
 import { exprVars, fmtExpr, substExpr } from './poly';
 
-const ALL_CARDS: CardId[] = ['intro', 'assume', 'unfoldGoal', 'witness', 'check', 'exact', 'split', 'unfold', 'obtain', 'lemma'];
+const ALL_CARDS: CardId[] = [
+  'intro',
+  'assume',
+  'unfoldGoal',
+  'witness',
+  'check',
+  'exact',
+  'contrapos',
+  'contra',
+  'split',
+  'unfold',
+  'obtain',
+  'lemma',
+  'clash',
+  'flip',
+];
 
 type Pending =
   | { card: 'witness' }
   | { card: 'obtain'; h: string | null }
   | { card: 'pick'; of: GivenCard; hs: string[] }
-  | { card: 'pairs'; pairs: { h1: string; h2: string; out: Stmt }[] };
+  | { card: 'uses'; uses: LemmaUse[] };
 
 /**
  * The proof state board: givens on the left (letters with identity marks, then H1, H2, …),
@@ -91,6 +106,9 @@ type Pending =
                   <span class="pb-text">目標清空，證明完成。</span>
                   @if (st().checked; as c) {
                     <small class="pb-check">左邊 {{ c.lSrc }} → {{ c.both }}　右邊 {{ c.rSrc }} → {{ c.both }}</small>
+                  }
+                  @if (st().note; as n) {
+                    <small class="pb-check pb-note">{{ n }}</small>
                   }
                 </span>
                 <span class="pf-seal mini proved stamp">證明</span>
@@ -192,8 +210,8 @@ type Pending =
                   <small class="pb-sidelabel">{{ side.title }}</small>
                   <div class="pb-cards">
                     @for (c of side.cards; track c) {
-                      <button type="button" class="pb-card" [class.on]="activeCard() === c" (click)="play(c)" [attr.aria-keyshortcuts]="keyOf(c)">
-                        <span class="pb-card-top"><span><kbd>{{ keyOf(c) }}</kbd>@if (activeCard() === c) {<small class="pb-on">剛出這張</small>}</span><span class="pb-card-shape" [class]="'pb-card-shape ' + c">{{ info(c).chip }}</span></span>
+                      <button type="button" class="pb-card" [class.on]="activeCard() === c" (click)="play(c)" [attr.aria-keyshortcuts]="keyOf(c) || null">
+                        <span class="pb-card-top"><span>@if (keyOf(c)) {<kbd>{{ keyOf(c) }}</kbd>}@if (activeCard() === c) {<small class="pb-on">剛出這張</small>}</span><span class="pb-card-shape" [class]="'pb-card-shape ' + c">{{ info(c).chip }}</span></span>
                         <b>{{ info(c).name }}</b>
                         <small>{{ info(c).line }}</small>
                       </button>
@@ -206,23 +224,23 @@ type Pending =
 
             @if (pending(); as p) {
               <div class="pb-ask pf-rise">
-                @if (p.card === 'pairs') {
-                  <p class="pf-q small">「引用定理」要用在哪兩條已知？</p>
+                @if (p.card === 'uses') {
+                  <p class="pf-q small">「引用定理」要用在哪{{ p.uses[0].hs.length > 1 ? '幾' : '一' }}條已知？</p>
                   <div class="pf-row">
-                    @for (x of p.pairs; track x.h1 + x.h2) {
-                      <button type="button" class="pf-btn small" (click)="commitLemma(x.h1, x.h2)">{{ x.h1 }}、{{ x.h2 }} ⇒ {{ text(x.out) }}</button>
+                    @for (x of p.uses; track x.lemma.id + x.hs.join()) {
+                      <button type="button" class="pf-btn small" (click)="commitLemma(x)">{{ x.hs.join('、') }} ⇒ {{ text(x.out) }}</button>
                     }
                   </div>
                 } @else if (p.card === 'pick') {
                   <p class="pf-q small">「{{ info(p.of).name }}」要用在哪一條已知？</p>
                   <div class="pf-row">
                     @for (h of p.hs; track h) {
-                      <button type="button" class="pf-btn small" (click)="pickHyp(p.of, h)">{{ h }}　{{ hypText(h) }}</button>
+                      <button type="button" class="pf-btn small" (click)="pickHyp(p.of, h)">{{ h === 'goal' ? '目標' : h }}　{{ h === 'goal' ? goalText() : hypText(h) }}</button>
                     }
                   </div>
                 } @else if (p.card === 'obtain' && p.h) {
                   <form class="pf-row" (submit)="$event.preventDefault(); submitName(p.h)">
-                    <label class="pf-q small" [attr.for]="id('name')">從 {{ p.h }} 拿出的整數，叫它</label>
+                    <label class="pf-q small" [attr.for]="id('name')">從 {{ p.h }} 拿出的整數{{ boundVar(p.h) ? '（句子裡的 ' + boundVar(p.h) + '）' : '' }}，叫它</label>
                     <input
                       class="pf-input"
                       [id]="id('name')"
@@ -351,9 +369,11 @@ export class ProofBoardComponent {
     const d = this.deck();
     const goal = ALL_CARDS.filter((c) => CARDS[c].side === 'goal' && d.includes(c));
     const given = ALL_CARDS.filter((c) => CARDS[c].side === 'given' && d.includes(c));
+    const both = ALL_CARDS.filter((c) => CARDS[c].side === 'both' && d.includes(c));
     return [
       { key: 'goal', title: '對目標用', cards: goal },
       { key: 'given', title: '對已知用', cards: given },
+      { key: 'both', title: '兩邊都能用', cards: both },
     ].filter((s) => s.cards.length);
   });
   private readonly order = computed(() => this.sides().flatMap((s) => s.cards));
@@ -386,10 +406,22 @@ export class ProofBoardComponent {
   }
 
   info(c: CardId) {
+    const L = this.st().lemmas;
+    // A single proved theorem draws its own premise and source on the card.
+    if (c === 'lemma' && L.length === 1) return { ...CARDS.lemma, chip: L[0].chip, line: L[0].line };
     return CARDS[c];
   }
   keyOf(c: CardId): string {
-    return String((this.order().indexOf(c) + 1) % 10);
+    const i = this.order().indexOf(c);
+    return i < 10 ? String((i + 1) % 10) : '';
+  }
+  boundVar(id: string): string | null {
+    const h = this.st().hyps.find((x) => x.id === id);
+    return h?.s.t === 'exists' ? h.s.v : null;
+  }
+  goalText(): string {
+    const g = this.st().goal;
+    return g ? stmtText(g) : '';
   }
 
   subst(d: Def): void {
@@ -442,18 +474,43 @@ export class ProofBoardComponent {
       return;
     }
     if (c === 'lemma') {
-      const pairs = lemmaPairs(st);
-      if (!pairs.length) {
-        this.fail('已知裡找不到一對「x ∣ y、y ∣ z」：第一條的右邊要和第二條的左邊一樣，而且結論還不在板上。');
+      const uses = lemmaUses(st);
+      if (!uses.length) {
+        const div = st.lemmas.length === 1 && st.lemmas[0].id === 'div-trans';
+        this.fail(
+          div
+            ? '已知裡找不到一對「x ∣ y、y ∣ z」：第一條的右邊要和第二條的左邊一樣，而且結論還不在板上。'
+            : '已知裡還沒有符合定理前提的句子：' + st.lemmas.map((l) => '「' + l.line + '」').join('、') + '。',
+        );
         this.refused.emit({ card: c, code: 'none' });
         return;
       }
-      if (pairs.length === 1) {
-        this.commitLemma(pairs[0].h1, pairs[0].h2);
+      if (uses.length === 1) {
+        this.commitLemma(uses[0]);
         return;
       }
       this.msg.set(null);
-      this.pending.set({ card: 'pairs', pairs });
+      this.pending.set({ card: 'uses', uses });
+      return;
+    }
+    if (c === 'clash') {
+      this.commit({ card: 'clash' });
+      return;
+    }
+    if (c === 'flip') {
+      const hs = givensFor(st, 'flip');
+      if (st.goal && givensFor({ ...st, hyps: [{ id: 'goal', s: st.goal }] }, 'flip').length) hs.push('goal');
+      if (!hs.length) {
+        this.fail('已知和目標裡都沒有「不是偶數」或「不是奇數」的句子。');
+        this.refused.emit({ card: c, code: 'none' });
+        return;
+      }
+      if (hs.length > 1) {
+        this.msg.set(null);
+        this.pending.set({ card: 'pick', of: 'flip', hs });
+        return;
+      }
+      this.commit({ card: 'flip', h: hs[0] });
       return;
     }
     const hs = givensFor(st, c as GivenCard);
@@ -478,11 +535,15 @@ export class ProofBoardComponent {
       this.focusSoon('name');
       return;
     }
+    if (c === 'flip') {
+      this.commit({ card: 'flip', h });
+      return;
+    }
     this.commit(c === 'split' ? { card: 'split', h } : { card: 'unfold', h });
   }
 
-  commitLemma(h1: string, h2: string): void {
-    this.commit({ card: 'lemma', h1, h2 });
+  commitLemma(u: LemmaUse): void {
+    this.commit({ card: 'lemma', hs: u.hs, lemma: u.lemma.id });
   }
 
   submitName(h: string): void {
@@ -539,12 +600,23 @@ export class ProofBoardComponent {
         return `${last.text}。目標換成一條等式，下一步把已知代進去，看兩邊是不是一樣。`;
       case 'check':
         return '兩邊展開後一模一樣，目標清空。';
+      case 'contrapos':
+        return '同一個承諾，換一個方向說：結論的反面變成新的前提，前提的反面變成新的結論。';
+      case 'contra':
+        return '目標的反面變成一條可以用的已知。接下來不必證出哪一句特定的話，只要讓兩條已知打架。';
+      case 'flip':
+        return '「不是偶數」沒辦法展開，「是奇數」可以：換成正面說法，定義就用得上了。';
+      case 'clash':
+        return '已知裡出現了不可能同時成立的事，所以一開始的假設不可能成立，原本的目標就證完了。';
       default:
         return null;
     }
   }
 
   private givenHint(c: GivenCard): string {
+    if (c === 'unfold' && givensFor(this.st(), 'flip').length) {
+      return '「不是偶數」「不是奇數」沒有定義可以展開；先用「換正面」把它換成正面的說法。';
+    }
     return c === 'obtain' ? '「存在」形狀的已知，通常要先展開定義才會出現。' : '';
   }
 

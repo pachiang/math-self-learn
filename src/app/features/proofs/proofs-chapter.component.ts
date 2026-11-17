@@ -40,6 +40,12 @@ import { SceneWitnessFormulaComponent } from './ch7/scene-witness-formula.compon
 import { SceneGapComponent } from './ch7/scene-gap.component';
 import { SceneRepairComponent } from './ch7/scene-repair.component';
 import { SceneNewCardComponent } from './ch7/scene-new-card.component';
+import { SceneStuckComponent } from './ch8/scene-stuck.component';
+import { SceneContraposComponent } from './ch8/scene-contrapos.component';
+import { SceneContraComponent } from './ch8/scene-contra.component';
+import { SceneRootTwoComponent } from './ch8/scene-root-two.component';
+import { ScenePrimesComponent } from './ch8/scene-primes.component';
+import { SceneWhichComponent } from './ch8/scene-which.component';
 
 @Component({
   selector: 'app-proofs-chapter',
@@ -82,6 +88,12 @@ import { SceneNewCardComponent } from './ch7/scene-new-card.component';
     SceneGapComponent,
     SceneRepairComponent,
     SceneNewCardComponent,
+    SceneStuckComponent,
+    SceneContraposComponent,
+    SceneContraComponent,
+    SceneRootTwoComponent,
+    ScenePrimesComponent,
+    SceneWhichComponent,
   ],
   encapsulation: ViewEncapsulation.None,
   styleUrls: ['./proofs-shell.scss', './proofs-kit.scss'],
@@ -150,6 +162,12 @@ import { SceneNewCardComponent } from './ch7/scene-new-card.component';
             @case ('ch7/3') { <app-pf-gap /> }
             @case ('ch7/4') { <app-pf-repair /> }
             @case ('ch7/5') { <app-pf-new-card /> }
+            @case ('ch8/1') { <app-pf-stuck /> }
+            @case ('ch8/2') { <app-pf-contrapos /> }
+            @case ('ch8/3') { <app-pf-contra /> }
+            @case ('ch8/4') { <app-pf-root-two /> }
+            @case ('ch8/5') { <app-pf-primes /> }
+            @case ('ch8/6') { <app-pf-which /> }
           }
         } @else {
           <section class="pf-col" style="max-width: 640px">

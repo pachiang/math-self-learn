@@ -1,0 +1,38 @@
+// 8.1 · which way the arrows go between n and n².
+.c8-dir {
+  display: grid;
+  gap: 12px;
+  padding: 16px 20px 18px;
+  border: 1px solid var(--pf-rule-strong);
+  border-radius: 12px;
+  background: var(--pf-card);
+  max-width: 980px;
+  svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .row-label { font: 600 13px var(--pf-sans); fill: var(--pf-ink-3); letter-spacing: 0.06em; }
+  .n-dot { fill: var(--pf-card); stroke: var(--pf-ink); stroke-width: 1.5; }
+  .n-dot.odd { stroke-dasharray: 3 2; }
+  .n-txt { font: 700 15px var(--pf-mono); fill: var(--pf-ink); text-anchor: middle; dominant-baseline: central; }
+  .axis { stroke: var(--pf-ink-2); stroke-width: 1.5; }
+  .tick { stroke: var(--pf-rule-strong); stroke-width: 1; }
+  .tick.even { stroke: var(--pf-ink-3); }
+  .sq-txt { font: 600 12px var(--pf-mono); fill: var(--pf-ink-2); text-anchor: middle; }
+  .fwd { fill: none; stroke: var(--pf-blue); stroke-width: 1.6; opacity: 0.75; }
+  .fwd-head { fill: var(--pf-blue); opacity: 0.75; }
+  .pick { fill: var(--pf-amber); }
+  .pick-ring { fill: none; stroke: var(--pf-amber); stroke-width: 2.5; }
+  .back { fill: none; stroke: var(--pf-amber); stroke-width: 2.2; stroke-dasharray: 6 4; }
+  .back.ok { stroke-dasharray: none; }
+  .miss { font: 700 13px var(--pf-sans); fill: var(--pf-red); text-anchor: middle; }
+  .hit { font: 700 13px var(--pf-sans); fill: var(--pf-amber); text-anchor: middle; }
+}
+.c8-dir-ctl {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  input[type='range'] { width: 320px; accent-color: var(--pf-amber); }
+  .pf-num { font-size: 18px; font-weight: 700; }
+}
+.c8-legend { display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: 14px; color: var(--pf-ink-2); }
+.c8-legend i { display: inline-block; width: 26px; height: 0; margin-right: 6px; vertical-align: middle; border-top: 2px solid var(--pf-blue); }
+.c8-legend i.back { border-top: 2px dashed var(--pf-amber); }

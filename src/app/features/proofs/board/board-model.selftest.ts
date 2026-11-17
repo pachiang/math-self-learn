@@ -18,6 +18,15 @@ import {
   DIV_SUM_FIXED,
   DIV_TRANS,
   DIV_TRANS_OPENING,
+  EVEN_SQ,
+  EVEN_SQ_DIRECT,
+  EVEN_SQ_CONTRAPOS,
+  EVEN_SQ_BY_CONTRA,
+  EVEN_SQ_CONTRA,
+  NO_SOLUTION_MOVES,
+  noSolution,
+  findClash,
+  lemmaUses,
   defsFor,
   lemmaPairs,
   bridgeOf,
@@ -190,15 +199,72 @@ eqS(hand.goal, null, 'chain by hand closes');
 eqS(hand.objs.length, 8, 'chain by hand: eight letters');
 st = replay(DIV_CHAIN, [{ card: 'intro' }, { card: 'assume' }, { card: 'split', h: 'H1' }, { card: 'split', h: 'H2' }]);
 eqS(lemmaPairs(st).map((p) => `${p.h1}${p.h2}`).join(), 'H4H5,H5H3', 'two lemma pairs at first');
-r = step(st, { card: 'lemma', h1: 'H4', h2: 'H5' });
+r = step(st, { card: 'lemma', hs: ['H4', 'H5'] });
 ok(r.ok, 'lemma once');
 if (r.ok) {
   eqS(stmtText(r.state.hyps[r.state.hyps.length - 1].s), 'a ∣ c', 'lemma gives a ∣ c');
   ok(!step(r.state, { card: 'exact' }).ok, 'exact not yet');
-  const r2 = step(r.state, { card: 'lemma', h1: 'H6', h2: 'H3' });
+  const r2 = step(r.state, { card: 'lemma', hs: ['H6', 'H3'] });
   ok(r2.ok && step(r2.state, { card: 'exact' }).ok, 'lemma twice then exact');
   if (r2.ok) eqS(r2.state.objs.length, 4, 'four letters with the lemma');
 }
+
+// ── chapter 8 ──
+st = replay(EVEN_SQ, EVEN_SQ_DIRECT);
+eqS(stmtText(st.goal!), '存在整數 m，使 n = 2m', 'direct goal');
+eqS(defsFor(st, 'n').length, 0, 'direct: nothing to substitute for n');
+r = step(st, { card: 'witness', src: 'k' });
+ok(r.ok && !step(r.state, { card: 'check' }).ok, 'direct: k fails');
+
+st = replay(EVEN_SQ, [{ card: 'intro' }, { card: 'assume' }]);
+r = step(st, { card: 'contrapos' });
+ok(!r.ok && r.code === 'shape', 'contrapos after assume is a shape error');
+st = replay(EVEN_SQ, [{ card: 'intro' }, { card: 'contrapos' }]);
+eqS(stmtText(st.goal!), '若 n 不是偶數，則 n² 不是偶數', 'contrapositive text');
+eqS(st.log[1].tag, 'idea', 'contrapos is a choice');
+st = replay(EVEN_SQ, EVEN_SQ_CONTRAPOS.slice(0, 3));
+r = step(st, { card: 'unfold', h: 'H1' });
+ok(!r.ok, 'cannot unfold 不是偶數');
+r = step(st, { card: 'unfoldGoal' });
+ok(!r.ok && r.msg.includes('換正面'), 'unfold goal 不是偶數 points to flip');
+r = step(st, { card: 'witness', src: '1' });
+ok(!r.ok && (r.code === 'shape'), 'witness on not-goal is shape');
+st = replay(EVEN_SQ, EVEN_SQ_CONTRAPOS.slice(0, 8));
+eqS(stmtText(st.goal!), '存在整數 m，使 n² = 2m + 1', 'after flips the goal is odd-square');
+eqS(defsFor(st, 'n').map((d) => fmtExpr(d.node)).join(), '2k + 1', 'now n has an equation');
+const cp = replay(EVEN_SQ, EVEN_SQ_CONTRAPOS);
+eqS(cp.goal, null, 'contrapositive closes');
+eqS(cp.log.filter((e) => e.tag === 'idea').length, 2, 'contrapos: two idea steps');
+
+const cc = replay(EVEN_SQ_BY_CONTRA, EVEN_SQ_CONTRA);
+eqS(cc.goal, null, 'contradiction closes');
+ok(!!cc.note && cc.note.includes('n² 是偶數'), 'clash note names n²: ' + cc.note);
+st = replay(EVEN_SQ_BY_CONTRA, EVEN_SQ_CONTRA.slice(0, 4));
+eqS(lemmaUses(st).map((u) => stmtText(u.out)).join(), 'n² 是奇數', 'odd-square lemma applies');
+r = step(st, { card: 'clash' });
+ok(!r.ok, 'no clash before the lemma');
+// contradiction by unfolding instead of the lemma
+const cu = replay(EVEN_SQ_BY_CONTRA, [
+  ...EVEN_SQ_CONTRA.slice(0, 4),
+  { card: 'unfold', h: 'H1' },
+  { card: 'obtain', h: 'H4', name: 'k' },
+  { card: 'unfold', h: 'H3' },
+  { card: 'obtain', h: 'H6', name: 'l' },
+]);
+const fc = findClash(cu);
+ok(!!fc && fc.text.includes('2(2l² + 2l) + 1'), 'parity clash by unfolding: ' + fc?.text);
+
+st = startBoard(noSolution(1));
+eqS(stmtText(st.goal!), '不存在整數 a、b，使 4a + 6b = 1', 'no-solution text');
+r = step(st, { card: 'clash' });
+ok(!r.ok && r.code === 'shape', 'clash needs contra first');
+const ns = replay(noSolution(1), NO_SOLUTION_MOVES);
+eqS(ns.goal, null, 'no-solution closes');
+ok(!!ns.note && ns.note.includes('2(2a + 3b)'), 'no-solution note: ' + ns.note);
+st = replay(noSolution(2), NO_SOLUTION_MOVES.slice(0, 3));
+ok(!step(st, { card: 'clash' }).ok, '4a + 6b = 2 has no clash');
+st = replay(noSolution(-3), NO_SOLUTION_MOVES.slice(0, 1));
+eqS(stmtText(st.hyps[0].s), '存在整數 a、b，使 4a + 6b = −3', 'contra drops the double negation');
 
 if (fails) throw new Error(`board-model selftest: ${fails} failed`);
 console.log('board-model selftest: all passed');
